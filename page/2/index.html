@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="CrazyStudent13'S Blogs" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="CrazyStudent13&apos;S Blogs,it&apos;s my own technology docs">
+<meta name="keywords" content="Blogs,CrazyStudent13,technology">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CrazyStudent13&#39;S Blogs">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="CrazyStudent13&#39;S Blogs">
+<meta property="og:description" content="CrazyStudent13&apos;S Blogs,it&apos;s my own technology docs">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CrazyStudent13&#39;S Blogs">
+<meta name="twitter:description" content="CrazyStudent13&apos;S Blogs,it&apos;s my own technology docs">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/page/2/">
+
+
+
+
+
+  <title>CrazyStudent13'S Blogs</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CrazyStudent13'S Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">CrazyStudent13'S Blogs</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a href="/something/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            友情链接
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/10/基于Hexo和Github搭建属于的个人博客（进阶篇）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CrazyStudent13">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrazyStudent13'S Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/10/基于Hexo和Github搭建属于的个人博客（进阶篇）/" itemprop="url">【个人博客】基于Hexo和Github搭建（进阶篇）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-10T01:53:53+08:00">
+                2019-02-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>主题的配置：这里以NexT主题作为题材</strong></p>
+<p>该篇为转载， 原贴链接：<a href="https://www.cnblogs.com/fengxiongZz/p/7707568.html" target="_blank" rel="noopener">使用Hexo+Github一步步搭建属于自己的博客（进阶）</a></p>
+<p>1、安装NexT，在其文件夹中鼠标右键，点击Git Base Here。输入命令：git clone <a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">https://github.com/iissnan/hexo-theme-next</a> themes/next<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100451107-305e1394-03c5-4d97-a764-94c85fda2d21.png#align=left&amp;display=inline&amp;height=106&amp;linkTarget=_blank&amp;originHeight=106&amp;originWidth=500&amp;size=0&amp;status=done&amp;width=500" alt></p>
+<p>2、启用主题，在站点目录中（blog），打开配置文件_config.yml，修改theme：next<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100460406-acb9ca3e-306c-45dc-8e21-0278499b028d.png#align=left&amp;display=inline&amp;height=252&amp;linkTarget=_blank&amp;originHeight=252&amp;originWidth=500&amp;size=0&amp;status=done&amp;width=500" alt></p>
+<p>3、验证主题，端口号被占用还是得先修改端口号，然后启动服务<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100467290-efb00677-d57a-4152-ad9e-e17f65bfe547.png#align=left&amp;display=inline&amp;height=152&amp;linkTarget=_blank&amp;originHeight=152&amp;originWidth=569&amp;size=0&amp;status=done&amp;width=569" alt></p>
+<p>如果看到如下界面，说明成功安装了NexT主题<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100475400-a5644591-e555-482f-a61f-e7f1d250d5b9.png#align=left&amp;display=inline&amp;height=552&amp;linkTarget=_blank&amp;originHeight=552&amp;originWidth=724&amp;size=0&amp;status=done&amp;width=724" alt></p>
+<p>4、主题设定，在next主题目录下的_config.yml文件中将scheme设定为Pisces<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100488998-b08010bd-178e-4f26-a95e-ff9ef99e50b7.png#align=left&amp;display=inline&amp;height=111&amp;linkTarget=_blank&amp;originHeight=111&amp;originWidth=500&amp;size=0&amp;status=done&amp;width=500" alt></p>
+<p>5、语言设定，在<strong>站点根目录下</strong>修改配置文件_cofig.yml中的language为zh-Hans（简体中文）<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100493369-8bbdbfd5-5990-4beb-a9c4-c577441a3ae8.png#align=left&amp;display=inline&amp;height=80&amp;linkTarget=_blank&amp;originHeight=80&amp;originWidth=431&amp;size=0&amp;status=done&amp;width=431" alt></p>
+<p>6、修改菜单项，在主题目录下修改配置文件_cofig.yml中的menu，增添一个something（注：千万不要在这设置中文，后面的值那是查找文件的地方！若你的站点运行在子目录中，请将链接前缀的 <code>/</code> 去掉）<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100497479-eed9e4ab-9eb1-4f5c-8582-29d3a84812f4.png#align=left&amp;display=inline&amp;height=223&amp;linkTarget=_blank&amp;originHeight=223&amp;originWidth=432&amp;size=0&amp;status=done&amp;width=432" alt></p>
+<p>这些配置都要与你主题目录下的languages文件中对应的yml文档里配置相关联。比如你在站点根目录中的配置文件设置language为zh-Hans，那么就要进入到主题目录下的languages文件中修改zh-Hans.yml，这样才能显示出菜单项新增的中文内容（以something为例子）<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100590902-96b776e7-983b-48ed-a512-d3107a62375e.png#align=left&amp;display=inline&amp;height=448&amp;linkTarget=_blank&amp;originHeight=448&amp;originWidth=551&amp;size=0&amp;status=done&amp;width=551" alt></p>
+<p>7、设置菜单项图标，对应的字段是menu_icons。格式为item name：icon name，其中item name与所配置的菜单名字对应，icon name是Font Awesome图标的名字。而 enable 可用于控制是否显示图标，你可以设置成 false 来去掉图标。（本机出问题，无法显示icon，还未解决，求指导）<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100600428-ec75483f-f2db-4290-8059-b9a3252688bf.png#align=left&amp;display=inline&amp;height=465&amp;linkTarget=_blank&amp;originHeight=465&amp;originWidth=430&amp;size=0&amp;status=done&amp;width=430" alt></p>
+<p>8、设置侧栏位置，修改主题目录下sidebar的position值<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100692676-ac6fdf92-de63-4983-9421-e26576a3da26.png#align=left&amp;display=inline&amp;height=113&amp;linkTarget=_blank&amp;originHeight=113&amp;originWidth=430&amp;size=0&amp;status=done&amp;width=430" alt></p>
+<p>9、设置头像，在站点根目录下载配置文件中新增avatar，值设置为头像的链接地址。地址可以是网络地址，也可以是本地地址（放置在source/images/ 目录下）<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100698845-62a1e9e5-817d-4492-bdec-720272b467cd.png#align=left&amp;display=inline&amp;height=90&amp;linkTarget=_blank&amp;originHeight=90&amp;originWidth=430&amp;size=0&amp;status=done&amp;width=430" alt></p>
+<p>10、设置文章代码主题，在主题目录下修改配置文件highlight_theme，默认值为nomal。可以设置为night<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100722865-2eae1ceb-0a11-4f0e-aebb-289bd5cd3d4f.png#align=left&amp;display=inline&amp;height=111&amp;linkTarget=_blank&amp;originHeight=111&amp;originWidth=430&amp;size=0&amp;status=done&amp;width=430" alt></p>
+<p>11、添加标签页面，前面通过修改next主题下的<code>_config.yml</code>文件中的menu选项，可以在主页面的菜单栏添加标签选项，但是此时点击标签，跳转的页面会显示page not found。此时我们要新建一个页面<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100730125-ed5e93d2-0d5c-4aae-9c0c-8af5c14c30ca.png#align=left&amp;display=inline&amp;height=73&amp;linkTarget=_blank&amp;originHeight=73&amp;originWidth=429&amp;size=0&amp;status=done&amp;width=429" alt></p>
+<p>在新建的index.md文件中添加type: “tags”<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100738724-4ca72a84-890b-4515-849a-de87aa7ac859.png#align=left&amp;display=inline&amp;height=142&amp;linkTarget=_blank&amp;originHeight=142&amp;originWidth=430&amp;size=0&amp;status=done&amp;width=430" alt></p>
+<p>当要为某一篇文章添加标签，只需在b<code>log/source/_post</code>目录下的具体文章的tags中添加标签即可，如：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100743224-e7f7e7a2-a69a-4305-9407-0585e79085ec.png#align=left&amp;display=inline&amp;height=188&amp;linkTarget=_blank&amp;originHeight=188&amp;originWidth=537&amp;size=0&amp;status=done&amp;width=537" alt></p>
+<p>成功后的页面为<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100938735-546015dd-6393-45d7-934a-89f298950c1a.png#align=left&amp;display=inline&amp;height=135&amp;linkTarget=_blank&amp;originHeight=135&amp;originWidth=430&amp;size=0&amp;status=done&amp;width=430" alt></p>
+<p>11、添加关于我页面，步骤和以上差不多<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100945440-4e6a2f0b-b87f-4bd9-8b2a-6f8a32c7e6ba.png#align=left&amp;display=inline&amp;height=52&amp;linkTarget=_blank&amp;originHeight=52&amp;originWidth=433&amp;size=0&amp;status=done&amp;width=433" alt></p>
+<p>在新建的index.md文件中添加如下内容<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100952253-fbdbfa20-f189-4d0c-9319-58d275defd26.png#align=left&amp;display=inline&amp;height=183&amp;linkTarget=_blank&amp;originHeight=183&amp;originWidth=430&amp;size=0&amp;status=done&amp;width=430" alt></p>
+<p>12、在首页添加github导航条，点击<a href="https://github.com/blog/273-github-ribbons" target="_blank" rel="noopener">这里</a>选择需要的样式，然后将代码复制到themes/next/layout/_layout.swig<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100960757-cd69f866-c6c5-48e3-985e-9d3b5cbffa68.png#align=left&amp;display=inline&amp;height=270&amp;linkTarget=_blank&amp;originHeight=318&amp;originWidth=880&amp;size=0&amp;status=done&amp;width=746" alt></p>
+<p>并将href改为你的github地址，最终界面如图<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100968274-3ac1d4a9-cbdc-4331-b629-52bd329d10e3.png#align=left&amp;display=inline&amp;height=168&amp;linkTarget=_blank&amp;originHeight=168&amp;originWidth=639&amp;size=0&amp;status=done&amp;width=639" alt></p>
+<p>13、实现点击出现桃心效果，点击<a href="http://7u2ss1.com1.z0.glb.clouddn.com/love.js" target="_blank" rel="noopener">这里</a>将代码copy到/themes/next/source/js/src里面新建的love.js中，然后打开\themes\next\layout_layout.swig文件,在末尾（在前面引用会出现找不到的bug） ，引用love.js<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551101003444-239d5724-3628-42cf-b974-32ad4cae7667.png#align=left&amp;display=inline&amp;height=85&amp;linkTarget=_blank&amp;originHeight=85&amp;originWidth=680&amp;size=0&amp;status=done&amp;width=680" alt></p>
+<p>14、修改作者头像并旋转，打开\themes\next\source\css_common\components\sidebar\sidebar-author.styl，在里面添加如下代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.site-author-image</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">  <span class="attribute">padding</span>: $site-author-image-padding;</span><br><span class="line">  <span class="attribute">max-width</span>: $site-author-image-width;</span><br><span class="line">  <span class="attribute">height</span>: $site-author-image-height;</span><br><span class="line">  <span class="attribute">border</span>: $site-author-image-border-width solid $site-author-image-border-color;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 头像圆形 */</span></span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">80px</span>;</span><br><span class="line">  <span class="attribute">-webkit-border-radius</span>: <span class="number">80px</span>;</span><br><span class="line">  <span class="attribute">-moz-border-radius</span>: <span class="number">80px</span>;</span><br><span class="line">  <span class="attribute">box-shadow</span>: inset <span class="number">0</span> -<span class="number">1px</span> <span class="number">0</span> <span class="number">#333</span>sf;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 设置循环动画 [animation: (play)动画名称 (2s)动画播放时长单位秒或微秒 (ase-out)动画播放的速度曲线为以低速结束 </span></span><br><span class="line"><span class="comment">    (1s)等待1秒然后开始动画 (1)动画播放次数(infinite为循环播放) ]*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 鼠标经过头像旋转360度 */</span></span><br><span class="line">  <span class="attribute">-webkit-transition</span>: -webkit-transform <span class="number">1.0s</span> ease-out;</span><br><span class="line">  <span class="attribute">-moz-transition</span>: -moz-transform <span class="number">1.0s</span> ease-out;</span><br><span class="line">  <span class="attribute">transition</span>: transform <span class="number">1.0s</span> ease-out;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="comment">/* 鼠标经过停止头像旋转 </span></span><br><span class="line"><span class="comment">  -webkit-animation-play-state:paused;</span></span><br><span class="line"><span class="comment">  animation-play-state:paused;*/</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 鼠标经过头像旋转360度 */</span></span><br><span class="line">  <span class="attribute">-webkit-transform</span>: <span class="built_in">rotateZ</span>(360deg);</span><br><span class="line">  <span class="attribute">-moz-transform</span>: <span class="built_in">rotateZ</span>(360deg);</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">rotateZ</span>(360deg);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Z 轴旋转动画 */</span></span><br><span class="line">@-<span class="keyword">webkit</span>-<span class="keyword">keyframes</span> play &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">rotateZ</span>(0deg);</span><br><span class="line">  &#125;</span><br><span class="line">  100% &#123;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">rotateZ</span>(-360deg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@-<span class="keyword">moz</span>-<span class="keyword">keyframes</span> play &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    <span class="attribute">-moz-transform</span>: <span class="built_in">rotateZ</span>(0deg);</span><br><span class="line">  &#125;</span><br><span class="line">  100% &#123;</span><br><span class="line">    <span class="attribute">-moz-transform</span>: <span class="built_in">rotateZ</span>(-360deg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">keyframes</span> play &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">rotateZ</span>(0deg);</span><br><span class="line">  &#125;</span><br><span class="line">  100% &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">rotateZ</span>(-360deg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>15、在网站底部加上访问量，打开\themes\next\layout_partials\footer.swig文件,在类copyright前加上画红线这话：<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551101079450-9e35815e-f905-4049-8880-4b0b28dbb396.png#align=left&amp;display=inline&amp;height=125&amp;linkTarget=_blank&amp;originHeight=153&amp;originWidth=910&amp;size=0&amp;status=done&amp;width=746" alt></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">代码：&lt;script <span class="keyword">async</span> src=<span class="string">"https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>然后在合适的位置添加显示统计的代码(位置还是上述这个文件)，如图：<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551101088875-30b4dc55-1154-4fa6-8164-c1744c9b6f7d.png#align=left&amp;display=inline&amp;height=158&amp;linkTarget=_blank&amp;originHeight=174&amp;originWidth=820&amp;size=0&amp;status=done&amp;width=746" alt></p>
+<p>代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"powered-by"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-user-md"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"busuanzi_container_site_uv"</span>&gt;</span></span><br><span class="line">  本站访客数:<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"busuanzi_value_site_uv"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>16、修改底部的官方logo，找到 <code>\themes\next\layout\_partials\</code>下面的<code>footer.swig</code>文件，打开会发现，如下图的语句：<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551101098350-96a38abe-60a0-4beb-9a42-a9b61bee669e.png#align=left&amp;display=inline&amp;height=444&amp;linkTarget=_blank&amp;originHeight=444&amp;originWidth=692&amp;size=0&amp;status=done&amp;width=692" alt></p>
+<p>第一个框 是下面侧栏的“日期❤ XXX”</p>
+<p>如果想像我一样加东西，一定要在双大括号外面写。如：xxx,当然你要是想改彻底可以变量都删掉，看个人意愿。</p>
+<p>第二个，是图一当中 “由Hexo驱动” 的Hexo链接，先给删掉防止跳转，如果想跳转当然也可以自己写地址，至于中文一会处理。注意删除的时候格式不能错，只把<code>&lt;a&gt;...&lt;/a&gt;</code>标签这部分删除即可，留着两个单引号’’,否则会出错哦。</p>
+<p>第三个框也是最后一个了，这个就是更改图一后半部分“主题-Next.XX”,这个比较爽直接将<code>&lt;a&gt;..&lt;/a&gt;</code>都删掉，同样中文“主题”一会处理，删掉之后在上一行 ‘-’后面可以随意加上你想显示的东西，不要显示敏感信息哟，请自重。</p>
+<p>接下来，处理剩余的中文信息。找到这个地方<code>\themes\next\languages\</code> 下面的语言文件zh-Hans.yml（这里以中文为例，有的习惯用英文的配置文件，道理一样，找对应位置即可）<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551101107355-8baa41c4-de95-4096-935a-b3784dae83aa.png#align=left&amp;display=inline&amp;height=298&amp;linkTarget=_blank&amp;originHeight=298&amp;originWidth=429&amp;size=0&amp;status=done&amp;width=429" alt></p>
+<p>看到了吧，这个就是传值传过去的，你想显示什么就在这里面大肆的去改动吧。其实在第二个框中，就可以把值都改掉，不用接受传值的方式，完全自己可以重写。不过我不建议那样做，因为传值这样只要是后续页面需要这几个值那么就都会通过取值去传过去，要是在刚才footer文件中直接写死，后续不一定哪个页面需要传值，但是值为空了或者还是原来的，可就尴尬了。所以还是这样改动吧。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/10/基于Hexo和Github搭建属于的个人博客（基础篇）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CrazyStudent13">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrazyStudent13'S Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/10/基于Hexo和Github搭建属于的个人博客（基础篇）/" itemprop="url">【个人博客】基于Hexo和Github搭建（基础篇）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-10T01:53:53+08:00">
+                2019-02-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>前言：电脑系统为window 10专业版，64位</p>
+<p>该篇为转载，原贴链接：<a href="https://www.cnblogs.com/fengxiongZz/p/7707219.html" target="_blank" rel="noopener">使用Hexo+Github一步步搭建属于自己的博客（基础）</a></p>
+<p><strong>相关步骤：</strong></p>
+<p>1、安装Node.js和配置好Node.js环境，打开cmd命令行，成功界面如下</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551090860257-97055188-f01e-4376-875f-7ad390e65b3a.png#align=left&amp;display=inline&amp;height=95&amp;linkTarget=_blank&amp;originHeight=95&amp;originWidth=430&amp;size=0&amp;status=done&amp;width=430" alt></p>
+<p>2、安装Git和配置好Git环境，安装成功的象征就是在电脑上任何位置<strong>鼠标右键</strong>能够出现如下两个选择</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551090883711-19f1562d-3ba5-4fbe-9d22-144574c5f90c.png#align=left&amp;display=inline&amp;height=52&amp;linkTarget=_blank&amp;originHeight=52&amp;originWidth=430&amp;size=0&amp;status=done&amp;width=430" alt></p>
+<p>注意：一般出于安全考虑，只有在Git Bash Here中才能进行Git的相关操作。如果需要在cmd命令行里调用Git，那么就要配置电脑的环境变量Path，或者在安装的时候选择use Git from the Windows Command Prompt。这个可有可无，影响不大，成功配置的界面如图</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551090903185-0c05ba67-ff94-40ff-80b2-d69f403aca1b.png#align=left&amp;display=inline&amp;height=46&amp;linkTarget=_blank&amp;originHeight=46&amp;originWidth=431&amp;size=0&amp;status=done&amp;width=431" alt></p>
+<p>3、Github账户注册和新建项目，项目必须要遵守格式：账户名.github.io，不然接下来会有很多麻烦。并且需要勾选Initialize this repository with a README</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551090915486-394413e2-1f00-43ec-989e-311f4057e4a9.png#align=left&amp;display=inline&amp;height=513&amp;linkTarget=_blank&amp;originHeight=513&amp;originWidth=431&amp;size=0&amp;status=done&amp;width=431" alt></p>
+<p>在建好的项目右侧有个settings按钮，点击它，向下拉到GitHub Pages，你会看到那边有个网址，访问它，你将会惊奇的发现该项目已经被部署到网络上，能够通过外网来访问它。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551090950028-179c22ea-864d-4039-b118-7e3ebbc5a3cd.png#align=left&amp;display=inline&amp;height=402&amp;linkTarget=_blank&amp;originHeight=402&amp;originWidth=430&amp;size=0&amp;status=done&amp;width=430" alt></p>
+<p>4、安装Hexo，在自己认为合适的地方创个文件夹，我是在D盘建了一个blog文件夹。然后通过命令行进入到该文件夹里面</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551091034428-9c7303cc-e94f-4a95-93dd-2b10426124ee.png#align=left&amp;display=inline&amp;height=93&amp;linkTarget=_blank&amp;originHeight=93&amp;originWidth=431&amp;size=0&amp;status=done&amp;width=431" alt></p>
+<p>输入npm install hexo -g，开始安装Hexo</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551091025887-af7e2c6a-2079-4ecf-923d-6b06bc0c996f.png#align=left&amp;display=inline&amp;height=271&amp;linkTarget=_blank&amp;originHeight=271&amp;originWidth=432&amp;size=0&amp;status=done&amp;width=432" alt></p>
+<p>输入hexo -v，检查hexo是否安装成功</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551091014485-ce444848-eca2-43da-88e3-998effaf93dc.png#align=left&amp;display=inline&amp;height=203&amp;linkTarget=_blank&amp;originHeight=203&amp;originWidth=431&amp;size=0&amp;status=done&amp;width=431" alt></p>
+<p>输入hexo init，初始化该文件夹（有点漫长的等待。。。）</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551091059697-47591582-98f3-4136-9606-4c4fcb8a5aff.png#align=left&amp;display=inline&amp;height=190&amp;linkTarget=_blank&amp;originHeight=190&amp;originWidth=430&amp;size=0&amp;status=done&amp;width=430" alt></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551091071377-cfd9ebb6-7e7d-4d3f-9dda-8c53cdc00e3e.png#align=left&amp;display=inline&amp;height=120&amp;linkTarget=_blank&amp;originHeight=120&amp;originWidth=431&amp;size=0&amp;status=done&amp;width=431" alt></p>
+<p>看到后面的“Start blogging with Hexo！”，激动有木有！！！！！</p>
+<p>输入npm install，安装所需要的组件</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551091085604-cd247f43-77d5-42e7-be22-c09071596c1d.png#align=left&amp;display=inline&amp;height=108&amp;linkTarget=_blank&amp;originHeight=108&amp;originWidth=431&amp;size=0&amp;status=done&amp;width=431" alt></p>
+<p>输入hexo g，首次体验Hexo</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551091097981-651383f3-d1cf-4ee4-bc59-2f0dfa7b8f43.png#align=left&amp;display=inline&amp;height=281&amp;linkTarget=_blank&amp;originHeight=281&amp;originWidth=429&amp;size=0&amp;status=done&amp;width=429" alt></p>
+<p>输入hexo s，开启服务器，访问该网址，正式体验Hexo</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551091108832-c4316f02-35d2-4c7c-82a3-2d43f9628609.png#align=left&amp;display=inline&amp;height=60&amp;linkTarget=_blank&amp;originHeight=60&amp;originWidth=581&amp;size=0&amp;status=done&amp;width=581" alt></p>
+<p>问题：假如页面一直无法跳转，那么可能端口被占用了。此时我们ctrl+c停止服务器，接着输入“hexo server -p 端口号”来改变端口号</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551091120734-335e6e9d-ab1c-4a5b-9b24-266c7c4b7ab7.png#align=left&amp;display=inline&amp;height=149&amp;linkTarget=_blank&amp;originHeight=149&amp;originWidth=576&amp;size=0&amp;status=done&amp;width=576" alt></p>
+<p>那么出现如下图就成功了</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551091133663-54548b34-c2f0-497d-bc48-2c808fc06577.png#align=left&amp;display=inline&amp;height=226&amp;linkTarget=_blank&amp;originHeight=226&amp;originWidth=431&amp;size=0&amp;status=done&amp;width=431" alt></p>
+<p>5、将Hexo与Github page联系起来，设置Git的user name和email（如果是第一次的话）</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551091176452-5be83f68-c326-4d20-9c2a-9c1c851a5d47.png#align=left&amp;display=inline&amp;height=127&amp;linkTarget=_blank&amp;originHeight=127&amp;originWidth=430&amp;size=0&amp;status=done&amp;width=430" alt></p>
+<p>上图是在其文件夹里面鼠标右键，点击Git Base Here。这里“feng”可以替换成自己的用户名，邮箱可以替换成自己的邮箱</p>
+<p>输入cd ~/.ssh，检查是否由.ssh的文件夹</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100319560-8a521604-e29f-4ae1-93bd-bb813f489565.png#align=left&amp;display=inline&amp;height=50&amp;linkTarget=_blank&amp;originHeight=50&amp;originWidth=429&amp;size=0&amp;status=done&amp;width=429" alt></p>
+<p>输入ls，列出该文件下的内容。下图说明存在</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100334346-46f30f4b-3522-4dd4-a910-dfae0c09e8f9.png#align=left&amp;display=inline&amp;height=61&amp;linkTarget=_blank&amp;originHeight=61&amp;originWidth=431&amp;size=0&amp;status=done&amp;width=431" alt></p>
+<p>输入ssh-keygen -t rsa -C “<a href="mailto:929762930@qq.com" target="_blank" rel="noopener">929762930@qq.com</a>”，连续三个回车，生成密钥，最后得到了两个文件：id_rsa和id_rsa.pub（默认存储路径是：C:\Users\Administrator.ssh）。<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100341025-78e3901f-c156-455e-bc23-743fcfce0efb.png#align=left&amp;display=inline&amp;height=99&amp;linkTarget=_blank&amp;originHeight=99&amp;originWidth=513&amp;size=0&amp;status=done&amp;width=513" alt></p>
+<p>输入eval “$(ssh-agent -s)”，添加密钥到ssh-agent</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100353466-8a08deb3-1c93-457a-ac5b-7d1926525a91.png#align=left&amp;display=inline&amp;height=60&amp;linkTarget=_blank&amp;originHeight=60&amp;originWidth=430&amp;size=0&amp;status=done&amp;width=430" alt></p>
+<p>再输入ssh-add ~/.ssh/id_rsa，添加生成的SSH key到ssh-agent<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100358531-fc894ba0-5038-4b84-94c8-6d78da28a0ea.png#align=left&amp;display=inline&amp;height=56&amp;linkTarget=_blank&amp;originHeight=56&amp;originWidth=431&amp;size=0&amp;status=done&amp;width=431" alt></p>
+<p>登录Github，点击头像下的settings，添加ssh<br><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100370780-9cbf269f-5323-4482-a083-8ed70fa81e1e.png#align=left&amp;display=inline&amp;height=213&amp;linkTarget=_blank&amp;originHeight=297&amp;originWidth=1040&amp;size=0&amp;status=done&amp;width=746" alt></p>
+<p>新建一个new ssh key，将id_rsa.pub文件里的内容复制上去</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100380544-d80337f1-ac90-4f8c-b8bb-1788522eee52.png#align=left&amp;display=inline&amp;height=354&amp;linkTarget=_blank&amp;originHeight=485&amp;originWidth=1021&amp;size=0&amp;status=done&amp;width=746" alt></p>
+<p>输入ssh -T <a href>git@github.com</a>，测试添加ssh是否成功。如果看到Hi后面是你的用户名，就说明成功了</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100385301-ea3d3191-8eec-4f98-8d50-48a949523659.png#align=left&amp;display=inline&amp;height=102&amp;linkTarget=_blank&amp;originHeight=102&amp;originWidth=430&amp;size=0&amp;status=done&amp;width=430" alt></p>
+<p><strong>问题：</strong>假如ssh-key配置失败，那么只要以下步骤就能完全解决</p>
+<p>首先，清除所有的key-pair<br><br>ssh-add -D<br><br>rm -r ~/.ssh<br><br>删除你在github中的public-key</p>
+<p>重新生成ssh密钥对<br><br>ssh-keygen -t rsa -C <a href>“xxx@xxx.com</a>“</p>
+<p>接下来正常操作<br><br>在github上添加公钥public-key:<br><br>1、首先在你的终端运行 xclip -sel c ~/.ssh/id_rsa.pub将公钥内容复制到剪切板<br><br>2、在github上添加公钥时，直接复制即可<br><br>3、保存</p>
+<p>测试：</p>
+<p>在终端 ssh -T <a href>git@github.com</a></p>
+<p>6、配置Deployment，在其文件夹中，找到_config.yml文件，修改repo值（在末尾）</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100393387-5f482622-85e1-4484-9847-2c3838fb63ec.png#align=left&amp;display=inline&amp;height=123&amp;linkTarget=_blank&amp;originHeight=123&amp;originWidth=614&amp;size=0&amp;status=done&amp;width=614" alt></p>
+<p>repo值是你在github项目里的ssh（右下角）</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100397483-edb42715-874b-47e2-9d10-48921257a2c8.png#align=left&amp;display=inline&amp;height=363&amp;linkTarget=_blank&amp;originHeight=493&amp;originWidth=1014&amp;size=0&amp;status=done&amp;width=746" alt></p>
+<p>7、新建一篇博客，在cmd执行命令：hexo new post “博客名”</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100402004-9d3eb29c-856f-4942-bf22-901b614206fc.png#align=left&amp;display=inline&amp;height=51&amp;linkTarget=_blank&amp;originHeight=51&amp;originWidth=430&amp;size=0&amp;status=done&amp;width=430" alt></p>
+<p>这时候在文件夹_posts目录下将会看到已经创建的文件</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100406287-53258714-582b-4fde-a094-8a0ab4440d89.png#align=left&amp;display=inline&amp;height=128&amp;linkTarget=_blank&amp;originHeight=128&amp;originWidth=431&amp;size=0&amp;status=done&amp;width=431" alt></p>
+<p>在生成以及部署文章之前，需要安装一个扩展：npm install hexo-deployer-git –save</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100410120-539c7527-e628-448f-a2d7-4f3e0b334407.png#align=left&amp;display=inline&amp;height=79&amp;linkTarget=_blank&amp;originHeight=79&amp;originWidth=431&amp;size=0&amp;status=done&amp;width=431" alt></p>
+<p>使用编辑器编好文章，那么就可以使用命令：hexo d -g，生成以及部署了（记住这个命令，这是用来把文章提交到Github上的命令，以后会经常用的）</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100414000-713825c8-cf8c-47b7-8f5f-88a2fe6cfe16.png#align=left&amp;display=inline&amp;height=160&amp;linkTarget=_blank&amp;originHeight=160&amp;originWidth=431&amp;size=0&amp;status=done&amp;width=431" alt></p>
+<p>部署成功后访问你的地址：<a href="http://xn--eqr924avxo.github.io" target="_blank" rel="noopener">http://用户名.github.io</a>。那么将看到生成的文章</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/236405/1551100418801-68dc45ff-d706-4465-bdd7-454c3fa2d7ae.png#align=left&amp;display=inline&amp;height=406&amp;linkTarget=_blank&amp;originHeight=499&amp;originWidth=918&amp;size=0&amp;status=done&amp;width=746" alt></p>
+<p>好了，到此为止，最基本的也是最全面的hexo+github搭建博客完结。接下来是进阶的操作</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">CrazyStudent13</p>
+              <p class="site-description motion-element" itemprop="description">CrazyStudent13'S Blogs,it's my own technology docs</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https:"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CrazyStudent13</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

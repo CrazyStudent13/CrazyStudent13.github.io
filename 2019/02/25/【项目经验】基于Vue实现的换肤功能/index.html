@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="scss,vue,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="CrazyStudent13'S Blogs" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="简单介绍：实现换肤功能，就我这几天搜集的思路来看，大致可以分为三种：  利用elementUI框架自带的换肤组件 优点：简单，快捷，直接引入组件即可 缺点：只能对默认样式的element组件进行修改，如果自己写了样式覆盖组件内的样式，则无法换肤。实现的效果较为局限。    这里不推荐这种方式，如果有需求，可以自己查看elementUI官网的自定义主题项；  不依托框架，自己做出较为传统换肤功能">
+<meta name="keywords" content="scss,vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【项目经验】基于Vue实现的换肤功能">
+<meta property="og:url" content="http://yoursite.com/2019/02/25/【项目经验】基于Vue实现的换肤功能/index.html">
+<meta property="og:site_name" content="CrazyStudent13&#39;S Blogs">
+<meta property="og:description" content="简单介绍：实现换肤功能，就我这几天搜集的思路来看，大致可以分为三种：  利用elementUI框架自带的换肤组件 优点：简单，快捷，直接引入组件即可 缺点：只能对默认样式的element组件进行修改，如果自己写了样式覆盖组件内的样式，则无法换肤。实现的效果较为局限。    这里不推荐这种方式，如果有需求，可以自己查看elementUI官网的自定义主题项；  不依托框架，自己做出较为传统换肤功能">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-02T15:11:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【项目经验】基于Vue实现的换肤功能">
+<meta name="twitter:description" content="简单介绍：实现换肤功能，就我这几天搜集的思路来看，大致可以分为三种：  利用elementUI框架自带的换肤组件 优点：简单，快捷，直接引入组件即可 缺点：只能对默认样式的element组件进行修改，如果自己写了样式覆盖组件内的样式，则无法换肤。实现的效果较为局限。    这里不推荐这种方式，如果有需求，可以自己查看elementUI官网的自定义主题项；  不依托框架，自己做出较为传统换肤功能">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/25/【项目经验】基于Vue实现的换肤功能/">
+
+
+
+
+
+  <title>【项目经验】基于Vue实现的换肤功能 | CrazyStudent13'S Blogs</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CrazyStudent13'S Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">CrazyStudent13'S Blogs</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a href="/something/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            友情链接
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/25/【项目经验】基于Vue实现的换肤功能/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CrazyStudent13">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrazyStudent13'S Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【项目经验】基于Vue实现的换肤功能</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-25T22:10:10+08:00">
+                2019-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  871
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a name="def93057"></a></p>
+<h3 id="简单介绍："><a href="#简单介绍：" class="headerlink" title="简单介绍："></a>简单介绍：</h3><p>实现换肤功能，就我这几天搜集的思路来看，大致可以分为三种：</p>
+<ul>
+<li>利用elementUI框架自带的换肤组件<ul>
+<li>优点：简单，快捷，直接引入组件即可</li>
+<li>缺点：只能对默认样式的element组件进行修改，如果自己写了样式覆盖组件内的样式，则无法换肤。实现的效果较为局限。</li>
+</ul>
+</li>
+</ul>
+<p>这里不推荐这种方式，如果有需求，可以自己查看elementUI官网的自定义主题项；</p>
+<ul>
+<li>不依托框架，自己做出较为传统换肤功能<ul>
+<li><strong>优点：</strong>可定义很多套皮肤，根据自己需求切换，覆盖范围较广</li>
+<li><strong>缺点：</strong>需要写入多套CSS样式，主题色都是可以根据需求定义</li>
+</ul>
+</li>
+<li>用JS创造一个link标签，引入一个早已写好的样式表<ul>
+<li>优点：简单粗暴，思路简单</li>
+<li>缺点：这种方法需要一份css文件。但是，Vue项目因为有webpack的存在，所以没法预编译scss文件，这样就导致必须手写css，这样肯定难于维护。而且，样式重叠，覆盖已有样式的可能性极大，最好不要这么做。</li>
+</ul>
+</li>
+</ul>
+<p><a name="bae54869"></a></p>
+<h3 id="实现思路："><a href="#实现思路：" class="headerlink" title="实现思路："></a>实现思路：</h3><p>1，预先写好几套不同配色的样式，</p>
+<p>2，用JS样式给全局所有的DOM添加一个自定义属性</p>
+<p>3，将不同的样式，对应不同的自定义属性，用JS方法<a href="http://www.w3school.com.cn/jsref/met_element_setattribute.asp" target="_blank" rel="noopener">setAttribute（）</a>控制DOM的自定义属性，按需配色。</p>
+<p><a name="79006238"></a></p>
+<h4 id="核心代码："><a href="#核心代码：" class="headerlink" title="核心代码："></a><strong>核心代码：</strong></h4><p><a name="d93f1643"></a></p>
+<h5 id="换肤组件："><a href="#换肤组件：" class="headerlink" title="换肤组件："></a>换肤组件：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class=&quot;test&quot;&gt;</span><br><span class="line">      &lt;el-dropdown @command=&quot;handleCommand&quot;&gt;</span><br><span class="line">        &lt;span class=&quot;el-dropdown-link&quot;&gt;</span><br><span class="line">          主题选择&lt;i class=&quot;el-icon-arrow-down el-icon--right&quot;&gt;&lt;/i&gt;</span><br><span class="line">        &lt;/span&gt;</span><br><span class="line">        &lt;el-dropdown-menu slot=&quot;dropdown&quot;&gt;</span><br><span class="line">          &lt;el-dropdown-item command=&quot;theme1&quot;&gt;简约蓝&lt;/el-dropdown-item&gt;</span><br><span class="line">          &lt;el-dropdown-item command=&quot;theme2&quot;&gt;精简黑&lt;/el-dropdown-item&gt;</span><br><span class="line">          &lt;el-dropdown-item command=&quot;theme3&quot;&gt;活泼紫&lt;/el-dropdown-item&gt;</span><br><span class="line">        &lt;/el-dropdown-menu&gt;</span><br><span class="line">      &lt;/el-dropdown&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleCommand(command) &#123;</span><br><span class="line">      window.document.documentElement.setAttribute(&apos;data-theme&apos;, command)</span><br><span class="line">      this.$message(&apos;主题切换成功&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p><a name="24175011"></a></p>
+<h5 id="scss文件："><a href="#scss文件：" class="headerlink" title="scss文件："></a><strong>scss文件：</strong></h5><p>换肤功能是基于VUE实现的，而项目中为了简写样式，大量使用的sass文件。</p>
+<p>所以，这里我为了便于管理，再次用样式宏和scss变量将样式管理了起来。</p>
+<p>scss样式一共分为三部分：</p>
+<ol>
+<li>变量定义文件（variable.scss）</li>
+<li>样式宏定义（mixin.scss）</li>
+<li>在需要改变的样式文件中，引入使用</li>
+</ol>
+<p><strong>variable.scss:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">// theme为默认配色，theme1为配色方案一，依次类推</span><br><span class="line">//整体组件背景配色</span><br><span class="line">$background_color_theme: #3b5af6;</span><br><span class="line">$background_color_theme1: #3b5af6;</span><br><span class="line">$background_color_theme2: black;</span><br><span class="line">$background_color_theme3: #5A46CD;</span><br><span class="line"></span><br><span class="line">//鼠标悬浮颜色</span><br><span class="line">$background_color_hover_theme: #3B5AF6;</span><br><span class="line">$background_color_hover_theme1: #476CFF;</span><br><span class="line">$background_color_hover_theme2: #cccccc;</span><br><span class="line">$background_color_hover_theme3: #8374DA;</span><br><span class="line"></span><br><span class="line">// 模版页背景</span><br><span class="line">$bg_img_theme:url(&quot;../../assets/img/hometop.png&quot;);</span><br><span class="line">$bg_img_theme1:url(&quot;../../assets/img/hometop.png&quot;);</span><br><span class="line">$bg_img_theme2:url(&quot;../../assets/img/hometop.png&quot;);</span><br><span class="line">$bg_img_theme3:url(&quot;../../assets/img/hometop_copy.png&quot;);</span><br><span class="line"></span><br><span class="line">//字体主题颜色1</span><br><span class="line">$font_color_theme : black;</span><br><span class="line">$font_color_theme1 : #ffffff;</span><br><span class="line"></span><br><span class="line">//字体大小定义规范</span><br><span class="line">$font_mini:12px;</span><br><span class="line">$font_little:14px;</span><br><span class="line">$font_medium:16px;</span><br><span class="line">$font_large:18px;</span><br><span class="line">$font_big:20px;</span><br></pre></td></tr></table></figure>
+<p><strong>mixin.scss：</strong></p>
+<p>注意，以上代码要引入上述variable.scss文件</p>
+<p>接下来，只要在组件那里控制所有DOM的自定义属性，便可以控制所有样式的加载了。</p>
+<p><a name="9d42193a"></a></p>
+<h4 id="验证结果："><a href="#验证结果：" class="headerlink" title="验证结果："></a><strong>验证结果：</strong></h4><p>暂无</p>
+<p><a name="044d05f6"></a></p>
+<h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p><a href="https://www.sass.hk/guide/" target="_blank" rel="noopener">scss快速入门</a></p>
+<p><a href="https://juejin.im/post/5b5491796fb9a04fe370b769" target="_blank" rel="noopener">scss的基本介绍</a></p>
+<p><a href="https://www.yuque.com/yangyang-ktgzl/brw52k/vg4uiz" target="_blank" rel="noopener">【项目经验】30分钟简单了解sass</a></p>
+<p><a href="http://www.w3school.com.cn/tags/att_global_data.asp" target="_blank" rel="noopener">什么是标签的自定义属性</a></p>
+<p><a href="https://www.cnblogs.com/shengmo/p/8612475.html" target="_blank" rel="noopener">data-*设置自定义属性注意事项一</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/scss/" rel="tag"># scss</a>
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/25/【项目经验】30分钟简单了解sass/" rel="next" title="【项目经验】30分钟简单了解sass">
+                <i class="fa fa-chevron-left"></i> 【项目经验】30分钟简单了解sass
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/26/【10分钟简摘】浮动样式浅析/" rel="prev" title="【10分钟简摘】浮动样式浅析">
+                【10分钟简摘】浮动样式浅析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">CrazyStudent13</p>
+              <p class="site-description motion-element" itemprop="description">CrazyStudent13'S Blogs,it's my own technology docs</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单介绍："><span class="nav-number">1.</span> <span class="nav-text">简单介绍：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现思路："><span class="nav-number">2.</span> <span class="nav-text">实现思路：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#核心代码："><span class="nav-number">2.1.</span> <span class="nav-text">核心代码：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#换肤组件："><span class="nav-number">2.1.1.</span> <span class="nav-text">换肤组件：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#scss文件："><span class="nav-number">2.1.2.</span> <span class="nav-text">scss文件：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证结果："><span class="nav-number">2.2.</span> <span class="nav-text">验证结果：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接："><span class="nav-number">2.3.</span> <span class="nav-text">参考链接：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https:"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CrazyStudent13</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

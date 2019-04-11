@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="github,hexo,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="CrazyStudent13'S Blogs" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="参考链接：hexo常用命令笔记  前言：虽然Hexo确实很好用，但是由于我对命令和配置的不熟悉，导致很多东西都不是很好用。 参考前人和官网的印记，我梳理了一份属于自己的命令文档。  hexo命令行：hexo 皮肤Githubhexo 皮肤预览  安装：123npm install hexo -g #安装  npm update hexo -g #升级  hexo init #初始化  简写：hex">
+<meta name="keywords" content="github,hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【个人博客】基于Hexo和Github搭建属于的个人博客（命令篇）">
+<meta property="og:url" content="http://yoursite.com/2019/03/02/基于Hexo和Github搭建属于的个人博客（命令篇）/index.html">
+<meta property="og:site_name" content="CrazyStudent13&#39;S Blogs">
+<meta property="og:description" content="参考链接：hexo常用命令笔记  前言：虽然Hexo确实很好用，但是由于我对命令和配置的不熟悉，导致很多东西都不是很好用。 参考前人和官网的印记，我梳理了一份属于自己的命令文档。  hexo命令行：hexo 皮肤Githubhexo 皮肤预览  安装：123npm install hexo -g #安装  npm update hexo -g #升级  hexo init #初始化  简写：hex">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-02T16:32:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【个人博客】基于Hexo和Github搭建属于的个人博客（命令篇）">
+<meta name="twitter:description" content="参考链接：hexo常用命令笔记  前言：虽然Hexo确实很好用，但是由于我对命令和配置的不熟悉，导致很多东西都不是很好用。 参考前人和官网的印记，我梳理了一份属于自己的命令文档。  hexo命令行：hexo 皮肤Githubhexo 皮肤预览  安装：123npm install hexo -g #安装  npm update hexo -g #升级  hexo init #初始化  简写：hex">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/02/基于Hexo和Github搭建属于的个人博客（命令篇）/">
+
+
+
+
+
+  <title>【个人博客】基于Hexo和Github搭建属于的个人博客（命令篇） | CrazyStudent13'S Blogs</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CrazyStudent13'S Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">CrazyStudent13'S Blogs</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a href="/something/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            友情链接
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/基于Hexo和Github搭建属于的个人博客（命令篇）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CrazyStudent13">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrazyStudent13'S Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【个人博客】基于Hexo和Github搭建属于的个人博客（命令篇）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-02T22:37:55+08:00">
+                2019-03-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  596
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考链接：<a href="https://segmentfault.com/a/1190000002632530" target="_blank" rel="noopener">hexo常用命令笔记</a></p>
+<p><a name="141f3596"></a></p>
+<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>虽然Hexo确实很好用，但是由于我对命令和配置的不熟悉，导致很多东西都不是很好用。</p>
+<p>参考前人和官网的印记，我梳理了一份属于自己的命令文档。</p>
+<p><a name="d01e19a5"></a></p>
+<h2 id="hexo命令行："><a href="#hexo命令行：" class="headerlink" title="hexo命令行："></a>hexo命令行：</h2><p><a href="https://github.com/jaywcjlove/hexoThemeKacper" target="_blank" rel="noopener">hexo 皮肤Github</a><br><br><a href="http://jslite.io/" target="_blank" rel="noopener">hexo 皮肤预览</a></p>
+<p><a name="1d32bcac"></a></p>
+<h3 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo -g #安装  </span><br><span class="line">npm update hexo -g #升级  </span><br><span class="line">hexo init #初始化</span><br></pre></td></tr></table></figure>
+<p><a name="026fa728"></a></p>
+<h3 id="简写："><a href="#简写：" class="headerlink" title="简写："></a>简写：</h3><p><code>hexo n &quot;我的博客&quot;</code> == <code>hexo new &quot;我的博客&quot;</code> #新建文章<br><br><code>hexo p</code> == <code>hexo publish</code><br><br><code>hexo g</code> == <code>hexo generate</code>#生成<br><br><code>hexo s</code> == <code>hexo server</code> #启动服务预览<br><br><code>hexo d</code> == <code>hexo deploy</code>#部署</p>
+<p><a name="12e0f0d0"></a></p>
+<h3 id="提交："><a href="#提交：" class="headerlink" title="提交："></a>提交：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">hexo server #Hexo 会监视文件变动并自动更新，您无须重启服务器。</span><br><span class="line">hexo server -s #静态模式</span><br><span class="line">hexo server -p 5000 #更改端口</span><br><span class="line">hexo server -i 192.168.1.1 #自定义 IP</span><br><span class="line"></span><br><span class="line">hexo clean #清除缓存 网页正常情况下可以忽略此条命令</span><br><span class="line">hexo g #生成静态网页</span><br><span class="line">hexo d #开始部署</span><br></pre></td></tr></table></figure>
+<p><a name="7df0f26f"></a></p>
+<h3 id="监视文件变动"><a href="#监视文件变动" class="headerlink" title="监视文件变动"></a>监视文件变动</h3><p><code>hexo generate</code> #使用 Hexo 生成静态文件快速而且简单<br><br><code>hexo generate --watch</code> #监视文件变动</p>
+<p><a name="739fcc5a"></a></p>
+<h3 id="完成后部署"><a href="#完成后部署" class="headerlink" title="完成后部署"></a>完成后部署</h3><blockquote>
+<p>两个命令的作用是相同的<br><br><code>hexo generate --deploy</code><br><br><code>hexo deploy --generate</code></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy -g</span><br><span class="line">hexo server -g</span><br></pre></td></tr></table></figure>
+<p><a name="22b4334f"></a></p>
+<h2 id="草稿"><a href="#草稿" class="headerlink" title="草稿"></a>草稿</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo publish [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
+<p><a name="cdb7d0c1"></a></p>
+<h2 id="模版"><a href="#模版" class="headerlink" title="模版"></a>模版</h2><p><code>hexo new &quot;postName&quot;</code> #新建文章<br><br><code>hexo new page &quot;pageName&quot;</code> #新建页面<br><br><code>hexo generate</code> #生成静态页面至public目录<br><br><code>hexo server</code> #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）<br><br><code>hexo deploy</code> #将.deploy目录部署到GitHub</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;</span><br><span class="line">hexo new photo &quot;My Gallery&quot;</span><br><span class="line">hexo new &quot;Hello World&quot; --lang tw</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>layout</td>
+<td>布局</td>
+</tr>
+<tr>
+<td>title</td>
+<td>标题</td>
+</tr>
+<tr>
+<td>date</td>
+<td>文件建立日期</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">title: 使用Hexo搭建个人博客</span><br><span class="line">layout: post</span><br><span class="line">date: 2014-03-03 19:07:43</span><br><span class="line">comments: true</span><br><span class="line">categories: Blog</span><br><span class="line">tags: [Hexo]</span><br><span class="line">keywords: Hexo, Blog</span><br><span class="line">description: 生命在于折腾，又把博客折腾到Hexo了。给Hexo点赞。</span><br></pre></td></tr></table></figure>
+<p><a name="165963fb"></a></p>
+<h2 id="模版（Scaffold）"><a href="#模版（Scaffold）" class="headerlink" title="模版（Scaffold）"></a>模版（Scaffold）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new photo &quot;My Gallery&quot;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>layout</td>
+<td>布局</td>
+</tr>
+<tr>
+<td>title</td>
+<td>标题</td>
+</tr>
+<tr>
+<td>date</td>
+<td>文件建立日期</td>
+</tr>
+</tbody>
+</table>
+<p><a name="ecc0d375"></a></p>
+<h2 id="设置文章摘要"><a href="#设置文章摘要" class="headerlink" title="设置文章摘要"></a>设置文章摘要</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以上是文章摘要 &lt;!--more--&gt; 以下是余下全文</span><br></pre></td></tr></table></figure>
+<p><a name="d58e850d"></a></p>
+<h2 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo new page &lt;title&gt;`</span><br><span class="line">`hexo new post &lt;title&gt;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:title</td>
+<td>标题</td>
+</tr>
+<tr>
+<td>:year</td>
+<td>建立的年份（4 位数）</td>
+</tr>
+<tr>
+<td>:month</td>
+<td>建立的月份（2 位数）</td>
+</tr>
+<tr>
+<td>:i_month</td>
+<td>建立的月份（去掉开头的零）</td>
+</tr>
+<tr>
+<td>:day</td>
+<td>建立的日期（2 位数）</td>
+</tr>
+<tr>
+<td>:i_day</td>
+<td>建立的日期（去掉开头的零）</td>
+</tr>
+</tbody>
+</table>
+<p><a name="764d09ec"></a></p>
+<h3 id="推送到服务器上"><a href="#推送到服务器上" class="headerlink" title="推送到服务器上"></a>推送到服务器上</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo n #写文章</span><br><span class="line">hexo g #生成</span><br><span class="line">hexo d #部署 #可与hexo g合并为 hexo d -g</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/github/" rel="tag"># github</a>
+          
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/02/【10分钟简摘】CSS选择器和权重浅析/" rel="next" title="【10分钟简摘】CSS选择器和权重浅析">
+                <i class="fa fa-chevron-left"></i> 【10分钟简摘】CSS选择器和权重浅析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/11/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">CrazyStudent13</p>
+              <p class="site-description motion-element" itemprop="description">CrazyStudent13'S Blogs,it's my own technology docs</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言："><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo命令行："><span class="nav-number">2.</span> <span class="nav-text">hexo命令行：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装："><span class="nav-number">2.1.</span> <span class="nav-text">安装：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简写："><span class="nav-number">2.2.</span> <span class="nav-text">简写：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交："><span class="nav-number">2.3.</span> <span class="nav-text">提交：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监视文件变动"><span class="nav-number">2.4.</span> <span class="nav-text">监视文件变动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完成后部署"><span class="nav-number">2.5.</span> <span class="nav-text">完成后部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#草稿"><span class="nav-number">3.</span> <span class="nav-text">草稿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模版"><span class="nav-number">4.</span> <span class="nav-text">模版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模版（Scaffold）"><span class="nav-number">5.</span> <span class="nav-text">模版（Scaffold）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置文章摘要"><span class="nav-number">6.</span> <span class="nav-text">设置文章摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写作"><span class="nav-number">7.</span> <span class="nav-text">写作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#推送到服务器上"><span class="nav-number">7.1.</span> <span class="nav-text">推送到服务器上</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https:"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CrazyStudent13</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
