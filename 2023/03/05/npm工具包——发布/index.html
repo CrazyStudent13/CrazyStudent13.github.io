@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="zh-CN" id="theme-light-mode"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="CrazyStudent13"><title>npm工具包————发布 · 远川的博客</title><meta name="description" content="本次开源的方法是cat-tools，目前该工具包已经在npm上可下载，公司多个项目使用，没出什么问题。
+尽管市面上开源了loadsh，moment.js，day.js这类的工具包，但是总有不能满足需求的时候。
+所以，我觉得，还是得造一个趁手的工具包。
+
+
+
+
+正文一开始，是不同的项目中，有一些独立的"><meta name="keywords" content="CrazyStudent13,Hexo,个人博客"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.webp"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/insight.css"><link rel="stylesheet" href="/css/search.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><script src="/js/jquery.js"></script><meta name="generator" content="Hexo 6.3.0"></head><body><div class="page-top animated fadeInDown"><div class="nav"><li> <a href="/">首页</a></li><li> <a href="/archives">归档</a></li><li> <a href="/tags">标签</a></li><li> <a href="/about">关于</a></li><li> <a href="/links">友链</a></li></div><div class="information"><div class="nav_right_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li><li><a class="fa fa-search" onclick="openWindow();"></a></li></div><div class="avatar"><img src="/images/logo.webp"></div></div></div><div class="sidebar animated fadeInDown"><div class="sidebar-top"><div class="logo-title"><div class="title"><img src="/images/logo@2x.webp" style="width:220px;" alt="favicon"><h3 title=""><a href="/">远川的博客</a></h3><div class="description"><p>CrazyStudent13的技术，生活文档内容的整合</p></div></div><ul class="social-links"><li><a target="_blank" rel="noopener" href="https://github.com/CrazyStudent13"><i class="fa fa-github"></i></a></li><li><a href="mailto:1076535690@qq.com"><i class="fa fa-envelope"></i></a></li></ul></div></div><div class="footer"><div class="p"> <span> 本文著作权归作者所有 </span><i class="fa fa-star"></i><span> CrazyStudent13</span></div><div class="by_farbox"><span>Powered by </span><a href="https://hexo.io/zh-cn/" target="_blank">Hexo </a><span> & </span><a href="https://github.com/Lhcfl/hexo-theme-anatolo" target="_blank">Anatolo </a></div><div class="beian"></div></div></div><div class="main"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>npm工具包————发布</a></h3></div><div class="post-content"><p><p>本次开源的方法是<a target="_blank" rel="noopener" href="https://demo.assetech.com.cn/">cat-tools</a>，目前该工具包已经在npm上可下载，公司多个项目使用，没出什么问题。</p>
+<p>尽管市面上开源了<a target="_blank" rel="noopener" href="https://www.lodashjs.com/">loadsh</a>，<a target="_blank" rel="noopener" href="http://momentjs.cn/">moment.js</a>，<a target="_blank" rel="noopener" href="https://dayjs.fenxianglu.cn/">day.js</a>这类的工具包，但是总有不能满足需求的时候。</p>
+<p>所以，我觉得，还是得造一个趁手的工具包。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>一开始，是不同的项目中，有一些独立的工具类方法的整合。</p>
+<p>后来，独立项目越来越多，不同项目之间，同步工具类方法是个大问题。</p>
+<p>如果某项目加入了新的方法，我就要同步复制到很多项目！</p>
+<p>折腾很多次之后，实在感觉耽误时间，且犯错太多，所有就有了本次流程记录。</p>
+<h3 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h3><p>在项目开发完成之后，我们首先要打包项目，生成一个能够发布的dist包。</p>
+<p>当然，ui包可能有自己的结构，这个只要开发那边确认之后就行。</p>
+<h3 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h3><p>然后，我们需要到<a target="_blank" rel="noopener" href="https://www.npmjs.com/">npm官网</a>注册一个账号。</p>
+<p>如果之前<strong>有npm账号的人</strong>，可以略过这步。</p>
+<h3 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h3><p>在登录之前需要保证你现在使用的 <code>npm源</code> 是指向 <code>npm</code> 的。</p>
+<p>先安装 <code>nrm</code> 工具查看和切换 <code>npm</code> 源</p>
+<p><code>nrm</code> 安装命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install nrm -g</span><br></pre></td></tr></table></figure>
+
+<p>查看当前使用的 <code>npm</code> 源</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nrm ls 	#查看包源列表</span><br><span class="line">nrm use npm  #切换包源列表</span><br></pre></td></tr></table></figure>
+
+<p>在执行nrm use npm之后，如果命令行中有如下提示，代表切换成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Registry has been set to: https://registry.npmjs.org/</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><p>在终端使用一下命令登录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm login</span><br></pre></td></tr></table></figure>
+
+<p>然后根据提示输入账号、密码、邮箱，同时还有注册邮箱的一次验证码。</p>
+<p>以我为例，我按照下边的完成填写之后，就算是登录了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Username: *********</span><br><span class="line">Password: ********</span><br><span class="line">Email: (this IS public) *********@qq.com</span><br><span class="line">npm notice Please check your email for a one-time password (OTP)</span><br><span class="line">Enter one-time password from your authenticator app: 04471694</span><br><span class="line">Logged in as crazystudent13 on https://registry.npmjs.org/.</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm publish # 发布公有包</span><br><span class="line">或</span><br><span class="line">npm publish --access public # 发布带命名空间的包，npm publish默认私有需要付费</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="迭代需要修改版本号"><a href="#迭代需要修改版本号" class="headerlink" title="迭代需要修改版本号"></a>迭代需要修改版本号</h4><p>如果项目更新需要重新发布，必须修改 <code>package.json</code> 里的版本号。</p>
+<p>版本号只能不断往上增加，哪怕你后边版本号拖的很长也可以。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.0.2&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="包权限管理"><a href="#包权限管理" class="headerlink" title="包权限管理"></a>包权限管理</h4><p>很多时候，一个项目包往往不只是你一个人在管理的，这时需要给其他一起维护的同学开通发布的权限，相关使用命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看模块 owner, 其中 demo 为模块名称</span></span><br><span class="line">$ npm owner <span class="built_in">ls</span> demo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一个发布者, 其中 xxx 为要添加同学的 npm 账号</span></span><br><span class="line">$ npm owner add xxx demo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除一个发布者</span></span><br><span class="line">$ npm owner <span class="built_in">rm</span> xxx demo</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>选择npm，也是因为用的人多，出了问题，论坛的解决方案应该多。</p>
+<p>其实一开始想过其他的同步方案，比如用一个Git来做同步管理。</p>
+<p>但是后来考虑到用的人少，隐患大，而且，这玩意也许不止我们一个人可以用，干脆开源吧。</p>
+<p>开源的项目，如果别人用出了问题，他们也会提示，方便了别人，也促进了自己，挺好的。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6991300926099357709">原生 node 搭建最基础的 npm 工具包</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903918414102535">使用npm发布一个vue组件</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6920231981834108942">一文搞定 npm 包发布与管理</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7074116683673108493">规范化开发并发布npm包</a></p>
+</p><div class="tip"><a target='_blank' href=https://creativecommons.org/licenses/by-sa/3.0/deed.zh>本文采用CC-BY-SA-3.0协议，转载请注明出处</a><br>作者:CrazyStudent13</div></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2023-03-05</span><i class="fa fa-tag"></i><a class="tag" href="/tags/npm/" title="npm">npm </a><span class="leancloud_visitors"></span><span>大约941个字, 3分钟8秒读完</span></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="" onclick="javascript:join_favorite()" ref="sidebar"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" target="_blank" rel="noopener" href="http://twitter.com/intent/tweet?text=%E5%88%86%E4%BA%AB%E6%96%87%E7%AB%A0%EF%BC%9A%0A%0A%E8%BF%9C%E5%B7%9D%E7%9A%84%E5%8D%9A%E5%AE%A2%20%C2%B7%20npm%E5%B7%A5%E5%85%B7%E5%8C%85%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E5%8F%91%E5%B8%83%0Ahttps://CrazyStudent13.github.io/2023/03/05/npm%E5%B7%A5%E5%85%B7%E5%8C%85%E2%80%94%E2%80%94%E5%8F%91%E5%B8%83/%0A"></a></div><div class="copyurl"><div class="fa fa-share button" onclick="javascript:copyurl()" id="copyurl"></div></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2023/03/09/2023%E5%B9%B4%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%89%8B%E6%9C%AF%EF%BC%88%E5%89%8D%EF%BC%89/" title="2023年的第一次手术（前）">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2023/03/04/hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E2%80%94%E2%80%94%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/" title="hexo个人博客搭建————自动部署">下一篇</a></li></ul></div><script src="/js/visitors.js"></script></div></div></div></div><script src="/js/common.js"></script><script src="/js/darkLightToggle.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/add-bookmark.js"></script><script>(function(window){var INSIGHT_CONFIG={TRANSLATION:{POSTS:"文章",PAGES:"页面",CATEGORIES:"分类",TAGS:"标签",UNTITLED:"(无标题)",},CONTENT_URL:"/content.json",};window.INSIGHT_CONFIG=INSIGHT_CONFIG})(window);</script><script src="/js/insight.js" defer></script><div class="searchbox ins-search"><div class="searchbox-container ins-search-container"><div class="searchbox-input-wrapper"><input class="searchbox-input ins-search-input" type="text" placeholder="想要查找什么..."><span class="searchbox-close"><a class="fa fa-times-circle" onclick="closeWindow();"></a></span></div><div class="searchbox-result-wrapper ins-section-wrapper"><div class="ins-section-container"><p>Seraching...</p></div></div></div></div><script src="/js/baidu-tongji.js"></script></body></html>

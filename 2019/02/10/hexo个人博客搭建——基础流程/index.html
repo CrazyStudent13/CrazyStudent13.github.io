@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="zh-CN" id="theme-light-mode"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="CrazyStudent13"><title>hexo个人博客搭建————基础流程 · 远川的博客</title><meta name="description" content="hexo搭建的流程几乎烂大街了，19年的时候搭建时候写的，没想到现在又用上了。
+这是老早之前的文档，这次翻出来重新梳理搭建流程，完善几个细节，为了后续给其他人提供便利。
+
+
+
+
+正文配置环境安装并配置好Node.js环境，只要常规的输入以下命令，如果输出版本号了，证明已经安装成功
+1node -v
+"><meta name="keywords" content="CrazyStudent13,Hexo,个人博客"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.webp"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/insight.css"><link rel="stylesheet" href="/css/search.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><script src="/js/jquery.js"></script><meta name="generator" content="Hexo 6.3.0"></head><body><div class="page-top animated fadeInDown"><div class="nav"><li> <a href="/">首页</a></li><li> <a href="/archives">归档</a></li><li> <a href="/tags">标签</a></li><li> <a href="/about">关于</a></li><li> <a href="/links">友链</a></li></div><div class="information"><div class="nav_right_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li><li><a class="fa fa-search" onclick="openWindow();"></a></li></div><div class="avatar"><img src="/images/logo.webp"></div></div></div><div class="sidebar animated fadeInDown"><div class="sidebar-top"><div class="logo-title"><div class="title"><img src="/images/logo@2x.webp" style="width:220px;" alt="favicon"><h3 title=""><a href="/">远川的博客</a></h3><div class="description"><p>CrazyStudent13的技术，生活文档内容的整合</p></div></div><ul class="social-links"><li><a target="_blank" rel="noopener" href="https://github.com/CrazyStudent13"><i class="fa fa-github"></i></a></li><li><a href="mailto:1076535690@qq.com"><i class="fa fa-envelope"></i></a></li></ul></div></div><div class="footer"><div class="p"> <span> 本文著作权归作者所有 </span><i class="fa fa-star"></i><span> CrazyStudent13</span></div><div class="by_farbox"><span>Powered by </span><a href="https://hexo.io/zh-cn/" target="_blank">Hexo </a><span> & </span><a href="https://github.com/Lhcfl/hexo-theme-anatolo" target="_blank">Anatolo </a></div><div class="beian"></div></div></div><div class="main"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>hexo个人博客搭建————基础流程</a></h3></div><div class="post-content"><p><p>hexo搭建的流程几乎烂大街了，19年的时候搭建时候写的，没想到现在又用上了。</p>
+<p>这是老早之前的文档，这次翻出来重新梳理搭建流程，完善几个细节，为了后续给其他人提供便利。</p>
+<span id="more"></span>
+
+
+
+<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><h4 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h4><p>安装并配置好Node.js环境，只要常规的输入以下命令，如果输出版本号了，证明已经安装成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+
+<p>安装Git和配置好Git环境，同上，用git版本号来确定以下有没有问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="注册项目"><a href="#注册项目" class="headerlink" title="注册项目"></a>注册项目</h4><p>Github账户注册，新建项目：账户名.github.io，并且需要勾选Initialize this repository with a README</p>
+<p>比如我这里，是在GitHub上，建的<a target="_blank" rel="noopener" href="https://github.com/CrazyStudent14/CrazyStudent14.github.io">CrazyStudent14.github.io</a>项目。</p>
+<p><strong>注意</strong>：国内的码云实际上也是支持这个操作的，不过码云有个缺陷，就是如果你后续想绑定域名来访问这个博客的话，码云因为国内的政策问题，无法绑定，而github无所谓，所以，部署的时候，考虑清楚自己的需求。</p>
+<h4 id="本地准备"><a href="#本地准备" class="headerlink" title="本地准备"></a>本地准备</h4><p>这个流程有点长，主要是在本地完成博客的准备和构建</p>
+<p>以下流程尽可能的全程命令行操作</p>
+<p>本地自己先部署Hexo项目，在自己认为合适的地方创个文件夹。</p>
+<p>我是在E盘建了一个blog文件夹，然后npm全局安装一个Hexo依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">E:\&gt;cd gitpro/blog</span><br><span class="line">E:\gitPro\blog&gt;npm install hexo -g</span><br></pre></td></tr></table></figure>
+
+<p>安装完成hexo之后，hexo -v，查hexo的版本号，检查hexo是否安装成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E:\gitPro\blog&gt;hexo -v</span><br></pre></td></tr></table></figure>
+
+<p>至此，本地部署的前期工作完成，输入hexo init，初始化该文件夹（有点漫长的等待。。。）</p>
+<p>完成安装后，出现Start blogging with Hexo！这就代表Hexo已经在这个文件夹下初始化成功可，在本地完成项目新建了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E:\gitPro\blog&gt;hexo init</span><br></pre></td></tr></table></figure>
+
+<p>这时候的项目，是个架子，没有安装依赖，相当于炒菜有锅没买菜一样，所以，需要npm来安装依赖。</p>
+<p>输入npm install，安装所需要的组件，等安装成功之后就行了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>输入hexo g，先完成项目构建</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E:\gitPro\blog&gt;hexo g</span><br></pre></td></tr></table></figure>
+
+<p>输入hexo s，开启服务器，访问本地化网址，如果没有端口占用的话，一般是<a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E:\gitPro\blog&gt;hexo s</span><br></pre></td></tr></table></figure>
+
+<p>假如页面一直无法跳转，那么可能端口被占用了，输入“hexo server -p 端口号”来改变端口号。</p>
+<p>这样的话，我们会直接启动<a target="_blank" rel="noopener" href="http://localhost:5000/">http://localhost:5000/</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E:\gitPro\blog&gt;hexo s -p 5000</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="准备秘钥"><a href="#准备秘钥" class="headerlink" title="准备秘钥"></a>准备秘钥</h4><p>这一步操作有点繁琐，我的教程只是个大纲，如果要是不清楚细节，可以在<a target="_blank" rel="noopener" href="https://juejin.cn/">掘金</a>详细搜一下这里的小标题，里边应该有很多详细操作。</p>
+<p><strong>注意</strong>：如果是首次设置git本地的秘钥，请按照如下流程操作，如果已经有秘钥了，其实生成部分可以跳过。</p>
+<h5 id="设置Git的user-name和email"><a href="#设置Git的user-name和email" class="headerlink" title="设置Git的user name和email"></a>设置Git的user name和email</h5><p>我这里随便取个crazystudent14的假名字做演示，如果自己部署，不要抄名字，名字和邮箱换成自己的！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">E:\gitPro\blog&gt;git config --global user.name &quot;crazystudent14&quot;</span><br><span class="line">E:\gitPro\blog&gt;git config --global user.name &quot;crazystudent14@test.com&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="Git生成SSH密钥"><a href="#Git生成SSH密钥" class="headerlink" title="Git生成SSH密钥"></a>Git生成SSH密钥</h5><p>为了将Hexo与Github page联系起来，切换到C盘，准备生成秘钥文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\crazystudent14&gt;cd C:\Users\crazystudent14\.ssh</span><br><span class="line">C:\Users\crazystudent14&gt;ssh-keygen -t rsa -C &quot;crazystudent14@163.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>判断<strong>id_rsa</strong>，<strong>id_rsa.pub</strong>，<strong>known_hosts</strong>这三个文件是否存在。</p>
+<p>我这里是win系统，如果是linux和mac系统，自己查一下相关的命令，或者到对应的文件夹去看一下。反正就是看看这个文件夹下边有没有这是三个文件，有的话，可以继续做。</p>
+<h5 id="在github上添加key"><a href="#在github上添加key" class="headerlink" title="在github上添加key"></a>在github上添加key</h5><p>登录Github，点击头像下的settings，找到左侧的SSH and GPG keys。</p>
+<p>点击new ssh key按钮，将id_rsa.pub文件里的内容复制上去，title就填写blog（这个title就是告诉你，这个Key是做什么用的，相当于备注）</p>
+<h5 id="检测Key是否添加成功"><a href="#检测Key是否添加成功" class="headerlink" title="检测Key是否添加成功"></a>检测Key是否添加成功</h5><p>输入ssh -T <a href="">git@github.com</a>，测试添加ssh是否成功。如果看到Hi后面是你的用户名，就说明成功了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@coding.net</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="准备发布"><a href="#准备发布" class="headerlink" title="准备发布"></a>准备发布</h4><p>好了，一切终于快结束了，我们再确认下流程。</p>
+<ol>
+<li>配置完成本地环境</li>
+<li>在github注册好项目</li>
+<li>本地完成Hexo博客的准备</li>
+<li>在github添加自己的本地生成的key</li>
+</ol>
+<p>确认以上流程完成后，我们可以进行最后一步了。</p>
+<h5 id="设置deploy"><a href="#设置deploy" class="headerlink" title="设置deploy"></a>设置deploy</h5><p>在博客项目的根件夹中，我这里是E:\gitPro\blog，找到_config.yml文件。</p>
+<p>配置Deployment，修改repo值（在末尾），repo值是你在github项目里的ssh（右下角）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: &#x27;git&#x27;</span><br><span class="line">  repository: &#x27;git@github.com:CrazyStudent14/CrazyStudent14.github.io.git&#x27;</span><br><span class="line">  branch: &#x27;master&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>在生成以及部署文章之前，需要安装一个扩展：npm install hexo-deployer-git –save</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<h5 id="部署deploy"><a href="#部署deploy" class="headerlink" title="部署deploy"></a>部署deploy</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
+
+<p>项目根目录中，执行命令hexo d -g，生成以及部署了（记住这个命令，这是用来把文章提交到Github上的命令，以后会经常用的）</p>
+<p>部署成功后访问你的地址：<a target="_blank" rel="noopener" href="http://用户名.github.io/">http:&#x2F;&#x2F;用户名.github.io</a>。那么将看到生成的文章</p>
+<h5 id="写新博客"><a href="#写新博客" class="headerlink" title="写新博客"></a>写新博客</h5><p>通过以下命令创建新文件，我们会在source&#x2F;_posts目录下将会看到已经创建的文件，然后在新文件中写文章就行了。</p>
+<p>写完之后，继续部署ok。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post &quot;博客名&quot;</span><br></pre></td></tr></table></figure>
+
+<p>好了，到此为止，最基本的hexo+github搭建流程结束了。</p>
+<p>我们看看效果吧。</p>
+<h4 id="外部访问"><a href="#外部访问" class="headerlink" title="外部访问"></a>外部访问</h4><p>在建好的项目，点击右侧settings的tab栏目，向下拉到GitHub Pages，你会看到那边有个网址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://CrazyStudent14.github.io</span><br></pre></td></tr></table></figure>
+
+<p>这时候，你已经有了一个部署在github上的hexo博客了。</p>
+</p><div class="tip"><a target='_blank' href=https://creativecommons.org/licenses/by-sa/3.0/deed.zh>本文采用CC-BY-SA-3.0协议，转载请注明出处</a><br>作者:CrazyStudent13</div></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2019-02-10</span><a class="tag" href="/categories/非工作技术/" title="非工作技术">非工作技术 </a><i class="fa fa-tag"></i><a class="tag" href="/tags/hexo/" title="hexo">hexo </a><span class="leancloud_visitors"></span><span>大约1650个字, 5分钟30秒读完</span></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="" onclick="javascript:join_favorite()" ref="sidebar"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" target="_blank" rel="noopener" href="http://twitter.com/intent/tweet?text=%E5%88%86%E4%BA%AB%E6%96%87%E7%AB%A0%EF%BC%9A%0A%0A%E8%BF%9C%E5%B7%9D%E7%9A%84%E5%8D%9A%E5%AE%A2%20%C2%B7%20hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E6%B5%81%E7%A8%8B%0Ahttps://CrazyStudent13.github.io/2019/02/10/hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E6%B5%81%E7%A8%8B/%0A"></a></div><div class="copyurl"><div class="fa fa-share button" onclick="javascript:copyurl()" id="copyurl"></div></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2019/02/10/hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E2%80%94%E2%80%94%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" title="hexo个人博客搭建————域名绑定">上一篇</a></li></ul></div><script src="/js/visitors.js"></script></div></div></div></div><script src="/js/common.js"></script><script src="/js/darkLightToggle.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/add-bookmark.js"></script><script>(function(window){var INSIGHT_CONFIG={TRANSLATION:{POSTS:"文章",PAGES:"页面",CATEGORIES:"分类",TAGS:"标签",UNTITLED:"(无标题)",},CONTENT_URL:"/content.json",};window.INSIGHT_CONFIG=INSIGHT_CONFIG})(window);</script><script src="/js/insight.js" defer></script><div class="searchbox ins-search"><div class="searchbox-container ins-search-container"><div class="searchbox-input-wrapper"><input class="searchbox-input ins-search-input" type="text" placeholder="想要查找什么..."><span class="searchbox-close"><a class="fa fa-times-circle" onclick="closeWindow();"></a></span></div><div class="searchbox-result-wrapper ins-section-wrapper"><div class="ins-section-container"><p>Seraching...</p></div></div></div></div><script src="/js/baidu-tongji.js"></script></body></html>

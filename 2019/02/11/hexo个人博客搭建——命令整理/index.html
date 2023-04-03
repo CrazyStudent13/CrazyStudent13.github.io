@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="zh-CN" id="theme-light-mode"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="CrazyStudent13"><title>hexo个人博客搭建————命令整理 · 远川的博客</title><meta name="description" content="虽然Hexo确实很好用，但是由于我对命令和配置的不熟悉，导致很多东西都不是很好用。
+建议参考官网的文档，我梳理了一份属于自己的命令文档。
+  
+
+
+
+正文安装123npm install hexo -g #安装npm update hexo -g #升级 hexo init #初始化
+
+
+
+简写12"><meta name="keywords" content="CrazyStudent13,Hexo,个人博客"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.webp"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/insight.css"><link rel="stylesheet" href="/css/search.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><script src="/js/jquery.js"></script><meta name="generator" content="Hexo 6.3.0"></head><body><div class="page-top animated fadeInDown"><div class="nav"><li> <a href="/">首页</a></li><li> <a href="/archives">归档</a></li><li> <a href="/tags">标签</a></li><li> <a href="/about">关于</a></li><li> <a href="/links">友链</a></li></div><div class="information"><div class="nav_right_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li><li><a class="fa fa-search" onclick="openWindow();"></a></li></div><div class="avatar"><img src="/images/logo.webp"></div></div></div><div class="sidebar animated fadeInDown"><div class="sidebar-top"><div class="logo-title"><div class="title"><img src="/images/logo@2x.webp" style="width:220px;" alt="favicon"><h3 title=""><a href="/">远川的博客</a></h3><div class="description"><p>CrazyStudent13的技术，生活文档内容的整合</p></div></div><ul class="social-links"><li><a target="_blank" rel="noopener" href="https://github.com/CrazyStudent13"><i class="fa fa-github"></i></a></li><li><a href="mailto:1076535690@qq.com"><i class="fa fa-envelope"></i></a></li></ul></div></div><div class="footer"><div class="p"> <span> 本文著作权归作者所有 </span><i class="fa fa-star"></i><span> CrazyStudent13</span></div><div class="by_farbox"><span>Powered by </span><a href="https://hexo.io/zh-cn/" target="_blank">Hexo </a><span> & </span><a href="https://github.com/Lhcfl/hexo-theme-anatolo" target="_blank">Anatolo </a></div><div class="beian"></div></div></div><div class="main"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>hexo个人博客搭建————命令整理</a></h3></div><div class="post-content"><p><p>虽然Hexo确实很好用，但是由于我对命令和配置的不熟悉，导致很多东西都不是很好用。</p>
+<p>建议参考<a target="_blank" rel="noopener" href="https://hexo.io/themes/">官网</a>的文档，我梳理了一份属于自己的命令文档。</p>
+ <span id="more"></span> 
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo -g #安装</span><br><span class="line">npm update hexo -g #升级 </span><br><span class="line">hexo init #初始化</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="简写"><a href="#简写" class="headerlink" title="简写"></a>简写</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo n &quot;我的博客&quot; == hexo new &quot;我的博客&quot; #新建文章</span><br><span class="line">hexo g == hexo generate #生成</span><br><span class="line">hexo s == hexo server #启动服务预览，会监视文件变动并自动更新，您无须重启服务器</span><br><span class="line">hexo d == hexo deploy #部署</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean #清除缓存 网页正常情况下可以忽略此条命令</span><br><span class="line">hexo server -p 5000 #更改端口</span><br><span class="line">hexo server -i 192.168.1.1 #自定义 IP</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="模版"><a href="#模版" class="headerlink" title="模版"></a>模版</h3><table>
+<thead>
+<tr>
+<th align="center">变量</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">title</td>
+<td align="center">标题</td>
+</tr>
+<tr>
+<td align="center">layout</td>
+<td align="center">布局</td>
+</tr>
+<tr>
+<td align="center">date</td>
+<td align="center">文件建立日期</td>
+</tr>
+<tr>
+<td align="center">title</td>
+<td align="center">标题</td>
+</tr>
+<tr>
+<td align="center">categories</td>
+<td align="center">分类</td>
+</tr>
+<tr>
+<td align="center">tags</td>
+<td align="center">标签</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">title: 使用Hexo搭建个人博客</span><br><span class="line">layout: post</span><br><span class="line">date: 2014-03-03 19:07:43</span><br><span class="line">categories: Blog</span><br><span class="line">tags: [Hexo]</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="设置文章摘要"><a href="#设置文章摘要" class="headerlink" title="设置文章摘要"></a>设置文章摘要</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">以上是文章摘要 </span><br><span class="line">&lt;!--more--&gt; </span><br><span class="line">以下是余下全文</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo new page &lt;title&gt;</span><br><span class="line">hexo new post &lt;title&gt;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">变量</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">:title</td>
+<td align="center">标题</td>
+</tr>
+<tr>
+<td align="center">:year</td>
+<td align="center">建立的年份（4 位数）</td>
+</tr>
+<tr>
+<td align="center">:month</td>
+<td align="center">建立的月份（2 位数）</td>
+</tr>
+<tr>
+<td align="center">:i_month</td>
+<td align="center">建立的月份（去掉开头的零）</td>
+</tr>
+<tr>
+<td align="center">:day</td>
+<td align="center">建立的日期（2 位数）</td>
+</tr>
+<tr>
+<td align="center">:i_day</td>
+<td align="center">建立的日期（去掉开头的零）</td>
+</tr>
+</tbody></table>
+<h2 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h2><h3 id="语雀同步插件"><a href="#语雀同步插件" class="headerlink" title="语雀同步插件"></a>语雀同步插件</h3><p>之前个人使用了<a target="_blank" rel="noopener" href="https://blog.lxstart.net/">小冷</a>的<a target="_blank" rel="noopener" href="https://github.com/x-cold/yuque-hexo#Example">语雀对接插件</a>，感觉很不错，这里也整理一下。</p>
+<p>不过，现在语雀用我已经停用了，它总给我一种难受的感觉，我说不上来。</p>
+<p>虽然语雀他们各方面整的都挺好，但是不知道为啥，用起来就是膈应。</p>
+<p><strong>安装</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm i -g yuque-hexo</span><br><span class="line"># or</span><br><span class="line">npm i --save-dev yuque-hexo</span><br></pre></td></tr></table></figure>
+<p><strong>Sync</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yuque-hexo sync</span><br></pre></td></tr></table></figure>
+<p><strong>Clean</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yuque-hexo clean</span><br></pre></td></tr></table></figure>
+</p><div class="tip"><a target='_blank' href=https://creativecommons.org/licenses/by-sa/3.0/deed.zh>本文采用CC-BY-SA-3.0协议，转载请注明出处</a><br>作者:CrazyStudent13</div></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2019-02-11</span><a class="tag" href="/categories/非工作技术/" title="非工作技术">非工作技术 </a><i class="fa fa-tag"></i><a class="tag" href="/tags/hexo/" title="hexo">hexo </a><span class="leancloud_visitors"></span><span>大约459个字, 1分钟31秒读完</span></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="" onclick="javascript:join_favorite()" ref="sidebar"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" target="_blank" rel="noopener" href="http://twitter.com/intent/tweet?text=%E5%88%86%E4%BA%AB%E6%96%87%E7%AB%A0%EF%BC%9A%0A%0A%E8%BF%9C%E5%B7%9D%E7%9A%84%E5%8D%9A%E5%AE%A2%20%C2%B7%20hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86%0Ahttps://CrazyStudent13.github.io/2019/02/11/hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E2%80%94%E2%80%94%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/%0A"></a></div><div class="copyurl"><div class="fa fa-share button" onclick="javascript:copyurl()" id="copyurl"></div></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2023/03/03/2023%E5%B9%B4%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%93%E6%A3%80/" title="2023年的第一次体检">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2019/02/10/hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E2%80%94%E2%80%94%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" title="hexo个人博客搭建————域名绑定">下一篇</a></li></ul></div><script src="/js/visitors.js"></script></div></div></div></div><script src="/js/common.js"></script><script src="/js/darkLightToggle.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/add-bookmark.js"></script><script>(function(window){var INSIGHT_CONFIG={TRANSLATION:{POSTS:"文章",PAGES:"页面",CATEGORIES:"分类",TAGS:"标签",UNTITLED:"(无标题)",},CONTENT_URL:"/content.json",};window.INSIGHT_CONFIG=INSIGHT_CONFIG})(window);</script><script src="/js/insight.js" defer></script><div class="searchbox ins-search"><div class="searchbox-container ins-search-container"><div class="searchbox-input-wrapper"><input class="searchbox-input ins-search-input" type="text" placeholder="想要查找什么..."><span class="searchbox-close"><a class="fa fa-times-circle" onclick="closeWindow();"></a></span></div><div class="searchbox-result-wrapper ins-section-wrapper"><div class="ins-section-container"><p>Seraching...</p></div></div></div></div><script src="/js/baidu-tongji.js"></script></body></html>
