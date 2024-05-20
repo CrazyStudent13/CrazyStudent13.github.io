@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      10分钟了解重绘和重排(回流) 
+      
+      
+      |
+    
+     远川的博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">10分钟了解重绘和重排(回流)</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-05-07 23:17:58
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">
+                    #浏览器
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                    #面试
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>这是上海某次面试中的问题，说实话，我这个VueBoy还真不清楚这块的基础，这里整合一下。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>本文主要面向面试，所以先挑干的说，然后再细讲原理。</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><h4 id="重排或回流（Reflow）"><a href="#重排或回流（Reflow）" class="headerlink" title="重排或回流（Reflow）"></a>重排或回流（Reflow）</h4><p>当render树中的一部分或者全部因为大小边距等问题发生改变而<strong>需要DOM树重新计算</strong>的过程</p>
+<h5 id="产生重排的场景"><a href="#产生重排的场景" class="headerlink" title="产生重排的场景"></a>产生重排的场景</h5><ul>
+<li>页面渲染初始化，这是开销最大的一次重排</li>
+<li>添加或者删除可见的DOM元素</li>
+<li>元素位置改变</li>
+<li>元素尺寸改变，边距、填充、边框、宽度和高度</li>
+<li>元素内容改变，如文本改变或者图片大小改变而引起的计算值宽度和高度改变</li>
+<li>元素字体大小 改变</li>
+<li>浏览器窗口尺寸改变，resize事件发生时</li>
+<li>CSS伪类激活，如hover</li>
+<li>设置 style 属性的值，因为通过设置style属性改变结点样式的话，每一次设置都会触发一次reflow</li>
+<li>查询某些属性或调用某些计算方法：offsetWidth、offsetHeight等，除此之外，当我们调用 <code>getComputedStyle</code>方法，或者IE里的 <code>currentStyle</code> 时，也会触发重排，原理是一样的，都为求一个“即时性”和“准确性”。</li>
+</ul>
+<h5 id="重排影响的范围"><a href="#重排影响的范围" class="headerlink" title="重排影响的范围"></a>重排影响的范围</h5><p>由于浏览器渲染界面是基于流式布局模型的，所以触发重排时会对周围DOM重新排列，影响的范围有两种：</p>
+<ul>
+<li>全局范围：从根节点html开始对整个渲染树进行重新布局。</li>
+<li>局部范围：对渲染树的某部分或某一个渲染对象进行重新布局</li>
+</ul>
+<p><strong>全局范围重排：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">js复制代码&lt;body&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;hello&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">h4</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">strong</span>&gt;</span>Name:<span class="tag">&lt;/<span class="name">strong</span>&gt;</span>BDing<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">h5</span>&gt;</span>male<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">ol</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">li</span>&gt;</span>coding<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">li</span>&gt;</span>loving<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当p节点上发生reflow时，hello和body也会重新渲染，甚至h5和ol都会收到影响。</p>
+<p><strong>局部范围重排：</strong></p>
+<p>用局部布局来解释这种现象：把一个dom的宽高之类的几何信息定死，然后在dom内部触发重排，就只会重新渲染该dom内部的元素，而不会影响到外界。</p>
+<h4 id="重绘（Repaint）"><a href="#重绘（Repaint）" class="headerlink" title="重绘（Repaint）"></a>重绘（Repaint）</h4><p>元素的一部分属性发生改变，如外观、背景、颜色等<code>不会引起布局变化</code>，只需要浏览器根据元素的新属性<strong>重新绘制</strong>，使元素呈现新的外观叫做重绘。</p>
+<h5 id="产生重绘的场景"><a href="#产生重绘的场景" class="headerlink" title="产生重绘的场景"></a>产生重绘的场景</h5><ul>
+<li><code>设置背景图片</code></li>
+<li><code>修改字体颜色及样式</code></li>
+<li><code>改变 visibility 属性值</code></li>
+<li><code>设置box盒子阴影</code></li>
+</ul>
+<h3 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h3><p><strong>重绘不一定导致重排，但重排一定会导致重绘</strong></p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><h4 id="页面生成"><a href="#页面生成" class="headerlink" title="页面生成"></a>页面生成</h4><ol>
+<li>HTML 被 HTML 解析器解析成 DOM 树</li>
+<li>CSS  被 CSS 解析器解析成 CSSOM 树</li>
+<li>结合 DOM 树和 CSSOM 树，生成一棵渲染树(Render Tree)，这一过程称为 Attachment</li>
+<li>生成布局(flow)，浏览器在屏幕上“画”出渲染树中的所有节点</li>
+<li>将布局绘制(paint)在屏幕上，显示出整个页面</li>
+</ol>
+<p>第四步和第五步是最耗时的部分，这两步合起来，就是我们通常所说的渲染。</p>
+<h4 id="渲染"><a href="#渲染" class="headerlink" title="渲染"></a>渲染</h4><p>在页面的生命周期中，**网页生成的时候，至少会渲染一次。在用户访问的过程中，还会不断触发重排(reflow)和重绘(repaint)**，不管页面发生了重绘还是重排，都会影响性能，最可怕的是重排，会使我们付出高额的性能代价，所以我们应尽量避免。</p>
+<h3 id="重排优化建议"><a href="#重排优化建议" class="headerlink" title="重排优化建议"></a>重排优化建议</h3><p>重排的代价是高昂的，会破坏用户体验，并且让UI展示非常迟缓。通过减少重排的负面影响来提高用户体验的最简单方式就是尽可能的减少重排次数，重排范围。下面是一些行之有效的建议，大家可以用来参考。</p>
+<h4 id="减少重排范围"><a href="#减少重排范围" class="headerlink" title="减少重排范围"></a>减少重排范围</h4><p>我们应该尽量以局部布局的形式组织html结构，尽可能小的影响重排的范围。</p>
+<ul>
+<li>尽可能在低层级的DOM节点上，而不是像上述全局范围的示例代码一样，如果你要改变p的样式，class就不要加在div上，通过父元素去影响子元素不好。</li>
+<li>不要使用 table 布局，可能很小的一个小改动会造成整个 table 的重新布局。那么在不得已使用table的场合，可以设置table-layout:auto;或者是table-layout:fixed这样可以让table一行一行的渲染，这种做法也是为了限制reflow的影响范围。</li>
+</ul>
+<h4 id="减少重排次数"><a href="#减少重排次数" class="headerlink" title="减少重排次数"></a>减少重排次数</h4><h5 id="1-样式集中改变"><a href="#1-样式集中改变" class="headerlink" title="1.样式集中改变"></a>1.样式集中改变</h5><p>不要频繁的操作样式，对于一个静态页面来说，明智且可维护的做法是更改类名而不是修改样式，对于动态改变的样式来说，相较每次微小修改都直接触及元素，更好的办法是统一在 <code>cssText</code> 变量中编辑。虽然现在大部分现代浏览器都会有 <code>Flush</code> 队列进行渲染队列优化，但是有些老版本的浏览器比如IE6的效率依然低下。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">js复制代码<span class="comment">// bad</span></span><br><span class="line"><span class="keyword">var</span> left = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> top = <span class="number">10</span>;</span><br><span class="line">el.<span class="property">style</span>.<span class="property">left</span> = left + <span class="string">&quot;px&quot;</span>;</span><br><span class="line">el.<span class="property">style</span>.<span class="property">top</span> = top + <span class="string">&quot;px&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当top和left的值是动态计算而成时...</span></span><br><span class="line"><span class="comment">// better </span></span><br><span class="line">el.<span class="property">style</span>.<span class="property">cssText</span> += <span class="string">&quot;; left: &quot;</span> + left + <span class="string">&quot;px; top: &quot;</span> + top + <span class="string">&quot;px;&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// better</span></span><br><span class="line">el.<span class="property">className</span> += <span class="string">&quot; className&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-分离读写操作"><a href="#2-分离读写操作" class="headerlink" title="2.分离读写操作"></a>2.分离读写操作</h5><p>DOM 的多个读操作（或多个写操作），应该放在一起。不要两个读操作之间，加入一个写操作。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">js复制代码<span class="comment">// bad 强制刷新 触发四次重排+重绘</span></span><br><span class="line">div.<span class="property">style</span>.<span class="property">left</span> = div.<span class="property">offsetLeft</span> + <span class="number">1</span> + <span class="string">&#x27;px&#x27;</span>;</span><br><span class="line">div.<span class="property">style</span>.<span class="property">top</span> = div.<span class="property">offsetTop</span> + <span class="number">1</span> + <span class="string">&#x27;px&#x27;</span>;</span><br><span class="line">div.<span class="property">style</span>.<span class="property">right</span> = div.<span class="property">offsetRight</span> + <span class="number">1</span> + <span class="string">&#x27;px&#x27;</span>;</span><br><span class="line">div.<span class="property">style</span>.<span class="property">bottom</span> = div.<span class="property">offsetBottom</span> + <span class="number">1</span> + <span class="string">&#x27;px&#x27;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// good 缓存布局信息 相当于读写分离 触发一次重排+重绘</span></span><br><span class="line"><span class="keyword">var</span> curLeft = div.<span class="property">offsetLeft</span>;</span><br><span class="line"><span class="keyword">var</span> curTop = div.<span class="property">offsetTop</span>;</span><br><span class="line"><span class="keyword">var</span> curRight = div.<span class="property">offsetRight</span>;</span><br><span class="line"><span class="keyword">var</span> curBottom = div.<span class="property">offsetBottom</span>;</span><br><span class="line"></span><br><span class="line">div.<span class="property">style</span>.<span class="property">left</span> = curLeft + <span class="number">1</span> + <span class="string">&#x27;px&#x27;</span>;</span><br><span class="line">div.<span class="property">style</span>.<span class="property">top</span> = curTop + <span class="number">1</span> + <span class="string">&#x27;px&#x27;</span>;</span><br><span class="line">div.<span class="property">style</span>.<span class="property">right</span> = curRight + <span class="number">1</span> + <span class="string">&#x27;px&#x27;</span>;</span><br><span class="line">div.<span class="property">style</span>.<span class="property">bottom</span> = curBottom + <span class="number">1</span> + <span class="string">&#x27;px&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>原来的操作会导致四次重排，读写分离之后实际上只触发了一次重排，这都得益于浏览器的渲染队列机制：</p>
+<blockquote>
+<p>当我们修改了元素的几何属性，导致浏览器触发重排或重绘时。它会把该操作放进渲染队列，等到队列中的操作到了一定的数量或者到了一定的时间间隔时，浏览器就会批量执行这些操作。</p>
+</blockquote>
+<h5 id="3-将-DOM-离线"><a href="#3-将-DOM-离线" class="headerlink" title="3.将 DOM 离线"></a>3.将 DOM 离线</h5><p>“离线”意味着不在当前的 DOM 树中做修改，我们可以这样做：</p>
+<ul>
+<li><p>使用 display:none</p>
+<p>一旦我们给元素设置 <code>display:none</code> 时（只有一次重排重绘），元素便不会再存在在渲染树中，相当于将其从页面上“拿掉”，我们之后的操作将不会触发重排和重绘，添加足够多的变更后，通过 <code>display</code>属性显示（另一次重排重绘）。通过这种方式即使大量变更也只触发两次重排。另外，<code>visibility : hidden</code> 的元素只对重绘有影响，不影响重排。</p>
+</li>
+<li><p>通过 <a href="https://link.juejin.cn/?target=https://developer.mozilla.org/zh-CN/docs/Web/API/DocumentFragment">documentFragment</a> 创建一个 <code>dom</code> 碎片,在它上面批量操作 <code>dom</code>，操作完成之后，再添加到文档中，这样只会触发一次重排。</p>
+</li>
+<li><p>复制节点，在副本上工作，然后替换它！</p>
+</li>
+</ul>
+<h5 id="4-使用-absolute-或-fixed-脱离文档流"><a href="#4-使用-absolute-或-fixed-脱离文档流" class="headerlink" title="4.使用 absolute 或 fixed 脱离文档流"></a>4.使用 absolute 或 fixed 脱离文档流</h5><p>使用绝对定位会使的该元素单独成为渲染树中 <code>body</code> 的一个子元素，重排开销比较小，不会对其它节点造成太多影响。当你在这些节点上放置这个元素时，一些其它在这个区域内的节点可能需要重绘，但是不需要重排。</p>
+<h5 id="5-优化动画"><a href="#5-优化动画" class="headerlink" title="5.优化动画"></a>5.优化动画</h5><ul>
+<li><p>可以把动画效果应用到 <code>position</code>属性为 <code>absolute</code> 或 <code>fixed</code> 的元素上，这样对其他元素影响较小。</p>
+<p>动画效果还应牺牲一些平滑，来换取速度，这中间的度自己衡量： 比如实现一个动画，以1个像素为单位移动这样最平滑，但是Layout就会过于频繁，大量消耗CPU资源，如果以3个像素为单位移动则会好很多</p>
+</li>
+<li><p>启用GPU加速 <code>GPU</code> 硬件加速是指应用 <code>GPU</code> 的图形性能对浏览器中的一些图形操作交给 <code>GPU</code> 来完成，因为 <code>GPU</code> 是专门为处理图形而设计，所以它在速度和能耗上更有效率。</p>
+<p><code>GPU</code> 加速通常包括以下几个部分：Canvas2D，布局合成, CSS3转换（transitions），CSS3 3D变换（transforms），WebGL和视频(video)。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">js复制代码  <span class="comment">/*</span></span><br><span class="line"><span class="comment">  * 根据上面的结论</span></span><br><span class="line"><span class="comment">  * 将 2d transform 换成 3d</span></span><br><span class="line"><span class="comment">  * 就可以强制开启 GPU 加速</span></span><br><span class="line"><span class="comment">  * 提高动画性能</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  div &#123;</span><br><span class="line">    <span class="attr">transform</span>: <span class="title function_">translate3d</span>(10px, 10px, <span class="number">0</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="在浏览器中查看页面渲染时间"><a href="#在浏览器中查看页面渲染时间" class="headerlink" title="在浏览器中查看页面渲染时间"></a>在浏览器中查看页面渲染时间</h3><p>1.打开开发者工具：点击 Performance 左侧有个小圆点 点击刷新页面会录制整个页面加载出来 时间的分配情况。</p>
+<ul>
+<li>loading: 网络通信和HTML解析</li>
+<li>scripting: JavaScript执行</li>
+<li>Rendering: 样式计算和布局，即重排</li>
+<li>Painting: 重绘</li>
+</ul>
+<p>2.点击 Event Log：单独勾选 Loading 项会显示 html 和 css 加载时间。</p>
+<p>3.解析完 DOM+CSSOM 之后会生成一个渲染树 Render Tree，就是 DOM 和 CSSOM 的一一对应关系。</p>
+<p>4.通过渲染树中在屏幕上“画”出的所有节点，称为渲染。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>渲染的三个阶段 Layout，Paint，Composite Layers。 Layout：重排，又叫回流。 Paint:重绘，重排重绘这些步骤都是在 CPU 中发生的。 Compostite Layers：CPU 把生成的 BitMap（位图）传输到 GPU，渲染到屏幕。</p>
+<p>CSS3 就是在 GPU 发生的：Transform  Opacity。在 GPU 发生的属性比较高效。所以 CSS3 性能比较高。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>太久远的知识了，回顾了一下大佬的总结，感觉真是一种难得的有趣体验。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904083212468238?searchId=20240422171513D3B4751FC9432336560C">重排(reflow)和重绘(repaint) - 掘金 (juejin.cn)</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6938376882005999646?searchId=20240422171235DF23177183B7AA3806A2#heading-1">CSS 重绘（Repaint）、重排（回流）(reflow) - 掘金 (juejin.cn)</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/04/22/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3http%E5%B8%B8%E7%94%A8%E7%8A%B6%E6%80%81%E7%A0%81/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-05-07 23:17:58
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">
+                        #浏览器
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                        #面试
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2024/04/26/2024%E5%B9%B4%E7%9A%84%E7%AC%AC%E4%B8%80%E4%BB%BDoffer/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E6%8E%92%E6%88%96%E5%9B%9E%E6%B5%81%EF%BC%88Reflow%EF%BC%89"><span class="toc-text">重排或回流（Reflow）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%A7%E7%94%9F%E9%87%8D%E6%8E%92%E7%9A%84%E5%9C%BA%E6%99%AF"><span class="toc-text">产生重排的场景</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%87%8D%E6%8E%92%E5%BD%B1%E5%93%8D%E7%9A%84%E8%8C%83%E5%9B%B4"><span class="toc-text">重排影响的范围</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E7%BB%98%EF%BC%88Repaint%EF%BC%89"><span class="toc-text">重绘（Repaint）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%A7%E7%94%9F%E9%87%8D%E7%BB%98%E7%9A%84%E5%9C%BA%E6%99%AF"><span class="toc-text">产生重绘的场景</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB"><span class="toc-text">关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E7%94%9F%E6%88%90"><span class="toc-text">页面生成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93"><span class="toc-text">渲染</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E6%8E%92%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="toc-text">重排优化建议</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%8F%E5%B0%91%E9%87%8D%E6%8E%92%E8%8C%83%E5%9B%B4"><span class="toc-text">减少重排范围</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%8F%E5%B0%91%E9%87%8D%E6%8E%92%E6%AC%A1%E6%95%B0"><span class="toc-text">减少重排次数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E6%A0%B7%E5%BC%8F%E9%9B%86%E4%B8%AD%E6%94%B9%E5%8F%98"><span class="toc-text">1.样式集中改变</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E5%88%86%E7%A6%BB%E8%AF%BB%E5%86%99%E6%93%8D%E4%BD%9C"><span class="toc-text">2.分离读写操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E5%B0%86-DOM-%E7%A6%BB%E7%BA%BF"><span class="toc-text">3.将 DOM 离线</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8-absolute-%E6%88%96-fixed-%E8%84%B1%E7%A6%BB%E6%96%87%E6%A1%A3%E6%B5%81"><span class="toc-text">4.使用 absolute 或 fixed 脱离文档流</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-%E4%BC%98%E5%8C%96%E5%8A%A8%E7%94%BB"><span class="toc-text">5.优化动画</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E6%9F%A5%E7%9C%8B%E9%A1%B5%E9%9D%A2%E6%B8%B2%E6%9F%93%E6%97%B6%E9%97%B4"><span class="toc-text">在浏览器中查看页面渲染时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + 10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E9%87%8D%E7%BB%98%E5%92%8C%E9%87%8D%E6%8E%92(%E5%9B%9E%E6%B5%81) + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F04%2F22%2F10%25E5%2588%2586%25E9%2592%259F%25E4%25BA%2586%25E8%25A7%25A3%25E9%2587%258D%25E7%25BB%2598%25E5%2592%258C%25E9%2587%258D%25E6%258E%2592-%25E5%259B%259E%25E6%25B5%2581%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/04/22/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E9%87%8D%E7%BB%98%E5%92%8C%E9%87%8D%E6%8E%92-%E5%9B%9E%E6%B5%81/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

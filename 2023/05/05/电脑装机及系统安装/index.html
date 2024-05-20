@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      电脑装机及系统安装 
+      
+      
+      |
+    
+     远川的博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">电脑装机及系统安装</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-05-07 23:17:58
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E7%A1%AC%E4%BB%B6/" title="硬件">
+                    #硬件
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>本来打算装完机就开始记录的，但是之后配置电脑环境和安装软件耽误了很多时间，一直忙到现在。</p>
+<p>现在电脑安装一切就绪了，我也要记录这次多灾多难的安装过程。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>首先，直接推荐<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1BG4y137mG">硬件茶谈的教程</a>，确实做到了全网最细，没有之一。</p>
+<p>但如果整个过程一步不差的按照他的流程走，大概率装机会出现一点小问题。所以，本次日志会记录自己的装机过程中的一些小插曲。</p>
+<p>顺便，作为一个装机老白，也会记录自己整个装机过程的心得，以供参考。</p>
+<h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><p>无论是让店家帮忙组装，还是自己挑选配置个人组装，都需要对自己的需求进行一波分析，合理规划，才不至于价格溢出。</p>
+<p>这里放一下个人的需求及想法：</p>
+<ol>
+<li>电脑配置能游玩市面上大多数游戏，运行大型游戏时候，不会有硬件限制</li>
+<li>能够运行AI跑图功能，本地安装实验性质的环境</li>
+<li>运行速度足够快，不再使用机械硬盘（相对较慢）</li>
+<li>剪辑视频的要快速读取素材，尽可能的加大内存（增加视频缓存量及读写速度）</li>
+<li>外观要足够的漂亮，今年很长一段时间都会在家中，所以首选纯白海景房配合二次元套皮</li>
+<li>配置要足够的稳定，寿命够长，五年内不会出现电源，冷排等硬件上的问题</li>
+<li>声音尽可能的小，不要出现开机就是飞机起飞的状态</li>
+<li>成本可以不计，但是尽可能的不要超过1万</li>
+</ol>
+<h3 id="硬件购买"><a href="#硬件购买" class="headerlink" title="硬件购买"></a>硬件购买</h3><p>根据上述需求，我大概选定了一些想法，从目前的市场来看，2023年说不定是最适合配电脑的一年。</p>
+<p>这里浅谈一下我个人的理解，算是抛砖引玉吧，如果有不合理的地方，就做笑谈。</p>
+<p>这里首先放一下配置表及具体购买原因。</p>
+<table>
+<thead>
+<tr>
+<th align="center">硬件名称</th>
+<th align="center">型号</th>
+<th align="center">购买原因</th>
+<th>平台</th>
+<th align="center">价格</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">主板</td>
+<td align="center">华硕 PRIME Z690-P D4</td>
+<td align="center">老厂商，值得信赖</td>
+<td>京东</td>
+<td align="center">3319</td>
+</tr>
+<tr>
+<td align="center">CPU</td>
+<td align="center">英特尔 12th Gen  Core i5-12600KF 十核</td>
+<td align="center">主板套装</td>
+<td>京东</td>
+<td align="center">——</td>
+</tr>
+<tr>
+<td align="center">散热</td>
+<td align="center">利民冰封幻境360 瓦尔基里星环一体式水冷</td>
+<td align="center">硬件茶谈店铺的货，质量有保证的</td>
+<td>淘宝</td>
+<td align="center">699</td>
+</tr>
+<tr>
+<td align="center">内存</td>
+<td align="center">威刚 64GB(2666 MHz &#x2F;  2666 MHz &#x2F;  2666 MHz &#x2F;  2666 MHz)</td>
+<td align="center">国产，便宜，稳定</td>
+<td>京东</td>
+<td align="center">1067</td>
+</tr>
+<tr>
+<td align="center">主硬盘</td>
+<td align="center">致钛 2048 GB (ZHITAI TiPro7000 2TB)</td>
+<td align="center">国产，便宜，稳定，有三个插槽，买了三个</td>
+<td>京东</td>
+<td align="center">3818</td>
+</tr>
+<tr>
+<td align="center">显卡</td>
+<td align="center">英伟达 NVIDIA GeForce RTX 3060 Ti (8192 MB)</td>
+<td align="center">据说是一手货，而且外表够二次元</td>
+<td>京东</td>
+<td align="center">3248</td>
+</tr>
+<tr>
+<td align="center">电源</td>
+<td align="center">Seasonic 海韵电源80PLUS金牌FOCUS GX金牌全模1000W</td>
+<td align="center">稳定，老牌子，没出过什么幺蛾子的厂商</td>
+<td>京东</td>
+<td align="center">1290</td>
+</tr>
+<tr>
+<td align="center">机箱</td>
+<td align="center">航嘉（Huntkey） S980龙卷风 全景侧透钢化玻璃 360水冷海景房游戏机箱</td>
+<td align="center">性价比较高，买不起包豪斯</td>
+<td>京东</td>
+<td align="center">480</td>
+</tr>
+<tr>
+<td align="center">显示器</td>
+<td align="center">冠捷 AOC2701 27G1G4 (27.2英寸 &#x2F; 32位真彩色 &#x2F; 60Hz)</td>
+<td align="center">之前剩的显示器</td>
+<td>——</td>
+<td align="center">——</td>
+</tr>
+</tbody></table>
+<p><strong>合计13957，近1万4的价格，属实放大血，疼坏了。</strong></p>
+<h4 id="核心套装"><a href="#核心套装" class="headerlink" title="核心套装"></a>核心套装</h4><p>关于Cpu和主板这个核心套装，本来是打算买散件拼的。</p>
+<p>但是想了想，别费那个事儿了，我只是装机老白，又不是那种极客，没必要玩的太花，里边具体的门道我是不懂搭配的。</p>
+<p>所以，这里直接上了华硕的车，华硕的板子，还是挺稳定得。</p>
+<h4 id="显卡"><a href="#显卡" class="headerlink" title="显卡"></a>显卡</h4><p>矿潮差不多刚过去，现在的市面上，矿卡虽然也多，但是多少还是能用的。</p>
+<p>那些屯卡的奸商，现在估计也看清形式了，卖便宜点儿至少有得赚，还按照矿潮时代卖是纯纯的傻子。</p>
+<p>所以，如果要是想挑好用的矿卡，可以买<a target="_blank" rel="noopener" href="https://kinology.world.tmall.com/shop/view_shop.htm?spm=a230r.1.14.14.718558d3jjB9Ek&user_number_id=1574891186">卡诺基</a>家的卡，人家是正儿八经的好用的翻新卡，出问题是可以换的。</p>
+<p>本来我也打算弄一个，但是为了颜值（别问为什么，打了那么长时间的工，我就不能享受享受吗），我选择了铭瑄的小瑷珈。</p>
+<p>据说这个3060TI不是矿卡，个人到手后测了一下，也没感觉有什么问题，所以应该信得过。</p>
+<p>至于为什么是小瑷珈，不是大瑷珈，很简单，预算不足，而且需求也溢出了，我没必要上这么好的卡。</p>
+<p>哦，对了<a target="_blank" rel="noopener" href="https://item.taobao.com/item.htm?spm=a1z10.3-c-s.w4002-21402720416.28.72b5ccd8RB4e76&id=691104242791">硬件茶谈的店铺</a>里也有不错的显卡，当时我本来想弄一个来着，显存看着很大。</p>
+<p>但是外观看了一下，感觉不够二次元，到最后还是退了换了小瑷珈。</p>
+<p>有些时候，人确实容易着相啊。</p>
+<h4 id="固态"><a href="#固态" class="headerlink" title="固态"></a>固态</h4><p>2023年的固态真的很便宜，m2类型的固态我年前买的时候，2t是近1000左右，现在我看了一下有些国产颗粒的固态已经掉到600不到了。</p>
+<p>虽然不是最低价让我有些恼火，但是想到数年前，三星把固态当金条卖，天天动不动火龙烧仓，工人罢工，各家厂商就是死命抬价格的狗娘养的状态，我个人可以接受现在固态的价格。</p>
+<p>就凭长鑫把固态和内存的价格打下来这点，我就得买它，而且，如果能让友商降价处理，那只能说明一点，这批货做的不错，被对家认可了。</p>
+<p>如果长鑫颗粒一直和三星怼的话，大概率这种倾销价格还得持续不少时间。</p>
+<p>我预感，这种低价至少今年应该一直会这样，价格很便宜，随便买。</p>
+<p>而且，因为之前装机械盘用sata实在是太累，所以这次全部用M2，正好电脑上的固态位置比较多。</p>
+<h4 id="电源"><a href="#电源" class="headerlink" title="电源"></a>电源</h4><p>这个是我没怎么了解的地方，但是电源这个钱最好不要省，市面上有不少厂家虚标电源，实际用的时候，可能出现功耗不足的情况。</p>
+<p>而且如果电源出问题，很容易导致所有硬件烧毁的可能，最好不要在电源这里用小聪明，建议买个好点儿的电源。</p>
+<p>2023年，目前市面上口碑不错的电源是<a target="_blank" rel="noopener" href="https://mall.jd.com/index-1000097385.html">海韵（SEASONIC）</a>家的，我到手后拆箱看了看，配件送的很齐全，客服也很有耐心，中间解答了不少电源相关的疑惑，而且官方的教程相对来说，很亲民，对于我这种老白来说，很友好。</p>
+<h4 id="外设"><a href="#外设" class="headerlink" title="外设"></a>外设</h4><p>这点我不太好推荐，外设这些，看个人喜好吧，机箱和水冷，我是在京东和淘宝买的。</p>
+<p>和我不同，我弟是在拼多多买的，他认为拼多多的效果还可以，我没有验证，但是我对拼多多的砍价很是膈应，被耍猴了几次一直不是很喜欢这个平台。</p>
+<p>个人感觉京东的售后是值得的，我中间机箱选错了，隔了一个月，协商退货，人家很痛快的就答应了。</p>
+<p>就这点来说，京东的售后还是不错的，这个价格我个人较为认可。</p>
+<p>但是贵确实是贵，所以，我只推荐主机相关的外设在京东买，比如机箱，水冷这种。</p>
+<p>键盘和鼠标，还有耳机什么的，这种就随缘吧，如果不是太贵，拼多多应该也不是不行。</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>为了保证电脑的外观效果，安装顺利，还需要准备如下道具</p>
+<ol>
+<li>机箱风扇（白色）</li>
+<li>显卡延长线（白色）</li>
+<li>金士顿U盘，作PE系统安装盘</li>
+<li>2T的希捷机械硬盘，给旧电脑做数据转移用</li>
+</ol>
+<h3 id="电脑安装"><a href="#电脑安装" class="headerlink" title="电脑安装"></a>电脑安装</h3><p>再次安利一下<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1BG4y137mG">硬件茶谈的教程</a>，我这里作为补充要说一下我在安装过程遇到的问题。</p>
+<p>如果是新手安装，最好看一下我遇到的这些坑。</p>
+<p>茶谈的教程里边，虽然已经足够的细致，但是对于实际情况来说，意外还是有的，看看我遇到的这些问题，说不定对你装机会有帮助。</p>
+<ol>
+<li>安装的平台尽可能的大，放螺丝的盒子多备一些，自己要规划好，记清楚了，不然找螺丝就是一个很费时间的事。</li>
+<li>主板，水冷这两个安装说明书一定要保存好。</li>
+<li>在没有安装水冷，风冷背板支架之前，不要急着把主板安装在机箱上，如果不装支架，直接放在机箱上，待会还得拆，因为你需要在主板背部安装支架，这样你才能去安装主板正面的水冷。</li>
+<li>风扇有正叶扇和反叶扇，购买的时候，看清楚，反叶扇是风扇面（没有支架的凹面）出风，马达面（有支架的凸面）吸风，正叶扇和反叶扇是完全相反的，不然安装错了需要重新拆装风扇，很麻烦。</li>
+<li>水冷一般是自带风扇的，<strong>水冷盒子下边有个抽拉的小盒子</strong>，打开就是风扇！如果水冷没有风扇，厂家一般会注明！不要用自己的风扇去怼水冷！</li>
+<li>水冷虽然自带了说明书，但是如果还是觉得不保险，可以看看别人是怎么装的，这里推荐<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1hg411A7yG?p=1&vd_source=ee3784ffe5f760cb992921cb8c5c98e5">装机不求人之基础水冷安装教程</a>，相对于茶谈的大纲，这个教程在装水冷这里，细节做的不错。</li>
+<li>风道最好一开始就要自己设计好，不然在风扇规划安装的时候，会反复拆装，加大工作量</li>
+<li>有些时候电源如果开机测试怎么测都没有效果，考虑一下是不是风扇声音太小的问题，我在测试电源的时候，一直按照教程走，客服也说没有问题，都打算退货了，结果我仔细看了一下，是风扇声音太小，加上我装机的地方光线昏暗，没有看到风扇在转，导致我以为风扇有问题。</li>
+<li>电源有些时候不是规整的情况，可能是运输过程中，盒子错位了，可以自己用钳子什么的敲一下，把电源规整一下。</li>
+<li>理线是个大活，但是非水冷风扇的线，可以买个集线器来整理。水冷的集线器是专门给水冷风扇插的，主板要检测CPU对应的风扇转速，所以，其他风扇可以另外买一个集线器来整理，不要和水冷的集线器混用。</li>
+<li>如果有了集线器，就没要按照官方教程来做风扇的串接了，只要集线器的插口足够的富裕，可以直接全部都插一遍，我这里买的是<a target="_blank" rel="noopener" href="https://item.jd.com/100031537714.html">利民的8组16口集线器</a>，因为我的风扇都是带灯光效果的，所以就买了这种双插口的集线器，具体需求情按照自己的配置来决定，不必按照我这个来。</li>
+<li><strong>一定要保证风扇的公头针脚不外露</strong>，不然接触到主板和机箱，漏电可能会造成硬件损坏。</li>
+<li>集线器对应主板的插口，各家的主板都有不一样的说法，如果你没有找到ARGB的接口，可能是名字不一样，比如华硕的主板中，argb的接口名称叫<strong>ADD_GEN2</strong>，在微星的板子上应该叫<strong>JRGB</strong>，这个需要自己看看主板的说明书来确认。</li>
+<li>如果对自己的能力实在没有信心，尽可能的保证自己身边有个懂行的哥们儿，如果你装机装出问题了，哥们儿能帮你兜个底，但是装成了，记得请人家吃顿饭。</li>
+</ol>
+<h3 id="系统安装"><a href="#系统安装" class="headerlink" title="系统安装"></a>系统安装</h3><p>个人之前是没接触过PE安装的，这次按照以下两个教程走了一遍之后，感觉这确实比官方自带的安装方式方便不少。</p>
+<h4 id="教程推荐"><a href="#教程推荐" class="headerlink" title="教程推荐"></a>教程推荐</h4><p>如果不清楚原理，个人推荐看一下硬件茶谈的视频。</p>
+<p>如果不清楚具体的操作方法，我推荐看机械师只只的安装教程，他的教程确实更加稳妥。</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1DJ411D79y?p=2&vd_source=ee3784ffe5f760cb992921cb8c5c98e5">【装机教程】超详细WIN10系统安装教程，官方ISO直装与PE两种方法教程，UEFI+GUID分区与Legacy+MBR分区</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV15e411x7nw">【U盘模式】Win10重装系统教程（10分钟装好）</a></p>
+<h4 id="论坛推荐"><a href="#论坛推荐" class="headerlink" title="论坛推荐"></a>论坛推荐</h4><p>整理了一下装机论坛，朋友推荐的，很不错</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://msdn.itellyou.cn/">MSDN, 我告诉你 - 做一个安静的工具站 (itellyou.cn)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.itsk.com/">IT天空－新的十年，与您同行！ （已创建16年零10个月） (itsk.com)</a></li>
+</ol>
+<h4 id="工具推荐"><a href="#工具推荐" class="headerlink" title="工具推荐"></a>工具推荐</h4><p>这里整理了一下朋友推荐的pe工具，这是市面上推荐，比较好的PE工具包</p>
+<ol>
+<li>优启通</li>
+<li>微PE</li>
+</ol>
+<p>最后，贴一下<a target="_blank" rel="noopener" href="https://space.bilibili.com/409055282">机械师只只</a>大佬给的网盘工具链接</p>
+<p><a target="_blank" rel="noopener" href="https://www.123pan.com/s/wEeA-UiMmH">重装系统官方版下载丨最新版下载丨绿色版下载丨APP下载-123云盘 (123pan.com)</a></p>
+<p>这里顺便贴一下我用的win10镜像文件，之前用他们给的镜像文件装上去一直有问题，要么就是装好了没有网络，用这个镜像文件倒是一步到位了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">链接：https://pan.baidu.com/s/1CLi2gRlo7XqNZEFxQgKpoA?pwd=1234 </span><br><span class="line">提取码：1234 </span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>下次再也不装水冷了，风扇噪音也不小，而且还费事，据说还有水管破裂导致所有硬件瘫痪的风险。</p>
+<p>这次装机装了两天多，中间安装软件刷系统，整个人都给这玩意整颓了，好几天都没缓过来。</p>
+<p>但是，安装完成之后，点亮的那一刻，不得不说，真是有种前所未有的开心。</p>
+<p>这次也是感谢客服和各路好兄弟帮忙了，更是谢谢各路UP的装机分享，不然这装机属实是个麻烦的事。</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2023/05/04/hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E2%80%94%E2%80%94https%E8%AE%A4%E8%AF%81/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-05-07 23:17:58
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E7%A1%AC%E4%BB%B6/" title="硬件">
+                        #硬件
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2023/05/07/DNF%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97%E2%80%94%E2%80%94%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%80%89%E6%8B%A9/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E8%B4%AD%E4%B9%B0"><span class="toc-text">硬件购买</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%A5%97%E8%A3%85"><span class="toc-text">核心套装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%BE%E5%8D%A1"><span class="toc-text">显卡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%BA%E6%80%81"><span class="toc-text">固态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%B5%E6%BA%90"><span class="toc-text">电源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%96%E8%AE%BE"><span class="toc-text">外设</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E8%84%91%E5%AE%89%E8%A3%85"><span class="toc-text">电脑安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85"><span class="toc-text">系统安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%99%E7%A8%8B%E6%8E%A8%E8%8D%90"><span class="toc-text">教程推荐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BA%E5%9D%9B%E6%8E%A8%E8%8D%90"><span class="toc-text">论坛推荐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90"><span class="toc-text">工具推荐</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E7%94%B5%E8%84%91%E8%A3%85%E6%9C%BA%E5%8F%8A%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2023%2F05%2F05%2F%25E7%2594%25B5%25E8%2584%2591%25E8%25A3%2585%25E6%259C%25BA%25E5%258F%258A%25E7%25B3%25BB%25E7%25BB%259F%25E5%25AE%2589%25E8%25A3%2585%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2023/05/05/%E7%94%B5%E8%84%91%E8%A3%85%E6%9C%BA%E5%8F%8A%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      10分钟了解ajax 
+      
+      
+      |
+    
+     远川的博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">10分钟了解ajax</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-05-20 00:58:54
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">
+                    #浏览器
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                    #面试
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/JS/" title="JS">
+                    #JS
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>面试官：ajax是什么？我：啥？这不是JQuery封装的工具方法吗？</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>不得不说，模拟面试那时候，什么刁钻的问题几乎都接触过，用这种远古问题拷打我，真是。。。绝了。</p>
+<p>我还没答上来，真是，绝妙。</p>
+<h3 id="AJAX定义"><a href="#AJAX定义" class="headerlink" title="AJAX定义"></a>AJAX定义</h3><p>AJAX 代表异步的 JavaScript 和 XML（<strong>A</strong>synchronous <strong>J</strong>avaScript <strong>A</strong>nd <strong>X</strong>ML）。</p>
+<p>简单点说，就是使用 <a href="https://link.juejin.cn/?target=https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest"><code>XMLHttpRequest</code></a> 对象与服务器通信。它可以使用 JSON、XML (Extensible Markup Language)、HTML 和文本文件等格式发送和接收数据</p>
+<p>AJAX 最吸引人的就是它的<code>异步</code>特性，也就是说它可以在<strong>不重新刷新页面</strong>的情况下与服务器通信、交换数据或更新页面</p>
+<p>整个流程很简单，如下</p>
+<ol>
+<li>创建一个XMLHttpRequest对象，发送异步请求HttpRequest</li>
+<li>服务器通过网络，接收HttpRequest请求，返回请求数据</li>
+<li>浏览器通过网络，接收服务器返回的数据，用JS操作DOM更新页面</li>
+</ol>
+<p>为避免混淆，这里重新梳理一下 Ajax 概念：</p>
+<ol>
+<li>AJAX &#x3D; Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）</li>
+<li>AJAX <strong>不是编程语言</strong>，而是一种基于现有标准的新方法</li>
+<li>AJAX 最大的优点是在<strong>不重新加载整个页面</strong>的情况下，与服务器交换数据并更新部分网页内容</li>
+<li>AJAX 不需要任何浏览器插件，但需要用户允许 JavaScript 在浏览器上执行。</li>
+<li><strong>XMLHttpRequest 只是实现 Ajax 的一种方式</strong></li>
+</ol>
+<p><strong>总的来说，AJAX是浏览器与服务器进行数据通信的技术</strong></p>
+<h3 id="AJAX实现"><a href="#AJAX实现" class="headerlink" title="AJAX实现"></a>AJAX实现</h3><h4 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h4><p>URL (Uniform Resource Locator) 统一资源定位符（统一资源定位器、定位地址、URL地址）俗称地址，是因特网上标准的资源的地址，如同在网络上的门牌，用于访问网络上的资源</p>
+<p>URL组成：URL 由<strong>协议</strong>、<strong>域名</strong>、<strong>资源路径</strong>组成</p>
+<ul>
+<li>协议：URL 使用 http 协议（超文本传输协议），规定浏览器与服务器之间传输数据的格式</li>
+<li>域名：标记服务器在互联网中的方位</li>
+<li>资源路径：标记资源在浏览器下的具体位置</li>
+</ul>
+<p>比如，我们这里架假设要去访问百度网站上的一份文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.baidu.com/test/helloworld.txt</span><br></pre></td></tr></table></figure>
+
+<p>这里我们将上述url拆分一下，结果如下</p>
+<table>
+<thead>
+<tr>
+<th>访问协议</th>
+<th>服务器名称：域名</th>
+<th>目录名</th>
+<th>文件名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>http:</td>
+<td><a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a></td>
+<td>test</td>
+<td>helloworld.txt</td>
+</tr>
+</tbody></table>
+<p>域名这里如果细说，还要提到IP和端口，这里暂时先跳过，下期再说。</p>
+<h4 id="XMLHttpRequest"><a href="#XMLHttpRequest" class="headerlink" title="XMLHttpRequest"></a>XMLHttpRequest</h4><h5 id="XHR概念"><a href="#XHR概念" class="headerlink" title="XHR概念"></a>XHR概念</h5><p><code>XMLHttpRequest</code>（XHR）对象<strong>用于与服务器交互</strong>。</p>
+<p>通过 XMLHttpRequest 可以在不刷新页面的情况下请求特定 URL 来获取数据。</p>
+<p>这允许网页在不影响用户操作的情况下，更新页面的局部内容。</p>
+<p><code>XMLHttpRequest</code> 在 <a href="https://link.juejin.cn/?target=https://developer.mozilla.org/zh-CN/docs/Glossary/AJAX">AJAX</a> 编程中被大量使用，所有现代浏览器均支持 XMLHttpRequest 对象</p>
+<p><code>XMLHttpRequest</code> 可以用于获取任何类型的数据，而不仅仅是 XML，它甚至支持 <a href="https://link.juejin.cn/?target=https://developer.mozilla.org/zh-CN/docs/Web/HTTP">HTTP</a> 以外的协议（包括 file:&#x2F;&#x2F; 和 FTP），尽管可能受到更多出于安全等原因的限制</p>
+<h5 id="XHR使用"><a href="#XHR使用" class="headerlink" title="XHR使用"></a>XHR使用</h5><p>实现 <code>Ajax</code>异步交互需要完成以下步骤：</p>
+<ul>
+<li>创建 <code>XMLHttpRequest</code> 对象</li>
+<li>通过 <code>XMLHttpRequest</code> 对象的 <code>open()</code> 方法与服务端建立连接</li>
+<li>构建请求所需的数据内容，并通过<code> XMLHttpRequest</code> 对象的 <code>send()</code> 方法发送给服务器端</li>
+<li>通过 <code>XMLHttpRequest</code> 对象提供的 <code>readystatechange、loadend</code> 事件监听服务器端的通信状态</li>
+<li>接受并处理服务端向客户端响应的数据结果</li>
+<li>将处理结果更新到 <code>HTML</code>页面中</li>
+</ul>
+<h5 id="向服务器发送请求"><a href="#向服务器发送请求" class="headerlink" title="向服务器发送请求"></a>向服务器发送请求</h5><p>如需将请求发送到服务器，我们使用 <strong>XMLHttpRequest</strong> 对象的 <strong>open()</strong> 和 <strong>send()</strong> 方法</p>
+<p><strong>open()</strong></p>
+<ul>
+<li><p>通过 <code>XMLHttpRequest</code> 对象的 <code>open()</code> 方法与服务器建立连接</p>
+</li>
+<li><p>语法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xhr.<span class="title function_">open</span>(method, url, [<span class="keyword">async</span>][, user][, password])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>参数说明</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>method</td>
+<td>表示当前的请求方式，常见的有 <em>GET</em>、<em>POST</em></td>
+</tr>
+<tr>
+<td>url</td>
+<td>服务端地址</td>
+</tr>
+<tr>
+<td>async</td>
+<td>布尔值，表示是否异步执行操作，默认为 <em>true</em>(异步)</td>
+</tr>
+<tr>
+<td>user</td>
+<td>可选的用户名用于认证用途；默认为 <em>null</em></td>
+</tr>
+<tr>
+<td>password</td>
+<td>可选的密码用于认证用途，默认为 <em>null</em></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p><strong>send()</strong></p>
+<ul>
+<li><p>通过 <code>XMLHttpRequest</code> 对象的 <code>send()</code> 方法，将客户端页面的数据发送给服务端</p>
+</li>
+<li><p>语法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// body为 XHR 请求中要发送的数据体(string)，如果不传递数据则为 null</span></span><br><span class="line">xhr.<span class="title function_">send</span>([body])</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="onreadystatechange"><a href="#onreadystatechange" class="headerlink" title="onreadystatechange"></a>onreadystatechange</h5><p>当请求被发送到服务器时，我们需要执行一些基于响应的任务。</p>
+<p>每当 readyState 改变时（存有 XMLHttpRequest 状态信息）就会触发 readystatechange 事件</p>
+<p>以下是 XMLHttpRequest 对象的三个重要的属性：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>onreadystatechange</td>
+<td>存储函数（或函数名），每当 readyState 属性改变时，就会调用该函数</td>
+</tr>
+<tr>
+<td>readyState</td>
+<td>存有 XMLHttpRequest 的状态。从 0 到 4 发生变化 0：请求未初始化 1：服务器连接已建立 2：请求已接收 3：请求处理中 4：请求已完成，且响应已就绪</td>
+</tr>
+<tr>
+<td>status</td>
+<td>200：”OK”，404：未找到页面</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>readystatechange 事件被触发四次，分别是：0-1、1-2、2-3、3-4，对应着 readyState 的每个变化</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 旧写法</span></span><br><span class="line">xhr.<span class="property">onreadystatechange</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">　　<span class="keyword">if</span> (xhr.<span class="property">readyState</span> == <span class="number">4</span> &amp;&amp; xhr.<span class="property">status</span> == <span class="number">200</span> ) &#123;</span><br><span class="line">     <span class="comment">// 在这里处理服务器的响应数据</span></span><br><span class="line">　　  <span class="variable language_">console</span>.<span class="title function_">log</span>(xhr.<span class="property">responseText</span>)</span><br><span class="line">　　&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">     <span class="comment">// 在这里处理服务器的响应数据</span></span><br><span class="line">　　  <span class="variable language_">console</span>.<span class="title function_">log</span>(xhr.<span class="property">statusText</span>)</span><br><span class="line">　　&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 新写法</span></span><br><span class="line">xhr.<span class="title function_">addEventListener</span>(<span class="string">&#x27;readystatechange&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (xhr.<span class="property">readyState</span> === <span class="number">4</span> &amp;&amp; xhr.<span class="property">status</span> === <span class="number">200</span>) &#123;</span><br><span class="line">    <span class="comment">// 在这里处理服务器的响应数据</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(xhr.<span class="property">response</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="服务器响应"><a href="#服务器响应" class="headerlink" title="服务器响应"></a>服务器响应</h5><p>获取 XMLHttpRequest 响应体</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">readBody</span>(<span class="params">xhr</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (!xhr.<span class="property">responseType</span> || xhr.<span class="property">responseType</span> === <span class="string">&quot;text&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> xhr.<span class="property">responseText</span></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (xhr.<span class="property">responseType</span> === <span class="string">&quot;document&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> xhr.<span class="property">responseXML</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> xhr.<span class="property">response</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="XHR使用示例"><a href="#XHR使用示例" class="headerlink" title="XHR使用示例"></a>XHR使用示例</h5><ul>
+<li>GET 请求</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>()</span><br><span class="line">xhr.<span class="title function_">open</span>(<span class="string">&#x27;GET&#x27;</span>,<span class="string">&#x27;http://xxxx.com/xxx/xxx?参数名1=值1&amp;参数名2=值2&#x27;</span>) </span><br><span class="line"></span><br><span class="line">xhr.<span class="title function_">addEventListener</span>(<span class="string">&#x27;loadend&#x27;</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(xhr.<span class="property">response</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">xhr.<span class="title function_">send</span>()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>POST 请求</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// POST请求，要设置请求头，请求体携带JSON字符串</span></span><br><span class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>()</span><br><span class="line">xhr.<span class="title function_">open</span>(<span class="string">&#x27;POST&#x27;</span>, <span class="string">&#x27;http://xxx/api/register&#x27;</span>)</span><br><span class="line"></span><br><span class="line">xhr.<span class="title function_">addEventListener</span>(<span class="string">&#x27;readystatechange&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (xhr.<span class="property">readyState</span> === <span class="number">4</span> &amp;&amp; xhr.<span class="property">status</span> === <span class="number">200</span>) &#123;</span><br><span class="line">    <span class="comment">// 在这里处理服务器的响应数据</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(xhr.<span class="property">response</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">xhr.<span class="title function_">setRequestHeader</span>(<span class="string">&#x27;Content-Type&#x27;</span>, <span class="string">&#x27;application/json&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">username</span>: <span class="string">&#x27;xxx&#x27;</span>,</span><br><span class="line">  <span class="attr">password</span>: <span class="string">&#x27;xxx&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">xhr.<span class="title function_">send</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(obj))</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="相关概念拓展"><a href="#相关概念拓展" class="headerlink" title="相关概念拓展"></a>相关概念拓展</h3><h4 id="请求方式"><a href="#请求方式" class="headerlink" title="请求方式"></a>请求方式</h4><p>与 POST 相比，GET 更简单也更快，并且在大部分情况下都能用。</p>
+<p>但在以下情况中，请使用 POST 请求：</p>
+<ul>
+<li>不愿使用缓存文件（更新服务器上的文件或数据库）</li>
+<li>向服务器发送大量数据（POST 没有数据量限制）</li>
+<li>发送包含未知字符的用户输入时，POST 比 GET 更稳定也更可靠</li>
+</ul>
+<p>常见 GET 请求</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xhr.<span class="title function_">open</span>(<span class="string">&quot;GET&quot;</span>, <span class="string">&quot;/try/ajax/demo.php?fname=Henry&amp;lname=Ford&quot;</span>, <span class="literal">true</span>)</span><br><span class="line">xhr.<span class="title function_">send</span>()</span><br></pre></td></tr></table></figure>
+
+<p>常见 POST 请求</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xhr.<span class="title function_">open</span>(<span class="string">&quot;POST&quot;</span>,<span class="string">&quot;/try/ajax/demo.php&quot;</span>,<span class="literal">true</span>)</span><br><span class="line">xhr.<span class="title function_">setRequestHeader</span>(<span class="string">&quot;Content-type&quot;</span>,<span class="string">&quot;application/x-www-form-urlencoded&quot;</span>)</span><br><span class="line">xhr.<span class="title function_">send</span>(<span class="string">&quot;fname=Henry&amp;lname=Ford&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>POST 方式发送数据，需要设置请求头，并且使用<code>send</code>方法传递参数</p>
+</blockquote>
+<h4 id="Content-Type"><a href="#Content-Type" class="headerlink" title="Content-Type"></a>Content-Type</h4><p><code>Content-Type</code>是 HTTP 头部字段之一，用于指示请求或响应消息的媒体类型</p>
+<p>以下是常见的<code>Content-Type</code>格式：</p>
+<ul>
+<li><code>application/json</code>：用于传输 JSON 格式的数据</li>
+<li><code>application/xml</code>：用于传输 XML 格式的数据</li>
+<li><code>text/plain</code>：纯文本格式，通常用于普通文本文件</li>
+<li><code>text/html</code>：用于传输 HTML 格式的数据</li>
+<li><code>image/jpeg, image/png, image/gif</code>：用于传输图像数据</li>
+<li><code>multipart/form-data</code>：通常用于上传文件，表单数据会被编码成一系列的部分</li>
+<li><code>application/x-www-form-urlencoded</code>：通常用于发送表单数据，数据会被编码为键值对的形式（表单默认的提交数据的格式）</li>
+</ul>
+<p>在 HTTP 协议中，如果未明确指定 <code>Content-Type</code> 头部字段，默认值取决于请求或响应的具体情况：</p>
+<ul>
+<li><strong>对于请求（Request）</strong><ul>
+<li>对于常见的表单提交，即 <code>application/x-www-form-urlencoded</code></li>
+<li>对于通过表单上传文件的情况，即 <code>multipart/form-data</code></li>
+</ul>
+</li>
+<li><strong>对于响应（Response）</strong><ul>
+<li>如果服务器响应包含实际的数据，而不仅仅是一条状态码和头部字段，则常见的默认值为 <code>application/octet-stream</code>，表示二进制流，没有指定具体的数据类型</li>
+</ul>
+</li>
+</ul>
+<p>HTTP 协议规范允许在请求和响应中都不设置 <code>Content-Type</code> 头部字段。</p>
+<p>在这种情况下，接收方可能需要根据上下文来猜测数据的类型，这可能引入一些不确定性。</p>
+<p>推荐在请求和响应中显式地设置 <code>Content-Type</code> 头部字段</p>
+<h4 id="FormData"><a href="#FormData" class="headerlink" title="FormData"></a>FormData</h4><p>Ajax 操作往往用来传递表单数据。为了方便表单处理，HTML5 新增了一个 FormData 对象，可以模拟表单，特别适用于发送包含文件上传等复杂数据的请求</p>
+<p>使用 FormData 可以执行以下步骤：</p>
+<ul>
+<li>创建一个 FormData 对象</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> formData = <span class="keyword">new</span> <span class="title class_">FormData</span>()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>向 FormData 对象中添加字段</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">formData.<span class="title function_">append</span>(<span class="string">&#x27;username&#x27;</span>, <span class="string">&#x27;John&#x27;</span>)</span><br><span class="line">formData.<span class="title function_">append</span>(<span class="string">&#x27;email&#x27;</span>, <span class="string">&#x27;john@example.com&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>添加文件类型的字段</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从文件输入框中获取选中的文件, 可以根据实际情况选择获取文件的方式</span></span><br><span class="line"><span class="keyword">const</span> fileInput = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;fileInput&#x27;</span>)</span><br><span class="line">formData.<span class="title function_">append</span>(<span class="string">&#x27;file&#x27;</span>, fileInput.<span class="property">files</span>[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将 FormData 对象作为请求的 body 或附加到 XMLHttpRequest 或 fetch 等发送请求的方法中：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>()</span><br><span class="line">xhr.<span class="title function_">open</span>(<span class="string">&#x27;POST&#x27;</span>, <span class="string">&#x27;/api/endpoint&#x27;</span>)</span><br><span class="line">xhr.<span class="title function_">send</span>(formData)</span><br></pre></td></tr></table></figure>
+
+<p>以上就将 FormData 数据作为请求的一部分发送给服务器端了</p>
+<p>注意事项：</p>
+<ul>
+<li>当使用 FormData 时，浏览器会自动设置适当的 <code>Content-Type</code> 头部，无需手动设置</li>
+<li>FormData 也支持删除字段和追加相同字段名的多个值等操作，请根据需求使用相应的方法</li>
+</ul>
+<blockquote>
+<p>FormData 对象其他方法参考官网：<a href="https://link.juejin.cn/?target=https://developer.mozilla.org/zh-CN/docs/Web/API/FormData">MDN-FormData</a></p>
+</blockquote>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>说实话，早年就以为这东西是jquery封装的，结果上次模拟面试被狠狠拷打了一波。</p>
+<p>虽然这种远古问题不应该算是关注范围以内的东西了，但是有备无患，这里记录一下。</p>
+<p>2024年了，我居然又翻到ajax了，真是。。绝了。</p>
+<p>这两天把ajax，axios，fetch相关的请求方式全整理一遍，不然面试还真有点发憷。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7340295754245111817?searchId=2024050820515495FC5659A1B7863EB72F">一文熟悉Ajax</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/">MDN-CN</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/05/07/%E8%A7%A3%E5%86%B3github%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E7%AB%AF%E5%8F%A3%E6%8A%A5%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-05-20 00:58:54
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">
+                        #浏览器
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                        #面试
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/JS/" title="JS">
+                        #JS
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2024/05/09/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3axios/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AJAX%E5%AE%9A%E4%B9%89"><span class="toc-text">AJAX定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AJAX%E5%AE%9E%E7%8E%B0"><span class="toc-text">AJAX实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#URL"><span class="toc-text">URL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#XMLHttpRequest"><span class="toc-text">XMLHttpRequest</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#XHR%E6%A6%82%E5%BF%B5"><span class="toc-text">XHR概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XHR%E4%BD%BF%E7%94%A8"><span class="toc-text">XHR使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%90%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82"><span class="toc-text">向服务器发送请求</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#onreadystatechange"><span class="toc-text">onreadystatechange</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%93%8D%E5%BA%94"><span class="toc-text">服务器响应</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XHR%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-text">XHR使用示例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5%E6%8B%93%E5%B1%95"><span class="toc-text">相关概念拓展</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F"><span class="toc-text">请求方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Content-Type"><span class="toc-text">Content-Type</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FormData"><span class="toc-text">FormData</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + 10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3ajax + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F05%2F08%2F10%25E5%2588%2586%25E9%2592%259F%25E4%25BA%2586%25E8%25A7%25A3ajax%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/05/08/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3ajax/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

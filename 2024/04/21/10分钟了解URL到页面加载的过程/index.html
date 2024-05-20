@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      10分钟了解URL到页面加载的过程 
+      
+      
+      |
+    
+     远川的博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">10分钟了解URL到页面加载的过程</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-05-07 23:17:58
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">
+                    #浏览器
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                    #面试
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>好早之前的面试题，最近猛的一问，居然答不上来了。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="面试回答"><a href="#面试回答" class="headerlink" title="面试回答"></a>面试回答</h3><p>在页面加载到最终渲染显示大致是这样的：</p>
+<ol>
+<li>用户在浏览器输入URL回车后，浏览器为了将URL解析成IP地址，会向DNS服务器发起DNS查询，获取IP地址。</li>
+<li>在建立连接后，浏览器就可以发起HTTP请求，而服务器接受请求后进行响应，浏览器从响应结果中拿到数据，并进行解析和渲染，</li>
+<li>最后在用户面前就出现了一个网页。</li>
+</ol>
+<p>简而言之就是三个阶段：</p>
+<ul>
+<li>客户端发起请求阶段</li>
+<li>服务端数据处理请求阶段</li>
+<li>客户端页面渲染阶段</li>
+</ul>
+<p>如果想起</p>
+<ol>
+<li>缓存解析地址，判断是否</li>
+<li>DNS解析，（输入的是域名）</li>
+<li>TCP连接</li>
+<li>发送HTTP请求</li>
+<li>服务器处理请求并返回需要的数据</li>
+<li>浏览器解析渲染页面</li>
+<li>连接结束</li>
+</ol>
+<p>输入了一个域名,域名要通过DNS解析找到这个域名对应的服务器地址(ip),通过TCP请求链接服务,通过WEB服务器(apache)返回数据,浏览器根据返回数据构建DOM树,通过css渲染引擎及js解析引擎将页面渲染出来,关闭<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=tcp%E8%BF%9E%E6%8E%A5&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2603050043%7D">tcp连接</a></p>
+<h3 id="正常分析"><a href="#正常分析" class="headerlink" title="正常分析"></a>正常分析</h3><h4 id="首先在浏览器中输入URL-，缓存解析"><a href="#首先在浏览器中输入URL-，缓存解析" class="headerlink" title="首先在浏览器中输入URL ，缓存解析"></a>首先在浏览器中输入URL ，缓存解析</h4><p>浏览器先在缓存里找资源，浏览器缓存-系统缓存-路由缓存（如CDN缓存）中是否有该地址页面，如果有则显示页面内容。如果没有则进行下一步。</p>
+<h5 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h5><p>浏览器会记录DNS一段时间，因此，只是第一个地方解析DNS请求；</p>
+<h5 id="操作系统缓存"><a href="#操作系统缓存" class="headerlink" title="操作系统缓存"></a>操作系统缓存</h5><p>如果在浏览器缓存中不包含这个记录，则会使系统调用操作系统， 获取操作系统的记录(保存最近的DNS查询缓存)；</p>
+<h5 id="路由器缓存"><a href="#路由器缓存" class="headerlink" title="路由器缓存"></a>路由器缓存</h5><p>如果上述两个步骤均不能成功获取DNS记录，继续搜索路由器缓存；</p>
+<h5 id="ISP（互联网提供服务商）缓存"><a href="#ISP（互联网提供服务商）缓存" class="headerlink" title="ISP（互联网提供服务商）缓存"></a>ISP（互联网提供服务商）缓存</h5><p>若上述均失败，继续向ISP搜索。</p>
+<h4 id="DNS域名解析"><a href="#DNS域名解析" class="headerlink" title="DNS域名解析"></a>DNS域名解析</h4><p>浏览器向DNS服务器发起请求，解析该URL中的域名对应的IP地址。</p>
+<p>DNS服务器是基于UDP的，因此会用到UDP协议。</p>
+<ul>
+<li>DNS(Domain Name System, 域名系统)，是域名和IP地址相互映射的一个分布式数据库</li>
+<li>DNS 解析就是从域名映射到IP地址的过程</li>
+<li>如果有些网站已经访问过了，下次访问时浏览器会依次从浏览器缓存、系统缓存、路由器缓存、ISP缓存、根域名服务器、顶级域名服务器、主域名服务器里面找IP地址，所以下次访问速度更快</li>
+</ul>
+<h4 id="建立TCP连接"><a href="#建立TCP连接" class="headerlink" title="建立TCP连接"></a>建立TCP连接</h4><p>解析出IP地址后，根据IP地址和默认80端口，和服务器建立TCP连接。</p>
+<h5 id="三次握手过程"><a href="#三次握手过程" class="headerlink" title="三次握手过程"></a><strong>三次握手过程</strong></h5><p>建立tcp连接就是三次握手，三次握手的过程采用 TCP 协议，其可以保证信息传输的可靠性，三次握手过程中，若一方收不到确认信号，协议会要求重新发送信号</p>
+<p>第一次，客户端&#x3D;&gt;服务端 客户端向服务器端发送SYN&#x3D;1,代表请求建立连接；还发送seq&#x3D;n是客户端的序列号。</p>
+<p>第二次，服务端&#x3D;&gt;客户端，服务端表名收到请求，发给客户端SYN&#x3D;1,代表同意建立连接，ack&#x3D;n+1，返回客户端序列号加1，代表确认收到信息，同时发送一个自己的序列号，seq&#x3D;x代表服务端序列号。</p>
+<p> 第三次，客户端&#x3D;&gt;服务端 客户端发送SYN&#x3D;0表明开始发送信息，并返回ack &#x3D; x+1确认收到服务端序列号，并发送seq &#x3D; n+1</p>
+<h4 id="发起HTTP请求"><a href="#发起HTTP请求" class="headerlink" title="发起HTTP请求"></a>发起HTTP请求</h4><p>浏览器发起读取文件的HTTP请求，该请求报文作为TCP三次握手的第三次数据发送给服务器</p>
+<h4 id="服务器响应请求并返回结果"><a href="#服务器响应请求并返回结果" class="headerlink" title="服务器响应请求并返回结果"></a>服务器响应请求并返回结果</h4><p>服务器对浏览器请求做出响应，并把对应的html文件发送给浏览器</p>
+<h5 id="关闭TCP连接"><a href="#关闭TCP连接" class="headerlink" title="关闭TCP连接"></a>关闭TCP连接</h5><p>通过四次挥手释放TCP连接； 前两次挥手用于关闭一个方向的数据通道，后两次挥手用于关闭另外一个方向的数据通道。</p>
+<h5 id="四次挥手过程"><a href="#四次挥手过程" class="headerlink" title="四次挥手过程"></a><strong>四次挥手过程</strong></h5><p>​    客户端向服务器发送FIN控制报文段（首部中的 FIN 比特被置位）；</p>
+<p>​    服务端收到FIN，回复ACK。服务器进入关闭等待状态，发送FIN;</p>
+<p>​    客户端收到FIN，给服务器回复ACK，客户端进入等待状态（进入“等待”，以确保服务器收到ACK真正关闭连接）;</p>
+<p>​    服务端收到ACK，链接关闭。</p>
+<p><strong>四次挥手原因</strong></p>
+<p> TCP协议是一种面向连接的、可靠的、基于字节流的运输层通信协议。</p>
+<p>TCP是全双工模式，这就意味着，当客户端发出FIN报文段时，只是表示客户端已经没有数据要发送了，客户端告诉服务器，它的数据已经全部发送完毕了；</p>
+<p>但是，这个时候客户端还是可以接受来自服务端的数据；</p>
+<p>当服务端返回ACK报文段时，表示它已经知道客户端没有数据发送了，但是服务端还是可以发送数据到客户端的；</p>
+<p>当服务端也发送了FIN报文段时，这个时候就表示服务端也没有数据要发送了，就会告诉客户端，我也没有数据要发送了，之后彼此就会愉快的中断这次TCP连接。</p>
+<h4 id="浏览器渲染"><a href="#浏览器渲染" class="headerlink" title="浏览器渲染"></a>浏览器渲染</h4><p>客户端（浏览器）解析HTML内容并渲染出来，浏览器接收到数据包后的解析流程为：</p>
+<p>构建DOM树：词法分析然后解析成DOM树（dom tree），是由dom元素及属性节点组成，树的根是document对象</p>
+<p> 构建CSS规则树：生成CSS规则树（CSS Rule Tree）</p>
+<p> 构建render树：Web浏览器将DOM和CSSOM结合，并构建出渲染树（render tree）</p>
+<p> 布局（Layout）：计算出每个节点在屏幕中的位置</p>
+<p> 绘制（Painting）：即遍历render树，并使用UI后端层绘制每个节点。</p>
+<h5 id="浏览器渲染详细过程"><a href="#浏览器渲染详细过程" class="headerlink" title="浏览器渲染详细过程"></a>浏览器渲染详细过程</h5><p><strong>浏览器已经拿到了 server 端返回的 HTML 内容，开始解析并渲染。</strong></p>
+<p>最初拿到的内容就是一堆字符串，必须先结构化成计算机擅长处理的基本数据结构，这个内部结构就是 DOM，DOM 提供了对 HTML 文档的结构化表述。渲染进程通过分词器将html字节流成功成一个个 token，包括 Tag token 和文本 token。HTML 解析器维护了一个 token 栈结构，token 会按照对应顺序入栈出栈，然后将 token 解析成 DOM 节点，并将 DOM 节点添加进 DOM 树中。</p>
+<p><strong>异步下载资源文件</strong></p>
+<p>解析过程中，如果遇到&lt; link href &#x3D;＂..＂＞和&lt; script src &#x3D;＂..＂＞这种外链加载 CSS 和 JS 的标签，浏览器会异步下载，下载过程和上文中下载 HTML 的流程一样。只不过，这里下载下来的字符串是 CSS 或者 JS 格式的。</p>
+<p><strong>渲染样式</strong></p>
+<p>渲染引擎在接受到 CSS 文本时，会将 CSS 生成 CSS对象模型CSSOM(即CSS Object Model) ，通过document.styleSheets可获取所有CSS样式表，然后将 styleSheet 中的属性值进行标准化操作。最后将 DOM 和 CSSOM 整合成 RenderTree ，然后针对 RenderTree 进行渲染。</p>
+<p>最后，渲染过程中，如果遇到＜ script ＞就停止渲染，执行 JS 代码。因为浏览器渲染和 JS 执行共用一个线程，而且这里必须是单线程操作，多线程会产生渲染 DOM 冲突。待＜ script ＞内容执行完之后，浏览器继续渲染。</p>
+<p>—— <strong>为何要将 CSS 放在 HTML 头部？</strong> —— </p>
+<p>这样会让浏览器尽早拿到 CSS 尽早生成 CSSOM ，然后在解析 HTML 之后可一次性生成最终的RenderTree ，渲染一次即可。如果 CSS 放在 HTML 底部，会出现渲染卡顿的情况，影响性能和体验。</p>
+<p>—— <strong>为何要将 JS 放在 HTML 底部？</strong> —— </p>
+<p>JS 放在底部可以保证让浏览器优先渲染完现有的 HTML 内容，让用户先看到内容，体验好。另外， JS 执行如果涉及 DOM 操作，得等待 DOM 解析完成才行， JS 放在底部执行时， HTML 肯定都解析成了 DOM 结构。 </p>
+<p>JS 如果放在 HTML 顶部， JS 执行的时候 HTML 还没来得及转换为 DOM 结构，可能会报错。</p>
+<h5 id="JS引擎解析过程"><a href="#JS引擎解析过程" class="headerlink" title="JS引擎解析过程"></a>JS引擎解析过程</h5><p>调用JS引擎执行JS代码（JS的解释阶段，预处理阶段，执行阶段生成执行上下文，VO，作用域链、回收机制等等）</p>
+<h6 id="创建window对象"><a href="#创建window对象" class="headerlink" title="创建window对象"></a>创建window对象</h6><p>window对象也叫全局执行环境，当页面产生时就被创建，所有的全局变量和函数都属于window的属性和方法，而DOM Tree也会映射在window的doucment对象上。当关闭网页或者关闭浏览器时，全局执行环境会被销毁。</p>
+<h6 id="加载文件"><a href="#加载文件" class="headerlink" title="加载文件"></a>加载文件</h6><p>完成js引擎分析它的语法与词法是否合法，如果合法进入预编译</p>
+<h6 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a>预编译</h6><p>在预编译的过程中，浏览器会寻找全局变量声明，把它作为window的属性加入到window对象中，并给变量赋值为’undefined’；寻找全局函数声明，把它作为window的方法加入到window对象中，并将函数体赋值给他（匿名函数是不参与预编译的，因为它是变量）。而变量提升作为不合理的地方在ES6中已经解决了，函数提升还存在。</p>
+<h6 id="解释执行"><a href="#解释执行" class="headerlink" title="解释执行"></a>解释执行</h6><p>执行到变量就赋值，如果变量没有被定义，也就没有被预编译直接赋值，在ES5非严格模式下这个变量会成为window的一个属性，也就是成为全局变量。string、int这样的值就是直接把值放在变量的存储空间里，object对象就是把指针指向变量的存储空间。函数执行，就将函数的环境推入一个环境的栈中，执行完成后再弹出，控制权交还给之前的环境。JS作用域其实就是这样的执行流机制实现的。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>这个基础知识我能回答，但是细节我答不上太多，稍微显得有点丢人。</p>
+<p>当初面试时候都记得，如今居然都记不得了。</p>
+<p>现在趁着梳理知识体系时候，好好学习一下。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7154306280868282381?searchId=20240421211440950468993CA81FC881AA">从输入URL到页面加载的全过程 - 掘金 (juejin.cn)</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/04/20/2024%E5%B9%B4%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%A2%AB%E9%AA%97/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-05-07 23:17:58
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">
+                        #浏览器
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                        #面试
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2024/04/22/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3http%E4%B8%8Ehttps%E7%9A%84%E5%8C%BA%E5%88%AB/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E8%AF%95%E5%9B%9E%E7%AD%94"><span class="toc-text">面试回答</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%B8%B8%E5%88%86%E6%9E%90"><span class="toc-text">正常分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A6%96%E5%85%88%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E8%BE%93%E5%85%A5URL-%EF%BC%8C%E7%BC%93%E5%AD%98%E8%A7%A3%E6%9E%90"><span class="toc-text">首先在浏览器中输入URL ，缓存解析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98"><span class="toc-text">浏览器缓存</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%BC%93%E5%AD%98"><span class="toc-text">操作系统缓存</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E7%BC%93%E5%AD%98"><span class="toc-text">路由器缓存</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ISP%EF%BC%88%E4%BA%92%E8%81%94%E7%BD%91%E6%8F%90%E4%BE%9B%E6%9C%8D%E5%8A%A1%E5%95%86%EF%BC%89%E7%BC%93%E5%AD%98"><span class="toc-text">ISP（互联网提供服务商）缓存</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DNS%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90"><span class="toc-text">DNS域名解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8BTCP%E8%BF%9E%E6%8E%A5"><span class="toc-text">建立TCP连接</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B"><span class="toc-text">三次握手过程</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%91%E8%B5%B7HTTP%E8%AF%B7%E6%B1%82"><span class="toc-text">发起HTTP请求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%93%8D%E5%BA%94%E8%AF%B7%E6%B1%82%E5%B9%B6%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C"><span class="toc-text">服务器响应请求并返回结果</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B3%E9%97%ADTCP%E8%BF%9E%E6%8E%A5"><span class="toc-text">关闭TCP连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%BF%87%E7%A8%8B"><span class="toc-text">四次挥手过程</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93"><span class="toc-text">浏览器渲染</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E8%AF%A6%E7%BB%86%E8%BF%87%E7%A8%8B"><span class="toc-text">浏览器渲染详细过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#JS%E5%BC%95%E6%93%8E%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B"><span class="toc-text">JS引擎解析过程</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAwindow%E5%AF%B9%E8%B1%A1"><span class="toc-text">创建window对象</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6"><span class="toc-text">加载文件</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%A2%84%E7%BC%96%E8%AF%91"><span class="toc-text">预编译</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%A7%A3%E9%87%8A%E6%89%A7%E8%A1%8C"><span class="toc-text">解释执行</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + 10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%8A%A0%E8%BD%BD%E7%9A%84%E8%BF%87%E7%A8%8B + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F04%2F21%2F10%25E5%2588%2586%25E9%2592%259F%25E4%25BA%2586%25E8%25A7%25A3URL%25E5%2588%25B0%25E9%25A1%25B5%25E9%259D%25A2%25E5%258A%25A0%25E8%25BD%25BD%25E7%259A%2584%25E8%25BF%2587%25E7%25A8%258B%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/04/21/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%8A%A0%E8%BD%BD%E7%9A%84%E8%BF%87%E7%A8%8B/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
