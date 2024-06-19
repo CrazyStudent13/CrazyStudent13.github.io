@@ -2,33 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://crazystudent13.github.io/2024/06/06/%E6%B5%85%E6%9E%90vue2%E4%B8%ADdata%E6%98%AF%E5%87%BD%E6%95%B0%E7%9A%84%E5%8E%9F%E5%9B%A0/</loc>
-    
-    <lastmod>2024-06-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://crazystudent13.github.io/2024/06/09/%E6%B5%85%E6%9E%90vue2%E7%9A%84%E8%99%9A%E6%8B%9Fdom%E4%B8%8Ediff%E7%AE%97%E6%B3%95/</loc>
-    
-    <lastmod>2024-06-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://crazystudent13.github.io/2024/06/08/%E6%B5%85%E6%9E%90vue%E4%B8%ADv-for%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/</loc>
-    
-    <lastmod>2024-06-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://crazystudent13.github.io/2024/05/31/%E6%B5%85%E6%9E%90vue%E7%9A%84%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/</loc>
     
     <lastmod>2024-06-19</lastmod>
@@ -119,7 +92,7 @@
   </url>
   
   <url>
-    <loc>https://crazystudent13.github.io/about/index.html</loc>
+    <loc>https://crazystudent13.github.io/friends/index.html</loc>
     
     <lastmod>2024-06-19</lastmod>
     
@@ -128,7 +101,7 @@
   </url>
   
   <url>
-    <loc>https://crazystudent13.github.io/friends/index.html</loc>
+    <loc>https://crazystudent13.github.io/about/index.html</loc>
     
     <lastmod>2024-06-19</lastmod>
     
@@ -147,24 +120,6 @@
   
   <url>
     <loc>https://crazystudent13.github.io/tags/index.html</loc>
-    
-    <lastmod>2024-06-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://crazystudent13.github.io/2024/04/21/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%8A%A0%E8%BD%BD%E7%9A%84%E8%BF%87%E7%A8%8B/</loc>
-    
-    <lastmod>2024-06-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://crazystudent13.github.io/2024/05/08/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3ajax/</loc>
     
     <lastmod>2024-06-19</lastmod>
     
@@ -686,6 +641,33 @@
   </url>
   
   <url>
+    <loc>https://crazystudent13.github.io/2024/06/06/%E6%B5%85%E6%9E%90vue2%E4%B8%ADdata%E6%98%AF%E5%87%BD%E6%95%B0%E7%9A%84%E5%8E%9F%E5%9B%A0/</loc>
+    
+    <lastmod>2024-06-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://crazystudent13.github.io/2024/06/09/%E6%B5%85%E6%9E%90vue2%E7%9A%84%E8%99%9A%E6%8B%9Fdom%E4%B8%8Ediff%E7%AE%97%E6%B3%95/</loc>
+    
+    <lastmod>2024-06-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://crazystudent13.github.io/2024/06/08/%E6%B5%85%E6%9E%90vue%E4%B8%ADv-for%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/</loc>
+    
+    <lastmod>2024-06-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://crazystudent13.github.io/2024/05/07/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A36%E7%A7%8D%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F/</loc>
     
     <lastmod>2024-06-19</lastmod>
@@ -730,6 +712,24 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>https://crazystudent13.github.io/2024/04/21/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%8A%A0%E8%BD%BD%E7%9A%84%E8%BF%87%E7%A8%8B/</loc>
+    
+    <lastmod>2024-06-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://crazystudent13.github.io/2024/05/08/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3ajax/</loc>
+    
+    <lastmod>2024-06-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   <url>
     <loc>https://crazystudent13.github.io/</loc>
@@ -762,13 +762,6 @@
   
   <url>
     <loc>https://crazystudent13.github.io/tags/css/</loc>
-    <lastmod>2024-06-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://crazystudent13.github.io/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
     <lastmod>2024-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
