@@ -162,7 +162,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-05-07 23:17:58
+          2024-06-19 16:40:02
         </span>
         
               <span class="post-tags">
@@ -184,34 +184,103 @@
           
       </div>
       <div class="markdown-body">
-        <p>原型链，从来都没去理解过，为了面试特意查了一下，发现早就是在工作里边用的熟悉了。</p>
+        <p>原型链，从来都没去理解过，为了面试特意查了一下，发现早就是在工作里边用的熟悉了，只是我没有去深入了解这块。</p>
 <span id="more"></span>
 
 
 
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>工作中常常遇到输出对象的内容，</p>
-<p><strong>暂时未完成施工，等手里的私活忙完我再继续写</strong></p>
-<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p>用来声明对象的函数</p>
-<p>构造函数和普通函数本质上没什么区别，只不过使用了<code>new</code>关键字创建对象的函数，被叫做了构造函数。构造函数命名通常采用首字母大写的方式，以便与普通函数和变量进行区分。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Person(name, age) &#123;</span><br><span class="line">   	this.name = name;</span><br><span class="line">   	this.age = age;</span><br><span class="line">    this.species = &#x27;人类&#x27;;</span><br><span class="line">    this.say = function () &#123;</span><br><span class="line">        console.log(&quot;Hello&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let per1 = new Person(&#x27;xiaoming&#x27;, 20);</span><br></pre></td></tr></table></figure>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>工作中，为了调试，我们常常输出对象查看内容。</p>
+<p>例如，我在vue中输出内容，经常会发现会经常看到Prototype，__proto__，.constructor等意义不明的东西。</p>
+<p>后来工作久了，细细查了一下，才知道这玩意是原型链。</p>
+<p>毕竟我不是正规前端出身，做事儿总是奉行能用就行，所以后来一直没详细整理这块的内容。</p>
+<p>如今闲下来了，针对这块内容，这里梳理一下，也防止面试被问到。</p>
+<h3 id="必要概念"><a href="#必要概念" class="headerlink" title="必要概念"></a>必要概念</h3><p>在正式进入原型链之前，先简单了解一些简单的概念。</p>
+<h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><p>构造函数和普通函数本质上没什么区别，只不过使用了<code>new</code>关键字创建对象的函数，被叫做了构造函数。</p>
+<p>构造函数命名通常采用首字母大写的方式，以便与普通函数和变量进行区分。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name, age</span>) &#123;</span><br><span class="line">   	<span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">   	<span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">species</span> = <span class="string">&#x27;人类&#x27;</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">say</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> per1 = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&#x27;xiaoming&#x27;</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
 
+<h4 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h4><p>在JavaScript中，<code>Object</code>构造函数创建一个对象包装器。</p>
+<p>如果给定值是null或undefined，将会创建并返回一个空对象，否则，将返回一个与给定值对应类型的对象。</p>
+<p>当以<strong>非构造函数</strong>（即，没有使用new）的方式被调用时，Object函数将转换为对象。</p>
+<p>它可以将任何值转换为对象，这种方式通常被用于将基本数据类型（如数字、字符串和布尔值）转换为相应的对象。</p>
+<p>以下代码举例，可以看出Object的转换能力。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="number">123</span>;</span><br><span class="line"><span class="keyword">let</span> obj = <span class="title class_">Object</span>(num);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj); <span class="comment">// 输出：Number &#123;123&#125;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">typeof</span> obj); <span class="comment">// 输出：&quot;object&quot;</span></span><br></pre></td></tr></table></figure>
 
+<p>根据上面构造函数的定义，<code>Object</code>是满足当做一个构造函数的要求的。</p>
+<p>既然是个函数了，那么就会有<code>prototype</code>属性。 </p>
+<p>这里先埋一个伏笔，到现在只需要记住，Object是JS运行时就创建好了的，是JS内置的，并且Object身上有个<code>prototype</code>属性即可</p>
+<h4 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h4><p>Function是一个特殊的构造函数，它是在JavaScript运行时就创建的一个<strong>对象</strong>。</p>
+<p>Function是所有函数的构造函数，先通过代码的方式举例一下通过new Function()的方式创建一个函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sum = <span class="keyword">new</span> <span class="title class_">Function</span>(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;return a + b;&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">sum</span>(<span class="number">2</span>, <span class="number">3</span>)); <span class="comment">// 输出 5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> greet = <span class="keyword">new</span> <span class="title class_">Function</span>(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;console.log(&quot;Hello, &quot; + name + &quot;!&quot;);&#x27;</span>);</span><br><span class="line"><span class="title function_">greet</span>(<span class="string">&#x27;John&#x27;</span>); <span class="comment">// 输出 &quot;Hello, John!&quot;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h3><p>将函数作为参数传递的函数</p>
-<h3 id="原型对象"><a href="#原型对象" class="headerlink" title="原型对象"></a>原型对象</h3><p>原型链的顶层是null</p>
-<h4 id="显示原型"><a href="#显示原型" class="headerlink" title="显示原型"></a>显示原型</h4><ol>
+<p>到这里我们知道了<code>new Function()</code> 构造函数可以动态地创建函数，从这里先解释一下上面有关Object的解释中的伏笔。</p>
+<p>既然所有函数都是Function生产出来的，那么Object这个构造函数是不是也是Function生产出来的呢？ </p>
+<p>答案是的。</p>
+<p>那Function自身怎么来的呢？</p>
+<p>答案是Function创造了Function，没错这是一个特殊的情况，因为万物都有个源头，Function和Object一样，都是JS在运行时就创建好了。</p>
+<blockquote>
+<p>例如下面代码，可以先略过。看完下面有关constructor 的解释再回来看这个就理解了。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">abc</span> () &#123;&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(abc.<span class="property">constructor</span> === <span class="title class_">Function</span>) <span class="comment">// 输出 true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Function</span>.<span class="property">constructor</span>  === <span class="title class_">Function</span>) <span class="comment">// 输出 true</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这段代码就印证了，所有函数都是Function生产的（包括Function自身也是）</p>
+</blockquote>
+<h4 id="显式原型（prototype）"><a href="#显式原型（prototype）" class="headerlink" title="显式原型（prototype）"></a>显式原型（prototype）</h4><p>显示原型就是利用prototype属性查找原型，只是这个是函数类型数据的属性。</p>
+<p>当然，这个东西在我们那个时候叫显示原型，现在叫做原型对象，本质上是一个东西。</p>
+<p>个人感觉现在的说法更贴切，因为这东西本质上指向的内容是对象，所以叫做原型对象，更贴切。</p>
+<ol>
 <li>Prototype是<strong>函数</strong>的一个属性</li>
 <li>是个对象</li>
 <li>创建函数的时候时候，自带该属性</li>
 </ol>
-<h4 id="隐式原型"><a href="#隐式原型" class="headerlink" title="隐式原型"></a>隐式原型</h4><p>_<em>proto</em>_</p>
+<h4 id="隐式原型（-proto-）"><a href="#隐式原型（-proto-）" class="headerlink" title="隐式原型（__proto__）"></a>隐式原型（__proto__）</h4><p>隐式原型是利用__proto__属性查找原型，这个属性指向当前对象的构造函数的原型对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(per1.__proto__ === Person.prototype); // true</span><br><span class="line">console.log(per2.__proto__ === Person.prototype); // true</span><br></pre></td></tr></table></figure>
+
 <ol>
 <li><strong>对象</strong>的属性</li>
 <li>指向构造函数Prototype</li>
 </ol>
-<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f2b435c6ed064418969d80abcddb44e6~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" alt="image.png"></p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>感觉这玩意除非涉及到基础框架开发，否则感觉真是用不上啊。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7255605810453217335?searchId=20240326154528B151AB415507AF9D5722">原型和原型链–图解</a></p>
+<h4 id="构造器（Constructor）"><a href="#构造器（Constructor）" class="headerlink" title="构造器（Constructor）"></a>构造器（Constructor）</h4><p>对于原型对象Prototype来说，它有个constructor属性，指向它的构造函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(Object.\__proto__ === Function.prototype) // 结果为true</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="经典图解"><a href="#经典图解" class="headerlink" title="经典图解"></a>经典图解</h3><p>在了解了上述的名词之后，我们再看下边的这张图，应该就会清晰很多了。</p>
+<p>以下这张图，代入核心知识点。</p>
+<p>为了清晰的解释这个关系，我们先在脑海中抽象出两个线路，一个是<strong>函数线</strong>，一个<strong>对象线</strong>。</p>
+<p>这两个线，只是暂时的把函数和对象两个概念做个区分，但实际上，函数属于对象，只是一个特殊的对象而已。</p>
+<p><strong>在JS中一切皆对象，而所有的对象原型最终指向的是null</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">牢记下面我抽象出来的两个知识点</span><br></pre></td></tr></table></figure>
+
+<p><strong>函数</strong>有 <code>prototype</code> 和 <code>__proto__</code> , <strong>对象</strong>有 <code>__proto__</code>。</p>
+<blockquote>
+<p>写一段伪代码，只是帮助你理解原型链，但是这个核是一定要记住的。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Function = &#123;</span><br><span class="line">    prototype,</span><br><span class="line">    __proto__</span><br><span class="line">&#125;</span><br><span class="line">Object= &#123;</span><br><span class="line">    __proto__</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://s2.loli.net/2024/05/27/qgtMbucF6ZPV9yK.png" alt="image-20240527221624949"></p>
+<h3 id="个人拓展"><a href="#个人拓展" class="headerlink" title="个人拓展"></a>个人拓展</h3><p>之前看到有人在群里装逼，说隐式原型（__proto__）已经被废止，说已经使用新的[[Prototype]]做标识，听他说的信誓旦旦，我还真信了。</p>
+<p>后来查了一下MDN的相关文档，大致闹明白了是怎么回事儿。</p>
+<h4 id="Prototype-是什么"><a href="#Prototype-是什么" class="headerlink" title="[[Prototype]] 是什么"></a>[[Prototype]] 是什么</h4><p>ECMA-262使用一些内部特性来描述属性的特征，这里放一下官方文档的原文。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">遵循 ECMAScript 标准，符号 someObject.[[Prototype]] 用于标识 someObject 的原型。</span><br><span class="line">内部插槽 [[Prototype]] 可以通过 Object.getPrototypeOf() 和 Object.setPrototypeOf() 函数来访问。</span><br><span class="line">这个等同于 JavaScript 的非标准但被许多 JavaScript 引擎实现的属性 __proto__ 访问器。</span><br><span class="line">为在保持简洁的同时避免混淆，在我们的符号中会避免使用 obj.__proto__，而是使用 obj.[[Prototype]] 作为代替。其对应于 Object.getPrototypeOf(obj)。</span><br><span class="line">它不应与函数的 func.prototype 属性混淆，后者指定在给定函数被用作构造函数时分配给所有对象实例的 [[Prototype]]。我们将在后面的小节中讨论构造函数的原型属性。</span><br></pre></td></tr></table></figure>
+
+<p>这段话说的挺绕，但实际就很简单的意思：这些特性是由为JavaScript实现引擎的规范定义的，因此，开发者不能在JavaScript中直接访问这些特性。</p>
+<p> 为了将某个特性标识为内部特性，规范会用两个中括号把特性的名称括起来，比如[[Prototype]]、[[Enumerable]]等。</p>
+<p><strong>[[Prototype]]就是这个一个内部属性, 它指的是对象的原型</strong>，脚本中没有访问这个[[Prototype]]特性的标准方式，但Firefox、Safari和Chrome会在每个对象上暴露<code>__proto__</code>属性，通过这个属性可以访问对象的原型。</p>
+<p>因此，所谓的<code>__proto__</code>被废除，纯粹是瞎说，我亲自在控制台上敲过，用的很正常。</p>
+<p>而[[Prototype]] ，也只是内部属性，并不能在控制台中被执行。</p>
+<p>所以，原型链这种基础的东西，几乎不太可能动的，有些人纯粹的是胡编的。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>虽然很绕，但是其实一旦理解了就很容易明白，而明白之后，再看那张经典的原型链图就会非常明白。</p>
+<p>B站的<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1LY411d7Yt/?spm_id_from=333.788&vd_source=ee3784ffe5f760cb992921cb8c5c98e5">【前端八股文】原型和原型链</a>，还有掘金的<a target="_blank" rel="noopener" href="https://juejin.cn/post/7254443448563040311#heading-1">你可能不太理解的JavaScript - 原型与原型链</a>这篇文档都解释的很不错，我算是照猫画虎的理解了一下。</p>
+<p>当然，我也翻看了现代MDN的文档，发现似乎隐式原型（__proto__）被官方弃用了，现在似乎</p>
+<p>只是，这块的知识，除非是涉及到基础框架开发，不然大多数时候是用不上的，属于一看就能明白是什么意思的基础问题，但开发根本用不到太多。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1LY411d7Yt/?spm_id_from=333.788&vd_source=ee3784ffe5f760cb992921cb8c5c98e5">【前端八股文】原型和原型链</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7254443448563040311#heading-1">你可能不太理解的JavaScript - 原型与原型链</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7255605810453217335?searchId=20240326154528B151AB415507AF9D5722">原型和原型链–图解</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain">继承与原型链 - JavaScript | MDN (mozilla.org)</a></p>
 
       </div>
       
@@ -227,7 +296,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-05-07 23:17:58
+              2024-06-19 16:40:02
             </span>
             
                   <span class="post-tags">
@@ -267,7 +336,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-text">回调函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1"><span class="toc-text">原型对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%8E%9F%E5%9E%8B"><span class="toc-text">显示原型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F%E5%8E%9F%E5%9E%8B"><span class="toc-text">隐式原型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%85%E8%A6%81%E6%A6%82%E5%BF%B5"><span class="toc-text">必要概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Object"><span class="toc-text">Object</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Function"><span class="toc-text">Function</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F%E5%8E%9F%E5%9E%8B%EF%BC%88prototype%EF%BC%89"><span class="toc-text">显式原型（prototype）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F%E5%8E%9F%E5%9E%8B%EF%BC%88-proto-%EF%BC%89"><span class="toc-text">隐式原型（__proto__）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%99%A8%EF%BC%88Constructor%EF%BC%89"><span class="toc-text">构造器（Constructor）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E5%9B%BE%E8%A7%A3"><span class="toc-text">经典图解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AA%E4%BA%BA%E6%8B%93%E5%B1%95"><span class="toc-text">个人拓展</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Prototype-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">[[Prototype]] 是什么</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
       
     </div>
   </div>

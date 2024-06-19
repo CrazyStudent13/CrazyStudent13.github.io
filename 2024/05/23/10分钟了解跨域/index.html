@@ -162,7 +162,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-05-26 16:44:07
+          2024-06-19 16:40:02
         </span>
         
               <span class="post-tags">
@@ -189,7 +189,6 @@
 <p>面试官：和您聊得很开心，请您回去等通知吧。</p>
 <span id="more"></span>
 
-<p><img src="C:\Users\crazystudent13\Pictures\微信截图_20221125141314.png" alt="微信截图_20221125141314"></p>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>在很早以前还是JSONP的解决方案里，跨域问题算是很经典的面试题。</p>
 <p>但那是前端环境还处于蛮荒时代的解决手法，如今再问跨域，多少有点过期的感觉了。</p>
 <p>不过，作为开发人员，跨域这个问题是必须要了解的。</p>
@@ -281,11 +280,10 @@
 </tbody></table>
 <p>由以上例子，我们应该大致明白了同源策略是怎么一回事儿了。</p>
 <p>而不同源的请求去访问，就一种跨域，如下图所示。</p>
-<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fdce35faa4194c63952d7a2f6e56a451~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" alt="img-blog.csdnimg.cn&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto.webp"></p>
+<p><img src="https://s2.loli.net/2024/05/26/3k9ZueSpNFKvz1U.png" alt="image-20240526165147032"></p>
 <p>总结的来说，由于浏览器安全限制，数据是不可以直接请求不同源的资源，包括不同的根域名、二级域名、或不同的端口，除非目标域名授权你可以访问。</p>
 <p>那么，想要解决同源策略下的不同源文件访问，就需要<strong>跨域</strong>。</p>
 <p>我这里只是介绍我工作中经历过的三种方式，详细教程参考阮一峰老师的文章：<a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html">浏览器同源政策及其规避方法</a>。</p>
-<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pkl1yFI"><img src="https://s21.ax1x.com/2024/05/26/pkl1yFI.md.png" alt="pkl1yFI.md.png"></a></p>
 <h3 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h3><p>由上述的过程，我们已经讲明白了什么是同源策略，及同源策略造成的影响，这里就主要说一下我工作中的常用的四种跨域解决方式。</p>
 <ol>
 <li>JSONP跨域</li>
@@ -294,7 +292,7 @@
 <li>后端接口请求头设置</li>
 </ol>
 <h4 id="JSONP是什么"><a href="#JSONP是什么" class="headerlink" title="JSONP是什么"></a>JSONP是什么</h4><p>JSONP本质是一种讨巧的解决方式。</p>
-<p>早些年的时候，前端开发人员发现Web页面上调用js文件时则不受是否跨域的影响，不仅如此，有人还发现凡是拥有”src”这个属性的标签都拥有跨域的能力，比如<script/>、<img/>、<iframe/>。</p>
+<p>早些年的时候，前端开发人员发现Web页面上调用js文件时则不受是否跨域的影响，不仅如此，有人还发现凡是拥有”src”这个属性的标签都拥有跨域的能力，比如script,img,iframe等标签。</p>
 <p>而有一种叫做JSON的纯字符数据格式可以简洁的描述复杂数据，并被原生js支持。</p>
 <p>所以实现跨域的方案就出现了。我们可以调用跨域服务器上动态生成的js格式文件,也就是调用JSON文件，获取自己需要的数据。</p>
 <p>后来逐渐形成了一种非正式的传输协议，也就是JSONP。</p>
@@ -307,7 +305,8 @@
 <p>请求方是一个网页的前端，也就是浏览器，响应方是另一个网页的后台，也就是服务器，两个网页是不同源的。</p>
 <p>这里我们假设浏览器页面显示着一个数字100和一个<code>打钱</code>的按钮，服务器储存着页面显示的那个数字，要求在每按下<code>打钱</code>按钮的时候，浏览器显示的数字减一，并且服务端储存这个减后的数字，在下一次打开的时候显示减后的数字。这是一个跨域向非同源网站的服务器发送请求和接收响应的过程。<br> 请求方：<code>http://fang.com:8001</code><br> 响应方：<code>http://zeng.com:8002</code></p>
 <p>先写好html：</p>
-<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/20/16f2263965d9fc7c~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" alt="image"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">span</span>&gt;</span>您的账户余额为：100<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">button</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>接着就是写前端部分代码main.js，实现点击之后发送请求改变数字：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">button.addEventListener(&#x27;click&#x27;,(e)=&gt;&#123;</span><br><span class="line">    let script = document.createElement(&#x27;script&#x27;)// 创建script标签</span><br><span class="line">    let functionName = &#x27;fang&#x27; + parseInt(Math.random()*10000000,10)// 设置调用函数名</span><br><span class="line">    window[functionName] = function(result)&#123;</span><br><span class="line">      if(result === &#x27;success&#x27;)&#123;</span><br><span class="line">        amount.innerText = amount.innerText - 1</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    script.src = `http://zeng.com:8002/pay?callback$&#123;functionName&#125; `</span><br><span class="line">    document.body.appendChild(script)// 将能实现发送跨域请求的script标签插入html</span><br><span class="line">    script.onload = function(e)&#123;</span><br><span class="line">      e.currentTarget.remove()</span><br><span class="line">      delete window[functionName]</span><br><span class="line">    &#125;</span><br><span class="line">    script.onerror = function()&#123;</span><br><span class="line">      alert(&#x27;fail&#x27;)</span><br><span class="line">      e.currentTarget.remove()</span><br><span class="line">      delete window[functionName]</span><br><span class="line">    &#125;</span><br><span class="line">    // 完成传输后删除script标签</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
@@ -364,7 +363,7 @@
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2024/05/16/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E8%BF%9B%E7%A8%8B/" target="_self">
+              <a href="/2024/05/15/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E8%BF%9B%E7%A8%8B/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>Prev</span>
               </a>
@@ -373,7 +372,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-05-26 16:44:07
+              2024-06-19 16:40:02
             </span>
             
                   <span class="post-tags">
@@ -395,6 +394,11 @@
               
           </div>
           <div class="post-foot-prev">
+            
+              <a href="/2024/05/26/hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E2%80%94%E2%80%94%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
             
           </div>
         </div>

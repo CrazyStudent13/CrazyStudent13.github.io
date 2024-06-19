@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      vue3生命周期 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">vue3生命周期</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-06-19 16:40:02
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                    #面试
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/vue3/" title="vue3">
+                    #vue3
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>因为今天用vue3写代码，新版的触发钩子已经不再是destory的，这导致我写业务的时候错误排查耽误了些许时间。</p>
+<p>故此，整理此文，增强一下自己的对vue3生命周期的使用熟悉度。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>vue3的生命周期相对于前者没有什么太大的区别，多了一个setup，然后就是钩子函数稍微改了一下名字，别的并无任何修改。</p>
+<p>这里默认大家都清楚vue2的生命周期中的钩子函数，这里就不展开与vue2比较了，直奔主题。</p>
+<blockquote>
+<p>钩子函数（hook）：一种在系统或程序处理消息时被自动调用的函数。</p>
+<p>个人理解，因为这种机制就像是牵动钩子拉起一串程序，因为被称作钩子函数，很形象。</p>
+</blockquote>
+<h3 id="基础内容"><a href="#基础内容" class="headerlink" title="基础内容"></a>基础内容</h3><p>相对于vue2多了setup，并且组合式的写法名字有所变化，同时destroy换为了unmount。</p>
+<table>
+<thead>
+<tr>
+<th>选项式</th>
+<th>组合式</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td><code>setup</code></td>
+<td>setup执行在所有钩子函数之前。</td>
+</tr>
+<tr>
+<td><code>beforeCreate</code></td>
+<td></td>
+<td>创建实例之前调用，此时实例的数据观测、事件等还未初始化。</td>
+</tr>
+<tr>
+<td><code>created</code></td>
+<td></td>
+<td>创建实例后调用，此时实例的数据观测、事件等已经初始化完成。</td>
+</tr>
+<tr>
+<td><code>beforeMount</code></td>
+<td><code>onBeforeMount()</code></td>
+<td>挂载实例之前调用，此时模板已经编译完成，但是还未挂载到DOM。</td>
+</tr>
+<tr>
+<td><code>mounted</code></td>
+<td><code>onMounted()</code></td>
+<td>挂载实例后调用，此时实例已经挂载到DOM，可以进行DOM操作。</td>
+</tr>
+<tr>
+<td><code>beforeUpdate</code></td>
+<td><code>onBeforeUpdate()</code></td>
+<td>数据更新之前调用，此时可以进行状态的最后更改。</td>
+</tr>
+<tr>
+<td><code>updated</code></td>
+<td><code>onUpdated()</code></td>
+<td>数据更新后调用，此时DOM已经完成更新，可以进行DOM操作。</td>
+</tr>
+<tr>
+<td><code>beforeUnmount</code></td>
+<td><code>onBeforeUnmount()</code></td>
+<td>卸载实例之前调用，此时实例仍然完全可用。</td>
+</tr>
+<tr>
+<td><code>unmounted</code></td>
+<td><code>onUnmounted()</code></td>
+<td>卸载实例后调用，此时实例已经完全卸载。</td>
+</tr>
+</tbody></table>
+<h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><p>这里放了一下官方的汉化图，看的更清楚一些。</p>
+<p><img src="https://s2.loli.net/2024/06/18/vTxqXj6D1EQOnUo.png" alt="QQ截图20240618201244"></p>
+<h3 id="选项式与组合式"><a href="#选项式与组合式" class="headerlink" title="选项式与组合式"></a>选项式与组合式</h3><p>在组合式 API 中，<code>beforeCreate</code> 、<code>created</code> 生命周期由 setup 函数代替。</p>
+<p>即在 <code>beforeCreate</code> 、<code>created</code> 生命周期选项中编写的代码，都可以写在 setup 函数中。</p>
+<p>同一个生命周期，同时用选项式 API 和组合式 API 中注册，组合式 API 中的生命周期函数会先于选项式 API 中的执行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Vue</span>.<span class="title function_">createApp</span>(&#123;</span><br><span class="line">  <span class="attr">mounted</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 后输出</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;mounted1&#x27;</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  setup () &#123;</span><br><span class="line">    <span class="title class_">Vue</span>.<span class="title function_">onMounted</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 先输出</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;mounted2&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// mounted2 会比 mounted1 先输出。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="其他钩子"><a href="#其他钩子" class="headerlink" title="其他钩子"></a>其他钩子</h3><blockquote>
+<p>关于所有生命周期钩子函数，推荐看这个大佬整理的问：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7352075662453702694?searchId=20240618195833939AD610B79031D8EF9E">一文吃透 Vue3 组件的 16 个生命周期</a></p>
+</blockquote>
+<p>这些钩子函数点陌生，以前可能大多没见过，这里看到有大佬做了整理，这里我引用一下</p>
+<p>其中有一部分钩子函数很眼熟的。</p>
+<h4 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h4><table>
+<thead>
+<tr>
+<th>选项式</th>
+<th>组合式</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>errorCaptured</code></td>
+<td><code>onErrorCaptured()</code></td>
+<td>注册一个钩子，在捕获了后代组件传递的错误时调用。</td>
+</tr>
+<tr>
+<td><code>renderTracked</code></td>
+<td><code>onRenderTracked()</code></td>
+<td>注册一个调试钩子，当组件渲染过程中追踪到响应式依赖时调用。<strong>这个钩子仅在开发模式下可用，且在服务器端渲染期间不会被调用</strong>。</td>
+</tr>
+<tr>
+<td><code>renderTriggered</code></td>
+<td><code>onRenderTriggered()</code></td>
+<td>注册一个调试钩子，当响应式依赖的变更触发了组件渲染时调用。<strong>这个钩子仅在开发模式下可用，且在服务器端渲染期间不会被调用</strong>。</td>
+</tr>
+<tr>
+<td><code>activated</code></td>
+<td><code>onActivated()</code></td>
+<td>仅针对 KeepAlive 包裹的组件。注册一个回调函数，当组件被插入到 DOM 中时调用。<strong>这个钩子在服务器端渲染期间不会被调用</strong> 。</td>
+</tr>
+<tr>
+<td><code>deactivated</code></td>
+<td><code>onDeactivated()</code></td>
+<td>仅针对 KeepAlive 包裹的组件。注册一个回调函数，当组件从 DOM 中被移除时调用。<strong>这个钩子在服务器端渲染期间不会被调用</strong> 。</td>
+</tr>
+<tr>
+<td><code>serverPrefetch</code></td>
+<td><code>onServerPrefetch()</code></td>
+<td>仅在服务端渲染期间使用，用于注册一个异步函数，在组件实例在服务器上被渲染之前调用。可用于在服务器上请求后台接口数据，它比在客户端上请求后台数据更快。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>有关 <code>onErrorCaptured()</code> 更多详细信息参考这个大佬写的另一篇文章：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7329033936956260362">深入源码，剖析 Vue3 是如何做错误处理的</a></p>
+</blockquote>
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p>在组合式 API 中，<code>beforeCreate</code> 和 <code>created</code> 生命周期函数已经被 setup 函数取代了，很多时候我们在写组合式的API的时候，并不考虑使用create相关的两个生命周期方法。</p>
+<ul>
+<li><code>beforeCreate</code> 生命周期函数会在组件实例初始化完成并且 props 被解析后立即调用。</li>
+<li><code>created</code> 生命周期函数在组件实例处理完所有与状态相关的选项后调用。</li>
+<li><code>beforeMount</code> 生命周期函数在组件被挂载之前调用</li>
+<li><code>mounted</code> 生命周期函数在组件被挂载之后调用</li>
+<li><code>beforeUpdate</code> 生命周期函数在组件即将因为响应式状态变更而更新其 DOM 树之前调用。</li>
+<li><code>updated</code> 生命周期函数在组件因为响应式状态变更而更新其 DOM 树之后调用</li>
+<li><code>beforeUnmount</code> 生命周期函数在一个组件实例被卸载之前调用</li>
+<li><code>unmounted</code> 生命周期函数在一个组件实例被卸载之后调用</li>
+</ul>
+<blockquote>
+<p><code>beforeUnmount</code> 和 <code>unmounted</code> 用于替代被废弃的 <code>beforeDestroy</code> 和<code>destroyed</code> 生命周期函数</p>
+</blockquote>
+<ul>
+<li><code>errorCaptured</code> 生命周期函数在捕获了后代组件传递的错误时调用</li>
+<li><code>renderTracked</code> 生命周期函数在组件渲染过程中追踪到响应式依赖时调用</li>
+<li><code>renderTriggered</code> 生命周期函数在响应式依赖的变更触发了组件渲染时调用</li>
+</ul>
+<blockquote>
+<p><code>renderTracked</code> 和 <code>renderTriggered</code> 生命周期函数仅在 DEV 模式下可用</p>
+</blockquote>
+<ul>
+<li><code>activated</code> 生命周期函数与 KeepAlive 组件有关，当组件被插入到 DOM 中时调用</li>
+<li><code>deactivated</code> 生命周期函数也与 KeepAlive 组件有关，当组件从 DOM 中被移除时调用</li>
+<li><code>serverPrefetch</code> 生命周期函数在组件实例在服务器上被渲染之前调用，仅在服务器渲染期间调用。</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>vue3的生命周期钩子虽然多了一些，但实际开发过程中，大多人主要应该也是用组合式写一下onMounted就可以，没必要太过深入。</p>
+<p>至于选项式API，在vue3的时代中，估计未来很少有人使用。</p>
+<p>官方之所以提供选项式的写法，估计也是为了大部分人能够习惯过渡一下，所以这里就不细说选项式与组合式写法的优先级问题了。</p>
+<p>本文受限于现阶段开发的见识不足，后续如有新的认知，会视情况更新。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://cn.vuejs.org/guide/essentials/lifecycle.html">生命周期钩子 | Vue.js (vuejs.org)</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7352075662453702694?searchId=20240618195833939AD610B79031D8EF9E">一文吃透 Vue3 组件的 16 个生命周期</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7329033936956260362">深入源码，剖析 Vue3 是如何做错误处理的</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/06/17/%E6%B5%85%E6%9E%90vue%E8%B7%AF%E7%94%B1%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%AE%9E%E7%8E%B0%E9%80%BB%E8%BE%91/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-06-19 16:40:02
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                        #面试
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/vue3/" title="vue3">
+                        #vue3
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%86%85%E5%AE%B9"><span class="toc-text">基础内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E8%A7%A3"><span class="toc-text">图解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E9%A1%B9%E5%BC%8F%E4%B8%8E%E7%BB%84%E5%90%88%E5%BC%8F"><span class="toc-text">选项式与组合式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%92%A9%E5%AD%90"><span class="toc-text">其他钩子</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="toc-text">基本信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">应用场景</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + vue3%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F06%2F19%2Fvue3%25E7%2594%259F%25E5%2591%25BD%25E5%2591%25A8%25E6%259C%259F%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/06/19/vue3%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

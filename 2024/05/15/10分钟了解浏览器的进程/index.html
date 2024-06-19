@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      10分钟了解浏览器的进程 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">10分钟了解浏览器的进程</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-06-19 16:40:02
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">
+                    #浏览器
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                    #面试
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>面试官：难道您没有了解过浏览器到底有哪些进程吗？</p>
+<p>我：工作中用到的不多，所以没了解。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>关于进程与线程的事情说完了，但是浏览器到底有什么进程，这里我也比较好奇，所以也了解了一下。</p>
+<p>虽然平时不怎么会用到，但也算是开拓眼界了。</p>
+<h3 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h3><p>浏览器是一个多进程架构设计，<strong>每打开一个标签页就会创建一个进程</strong>。当然浏览器内部也有着自己的优化，比如：当浏览器同时打开多个空白标签页的时候，会合并成一个进程。</p>
+<p>浏览器到关闭到启动，至少开启四个进程：</p>
+<ol>
+<li><code>1个 browser进程</code></li>
+<li><code>1个GPU进程</code></li>
+<li><code>1个网络进程</code></li>
+<li><code>1个渲染进程</code></li>
+</ol>
+<p>当新增其他标签页时，前面三个进程是可以共用的，不用重启。</p>
+<p>默认情况下，每打开一个标签页，就会开启一个渲染进程。但是也会存在特殊的情况，就是如果打开的标签页在同一个站点下，会共享同一个渲染进程。</p>
+<p>最新的浏览器进程主要包含：</p>
+<ul>
+<li>1个浏览器主进程</li>
+<li>1个GPU进程（也可能存在多个，每个标签页都需要一个进程，用于绘制图形）</li>
+<li>1个网络进程</li>
+<li>多个插件进程（每个插件都会开启一个进程，因为防止一个插件崩溃，造成整个浏览器崩溃）</li>
+<li>多个渲染进程（标签页需要独立的进程）</li>
+</ul>
+<h3 id="browser-进程（主进程）"><a href="#browser-进程（主进程）" class="headerlink" title="browser 进程（主进程）"></a>browser 进程（主进程）</h3><p>负责控制浏览器除标签页外的界面，包括地址栏、书签、前进后退按钮等，以及负责与其他进程的协调工作，同时提供存储功能。</p>
+<h3 id="GPU-进程"><a href="#GPU-进程" class="headerlink" title="GPU 进程"></a>GPU 进程</h3><p>负责处理与图形渲染相关的任务。（着重在于<strong>图像</strong>）</p>
+<ul>
+<li>图形渲染</li>
+<li>动画和过渡</li>
+<li>3D 和 WebGL 渲染</li>
+<li>视频播放和解码等</li>
+</ul>
+<h3 id="网络进程"><a href="#网络进程" class="headerlink" title="网络进程"></a>网络进程</h3><p>负责处理与网络相关的任务。它主要负责管理和维护网络连接，以及处理所有的网络请求和响应。</p>
+<ul>
+<li>管理网络连接</li>
+<li>处理网络请求和响应</li>
+<li>处理DNS解析</li>
+<li>处理缓存</li>
+<li>处理安全问题</li>
+</ul>
+<blockquote>
+<p><strong>浏览器的网络进程和渲染进程的异步HTTP线程之间存在通信吗？</strong></p>
+<p>在浏览器中，<strong>当用户在页面上发起一个网络请求时，该请求首先由渲染进程中的异步 HTTP 线程发起，异步 HTTP 线程会将该请求通过 IPC 传递给网络进程</strong>。网络进程收到请求后，负责管理和维护网络连接，发送请求并接收响应，最后<strong>将响应数据再通过 IPC 传递给渲染进程中的异步 HTTP 线程处理</strong>。</p>
+<p>在这个过程中，网络进程和渲染进程之间需要频繁地进行通信，以协同完成网络请求和响应的处理。</p>
+<p>例如，当请求被发送出去后，网络进程需要不断地监控连接状态和接收数据，并及时将收到的数据通过 IPC 传递给渲染进程中的异步 HTTP 线程，同时异步 HTTP 线程也需要不断地向网络进程查询请求状态和响应数据。 </p>
+<p>浏览器通过 IPC（进程间通信）机制来实现这种进程间通信，IPC 是浏览器中进程间交换数据的标准方法，其通信方式包括消息传递、共享内存、管道等。</p>
+<p>通过 IPC 机制，网络进程和渲染进程之间可以高效地传递数据和信息，保证了浏览器的正常工作和性能表现。</p>
+</blockquote>
+<h3 id="插件进程"><a href="#插件进程" class="headerlink" title="插件进程"></a>插件进程</h3><p>用于处理浏览器插件的进程（每个插件，就会创建一个进程）</p>
+<h3 id="渲染进程"><a href="#渲染进程" class="headerlink" title="渲染进程"></a>渲染进程</h3><p>负责将 HTML、CSS 和 JavaScript 转换为可视化的页面。默认情况下，浏览器的tab就会创建一个渲染进程。</p>
+<blockquote>
+<p>针对前端，需要着重了解该进程。</p>
+</blockquote>
+<p>该进程包含：<code>GUI 渲染线程</code>、<code>JS 引擎线程</code>、<code>定时触发线程</code>、<code>异步 HTTP 线程</code>、<code>事件触发线程</code></p>
+<h4 id="GUI-渲染线程"><a href="#GUI-渲染线程" class="headerlink" title="GUI 渲染线程"></a>GUI 渲染线程</h4><p>负责页面的渲染和绘制；解析 HTML和CSS，构建 DOM树、CSSOM树 、 渲染树（Render 树） ，布局和绘制等。</p>
+<p>重绘和重排也是发生在该线程中。</p>
+<p>GUI 更新会被保存在一个队列之中，等到 JS 引擎线程空闲时，GUI 线程就会立即执行。</p>
+<p><strong>「GUI 线程和JS引擎线程是互斥的」</strong></p>
+<h4 id="JS-引擎线程"><a href="#JS-引擎线程" class="headerlink" title="JS 引擎线程"></a>JS 引擎线程</h4><p>也称为 JS 内核，负责处理 JavaScript 脚本程序。</p>
+<p>再次注意，<strong>GUI 渲染线程与 JS 引擎线程是互斥的</strong> ，所以，如果JS执行的时间过长，这样就会造成页面的渲染不连贯，导致页面渲染加载阻塞。</p>
+<h4 id="定时触发线程"><a href="#定时触发线程" class="headerlink" title="定时触发线程"></a>定时触发线程</h4><p>指的是计时函数：setInterval 和 setTimeout 两个函数。</p>
+<p>由于 JS 引擎是单线程的，如果该线程处于堵塞状态，那么就会造成计时不准确，那么就需要单独一个线程来进行计时。</p>
+<p>当计时完成之后，就会把事件回调（任务）添加事件队列中，等待 JS 引擎空闲后去执行。</p>
+<h4 id="异步-HTTP-线程"><a href="#异步-HTTP-线程" class="headerlink" title="异步 HTTP 线程"></a>异步 HTTP 线程</h4><p>XMLHttpRequest 在连接后是通过浏览器新开的一个线程请求。</p>
+<p>检测到状态发生变化之后，就会事件回调（任务）添加到事件队列中，等待 JS 引擎空闲后去执行。</p>
+<h4 id="事件触发线程"><a href="#事件触发线程" class="headerlink" title="事件触发线程"></a>事件触发线程</h4><p>用来控制事件循环的（Event Loop）。</p>
+<p>就比如上面的，</p>
+<ul>
+<li>定时器的任务通过事件触发线程添加到事件队列中，</li>
+<li>异步请求的任务是通过事件触发线程添加到事件队列中</li>
+<li>。。。（收集任务）</li>
+</ul>
+<p>事件触发线程还会周期性地检查事件队列中是否存在任务。当JS引擎线程空闲了，就会将其中的任务顺序交给 JS 引擎线程执行。</p>
+<blockquote>
+<p>这里的解释可能存在错误。</p>
+<p>事件触发线程是连接事件的发生和任务执行的桥梁。它负责接收事件，并将对应的任务添加到事件队列中，然后主动触发 JavaScript 引擎线程来执行任务。</p>
+</blockquote>
+<h4 id="存储线程"><a href="#存储线程" class="headerlink" title="存储线程"></a>存储线程</h4><p>负责处理浏览器的各种存储机制，包括 cookie、localStorage、indexedDB 等。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>虽然面试时候感觉完全不太可能会提到，但是作为拓充知识涉猎一下也是不错的。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7287914116286201891">浏览器原理：进程与线程</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6991849728493256741">深入理解浏览器中的进程与线程 - 掘金</a></p>
+<p>[<a target="_blank" rel="noopener" href="https://juejin.cn/post/7053974933931556900">前端进阶] - 搞懂浏览器进程和线程 - 掘金</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/05/15/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3JS%E7%9A%84%E7%BA%BF%E7%A8%8B%E4%B8%8E%E8%BF%9B%E7%A8%8B/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-06-19 16:40:02
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">
+                        #浏览器
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                        #面试
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2024/05/23/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E8%B7%A8%E5%9F%9F/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="toc-text">浏览器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#browser-%E8%BF%9B%E7%A8%8B%EF%BC%88%E4%B8%BB%E8%BF%9B%E7%A8%8B%EF%BC%89"><span class="toc-text">browser 进程（主进程）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GPU-%E8%BF%9B%E7%A8%8B"><span class="toc-text">GPU 进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E8%BF%9B%E7%A8%8B"><span class="toc-text">网络进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E8%BF%9B%E7%A8%8B"><span class="toc-text">插件进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B"><span class="toc-text">渲染进程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GUI-%E6%B8%B2%E6%9F%93%E7%BA%BF%E7%A8%8B"><span class="toc-text">GUI 渲染线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JS-%E5%BC%95%E6%93%8E%E7%BA%BF%E7%A8%8B"><span class="toc-text">JS 引擎线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E8%A7%A6%E5%8F%91%E7%BA%BF%E7%A8%8B"><span class="toc-text">定时触发线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5-HTTP-%E7%BA%BF%E7%A8%8B"><span class="toc-text">异步 HTTP 线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E7%BA%BF%E7%A8%8B"><span class="toc-text">事件触发线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E7%BA%BF%E7%A8%8B"><span class="toc-text">存储线程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + 10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E8%BF%9B%E7%A8%8B + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F05%2F15%2F10%25E5%2588%2586%25E9%2592%259F%25E4%25BA%2586%25E8%25A7%25A3%25E6%25B5%258F%25E8%25A7%2588%25E5%2599%25A8%25E7%259A%2584%25E8%25BF%259B%25E7%25A8%258B%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/05/15/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E8%BF%9B%E7%A8%8B/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

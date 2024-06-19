@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      浅析ref与reactvie的区别 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">浅析ref与reactvie的区别</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-06-19 16:40:02
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                    #面试
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/vue3/" title="vue3">
+                    #vue3
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>最近新入职的公司需要使用Vue3做项目，所以我这个V3的排斥者也只能选择了这个方法。</p>
+<p>对于V3，除了一年前我稍微了解了一下，后续就没有跟进，我个人对技术追星并未有太多的兴趣。</p>
+<p>直到我见识了这家公司项目的写法，我只能说，V3确实有那么点的意思。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>本文虽说是探讨ref和reactive的区别，但不会深入探讨具体的源码解析，只更倾向于如何在项目中更好的使用。</p>
+<p>毕竟，我们不是造轮子的，我们是用轮子的。</p>
+<p>在现在这个前端大爆炸的时代里，我们已经不缺一个好用的框架，更缺的是一个用好框架的思路。</p>
+<h3 id="refs与reactive的区别"><a href="#refs与reactive的区别" class="headerlink" title="refs与reactive的区别"></a>refs与reactive的区别</h3><p>不管怎么说，在正式讲使用心得之前，还是要简单说说二者的区别。</p>
+<h4 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h4><p>响应式改变需要使用<code>变量.value</code>，被其包裹的变量可以是简单类型，也可以是引用类型。</p>
+<p>在开发中，我们常用来包裹一些特殊的响应式变量，通用形式的变量我个人不喜欢用ref，如果是引用类型的话，更倾向于是用reactive()</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; ref &#125; from &#x27;vue&#x27;</span><br><span class="line">const count = ref(0)</span><br><span class="line">function increment() &#123;</span><br><span class="line">  count.value++</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button @click=&quot;increment&quot;&gt;</span><br><span class="line">    &#123;&#123; count &#125;&#125;</span><br><span class="line">  &lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="reactive"><a href="#reactive" class="headerlink" title="reactive"></a>reactive</h4><p>同样的代码，reactive不需要用<code>变量.value</code>这种写法，可以直接引用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; reactive &#125; from &#x27;vue&#x27;</span><br><span class="line">const state = reactive(&#123; count: 0 &#125;)</span><br><span class="line">function increment() &#123;</span><br><span class="line">  count.value++</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button @click=&quot;increment&quot;&gt;</span><br><span class="line">    &#123;&#123; count &#125;&#125;</span><br><span class="line">  &lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<p>不过，reactive有一定的局限性。</p>
+<ol>
+<li><p><strong>有限的值类型</strong>：它只能用于对象类型 (对象、数组和如 <code>Map</code>、<code>Set</code> 这样的<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects#keyed_collections">集合类型</a>)。它不能持有如 <code>string</code>、<code>number</code> 或 <code>boolean</code> 这样的<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Glossary/Primitive">原始类型</a>。</p>
+</li>
+<li><p><strong>不能替换整个对象</strong>：由于 Vue 的响应式跟踪是通过属性访问实现的，因此我们必须始终保持对响应式对象的相同引用。这意味着我们不能轻易地“替换”响应式对象，因为这样的话与第一个引用的响应性连接将丢失</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> state = <span class="title function_">reactive</span>(&#123; <span class="attr">count</span>: <span class="number">0</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 上面的 (&#123; count: 0 &#125;) 引用将不再被追踪</span></span><br><span class="line"><span class="comment">// (响应性连接已丢失！)</span></span><br><span class="line">state = <span class="title function_">reactive</span>(&#123; <span class="attr">count</span>: <span class="number">1</span> &#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>对解构操作不友好</strong>：当我们将响应式对象的原始类型属性解构为本地变量时，或者将该属性传递给函数时，我们将丢失响应性连接</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> state = <span class="title function_">reactive</span>(&#123; <span class="attr">count</span>: <span class="number">0</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当解构时，count 已经与 state.count 断开连接</span></span><br><span class="line"><span class="keyword">let</span> &#123; count &#125; = state</span><br><span class="line"><span class="comment">// 不会影响原始的 state,这里的响应式无效</span></span><br><span class="line">count++</span><br><span class="line"></span><br><span class="line"><span class="comment">// 该函数接收到的是一个普通的数字</span></span><br><span class="line"><span class="comment">// 并且无法追踪 state.count 的变化</span></span><br><span class="line"><span class="comment">// 我们必须传入整个对象以保持响应性</span></span><br><span class="line"><span class="title function_">callSomeFunction</span>(state.<span class="property">count</span>)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="refs与reactive的使用方式"><a href="#refs与reactive的使用方式" class="headerlink" title="refs与reactive的使用方式"></a>refs与reactive的使用方式</h3><p>二者都是V3提供的响应式语法糖，但在开发过程中，很多时候二者会混用，实际上，不该那么用。</p>
+<p>个人参考了别人的案例，整理了一下规则</p>
+<ol>
+<li>只用<code>ref</code>声明响应式变量</li>
+<li>只有当第三方库的操作对象需要具备响应性时，才使用<code>shallowRef</code></li>
+<li>只有当逻辑块完整时，才使用<code>reactive</code>包裹住那块的业务</li>
+</ol>
+<h4 id="用ref声明响应式变量"><a href="#用ref声明响应式变量" class="headerlink" title="用ref声明响应式变量"></a>用<code>ref</code>声明响应式变量</h4><p>虽然<code>reactive</code>声明的变量也具备响应性，但是，想要将v3用的简单，不推荐混用ref与reactive。</p>
+<p>因此，无论是对象、数组、数字、字符串、布尔值、HTML引用，都用<code>ref</code>来声明</p>
+<ul>
+<li><p>不推荐</p>
+<p>将<code>ref</code>和<code>reactive</code>混着用，这样的响应式经常会无意识在使用变量时候要不要使用.value产生心智负担，影响开发效率。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> tableData = <span class="title function_">reactive</span>([]);</span><br><span class="line"><span class="keyword">const</span> obj = <span class="title function_">reactive</span>(&#123;&#125;)</span><br><span class="line"><span class="keyword">const</span> a = <span class="title function_">ref</span>([])</span><br><span class="line"><span class="keyword">const</span> b = <span class="title function_">ref</span>(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>推荐</p>
+<p>只用<code>ref</code>声明响应式变量，这样，相关的变量我们直接就用.value来改变响应式的变量即可</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = <span class="title function_">ref</span>([])</span><br><span class="line"><span class="keyword">const</span> obj = <span class="title function_">ref</span>(&#123;&#125;)</span><br><span class="line"><span class="keyword">const</span> num = <span class="title function_">ref</span>(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">const</span> str = <span class="title function_">ref</span>(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> bool = <span class="title function_">ref</span>(<span class="literal">false</span>)</span><br><span class="line"><span class="keyword">const</span> nil = <span class="title function_">ref</span>(<span class="literal">null</span>)</span><br><span class="line"><span class="keyword">const</span> udf = <span class="title function_">ref</span>()</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="用shallowRef操作第三方库的对象"><a href="#用shallowRef操作第三方库的对象" class="headerlink" title="用shallowRef操作第三方库的对象"></a>用<code>shallowRef</code>操作第三方库的对象</h4><blockquote>
+<p>什么是第三方库的操作对象？指的是那些不是开发时声明出来的，而是第三方库API创建并暴露出来给你操作的对象。</p>
+<p>比如Echart初始化之后会产生一个对象，允许你调用其<code>setOption</code>方法来更新图表，这个对象就属于第三方库的操作对象。</p>
+</blockquote>
+<p>通常情况下，对于第三方库的操作对象，是不需要添加响应性的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> mychart = <span class="literal">null</span></span><br><span class="line"><span class="title function_">onMounted</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    mychart = echarts.<span class="title function_">init</span>(<span class="variable language_">document</span>.<span class="title function_">getElement</span>(<span class="string">&#x27;chart&#x27;</span>))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>但是在有些场景下，你需要让这个对象具备响应性：比如你需要以props的形式将这个操作对象传递给子组件，并且这个操作对象还可能发生变化，你希望子组件也能跟着变化。</p>
+<p>那么这时候你应该只使用<code>shallowRef</code>这个API，为这些你不知道底细的第三方库产生的对象提供响应性支持</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> mychart = <span class="title function_">shallowRef</span>(<span class="literal">null</span>)</span><br><span class="line"><span class="title function_">onMounted</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="title function_">createNewChart</span>()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">onClick</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="title function_">createNewChart</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">createNewChart</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="comment">// 销毁旧对象</span></span><br><span class="line">  <span class="keyword">if</span>(mychart.<span class="property">value</span>)&#123;</span><br><span class="line">      mychart.<span class="property">value</span>.<span class="title function_">dispose</span>()</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 启用新对象</span></span><br><span class="line">  mychart.<span class="property">value</span> = echarts.<span class="title function_">init</span>(<span class="variable language_">document</span>.<span class="title function_">getElement</span>(<span class="string">&#x27;chart&#x27;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>为什么不能使用ref给这些对象提供响应性？因为<code>ref</code>和<code>shallowRef</code>的区别在于，<code>ref</code>会遍历整个对象，给对象的每个属性都创建响应性，无论是多深的对象，你给任何一个属性赋值，都会刷新界面。而<code>shallowRef</code>相反，<code>shallowRef</code>只有浅层的响应式处理，只有给其<code>.value</code>赋值时，才会触发界面刷新。</li>
+<li>这就导致一些问题，当第三方库的操作对象也在监听内部数据自我更新时，就会产生一种：<strong>“你更新了，我监听到了，我更新；我更新了，你监听到了，你又更新；你又更新了，我监听到了，我又又更新…”的死循环中，然后导致页面崩溃。</strong></li>
+<li>所以对于你不知道底细的对象（通常情况下也就只有第三方库会产生），直接使用<code>shallowRef</code>创建响应性。</li>
+</ul>
+<h4 id="用reactive包裹完成的逻辑块"><a href="#用reactive包裹完成的逻辑块" class="headerlink" title="用reactive包裹完成的逻辑块"></a>用<code>reactive</code>包裹完成的逻辑块</h4><blockquote>
+<p>什么是 <em>组合式函数</em>，指的是那些将响应式变量封装起来的函数。官方文档传送门：<a href="https://link.juejin.cn/?target=https://cn.vuejs.org/guide/reusability/composables.html%23what-is-a-composable">组合式函数 | Vue.js (vuejs.org)</a></p>
+</blockquote>
+<p>组合式API最大的优势在于函数级别的复用，这也是最不同于V2的地方，V2想要复用一块完成的逻辑块，大多用mixinjs混合，但是很多情况下并非特别好用。</p>
+<p>我看到项目中这套配合动态表单的组合式风格，简直是惊为天人。</p>
+<p>这样的代码逻辑太过清晰易读，简直比之前V2写的低代码还牛逼。</p>
+<ol>
+<li><strong>逻辑模块聚合原则</strong>：相同逻辑的代码必须写在一起</li>
+<li><strong>业务代码优先原则</strong>：在无复用的需求下，不需要将业务代码高度封装成组合式函数。</li>
+<li><strong>核心模块保留原则</strong>：一个vue组件改动最频繁且无复用的逻辑代码，属于核心代码，应该保留在vue组件里而不是ts文件里。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**<span class="doctag">@table</span> - 用reactive包装,将变量和方法都封在这一个逻辑块中，这块的算是最核心的代码*/</span></span><br><span class="line"><span class="keyword">const</span> table = <span class="title function_">reactive</span>(&#123;</span><br><span class="line">    <span class="attr">column</span>:[],</span><br><span class="line">    <span class="attr">data</span>:[],</span><br><span class="line">    <span class="attr">listLoading</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">request</span>: <span class="function">()=&gt;</span>&#123;</span><br><span class="line">        <span class="comment">// 封装请求，这里我们赋值也不需要从.value什么的拿，直接用table.data就能获取列表的值，简直方便，省的ref那种搞法了。</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">add</span>:<span class="function">()=&gt;</span>&#123;&#125;,</span><br><span class="line">    <span class="attr">edit</span>:<span class="function">()=&gt;</span>&#123;&#125;,</span><br><span class="line">    <span class="attr">delete</span>:<span class="function">() =&gt;</span>&#123;&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/**<span class="doctag">@module</span> XX1模块 - 日常开发时优先采用这种命令式直接写业务逻辑，不要包裹到table中，便于特殊处理，如果业务逻辑过于复杂，就抽离到一个单独的TS文件中*/</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">todoA</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**<span class="doctag">@module</span> XX1模块 - 钩子这块直接放置所有需要触发的机制*/</span></span><br><span class="line"><span class="title function_">onMounted</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    table.<span class="title function_">request</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>如果你是选项式的粉丝，你甚至可以这样玩：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**<span class="doctag">@module</span> 模块1*/</span></span><br><span class="line"><span class="keyword">const</span> datasetMod = <span class="title function_">reactive</span>(<span class="title function_">useOptAPI</span>(&#123;</span><br><span class="line">    <span class="title function_">data</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">dataset</span>:&#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">methods</span>:&#123;</span><br><span class="line">        <span class="keyword">async</span> <span class="title function_">req2GetData</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line"><span class="comment">/**<span class="doctag">@module</span> 模块2*/</span></span><br><span class="line"><span class="keyword">const</span> fileListMod = <span class="title function_">reactive</span>(<span class="title function_">useOptAPI</span>(&#123;</span><br><span class="line">    <span class="title function_">data</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">atvFile</span>:<span class="string">&quot;&quot;</span>,</span><br><span class="line">            <span class="attr">fileList</span>:[],</span><br><span class="line">            <span class="attr">fileListRef</span>:<span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">computed</span>:&#123;</span><br><span class="line">        <span class="title function_">filterFileList</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">watch</span>:&#123;</span><br><span class="line">        <span class="title function_">atvFile</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">methods</span>:&#123;</span><br><span class="line">        <span class="keyword">async</span> <span class="title function_">req2GetFileList</span>(<span class="params"></span>)&#123;&#125;,</span><br><span class="line">        <span class="keyword">async</span> <span class="title function_">onNextFile</span>(<span class="params"></span>)&#123;&#125;,</span><br><span class="line">        <span class="keyword">async</span> <span class="title function_">onPrevFile</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+
+<p>当然，后边这个写法有点玩票的性质，前者的写法亲自体验之后，惊为天人，设计这套写法的人，抽的太干净了，稍微设计一下，几乎就是低代码的写法。</p>
+<p>核心逻辑配合动态表单，所有的业务代码简直是快速生成的利器。</p>
+<h3 id="选项式与组合式"><a href="#选项式与组合式" class="headerlink" title="选项式与组合式"></a>选项式与组合式</h3><p>以下这段话说的比较虚，并不像上边那么务实，算是这么长时间使用之后，个人的一点心得。</p>
+<p>选项式写法，即传统V2写法，按照已经框好的代码块，变量和方法都被放在了规定的位置。</p>
+<p><a target="_blank" rel="noopener" href="https://cn.vuejs.org/guide/reusability/composables.html">组合式写法</a>，相对前者更为自由，没有V2规定好的变量块和逻辑块，更偏向于传统JS式的写法，开发者只要将对应的逻辑块组到一块就可以，这样更便于代码阅读。</p>
+<p>这两种写法均被Vue3支持，可根据自己习惯而定。</p>
+<p>根据之前项目踩坑的经验来看，如果团队的代码能力不足，不建议使用组合式写法。</p>
+<p>不规范且不同习惯的组合式代码放在一起，在后期维护的时候会非常让人崩溃，vue2的写法虽然死板一些，但是某种意义上也增加了规范，至少有一定的可读性。</p>
+<p>我个人认为，组合式的写法想要用的过瘾，需要以下几点</p>
+<ol>
+<li>团队有一定的前端开发基础，大体的开发人员水准不会太差，这样能保证组合式代码写出来的可读性不会太差。</li>
+<li>有一份不错的动态组件库，直接用半个配置化写法整合所有的代码，这样可以大规模减少非业务的代码，减少代码阅读的心智负担</li>
+<li>前端有一份通用的表单处理规范，这样阅读他人的代码逻辑时候，心智负担不会太高，再写好一个完美的个例之后，便于快速复用，其他人能很快读懂。</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>为了避免认知混乱，基本上都使用<code>ref</code>进行声明响应式变量</li>
+<li>为了避免页面卡死，对于那些你不知道层级结构的数据，使用<code>shallowRef</code>为它创建响应性</li>
+<li><code>reactive</code>推荐用来包裹一些完整的逻辑块，在<code>reactive</code>中写方法引用变量会非常方便，而且也便于阅读</li>
+</ol>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>vue3的升级，果然不仅仅是一次写法上的升级，动态组件库配合组合式写法，简直超神。</p>
+<p>一篇业务模块的文件中，几乎没有多少业务代码，而且相对V2的难于抽离，V3的可以直接将弹窗封在子组件中，这种感觉真不错。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7291468863396560957#comment">Vue的ref、shallowRef、reactive到底要怎么用！！？</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7371253542245105698">我们团队是如何用好vue3 setup组合式API的？</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/06/04/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E5%AE%8F%E4%BB%BB%E5%8A%A1%E4%B8%8E%E5%BE%AE%E4%BB%BB%E5%8A%A1/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-06-19 16:40:02
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                        #面试
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/vue3/" title="vue3">
+                        #vue3
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2024/06/06/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3dom%E5%92%8Cbom/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#refs%E4%B8%8Ereactive%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">refs与reactive的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ref"><span class="toc-text">ref</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reactive"><span class="toc-text">reactive</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#refs%E4%B8%8Ereactive%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-text">refs与reactive的使用方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8ref%E5%A3%B0%E6%98%8E%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8F%98%E9%87%8F"><span class="toc-text">用ref声明响应式变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8shallowRef%E6%93%8D%E4%BD%9C%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="toc-text">用shallowRef操作第三方库的对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8reactive%E5%8C%85%E8%A3%B9%E5%AE%8C%E6%88%90%E7%9A%84%E9%80%BB%E8%BE%91%E5%9D%97"><span class="toc-text">用reactive包裹完成的逻辑块</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E9%A1%B9%E5%BC%8F%E4%B8%8E%E7%BB%84%E5%90%88%E5%BC%8F"><span class="toc-text">选项式与组合式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E6%B5%85%E6%9E%90ref%E4%B8%8Ereactvie%E7%9A%84%E5%8C%BA%E5%88%AB + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F06%2F04%2F%25E6%25B5%2585%25E6%259E%2590ref%25E4%25B8%258Ereactvie%25E7%259A%2584%25E5%258C%25BA%25E5%2588%25AB%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/06/04/%E6%B5%85%E6%9E%90ref%E4%B8%8Ereactvie%E7%9A%84%E5%8C%BA%E5%88%AB/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

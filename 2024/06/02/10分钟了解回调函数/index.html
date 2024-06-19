@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      10分钟了解回调函数 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">10分钟了解回调函数</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-06-19 16:40:02
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                    #面试
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/JS/" title="JS">
+                    #JS
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>面试官：既然您提到了回调函数，能简单说一下回调函数吗？</p>
+<p>我：就是将函数作为参数传递，让函数可以被其他函数使用。</p>
+<p>面试官：能再详细说说吗？您作为一个老前端，相比理解的很透彻吧？</p>
+<p>我：哈哈哈哈，不能。</p>
+<p>面试官：哈哈哈哈哈，您真幽默，和您聊的很开心，回去等通知吧。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>我真没想到，我会再次因为这种古董面试题被摆了一道，五年前我能说的头头是道的面试题，如今居然被卡了。</p>
+<p>哎，面试失败之后，立刻回家重新整理了一下相关的文档。</p>
+<h3 id="什么是回调函数"><a href="#什么是回调函数" class="headerlink" title="什么是回调函数"></a>什么是回调函数</h3><p><strong>回调函数</strong>是将一个函数作为参数传递给另一个函数，并且可以在传入的那个函数中接受参数和返回值</p>
+<p><strong>回调函数和普通函数没有本质区别，没有本质区别，回调函数谁都可以用</strong></p>
+<p>这里我们写个回调函数被调用的例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">myDisplayer</span>(<span class="params">some</span>) &#123;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;demo&quot;</span>).<span class="property">innerHTML</span> = some;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// myCallback 就是回调函数的传参，我们还可以给回调函数传参</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">myCalculator</span>(<span class="params">num1, num2, myCallback</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> sum = num1 + num2;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;得到结果：&#x27;</span>+sum);</span><br><span class="line">  <span class="title function_">myCallback</span>(sum);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">myCalculator</span>(<span class="number">5</span>, <span class="number">5</span>, myDisplayer);</span><br></pre></td></tr></table></figure>
+
+<p>【注意点】</p>
+<ul>
+<li>函数作为参数传递时，不要使用括号<ul>
+<li>正确: <code>myCalculator(5, 5, myDisplayer);</code></li>
+<li>错误：<del><code>myCalculator(5, 5, myDisplayer());</code></del></li>
+</ul>
+</li>
+</ul>
+<h3 id="回调函数的作用和使用场景"><a href="#回调函数的作用和使用场景" class="headerlink" title="回调函数的作用和使用场景"></a>回调函数的作用和使用场景</h3><p>回调函数是一种常见的编程技术，他可以在异步操作完成后调用一个预定义的函数来处理结果。</p>
+<p>回调函数通常用于处理事件、执行异步操作或响应用户输入等场景。</p>
+<ul>
+<li>作用：<ul>
+<li>将<strong>代码逻辑分离</strong>出来，使得代码更加模块化和可维护</li>
+<li>可以<strong>避免阻塞程序</strong>的运行，提高程序的性能和效率</li>
+<li>可以实现<strong>代码的复用</strong>，因为他们可以被多个地方调用</li>
+</ul>
+</li>
+<li>使用场景：<ul>
+<li><strong>事件处理</strong>，例如鼠标点击、键盘输入，网络请求等</li>
+<li><strong>异步操作</strong>，例如读取文件、发送邮件、下载文件等</li>
+<li><strong>数据处理</strong>，例如对数组进行排序、过滤、映射等</li>
+<li><strong>插件开发</strong>，例如WordPress插件等</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>异步编程：指在代码执行时不会阻塞程序运行的方式</li>
+<li>事件驱动：指程序的执行是由外部事件触发而不是顺序执行的方式</li>
+</ul>
+</blockquote>
+<h3 id="回调函数的优缺点"><a href="#回调函数的优缺点" class="headerlink" title="回调函数的优缺点"></a>回调函数的优缺点</h3><ul>
+<li>优点<ul>
+<li>提高代码的复用性和灵活性：回调函数可以将一个函数作为参数传递给另一个函数，从而实现模块化编程，提高代码的复用性和灵活性</li>
+<li>解耦合：回调函数可以将不同模块之间的关系解耦，使得代码更易于维护和扩展</li>
+<li>可以异步执行：回调函数可以在异步操作完成后被执行，这样避免了阻塞线程，提高应用程序的效率</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>回调函数嵌套过多会导致代码难以维护：如果回调函数嵌套层数过多，代码会变得非常复杂，难以维护</li>
+<li>回调函数容易造成竞态条件：如果回调函数中有共享资源访问，容易出现竞态条件，导致程序出错</li>
+<li>代码可读性差：回调函数的使用可能会破坏代码的结构和可读性，尤其是在处理大量数据时</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>小结：代码灵活、易于扩展，但是不易于阅读、容易出错</p>
+</blockquote>
+<h3 id="回调函数与其它编程概念的关系"><a href="#回调函数与其它编程概念的关系" class="headerlink" title="回调函数与其它编程概念的关系"></a>回调函数与其它编程概念的关系</h3><h4 id="回调函数和闭包的关系"><a href="#回调函数和闭包的关系" class="headerlink" title="回调函数和闭包的关系"></a>回调函数和闭包的关系</h4><p>回调函数和闭包之间存在着紧密的关系。</p>
+<p>回调函数是一个函数，在另一个函数中被作为参数传递，并在该函数执行完成后被调用。</p>
+<p>闭包是由一个函数及其相关的引用环境组合而成的实体，可以访问函数外部的变量。</p>
+<p>在某些情况下，回调函数需要访问到它所在的父函数的变量，这时就需要使用闭包来实现。</p>
+<p>通过将回调函数放在闭包内部，可以将父函数的变量保存在闭包的引用环境中，使得回调函数能够访问到这些变量。同时，闭包还可以保证父函数中的变量在回调函数执行时不会被销毁，从而确保了回调函数的正确性</p>
+<p>因此，回调函数和闭包是一对密切相关的概念，常常一起使用来实现复杂的逻辑和功能。</p>
+<h4 id="回调函数和Promise的关系"><a href="#回调函数和Promise的关系" class="headerlink" title="回调函数和Promise的关系"></a>回调函数和Promise的关系</h4><p>C++回调函数和Promise都是异步编程的实现方式。</p>
+<p>回调函数是一种将函数作为参数传递给另一个函数，在异步操作完成后执行的技术。在C++中，回调函数通常使用函数指针或函数对象来实现。当异步操作完成后，会调用注册的回调函数，以便执行相应的处理逻辑。</p>
+<p>而Promise则是一种更加高级的异步编程模式，它通过解决回调地狱问题，提供了更加优雅和简洁的异步编程方式。</p>
+<p>Promise可以将异步操作封装成一个Promise对象，并通过链式调用then()方法来注册回调函数，以及catch()方法来捕获异常。当异步操作完成后，Promise会自动根据操作结果触发相应的回调函数。</p>
+<p>因此，可以说C++回调函数和Promise都是异步编程的实现方式，但是Promise提供了更加高级和优雅的编程模式，能够更好地管理异步操作和避免回调地狱问题。</p>
+<h4 id="回调函数和观察者模式的关系"><a href="#回调函数和观察者模式的关系" class="headerlink" title="回调函数和观察者模式的关系"></a>回调函数和观察者模式的关系</h4><p>回调函数和观察者模式都是用于实现事件驱动编程的技术。</p>
+<p>它们之间的关系是，观察者模式是一种设计模式，它通过定义一种一对多的依赖关系，使得一个对象的状态发生改变时，所有依赖于它的对象都会得到通知并自动更新。</p>
+<p>而回调函数则是一种编程技术，它允许将一个函数作为参数传递给另一个函数，在执行过程中调用这个函数来完成特定的任务。</p>
+<p>在观察者模式中，当一个被观察的对象发生改变时，会遍历所有的观察者对象，调用其定义好的更新方法，以进行相应的操作。</p>
+<p>这里的更新方法就可以看做是回调函数，因为它是由被观察对象调用的，并且在执行过程中可能需要使用到一些外部参数或上下文信息。因此，可以说观察者模式本身就包含了回调函数的概念，并且借助回调函数来实现观察者模式的具体功能。</p>
+<h3 id="如何编写高质量的回调函数"><a href="#如何编写高质量的回调函数" class="headerlink" title="如何编写高质量的回调函数"></a>如何编写高质量的回调函数</h3><p>回调函数需要遵循以下几个原则</p>
+<ol>
+<li><strong>明确函数的目的和作用域</strong>。回调函数应该有一个清晰的目的，同时只关注与其作用范围相关的任务</li>
+<li><strong>确定回调函数的参数和返回值</strong>。在定义回调函数时，需要明确它所需的参数和返回值类型，这样可以使调用方更容易使用</li>
+<li><strong>谨慎处理错误和异常</strong>。回调函数可能会引发一些异常或错误，需要使用 try-catch 块来处理它</li>
+<li><strong>确保回调函数不会导致死锁或阻塞</strong>。回调函数需要尽可能快地执行完毕，以避免影响程序的性能和稳定性。</li>
+<li><strong>使用清晰且易于理解的命名规则</strong>。回调函数的命名应该清晰、简洁，并尽可能说明其功能和意义。</li>
+<li><strong>编写文档和示例代码</strong>。良好的文档和示例代码可以帮助其他开发者更容易地使用回调函数，同时也有助于提高代码的可维护性和可重用性。</li>
+<li><strong>遵循编码规范和最佳实践</strong>。 编写高质量的回调函数需要遵守编码规范和最佳实践，例如使用合适的命名规则、注释代码等。</li>
+</ol>
+<h4 id="回调函数的命名规范"><a href="#回调函数的命名规范" class="headerlink" title="回调函数的命名规范"></a>回调函数的命名规范</h4><p>回调函数的命名规范没有固定的标准，但是根据通用惯例和编码规范，回调函数的命名应该能够反映函数的作用和功能，让其他开发者能够快速理解并使用。</p>
+<ol>
+<li>使用动词+名词的方式来描述回调函数的作用，例如onSuccess、onError等。</li>
+<li>如果回调函数是用于处理事件的，可以以handleEvent或者onEvent作为函数名。</li>
+<li>如果回调函数是用于处理异步操作完成后的结果，可以以onComplete或者onResult作为函数名。</li>
+<li>在命名时要注意保持简洁明了，不要过于冗长，也不要使用缩写或者不清晰的缩写。</li>
+<li>尽量使用有意义的单词或者短语作为函数名，不要使用无意义的字母或数字组合。</li>
+<li>与代码中其他的函数名称保持一致，尽量避免出现命名冲突的情况。</li>
+</ol>
+<h4 id="回调函数的参数设计"><a href="#回调函数的参数设计" class="headerlink" title="回调函数的参数设计"></a>回调函数的参数设计</h4><p>回调函数的参数设计取决于回调函数所需执行的操作和数据。一般来说，回调函数需要接收至少一个参数，通常是处理结果或错误信息。其他可选参数根据需要添加。</p>
+<h3 id="回调函数使用"><a href="#回调函数使用" class="headerlink" title="回调函数使用"></a>回调函数使用</h3><h4 id="使用Function对象"><a href="#使用Function对象" class="headerlink" title="使用Function对象"></a>使用Function对象</h4><p>Function 对象是 JavaScript 中的一种基本数据类型，它可以表示一个函数。可以使用 Function 对象来实现回调函数。如下所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">callbackFunction</span>(<span class="params">param1, param2</span>) &#123;</span><br><span class="line">  <span class="comment">// 执行回调函数的逻辑</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将回调函数传递给另一个函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">asyncFunction</span>(<span class="params">callback</span>) &#123;</span><br><span class="line">  <span class="comment">// 执行异步操作</span></span><br><span class="line">  <span class="title function_">callback</span>(result1, result2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用异步函数，并将回调函数传递给它</span></span><br><span class="line"><span class="title function_">asyncFunction</span>(callbackFunction);</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用arrow-箭头-函数"><a href="#使用arrow-箭头-函数" class="headerlink" title="使用arrow(箭头)函数"></a>使用arrow(箭头)函数</h4><p>arrow函数是 JavaScript 中的一种简化版本的函数表达式，它可以更简洁地定义函数。可以使用 arrow 函数来实现回调函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">callbackFunction</span> = (<span class="params">param1, param2</span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 执行回调函数的逻辑</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将回调函数传递给另一个函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">asyncFunction</span>(<span class="params">callback</span>) &#123;</span><br><span class="line">  <span class="comment">// 执行异步操作</span></span><br><span class="line">  <span class="title function_">callback</span>(result1, result2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用异步函数，并将回调函数传递给它</span></span><br><span class="line"><span class="title function_">asyncFunction</span>(callbackFunction);</span><br></pre></td></tr></table></figure>
+
+<h3 id="回调函数中的this指向"><a href="#回调函数中的this指向" class="headerlink" title="回调函数中的this指向"></a>回调函数中的this指向</h3><ul>
+<li><strong>在定时器<code>setInterval</code>和<code>setTimeout</code>中</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&#x27;my name is window&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line"> <span class="attr">name</span>: <span class="string">&#x27;my name is obj&#x27;</span>,</span><br><span class="line"> <span class="attr">fn</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">     <span class="keyword">var</span> timer = <span class="literal">null</span>;</span><br><span class="line">     <span class="built_in">clearInterval</span>(timer);</span><br><span class="line">     timer = <span class="built_in">setInterval</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">         <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>);  <span class="comment">// my name is window</span></span><br><span class="line">     &#125;, <span class="number">1000</span>)</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.<span class="title function_">fn</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"><span class="comment">// my name is window</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>在上面这个例子中，我们可以看出来，this的指向是<code>window</code></p>
+<p>如果没有特殊指向，<code>setInterval</code>和<code>setTimeout</code>的回调函数中this的指向都是window，这是因为JS的定时器方法是定义在window下的。</p>
+<p>但是平时很多场景下，都需要修改this的指向。这里总结了几种：</p>
+<ul>
+<li><p>最常用的方法：在外部函数中将<code>this</code>存为一个变量，回调函数中使用该变量，而不是直接使用<code>this</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&#x27;my name is window&#x27;</span>;</span><br><span class="line"> <span class="keyword">var</span> obj = &#123;</span><br><span class="line">     <span class="attr">name</span>: <span class="string">&#x27;my name is obj&#x27;</span>,</span><br><span class="line">     <span class="attr">fn</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">         <span class="keyword">var</span> that = <span class="variable language_">this</span>;</span><br><span class="line">         <span class="keyword">var</span> timer = <span class="literal">null</span>;</span><br><span class="line">         <span class="built_in">clearInterval</span>(timer);</span><br><span class="line">         timer = <span class="built_in">setInterval</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">             <span class="variable language_">console</span>.<span class="title function_">log</span>(that.<span class="property">name</span>);  <span class="comment">//my name is obj</span></span><br><span class="line">         &#125;, <span class="number">1000</span>)</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">obj.<span class="title function_">fn</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"><span class="comment">// my name is window</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用bind()方法</strong>（bind()为ES5的标准，低版本IE下有兼容问题，可以引入es5-shim.js解决）</p>
+<p><code>bind()</code>的作用类似call和apply，都是修改<code>this</code>指向。</p>
+<p>但是call和apply是修改this指向后函数会立即执行，而bind则是返回一个新的函数，它会创建一个与原来函数主体相同的新函数，新函数中的this指向传入的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&#x27;my name is window&#x27;</span>;</span><br><span class="line"> <span class="keyword">var</span> obj = &#123;</span><br><span class="line">     <span class="attr">name</span>: <span class="string">&#x27;my name is obj&#x27;</span>,</span><br><span class="line">     <span class="attr">fn</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">         <span class="keyword">var</span> that = <span class="variable language_">this</span>;</span><br><span class="line">         <span class="keyword">var</span> timer = <span class="literal">null</span>;</span><br><span class="line">         <span class="built_in">clearInterval</span>(timer);</span><br><span class="line">         timer = <span class="built_in">setInterval</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">             <span class="variable language_">console</span>.<span class="title function_">log</span>(that.<span class="property">name</span>);  <span class="comment">// my name is obj</span></span><br><span class="line">         &#125;.<span class="title function_">bind</span>(<span class="variable language_">this</span>), <span class="number">1000</span>)</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">obj.<span class="title function_">fn</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"><span class="comment">// my name is window</span></span><br></pre></td></tr></table></figure>
+
+<p>在这里为什么不能用call和apply，是因为call和apply不是返回函数，而是立即执行函数，那么，就失去了定时器的作用。</p>
+</li>
+<li><p><strong>使用es6的箭头函数</strong>：箭头函数的最大作用就是this指向。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> name = <span class="string">&#x27;my name is window&#x27;</span>;</span><br><span class="line"> <span class="keyword">var</span> obj = &#123;</span><br><span class="line">     <span class="attr">name</span>: <span class="string">&#x27;my name is obj&#x27;</span>,</span><br><span class="line">     <span class="attr">fn</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">         <span class="keyword">var</span> that = <span class="variable language_">this</span>;</span><br><span class="line">         <span class="keyword">var</span> timer = <span class="literal">null</span>;</span><br><span class="line">         <span class="built_in">clearInterval</span>(timer);</span><br><span class="line">         timer = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">             <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>);  <span class="comment">//my name is obj</span></span><br><span class="line">         &#125;, <span class="number">1000</span>)</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">obj.<span class="title function_">fn</span>()</span><br></pre></td></tr></table></figure>
+
+<p><strong>箭头函数没有自己的this，它的this继承自外部函数的作用域</strong>。</p>
+<p>所以，在该例中，定时器回调函数中的this，是继承了fn的this。</p>
+<p>当然箭头函数也有兼容问题，要是兼容低版本ie，需要使用babel编译，并且引入es5-shim.js才可以。</p>
+</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>回调函数其实本质上不能算是JS的独有手法，只是一种入门的编程思想罢了。</p>
+<p>虽然面试官让我详细说说我依然感觉很荒诞，但是我没能详细说说，确实不太符合老年程序员的身份。</p>
+<p>如今回顾了一下，倒也是颇为感慨，我的确挖的不够深，大开眼界。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7307469610424418319">【JavaScript】【回调】回调函数 &amp;&amp; 回调地狱 - 掘金 (juejin.cn)</a></p>
+<p><a href="https://link.juejin.cn/?target=https://zhuanlan.zhihu.com/p/627181746">回调函数(callback)是什么？一文理解回调函数(callback)</a></p>
+<p><a href="https://link.juejin.cn/?target=https://blog.csdn.net/qq_42698326/article/details/111075519">一文告诉你什么是回调地狱，如何解决回调地狱？-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7127339659545772063">回调地狱以及解决回调地狱 - 掘金 (juejin.cn)</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/05/31/%E6%B5%85%E6%9E%90vue%E7%9A%84%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-06-19 16:40:02
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                        #面试
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/JS/" title="JS">
+                        #JS
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2024/06/02/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-text">什么是回调函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">回调函数的作用和使用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text">回调函数的优缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E4%B8%8E%E5%85%B6%E5%AE%83%E7%BC%96%E7%A8%8B%E6%A6%82%E5%BF%B5%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">回调函数与其它编程概念的关系</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E5%92%8C%E9%97%AD%E5%8C%85%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">回调函数和闭包的关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E5%92%8CPromise%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">回调函数和Promise的关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E5%92%8C%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">回调函数和观察者模式的关系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-text">如何编写高质量的回调函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83"><span class="toc-text">回调函数的命名规范</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0%E8%AE%BE%E8%AE%A1"><span class="toc-text">回调函数的参数设计</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8"><span class="toc-text">回调函数使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Function%E5%AF%B9%E8%B1%A1"><span class="toc-text">使用Function对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8arrow-%E7%AE%AD%E5%A4%B4-%E5%87%BD%E6%95%B0"><span class="toc-text">使用arrow(箭头)函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E4%B8%AD%E7%9A%84this%E6%8C%87%E5%90%91"><span class="toc-text">回调函数中的this指向</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + 10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F06%2F02%2F10%25E5%2588%2586%25E9%2592%259F%25E4%25BA%2586%25E8%25A7%25A3%25E5%259B%259E%25E8%25B0%2583%25E5%2587%25BD%25E6%2595%25B0%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/06/02/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

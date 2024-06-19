@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      浅析vue2的虚拟dom与diff算法 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">浅析vue2的虚拟dom与diff算法</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-06-19 16:40:02
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                    #面试
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/vue2/" title="vue2">
+                    #vue2
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>这个也是较为常考的面试八股题，很早之前面试准备时候了解过，如今也算是捡起来重新看看了。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>本篇算是Vue响应式原理浅析那篇的补充，在响应式原理中，着重讲了vue实现响应式原理的核心思路，但是在针对页面渲染这块没怎么细说。</p>
+<p>虚拟dom渲染这块，面试核心便是算法的思路，真让你手写实现，大概率也最多就是个伪代码的思路图，不可能真让大家去实现的。</p>
+<p>所以，在本篇，本文并不深入探讨算法的源码实现，更多的是讲明白这个渲染的思路。</p>
+<h3 id="虚拟DOM"><a href="#虚拟DOM" class="headerlink" title="虚拟DOM"></a>虚拟DOM</h3><p>虚拟dom在响应式原理那边解释过，如果直接操作dom进行响应式的修改的话，对页面的性能开销会很大。</p>
+<p>作为前端开发，我们都知道的，重排是比重绘性能开销大的多的操作，如果每个变动都要直接操作整个DOM树进行替换，那么毫无疑问，vue绝对会被扫入历史垃圾堆。</p>
+<p>为了解决这么大的开销，vue在这里讨个巧，将对应的节点用JS封装成了<code>vnode</code>对象，通过对<code>vnode</code>对象的操作，进而一次性完成对dom的更改，减少了页面性能的消耗。</p>
+<p>这样，便是所谓虚拟DOM了，如果看不懂，我们直接放个简单的例子，例子一看就能明白。</p>
+<p>这是真实dom</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;list&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>a<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>b<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>c<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这是虚拟dom</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> vnode = <span class="title function_">h</span>(<span class="string">&#x27;ul.list&#x27;</span>, [</span><br><span class="line">  <span class="title function_">h</span>(<span class="string">&#x27;li&#x27;</span>,<span class="string">&#x27;a&#x27;</span>),</span><br><span class="line">  <span class="title function_">h</span>(<span class="string">&#x27;li&#x27;</span>,<span class="string">&#x27;b&#x27;</span>),</span><br><span class="line">  <span class="title function_">h</span>(<span class="string">&#x27;li&#x27;</span>,<span class="string">&#x27;c&#x27;</span>),</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<p>这里放个补充说明，平时我们开发中一定见过的。</p>
+<p>上面的h函数大家可能有点熟悉的感觉但是一时间也没想起来,没关系我来帮大伙回忆; <code>开发中常见的现实场景,render函数渲染</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 案例1 vue项目中的main.js的创建vue实例</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">  router,</span><br><span class="line">  store,</span><br><span class="line">  <span class="attr">render</span>: <span class="function"><span class="params">h</span> =&gt;</span> <span class="title function_">h</span>(<span class="title class_">App</span>)</span><br><span class="line">&#125;).$mount(<span class="string">&quot;#app&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//案例2 列表中使用render渲染</span></span><br><span class="line"><span class="attr">columns</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">title</span>: <span class="string">&quot;操作&quot;</span>,</span><br><span class="line">        <span class="attr">key</span>: <span class="string">&quot;action&quot;</span>,</span><br><span class="line">        <span class="attr">width</span>: <span class="number">150</span>,</span><br><span class="line">        <span class="attr">render</span>: <span class="function">(<span class="params">h, params</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="title function_">h</span>(<span class="string">&#x27;div&#x27;</span>, [</span><br><span class="line">                <span class="title function_">h</span>(<span class="string">&#x27;Button&#x27;</span>, &#123;</span><br><span class="line">                    <span class="attr">props</span>: &#123;</span><br><span class="line">                        <span class="attr">size</span>: <span class="string">&#x27;small&#x27;</span></span><br><span class="line">                    &#125;,</span><br><span class="line">                    <span class="attr">style</span>: &#123;</span><br><span class="line">                        <span class="attr">marginRight</span>: <span class="string">&#x27;5px&#x27;</span>,</span><br><span class="line">                        <span class="attr">marginBottom</span>: <span class="string">&#x27;5px&#x27;</span>,</span><br><span class="line">                    &#125;,</span><br><span class="line">                    <span class="attr">on</span>: &#123;</span><br><span class="line">                        <span class="attr">click</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">                            <span class="variable language_">this</span>.<span class="title function_">toEdit</span>(params.<span class="property">row</span>.<span class="property">uuid</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, <span class="string">&#x27;编辑&#x27;</span>)</span><br><span class="line">            ]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>这里的render函数，实际上就是将虚拟的节点转换为真实dom加入到了dom树中，这样，我们就不需要更新整个dom数，而是只更新对应的节点即可。</p>
+<p>这里关于虚拟dom的实现，这里就不贴源码了，感兴趣的可以自己去翻<a target="_blank" rel="noopener" href="https://github.com/snabbdom/snabbdom">snabbdom</a>，vue2内部使用的虚拟DOM就是改造的Snabbdom。</p>
+<p>哦，可能有的面试官会有个灵魂发问：虚拟dom更新一定就比真实dom更新来的快吗？</p>
+<p>这个要看情况，如果dom数足够的复杂，用虚拟dom会自然会更快，但是简单操作一个dom节点的话，比如换换文字什么，这种肯定是真实dom操作更快一点。</p>
+<p>不过，这个问题也就图一乐，为了这点性能开销单独写个dom操作一个不重要的节点，多少有点大可不必了。</p>
+<h3 id="diff算法"><a href="#diff算法" class="headerlink" title="diff算法"></a>diff算法</h3><p>重头戏了来了，虚拟dom只是个简单的开胃菜，重头戏还是得是diff算法。</p>
+<p>如果你vue的开发者，现在你拿到了虚拟dom，你要如何知道前后两者发生了什么地方的改变呢？</p>
+<p>有些朋友可能会说，这有什么难的，直接拿着每个节点挨个遍历比对就可以了，最暴力最直接的手法即可。</p>
+<p>这种做法其实就是传统的diff算法，简单粗暴，直接有效。</p>
+<p>不过，我们这里先看看vue是怎么实现虚拟dom的比对的。</p>
+<p>本图来自于<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1JR4y1R7Ln/?spm_id_from=333.337">B站思学堂UP</a>的整理，他的这张图是我目前看到整理的最清晰的图片，我大致回想了一下，和我以前看到的理解差不多，只要看懂了这张图，大致就明白vue的diff算法是这块是怎么一回事了。</p>
+<p><img src="https://s2.loli.net/2024/06/09/BOETmXxVslHNjW5.png" alt="00325814-9fc9-490b-8b4d-34d765016118 (1)"></p>
+<h4 id="vue的diff算法优化"><a href="#vue的diff算法优化" class="headerlink" title="vue的diff算法优化"></a>vue的diff算法优化</h4><p><a target="_blank" rel="noopener" href="https://github.com/snabbdom/snabbdom">snabbdom</a>做的的优化，相对于传统简单粗暴的遍历法，根据dom的特性做了一个优化，那就是同级比对。</p>
+<p>如果我对应的节点已经发生了改变，那这个节点之下的子节点我还有什么必要进行比对呢？这样的话，就省下了了很多性能，所以，vue2出道的时候，vue2这套diff算法也一度是热门面试题，只不过现在是2024年了，大家很少提及相关的事情了。</p>
+<p>关于vue这套算法的特点，这里不细讲，这里稍微总结了一下，便于大家面试时候回答。</p>
+<ul>
+<li>Snbbdom根据DOM的特点对传统的diff算法做了<code>优化</code></li>
+<li>DOM操作时候很少会跨级别操作节点</li>
+<li>只比较<code>同级别</code>的节点</li>
+</ul>
+<h4 id="updateChildren"><a href="#updateChildren" class="headerlink" title="updateChildren"></a>updateChildren</h4><p>在上边的图中，我们注意到了一件事，那就是新旧节点比对，都有子节点，于是转入了<code>updateChildren()</code>的方法。</p>
+<p>这里便是重点，前边的三种情况都好说，换文本，删除或新增节点，很干脆快速的就能完成。</p>
+<p>但是如果之下还有子节点，要怎么继续判断才能最省性能的方式完成对dom的操作呢？</p>
+<p>就是首尾指针法，这种方法个人认为非常切中我们平日操作数组的习惯，算是大幅提高效率的一种方法。</p>
+<p>这里稍微浅谈一下所谓的首尾指针法，就是将数组分为首尾两个指针。</p>
+<p>vue的在updateChildren的时候，会将新旧两个虚拟dom树做比对，这时候，取新旧两个dom树的数组首尾，于是得到了四个节点：新前，新后，旧前，旧后。</p>
+<p>然后按照如下顺序执行：新前与旧前，新后与旧后，新后与旧前，新前与旧后。</p>
+<p><img src="https://s2.loli.net/2024/06/12/3ItV52urUwX4aiN.png" alt="c134f0af-408f-4310-93bc-a83c89cc1979"></p>
+<p>尚硅谷的<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1v5411H7gZ?p=12&vd_source=ee3784ffe5f760cb992921cb8c5c98e5">【尚硅谷】Vue源码解析之虚拟DOM和diff算法</a>，我个人比较推荐他的视频，讲的很清楚。</p>
+<p>我这里大致通过这张图，我们就很能明白比对的方式了，这里暂时就不按照其他讲解放箭头图了，总之，通过前后对比的方法，首尾指针接近，直至循环完成之后，将旧树中未命中的旧节点移除，将新树中的新增节点加入。</p>
+<p>在比对完成之后，只需要操作一次真实dom，而且只操作没有key标记的DOM，这样可以最小限度的减少对dom树的破坏，减少页面开销，这也是我们在之前遇到的vue2如果不绑定Key的时候，为什么一部分dom更新会出问题的原因。</p>
+<h4 id="key的作用"><a href="#key的作用" class="headerlink" title="key的作用"></a>key的作用</h4><p>这里，又联系到之前提到v-for相关的说法了，因为你给节点加了<code>key</code>，所以，虚拟dom在遍历的时候，就很容易能找到对应的节点不会找错，因此，更快更准。</p>
+<p>而如果你用索引作为key，自然会出现一个问题，那就是索引不具有唯一性，因此索引作为key会导致渲染出BUG的原因便在于此。</p>
+<ul>
+<li>Diff操作可以<strong>更加快速</strong></li>
+<li>Diff操作可以<strong>更加准确(避免渲染错误)</strong></li>
+<li><strong>不推荐使用索引作为key，因为索引被修改后不具有唯一性</strong></li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>虚拟dom和diff算法，说破天，都是为了节省对dom操作的性能浪费而应对的办法，大多业务层面的前端开发者可以图个乐子了解一下。</p>
+<p>面试中问到，其实也是可以理解的，毕竟这也是vue的看家本事之一，所以对自己的工具原理不稍微了解下，确实也说不过去。</p>
+<p>不过，我们实际上其实用不到太多，做个大概得了解就可以，如果需要对源码进行深入拓荒的，可以尝试对源码层面进行了解。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7000266544181674014?searchId=20240609164240AFF5E00BCB5E76BED20E">DIff算法看不懂就一起来砍我(带图)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1JR4y1R7Ln/?spm_id_from=333.337">6分钟彻底掌握vue的diff算法，前端面试不再怕！</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1v5411H7gZ?p=12&vd_source=ee3784ffe5f760cb992921cb8c5c98e5">【尚硅谷】Vue源码解析之虚拟DOM和diff算法</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/06/09/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3JS%E5%9E%83%E5%9C%BE%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-06-19 16:40:02
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                        #面试
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/vue2/" title="vue2">
+                        #vue2
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2024/06/09/%E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F%EF%BC%8C%E9%80%89%E7%94%A8pnpm%E7%9A%84%E5%8E%9F%E5%9B%A0/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9FDOM"><span class="toc-text">虚拟DOM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#diff%E7%AE%97%E6%B3%95"><span class="toc-text">diff算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#vue%E7%9A%84diff%E7%AE%97%E6%B3%95%E4%BC%98%E5%8C%96"><span class="toc-text">vue的diff算法优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#updateChildren"><span class="toc-text">updateChildren</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#key%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">key的作用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E6%B5%85%E6%9E%90vue2%E7%9A%84%E8%99%9A%E6%8B%9Fdom%E4%B8%8Ediff%E7%AE%97%E6%B3%95 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F06%2F09%2F%25E6%25B5%2585%25E6%259E%2590vue2%25E7%259A%2584%25E8%2599%259A%25E6%258B%259Fdom%25E4%25B8%258Ediff%25E7%25AE%2597%25E6%25B3%2595%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/06/09/%E6%B5%85%E6%9E%90vue2%E7%9A%84%E8%99%9A%E6%8B%9Fdom%E4%B8%8Ediff%E7%AE%97%E6%B3%95/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

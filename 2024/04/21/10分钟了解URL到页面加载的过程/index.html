@@ -162,7 +162,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-05-07 23:17:58
+          2024-06-19 16:40:02
         </span>
         
               <span class="post-tags">
@@ -201,7 +201,7 @@
 <li>服务端数据处理请求阶段</li>
 <li>客户端页面渲染阶段</li>
 </ul>
-<p>如果想起</p>
+<p>详细一些的说，大致流程如下</p>
 <ol>
 <li>缓存解析地址，判断是否</li>
 <li>DNS解析，（输入的是域名）</li>
@@ -211,7 +211,7 @@
 <li>浏览器解析渲染页面</li>
 <li>连接结束</li>
 </ol>
-<p>输入了一个域名,域名要通过DNS解析找到这个域名对应的服务器地址(ip),通过TCP请求链接服务,通过WEB服务器(apache)返回数据,浏览器根据返回数据构建DOM树,通过css渲染引擎及js解析引擎将页面渲染出来,关闭<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=tcp%E8%BF%9E%E6%8E%A5&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2603050043%7D">tcp连接</a></p>
+<p>输入了一个域名,域名要通过DNS解析找到这个域名对应的服务器地址(ip),通过TCP请求链接服务,通过WEB服务器(apache)返回数据,浏览器根据返回数据构建DOM树,通过css渲染引擎及js解析引擎将页面渲染出来,关闭tcp连接</p>
 <h3 id="正常分析"><a href="#正常分析" class="headerlink" title="正常分析"></a>正常分析</h3><h4 id="首先在浏览器中输入URL-，缓存解析"><a href="#首先在浏览器中输入URL-，缓存解析" class="headerlink" title="首先在浏览器中输入URL ，缓存解析"></a>首先在浏览器中输入URL ，缓存解析</h4><p>浏览器先在缓存里找资源，浏览器缓存-系统缓存-路由缓存（如CDN缓存）中是否有该地址页面，如果有则显示页面内容。如果没有则进行下一步。</p>
 <h5 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h5><p>浏览器会记录DNS一段时间，因此，只是第一个地方解析DNS请求；</p>
 <h5 id="操作系统缓存"><a href="#操作系统缓存" class="headerlink" title="操作系统缓存"></a>操作系统缓存</h5><p>如果在浏览器缓存中不包含这个记录，则会使系统调用操作系统， 获取操作系统的记录(保存最近的DNS查询缓存)；</p>
@@ -284,7 +284,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-05-07 23:17:58
+              2024-06-19 16:40:02
             </span>
             
                   <span class="post-tags">

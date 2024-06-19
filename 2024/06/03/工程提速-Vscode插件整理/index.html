@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      工程提速,Vscode插件整理 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">工程提速,Vscode插件整理</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-06-19 16:40:02
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" title="工程化">
+                    #工程化
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>工欲善其事必先利其器，整理一套好用的开发插件，就像是工匠在打磨自己的工具，johh要有自己的装备。</p>
+<p>就算是差生也要文具多呢，出门在外，怎么能不整理一套属于自己的插件套装呢。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>以前整理过一套，但是现在毕竟是VUE3的时代了，以前整理的那一套多少有点落伍。</p>
+<p>所以，根据新的开发习惯，重新整理一套。</p>
+<h3 id="通用"><a href="#通用" class="headerlink" title="通用"></a>通用</h3><p>必装，常规的开发插件，前端开发必装。</p>
+<h4 id="Chinese-Simplified-Language-Pack-for-Visual-Studio-Code"><a href="#Chinese-Simplified-Language-Pack-for-Visual-Studio-Code" class="headerlink" title="Chinese (Simplified) Language Pack for Visual Studio Code"></a>Chinese (Simplified) Language Pack for Visual Studio Code</h4><p>工具的简中插件，早年很多人非得说要适应英语，我的评价是，别逞能了，是中国人肯定还是看中文来的亲切</p>
+<h4 id="vscode-icons"><a href="#vscode-icons" class="headerlink" title="vscode-icons"></a>vscode-icons</h4><p>给不同的文件对应的icon，让开发者更形象的记住所有的文件。不过，你如果只记文件后缀的话，或许不需用。</p>
+<h4 id="open-in-browser"><a href="#open-in-browser" class="headerlink" title="open-in-browser"></a>open-in-browser</h4><p>在浏览器打开当前文件，几乎是传统页面独立开发的必备工具，如果你喜欢用vscode手撸html的话，那这确实是个不错的插件。</p>
+<p>不过，为什么不直接问问神奇的webstorm呢？</p>
+<h4 id="Git-Graph"><a href="#Git-Graph" class="headerlink" title="Git Graph"></a>Git Graph</h4><p>VScode用的图形化git管理插件有不少，Git Graph和Git History都可以，二者随便选一个都可以。</p>
+<h4 id="GitLens-—-Git-supercharged"><a href="#GitLens-—-Git-supercharged" class="headerlink" title="GitLens — Git supercharged"></a>GitLens — Git supercharged</h4><p>可以在行内提示本行代码由谁提交，非常便利的git版本排查管控插件。</p>
+<h3 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h3><p>必装，无论用什么框架都不影响。</p>
+<h4 id="Auto-Close-Tag"><a href="#Auto-Close-Tag" class="headerlink" title="Auto Close Tag"></a>Auto Close Tag</h4><p>html自动闭合标签</p>
+<h4 id="Auto-Rename-Tag"><a href="#Auto-Rename-Tag" class="headerlink" title="Auto Rename Tag"></a>Auto Rename Tag</h4><p>html辅助修改标签，可以辅助修改闭合标签，省的开发者前后都要改一遍</p>
+<h4 id="Color-Info"><a href="#Color-Info" class="headerlink" title="Color Info"></a>Color Info</h4><p>当您将鼠标悬停在CSS颜色上，会提示颜色信息</p>
+<h4 id="Bracket-Pair-Color-DLW"><a href="#Bracket-Pair-Color-DLW" class="headerlink" title="Bracket Pair Color DLW"></a>Bracket Pair Color DLW</h4><p>函数方法括号颜色加深，清亮的颜色可以帮你在眼瞎的回调函数中增加发现BUG的几率，比原版的提示效果好不少</p>
+<h3 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h3><p>必装，这些工具算是大浪淘沙留下来比较实用的提示插件。</p>
+<h4 id="Path-Intellisense"><a href="#Path-Intellisense" class="headerlink" title="Path Intellisense"></a>Path Intellisense</h4><p>智能路径提示，提示文件中的引用路径，必用的路径提示插件</p>
+<h4 id="SVG-Viewer"><a href="#SVG-Viewer" class="headerlink" title="SVG Viewer"></a>SVG Viewer</h4><p>svg预览工具，可以右键选中，预览项目中的svg，如果项目中有很多SVG的icon，那么，这个插件就是很有必要的。</p>
+<h4 id="filesize"><a href="#filesize" class="headerlink" title="filesize"></a>filesize</h4><p>可以告诉你写的文件有多大，虽然我们的代码终归会成为屎山，但是我们尽量还是要控制啊（笑）</p>
+<h4 id="Element-Plus-Helper"><a href="#Element-Plus-Helper" class="headerlink" title="Element Plus Helper"></a>Element Plus Helper</h4><p>选择性安装，个人因为公司项目安装，此插件适用于 <a target="_blank" rel="noopener" href="https://vue-admin-beautiful.com/admin-plus">Vue Admin Plus</a>、<a target="_blank" rel="noopener" href="https://vue-admin-beautiful.com/shop-vite">Vue Shop Vite</a> 等基于 element-plus 开发的项目</p>
+<h3 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h3><p>选择性安装，我个人是习惯这套代码格式化+检测辅助，不过这套插件推荐根据项目习惯而选择性安装的，并非是必须安装的。</p>
+<h4 id="ESLint"><a href="#ESLint" class="headerlink" title="ESLint"></a>ESLint</h4><p>检测js标准的工具，只是一个检测和提示插件</p>
+<h4 id="Prettier-Code-formatter"><a href="#Prettier-Code-formatter" class="headerlink" title="Prettier - Code formatter"></a>Prettier - Code formatter</h4><p>自定义代码格式化工具，是用来做格式化配置的，建议配合上边的Eslint标准使用，这是一个格式化插件</p>
+<h4 id="vscode-fileheader"><a href="#vscode-fileheader" class="headerlink" title="vscode-fileheader"></a>vscode-fileheader</h4><p>ctrl+alt+i 快速在文件开始写注释，如果有其他更好的代码注释插件，那么没必要安装。</p>
+<h3 id="HTML-CSS"><a href="#HTML-CSS" class="headerlink" title="HTML+CSS"></a>HTML+CSS</h3><p>传统的html和CSS的开发提示支持，这套提示插件现在似乎已经被vscode内置</p>
+<h4 id="HTML-CSS-Support"><a href="#HTML-CSS-Support" class="headerlink" title="HTML CSS Support"></a>HTML CSS Support</h4><p>让 html 标签上写class 智能提示当前项目所支持的样式，新版已经支持scss文件检索，也支持vue。</p>
+<h4 id="HTMLHint"><a href="#HTMLHint" class="headerlink" title="HTMLHint"></a>HTMLHint</h4><p>HTML格式提示，HTMLHint 工具内置 23 条规则，可以对 HTML 代码文件进行静态代码检查，从而提高 HTML 代码编写的规范和质量。</p>
+<h3 id="VUE2"><a href="#VUE2" class="headerlink" title="VUE2"></a>VUE2</h3><p>如果主要以vue3开发为主的话，以下这套开发插件可以避免，选择性安装。</p>
+<p>这套插件和vue3的相关插件有一定的冲突，如无VUE2项目的开发需求，则没必要装这些插件。</p>
+<h4 id="Vetur"><a href="#Vetur" class="headerlink" title="Vetur"></a>Vetur</h4><p>主要是为vue提供快捷语法提示，非常好用，但是不建议使用作为格式化工具</p>
+<h4 id="Vue-2-Snippets"><a href="#Vue-2-Snippets" class="headerlink" title="Vue 2 Snippets"></a>Vue 2 Snippets</h4><p>基于最新的 Vue 官方语法高亮文件添加了语法高亮，并且依据 Vue 2 的 API 添加了代码补全</p>
+<h4 id="Vue-Peek"><a href="#Vue-Peek" class="headerlink" title="Vue Peek"></a>Vue Peek</h4><p>必装，即便是vue3里边，也可以装这个插件，用于查找vue组件文件</p>
+<h4 id="VueHelper"><a href="#VueHelper" class="headerlink" title="VueHelper"></a>VueHelper</h4><p>vue代码提示插件，包括了vue2所有api，vue-router2和vuex2的代码提示。</p>
+<h3 id="VUE3"><a href="#VUE3" class="headerlink" title="VUE3"></a>VUE3</h3><p>选择性安装，如果Vue3开发的倾向比较多，那么就用这套插件。</p>
+<h4 id="Vue-VSCode-Snippets"><a href="#Vue-VSCode-Snippets" class="headerlink" title="Vue VSCode Snippets"></a>Vue VSCode Snippets</h4><ul>
+<li>提供 Vue 3 相关的代码片段，方便快速输入常见代码结构。</li>
+<li>支持 Vue 组件选项、指令、生命周期等。</li>
+</ul>
+<h4 id="Vue-Language-Features-Volar"><a href="#Vue-Language-Features-Volar" class="headerlink" title="Vue Language Features (Volar)"></a>Vue Language Features (Volar)</h4><ul>
+<li>提供 Vue 文件的语法高亮。</li>
+<li>支持 Vue 文件的智能感知和自动完成。</li>
+<li>提供了 Vue 文件的格式化工具。</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本篇文档并未有任何参考，纯粹是自己这几年开发整理出来的经验，因为个人擅长使用vue相关，所以本篇的工具更倾向于vue。</p>
+<p>如果以后用react的话，我会考虑使再用react整一套。</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/06/02/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-06-19 16:40:02
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" title="工程化">
+                        #工程化
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2024/06/03/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3this%E6%8C%87%E5%90%91/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E7%94%A8"><span class="toc-text">通用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Chinese-Simplified-Language-Pack-for-Visual-Studio-Code"><span class="toc-text">Chinese (Simplified) Language Pack for Visual Studio Code</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vscode-icons"><span class="toc-text">vscode-icons</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#open-in-browser"><span class="toc-text">open-in-browser</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Git-Graph"><span class="toc-text">Git Graph</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GitLens-%E2%80%94-Git-supercharged"><span class="toc-text">GitLens — Git supercharged</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91"><span class="toc-text">开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Auto-Close-Tag"><span class="toc-text">Auto Close Tag</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Auto-Rename-Tag"><span class="toc-text">Auto Rename Tag</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Color-Info"><span class="toc-text">Color Info</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bracket-Pair-Color-DLW"><span class="toc-text">Bracket Pair Color DLW</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA"><span class="toc-text">提示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Path-Intellisense"><span class="toc-text">Path Intellisense</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SVG-Viewer"><span class="toc-text">SVG Viewer</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#filesize"><span class="toc-text">filesize</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Element-Plus-Helper"><span class="toc-text">Element Plus Helper</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F"><span class="toc-text">格式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ESLint"><span class="toc-text">ESLint</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Prettier-Code-formatter"><span class="toc-text">Prettier - Code formatter</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vscode-fileheader"><span class="toc-text">vscode-fileheader</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-CSS"><span class="toc-text">HTML+CSS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HTML-CSS-Support"><span class="toc-text">HTML CSS Support</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTMLHint"><span class="toc-text">HTMLHint</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VUE2"><span class="toc-text">VUE2</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Vetur"><span class="toc-text">Vetur</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vue-2-Snippets"><span class="toc-text">Vue 2 Snippets</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vue-Peek"><span class="toc-text">Vue Peek</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VueHelper"><span class="toc-text">VueHelper</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VUE3"><span class="toc-text">VUE3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Vue-VSCode-Snippets"><span class="toc-text">Vue VSCode Snippets</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vue-Language-Features-Volar"><span class="toc-text">Vue Language Features (Volar)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F%2CVscode%E6%8F%92%E4%BB%B6%E6%95%B4%E7%90%86 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F06%2F03%2F%25E5%25B7%25A5%25E7%25A8%258B%25E6%258F%2590%25E9%2580%259F-Vscode%25E6%258F%2592%25E4%25BB%25B6%25E6%2595%25B4%25E7%2590%2586%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/06/03/%E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F-Vscode%E6%8F%92%E4%BB%B6%E6%95%B4%E7%90%86/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

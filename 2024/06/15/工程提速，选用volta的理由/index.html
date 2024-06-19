@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      工程提速，选用volta的理由 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">工程提速，选用volta的理由</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-06-19 16:40:02
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" title="工程化">
+                    #工程化
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>我：开发环境node环境有点乱，下个nvm用用吧。</p>
+<p>同事：也许你应该考虑放弃nvm，考虑一下这款好用的volta？</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>在公司的电脑环境上安装了自用的hexo博客，打算日常午休时候，可以稍微写点什么。</p>
+<p>但是，hexo和公司电脑环境上的配置发生了冲突。</p>
+<p>公司项目是<code>node20</code>版本的环境，hexo的环境是不支持的，本来打算用nvm处理一下算了，甚至算了一下时间，我都想放弃用公司电脑摸鱼写博客了。</p>
+<p>但是后来朋友说，用<code>volta</code>，这是比nvm更好的node版本管控工具，能完美解决我的痛点。</p>
+<p>我一开始不信，翻了一下<a target="_blank" rel="noopener" href="https://docs.volta.sh/guide/#why-volta">volta官网</a>，也没明白到底好用在哪里，我承认我英语不好，但首页说明很简单，这点我还是看的明白。</p>
+<blockquote>
+<p>使用 Volta，您可以一次选择 Node 引擎，然后不再担心它。您可以在项目之间切换，而不必手动切换 nodejs 版本。</p>
+<p>你可以在工具链中安装 npm 包，不必定期重新安装它们，或者弄清楚它们停止工作的原因。</p>
+</blockquote>
+<p>官网这话说的比较拗口，一开始我没明白什么意思，之后上手用了一下，我瞬间明白了。</p>
+<p>这玩意能给项目锁node版本！每个项目在设置好自己的版本之后，不同项目可以同时运行。</p>
+<p>这不需要像nvm一样，每次换项目都得手动命令行切换node版本。</p>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>相信，我上边的例子已经让您明白到底什么样的环境适合使用<code>volta</code>工具了。</p>
+<p>这里，个人总结一下适合的应用场景</p>
+<ol>
+<li>多项目，一台电脑上有多个需要开发的项目</li>
+<li>node多版本，多个项目之间node版本跨度要求大，不能同时使用一个环境</li>
+<li>需并行开发，要同时运行数个node环境不同的项目</li>
+</ol>
+<p>如果满足以上应用条件，不妨尝试一下使用<code>volta</code>。</p>
+<p>除了无缝衔接，每个项目的无须手动切换外，它还有如下特点：</p>
+<ul>
+<li>速度，因为是用时下流行的rust重写的，所以运行速度很快</li>
+<li>跨平台支持，包括 Windows 和所有 Unix shell</li>
+<li>稳定的工具安装-无需每次升级都重新安装!</li>
+</ul>
+<h3 id="安装流程"><a href="#安装流程" class="headerlink" title="安装流程"></a>安装流程</h3><p>因为个人是win系统，且win系统的操作相对繁琐，这里先说win系统的安装。</p>
+<h4 id="win"><a href="#win" class="headerlink" title="win"></a>win</h4><p>对于 Windows，<a href="https://link.juejin.cn/?target=https://github.com/volta-cli/volta/releases/download/v1.1.1/volta-1.1.1-windows-x86_64.msi">下载并运行 Windows 安装程序</a>并按照说明操作。</p>
+<p>Volta 的功能依赖于创建符号链接，所以你必须<a href="https://link.juejin.cn/?target=https://learn.microsoft.com/zh-cn/windows/apps/get-started/enable-your-device-for-development%23accessing-settings-for-developers">启用开发者模式</a>。</p>
+<p>启用开发者模式的意思很简单，就是打开设置&gt;开发者选项，然后打开开发人员模式即可。</p>
+<p>对了，这里要注意下，有时候VScode窗口命令行不支持的时候，把所有的VScode全部关掉再重开即可。</p>
+<h4 id="mac与linux"><a href="#mac与linux" class="headerlink" title="mac与linux"></a>mac与linux</h4><p>这里我没有mac，所以我就不细说了，反正mac环境很干净，知道对应的目录敲一下命令就可以了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://get.volta.sh | bash</span><br></pre></td></tr></table></figure>
+
+<p>如其他开发的环境工具一样，安装完成之后，我们可以用如下命令确认是否安装成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">volta --version</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><p>这里也不墨迹，直接与nvm使用方式的对比一下。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>volta</th>
+<th>nvm</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>下载</td>
+<td>volta install node@16</td>
+<td>nvm install @16.12.0</td>
+</tr>
+<tr>
+<td>卸载</td>
+<td>volta uninstall</td>
+<td>nvm uninstall @16.12.0</td>
+</tr>
+<tr>
+<td>使用node版本</td>
+<td>–</td>
+<td>nvm use</td>
+</tr>
+<tr>
+<td>固定node版本</td>
+<td>volta pin node@16</td>
+<td>–</td>
+</tr>
+<tr>
+<td>查看安装的版本</td>
+<td>volta list</td>
+<td>nvm list</td>
+</tr>
+<tr>
+<td>查看可安装的版本</td>
+<td>–</td>
+<td>nvm list available</td>
+</tr>
+</tbody></table>
+<p>注意，volta uninstall 命令似乎卸载不了已经安装node版本，这里我尝试过使用命令去安装和卸载，结论就是volta除了针对pnpm和nvm的安装卸载有效果，其他毫无作用。</p>
+<p>可能这是一个bug，如果有人能正式用出来，可以再我的评论区说一下，我这边立刻改掉，反正我是没试出来。</p>
+<p>正式的命令，可以参考这个：<a target="_blank" rel="noopener" href="https://volta.jikun.dev/reference/">Volta 命令 | Volta (jikun.dev)</a>，这应该是同人做的官网文档中文翻译，不过，我参考这个卸载命令试了一下，还是不行。</p>
+<p>总之，目前除了卸载，一切都算是正常。</p>
+<h3 id="同类工具"><a href="#同类工具" class="headerlink" title="同类工具"></a>同类工具</h3><p>本来是没有这项的，在整理到一半的时候，在群友提示下，我才发现volta还有同类的工具——<a target="_blank" rel="noopener" href="https://gitcode.com/Schniz/fnm/overview?utm_source=csdn_github_accelerator">fnm</a></p>
+<p>这可真是铁板上烤鱿鱼——卷起来了啊。</p>
+<p>和volta一样，fnm也是rust编写的，很快且支持项目固定node环境，而且也能稳定安装环境，同时wiki上也是中文。</p>
+<p>感兴趣的可以参考这篇文档：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43288600/article/details/135073118">还在用nvm？来试试更快的node版本管理工具——fnm_fnm windows-CSDN博客</a>。</p>
+<p>这博客虽然是在csdn上写的，但写的简单干脆，适合阅读，没啥车轱辘话，挺不错的。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>不得不说，真是江山代有人才出，明明一年没正式在开发团体中做事，就感觉现在前端圈子变了好多。</p>
+<p>我们那个时候对于node版本管控需求不高，所以最多就一个nvm就够用了，而现在不同node版本的新旧项目叠在一起，如此环境，</p>
+<p><code>volta</code>，确实好用。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/691809574">软件丨node版本管理的神！ - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://volta.jikun.dev/reference/">Volta 命令 | Volta (jikun.dev)</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/06/13/%E6%B5%85%E6%9E%90%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC%E5%88%B0%E5%BA%95%E6%98%AF%E6%B7%B1%E6%8B%B7%E8%BF%98%E6%98%AF%E6%B5%85%E6%8B%B7/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-06-19 16:40:02
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" title="工程化">
+                        #工程化
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2024/06/16/%E5%85%B3%E4%BA%8E%E7%94%9F%E4%BA%A7%E5%8A%9B%E6%9E%81%E5%A4%A7%E5%8F%91%E5%B1%95%E7%9A%84%E6%B5%85%E6%80%9D/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%B5%81%E7%A8%8B"><span class="toc-text">安装流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#win"><span class="toc-text">win</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mac%E4%B8%8Elinux"><span class="toc-text">mac与linux</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-text">使用方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E7%B1%BB%E5%B7%A5%E5%85%B7"><span class="toc-text">同类工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F%EF%BC%8C%E9%80%89%E7%94%A8volta%E7%9A%84%E7%90%86%E7%94%B1 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F06%2F15%2F%25E5%25B7%25A5%25E7%25A8%258B%25E6%258F%2590%25E9%2580%259F%25EF%25BC%258C%25E9%2580%2589%25E7%2594%25A8volta%25E7%259A%2584%25E7%2590%2586%25E7%2594%25B1%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/06/15/%E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F%EF%BC%8C%E9%80%89%E7%94%A8volta%E7%9A%84%E7%90%86%E7%94%B1/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
