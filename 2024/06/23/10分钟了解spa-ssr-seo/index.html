@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      10分钟了解spa,ssr,seo 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">10分钟了解spa,ssr,seo</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-06-23 08:35:25
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">
+                    #浏览器
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                    #面试
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>因为最近被一个新人模拟面试折腾的高血压又犯了，以前我是碰都不会碰这类基础面试题的，这种常识还有人不会？</p>
+<p>结果还真有人不会，为了给新手开开眼，于是特意整理了这篇文档。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>最近有个刚入行的新手问我什么是SPA，我说就是单页面应用。</p>
+<p>他又问什么是单页面应用，我寻思这是来考我了？</p>
+<p>然后我就认真回了一下：就是一次加载前端所有资源，然后由前端的JS脚本来控制用户的交互行为。这样做的好处是可以在客户端处理掉所有的交互，减小服务器的压力，但是坏处是服务器做SEO时候，不好做数据抓取，相对于传统的SSR不太好。</p>
+<p>然后，新人又问：什么是SEO?SSR不是抽卡吗，和这个有什么关系？</p>
+<p>我：。。。你他妈的就是来找茬的？新生代的前端都这么没常识的吗？</p>
+<h3 id="单页面应用（SPA）"><a href="#单页面应用（SPA）" class="headerlink" title="单页面应用（SPA）"></a><a target="_blank" rel="noopener" href="https://cn.vuejs.org/guide/extras/ways-of-using-vue.html#single-page-application-spa">单页面应用（SPA）</a></h3><p>单页面应用这个面试题从我入行的时候就在问，因为那时候还是jquery刚刚倾倒的时刻，vue，ng，react三大框架刚刚兴起，对于那时候的人来说，这个概念很新鲜。</p>
+<p>如今都他妈快5到6年了，还在问这个问题，我只能说社会进步还是挺缓慢的。</p>
+<p>我这里懒得自己写定义了，引用一下vue官方的说法。</p>
+<blockquote>
+<p>一些应用在前端需要具有丰富的交互性、较深的会话和复杂的状态逻辑。</p>
+<p>构建这类应用的最佳方法是使用这样一种架构：Vue 不仅控制整个页面，还负责处理抓取新数据，并在无需重新加载的前提下处理页面切换。</p>
+<p>这种类型的应用通常称为单页应用 (Single-Page application，缩写为 SPA)。</p>
+</blockquote>
+<p>说的简单点，就是以前页面切换等操作，每次都需要向服务器发送请求，抓取新的页面资源，到了本地重新解析资源，压力都在服务器端。</p>
+<p>为了缓解服务器的渲染压力，也为了开发提速，于是就有了单页面应用（SPA）的处理方式。</p>
+<p>这样避免每次切换页面对服务端造成压力，也不需要前端页面在服务器渲染，进一步削弱了服务器的压力。</p>
+<h4 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h4><ol>
+<li>减小了后端开发心智负担，使后端更专注业务开发，前端来处理交互逻辑。SPA必然伴随着前后端解耦，传统开发需要后端调试前端的写的页面逻辑，比如JSP交互，如今将交互逻辑分离出来，页面及跳转之类的交互逻辑全部由前端开发，使后端更专注于业务逻辑的开发。</li>
+<li>增加开发速度，因为前后端逻辑解耦，各自负责自己的部分，可以并行安排开发任务，双方通过接口进行联调，相对于传统的开发模式，不需要后期全部由后端挑大梁。</li>
+<li>减小对服务器的压力，SPA是一次性加载所有资源到本地，由用户本地的浏览器来处理交互逻辑，在后续的人机交互过程中，除了需要请求接口数据，几乎不需要请求大量的页面资源，也不需要再服务端渲染，故而极大程度的减小的服务器的压力。</li>
+<li>页面之间的切换非常快，用户体验好。因为全部由前端处理交互，不需要过服务器的渲染，不会受限于服务器的性能造成处理问题，所以相对传统的服务器端渲染页面，SPA能够更快的完成前端页面交互效果。</li>
+</ol>
+<h4 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h4><ol>
+<li>首屏打开速度很慢，因为用户首次加载需要先下载SPA框架及应用程序的代码，然后再渲染页面，由此衍生出了很多首屏优化的要求。</li>
+<li>不方便SEO。SEO是根据每个页面的固定内容进行抓取，而SPA是一次性加载所有资源，故而这种方式不利于SEO抓取。</li>
+</ol>
+<h3 id="搜索引擎优化（SEO）"><a href="#搜索引擎优化（SEO）" class="headerlink" title="搜索引擎优化（SEO）"></a>搜索引擎优化（SEO）</h3><p>既然提到了SEO，这里就先讲SEO。</p>
+<p>这里引用一下百度百科给的定义，虽然百科不怎么正规，但是它这部分说的还是相对来说较为严谨的。</p>
+<blockquote>
+<p>SEO（Search Engine Optimization）：汉译为搜索引擎优化。</p>
+<p>是一种利用<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/104812?fromModule=lemma_inlink">搜索引擎</a>的规则提高网站在有关搜索引擎内的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%87%AA%E7%84%B6%E6%8E%92%E5%90%8D/2092669?fromModule=lemma_inlink">自然排名</a>的方式。目的是让其在行业内占据领先地位，获得<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%93%81%E7%89%8C/235720?fromModule=lemma_inlink">品牌</a>收益。</p>
+<p>很大程度上是网站经营者的一种商业行为，将自己或自己公司的排名前移。</p>
+</blockquote>
+<h4 id="搜索引擎工作原理"><a href="#搜索引擎工作原理" class="headerlink" title="搜索引擎工作原理"></a>搜索引擎工作原理</h4><p>在搜索引擎网站的后台会有一个非常庞大的数据库，里面存储了海量的关键词，而每个关键词又对应着很多网址，这些网址是被称之为“搜索引擎蜘蛛”或“网络爬虫”程序从茫茫的互联网上一点一点下载收集而来的。</p>
+<p>随着各种各样网站的出现，这些勤劳的“蜘蛛”每天在互联网上爬行，从一个链接到另一个链接，下载其中的内容，进行分析提炼，找到其中的关键词，如果“蜘蛛”认为关键词在数据库中没有而对用户是有用的便存入后台的数据库中。</p>
+<p>反之，如果“蜘蛛”认为是垃圾信息或重复信息，就舍弃不要，继续爬行，寻找最新的、有用的信息保存起来提供用户搜索。当用户搜索时，就能检索出与关键字相关的网址显示给访客。</p>
+<p>一个关键词对用多个网址，因此就出现了排序的问题，相应的当与关键词最吻合的网址就会排在前面了。</p>
+<p>在“蜘蛛”抓取网页内容，提炼关键词的这个过程中，就存在一个问题：“蜘蛛”能否看懂。如果网站内容是flash和js等，那么它是看不懂的，会犯迷糊，即使关键字再贴切也没用。相应的，如果网站内容可以被搜索引擎能识别，那么搜索引擎就会提高该网站的权重，增加对该网站的友好度。</p>
+<p>这样一个过程我们称之为SEO。</p>
+<h4 id="SEO与SEM的区别"><a href="#SEO与SEM的区别" class="headerlink" title="SEO与SEM的区别"></a>SEO与SEM的区别</h4><p>讲到两者的区别时候，先放一下SEM的定义，我看了一下百科的定义，个人感觉不够直白，这里自己干脆重写一下。</p>
+<blockquote>
+<p>SEM一般指竞价推广，在搜索引擎后台账户投钱，使广告获取相关的排名，一般搜索页面上会展现“广告”的标签。</p>
+</blockquote>
+<p>这里我们从不同维度去比较一下两者的区别。</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>SEO</th>
+<th>SEM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>关键词前置条件</td>
+<td>需要网站有权重基础，小站无法做热词，不能随时增减关键词</td>
+<td>不需要网站基础，任何关键词都可以投放</td>
+</tr>
+<tr>
+<td>关键词收费</td>
+<td>相对较低，随着SEO优化好，收费会降低</td>
+<td>关键词越多，收费越高，随着同类站点竞争激烈，收费越高</td>
+</tr>
+<tr>
+<td>见效时长</td>
+<td>3-5月以上</td>
+<td>立刻见效</td>
+</tr>
+<tr>
+<td>持续性</td>
+<td>停止SEO，效果可以持续很久</td>
+<td>停止SEM，立刻失效</td>
+</tr>
+</tbody></table>
+<p>如果你们老板实际开发官网，希望你能优化一下官网的SEO排名，我个人建议，在国内的话，直接找个靠谱的厂商去买关键字竞价吧。</p>
+<p>现在搜索排名靠前的全部都是广告，搜不出什么正经的东西，你各种花里胡哨的操作，都不如直接去买关键字权重。</p>
+<p>我之前呆的一家公司，甚至没做SSR的优化，直接用vue弄了个单页面应用，硬是靠着关键字排名砸到了前排，SEO总归是商业行为，技术角度总归只是辅助，了解一下就行。</p>
+<p>当然，也并非说国内完全没有做seo的价值，详情可以参考这篇文：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7205604505647792185">2023年了，做SEO还有必要吗？</a>，讲的很不错。</p>
+<p>另外，在国内的网站最好还是备案一下，虽然<strong>备案不影响SEO的优化</strong>，但在国内有备案的网站终归更具有可信度。</p>
+<h4 id="白帽SEO与黑帽SEO"><a href="#白帽SEO与黑帽SEO" class="headerlink" title="白帽SEO与黑帽SEO"></a>白帽SEO与黑帽SEO</h4><p>在市面上，按照各种操作行为，大致可以分为白帽SEO和黑帽SEO。</p>
+<p><strong>白帽SEO</strong>：起到了改良和规范网站设计的作用，使网站对搜索引擎和用户更加友好，并且网站也能从搜索引擎中获取合理的流量，这是搜索引擎鼓励和支持的。</p>
+<p><strong>黑帽SEO</strong>：利用和放大搜索引擎政策缺陷来获取更多用户的访问量，这类行为大多是欺骗搜索引擎，一般搜索引擎公司是不支持与鼓励的。</p>
+<p>我们常规的技术手段，大概就是白帽SEO，具体手段参考：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7300118821532778511?searchId=20240623132011EB5FEB974913729653EF">一文带你弄懂 前端SEO优化</a>，实际开发过程中，我们主要做如下操作。</p>
+<ol>
+<li>SSR服务器渲染</li>
+<li>预渲染prerender-spa-plugin</li>
+<li>对网站的的title、description、keywords精心设置，反映网站的定位，让搜索引擎明白网站是做什么的；</li>
+<li>网站内容优化：内容与关键字的对应，合理增加关键字的密度；</li>
+<li>饰性图片必须加alt</li>
+<li>在网站上合理设置Robots.txt文件；</li>
+<li>语义化化的HTML代码，符合W3C规范</li>
+<li>增加外部链接，到各个网站上宣传；</li>
+<li>向各大搜索引擎提交收录自己的站点</li>
+<li>少用iframe：iframe中的内容是不会被抓取到的</li>
+</ol>
+<p>详细的操作手段这里就不说了，我后续会专门整理一篇文档，毕竟从零开始弄一个网站，然后通过SEO优化打到前排这种操作我也没做过，公司都是直接用钱砸关键字权重的，只能说钱多任性。</p>
+<p>后续我会尝试做个简单的玩具网站，试试能不能通过白帽SEO把排名打上去，如果打不上去，我这里介绍的再怎么花哨也没什么用。</p>
+<h3 id="服务器端渲染（SSR）"><a href="#服务器端渲染（SSR）" class="headerlink" title="服务器端渲染（SSR）"></a>服务器端渲染（SSR）</h3><p>这里依旧放一下百度百科的定义。</p>
+<blockquote>
+<p>服务器端渲染（Server-Side Rendering）是指由服务侧完成页面的 HTML 结构拼接的页面处理技术，发送到浏览器，然后为其绑定状态与事件，成为完全可交互页面的过程。</p>
+</blockquote>
+<p>SSR没什么好说的，就是传统的服务端页面，因为页面的接口都是在服务端完成拼接处理，当浏览器的请求资源的时候，已经是完整的DOM结构。</p>
+<p>故而，SSR相对于传统的SPA更适合搜索引擎抓取关键字，所以SEO效果会更好。</p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ol>
+<li>更快的响应时间，不用等待所有的JS都下载完成，浏览器便能显示比较完整的页面了</li>
+<li>更好的SEO，将SEO的关键信息直接在后台就渲染成HTML，而保证搜索引擎的爬虫都能爬取到关键数据。</li>
+</ol>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ol>
+<li>相对于仅仅需要提供静态文件的服务器，SSR中使用的渲染程序自然会占用更多的CPU和内存资源</li>
+<li>一些常用的浏览器API可能无法正常使用，比如<code>window</code>、<code>docment</code>和<code>alert</code>等，如果使用的话需要对运行的环境加以判断</li>
+<li>开发调试会有一些麻烦，因为涉及了浏览器及服务器，对于SPA的一些组件的生命周期的管理会变得复杂</li>
+<li>可能会由于某些因素导致服务器端渲染的结果与浏览器端的结果不一致</li>
+</ol>
+<h4 id="SSR常用框架"><a href="#SSR常用框架" class="headerlink" title="SSR常用框架"></a>SSR常用框架</h4><ul>
+<li>React 的 <a href="https://link.juejin.cn/?target=https://nextjs.org/">Next</a></li>
+<li>Vue.js 的 <a target="_blank" rel="noopener" href="https://nuxt.com/">Nuxt3</a></li>
+</ul>
+<h4 id="Nuxt静态化"><a href="#Nuxt静态化" class="headerlink" title="Nuxt静态化"></a>Nuxt静态化</h4><p>因为个人之前是用Nuxt来做官网的，而且本人的技术栈主要也是vue全家桶，所以这里主要也就讲一下Nuxt3。</p>
+<p>静态化是Nuxt.js打包的另一种方式，算是Nuxt.js的一个创新点，部署到服务器上之后，这种页面加载速度很快。</p>
+<p>这里再次放一下Nuxt3官网的关于服务端渲染的说法。</p>
+<h5 id="服务器端渲染"><a href="#服务器端渲染" class="headerlink" title=" 服务器端渲染"></a><a target="_blank" rel="noopener" href="https://nuxt.com/docs/getting-started/introduction#server-side-rendering"> 服务器端渲染</a></h5><p>默认情况下，Nuxt具有内置的服务器端渲染（SSR）功能，无需自己配置服务器，这对Web应用程序有很多好处</p>
+<ul>
+<li><strong>更快的初始页面加载时间：</strong>Nuxt将完全呈现的HTML页面发送到浏览器，该页面可以立即显示。这可以提供更快的感知页面加载时间和更好的用户体验 （UX），尤其是在速度较慢的网络或设备上。</li>
+<li><strong>改进的 SEO：</strong>搜索引擎可以更好地索引 SSR 页面，因为 HTML 内容可以立即使用，而不需要 JavaScript 在客户端呈现内容。</li>
+<li><strong>在低功耗设备上具有更好的性能：</strong>它减少了需要在客户端下载和执行的 JavaScript 数量，这对于可能难以处理繁重的 JavaScript 应用程序的低功耗设备非常有益。</li>
+<li><strong>更好的辅助功能：</strong>内容在初始页面加载时立即可用，从而提高了依赖屏幕阅读器或其他辅助技术的用户的可访问性。</li>
+<li><strong>更轻松的缓存：</strong>页面可以缓存在服务器端，这可以通过减少生成内容并将其发送到客户端所需的时间来进一步提高性能。</li>
+</ul>
+<p>总体而言，服务器端渲染可以提供更快、更高效的用户体验，并改善搜索引擎的优化和可访问性。</p>
+<blockquote>
+<p>注意：在Nuxt.js执行 generate静态化打包时，动态路由会被忽略。</p>
+</blockquote>
+<h5 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h5><ul>
+<li>纯静态文件，访问速度超快</li>
+<li>对比SSR，不涉及到服务器负载方面问题；</li>
+<li>静态网页不宜遭到黑客攻击，安全性更高。</li>
+</ul>
+<h5 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h5><ul>
+<li>动态路由（params传参），参数多的时候，Nuxt不适用</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>这些常识类的东西，虽然对开发没什么作用，但是作为见识拓展一下比较好。</p>
+<p>这些问题也不是什么新鲜问题，基本上都是老古董的问题了，这里整备一下，省的哪天被别人面试挖了犄角旮旯的问题拉出来拷打。</p>
+<p>假如上级布置了一个SSR开发任务，不会闹出来SSR抽卡用的词的笑话，多了解一点，总归是没什么错的。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7205604505647792185">2023年了，做SEO还有必要吗？</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7300118821532778511?searchId=20240623132011EB5FEB974913729653EF">一文带你弄懂 前端SEO优化</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7230303948925665341?searchId=20240623132441364A0B270D1932943462">挑战15分钟了解SEO、SMO、SPA、SSR可以吗？</a></p>
+<p><a target="_blank" rel="noopener" href="https://cn.vuejs.org/guide/extras/ways-of-using-vue.html#single-page-application-spa">使用 Vue 的多种方式 | Vue.js (vuejs.org)</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/06/20/%E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F-vue3%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81%E4%B9%A6%E5%86%99%E8%A7%84%E8%8C%83%E6%95%B4%E7%90%86/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-06-23 08:35:25
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">
+                        #浏览器
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                        #面试
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%EF%BC%88SPA%EF%BC%89"><span class="toc-text">单页面应用（SPA）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%8A%BF"><span class="toc-text">优势</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%BA%E9%99%B7"><span class="toc-text">缺陷</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BC%98%E5%8C%96%EF%BC%88SEO%EF%BC%89"><span class="toc-text">搜索引擎优化（SEO）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">搜索引擎工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SEO%E4%B8%8ESEM%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">SEO与SEM的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%99%BD%E5%B8%BDSEO%E4%B8%8E%E9%BB%91%E5%B8%BDSEO"><span class="toc-text">白帽SEO与黑帽SEO</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%B8%B2%E6%9F%93%EF%BC%88SSR%EF%BC%89"><span class="toc-text">服务器端渲染（SSR）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SSR%E5%B8%B8%E7%94%A8%E6%A1%86%E6%9E%B6"><span class="toc-text">SSR常用框架</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Nuxt%E9%9D%99%E6%80%81%E5%8C%96"><span class="toc-text">Nuxt静态化</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%B8%B2%E6%9F%93"><span class="toc-text"> 服务器端渲染</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-1"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-1"><span class="toc-text">缺点</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + 10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3spa%2Cssr%2Cseo + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F06%2F23%2F10%25E5%2588%2586%25E9%2592%259F%25E4%25BA%2586%25E8%25A7%25A3spa-ssr-seo%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/06/23/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3spa-ssr-seo/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
