@@ -15,7 +15,7 @@
   
   <title>
     
-      10分钟了解6种接口请求的方式 
+      解决git SSL certificate problem 
       
       
       |
@@ -158,7 +158,7 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">10分钟了解6种接口请求的方式</div>
+      <div class="post-title">解决git SSL certificate problem</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
@@ -169,14 +169,14 @@
                 <i class="iconfont icon-tags mr-10" title="Tags"></i>
                 
                 <span class="span--tag mr-8">
-                  <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">
-                    #浏览器
+                  <a href="/tags/github/" title="github">
+                    #github
                   </a>
                 </span>
                 
                 <span class="span--tag mr-8">
-                  <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
-                    #面试
+                  <a href="/tags/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" title="疑难杂症">
+                    #疑难杂症
                   </a>
                 </span>
                 
@@ -184,45 +184,29 @@
           
       </div>
       <div class="markdown-body">
-        <p>模拟面试题，今天刷到了，我除了知道传参方式略有不同之外，什么也回答不上来。</p>
-<p>干了这么多年的前端，不知道这个，说实话，有点汗颜。</p>
+        <p>提交项目代码到github上的时候，突然就欧了这个问题。</p>
 <span id="more"></span>
 
 
 
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>URL全称是资源描述符，我们可以这样认为：一个URL地址，它用于描述一个网络上的资源，而HTTP中的GET，POST，PUT，DELETE就对应着对这个资源的查 ，改 ，增 ，删 4个操作。</p>
-<h3 id="六种方式"><a href="#六种方式" class="headerlink" title="六种方式"></a>六种方式</h3><ol>
-<li>Get 向特定资源发出请求（请求指定页面信息，并返回实体主体）</li>
-<li>Post 向指定资源提交数据进行处理请求（提交表单、上传文件），又可能导致新的资源的建立或原有资源的修改</li>
-<li>Put 向指定资源位置上上传其最新内容（从客户端向服务器传送的数据取代指定文档的内容）</li>
-<li>Delete 请求服务器删除request-URL所标示的资源（请求服务器删除页面）</li>
-<li>Head 与服务器索与get请求一致的相应，响应体不会返回，获取包含在小消息头中的原信息（与get请求类似，返回的响应中没有具体内容，用于获取报头）</li>
-<li>opions 返回服务器针对特定资源所支持的HTML请求方法 或web服务器发送测试服务器功能（允许客户端查看服务器性能）</li>
-</ol>
-<h3 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h3><p>GET一般用于获取&#x2F;查询资源信息。</p>
-<h3 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h3><p>post向指定资源提交数据进行处理请求（提交表单、上传文件），又可能导致新的资源的建立或原有资源的修改。</p>
-<p>post请求一般通过body传递参数。</p>
-<p>包括一些文件上传什么的，常用这种请求类型。</p>
-<h3 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h3><p>这个方法比较少见,HTML表单也不支持这个，常见的工作任务中，多数后端都更远已使用post来取代put。</p>
-<p>本质上来讲， PUT和POST极为相似，都是向服务器发送数据，但它们之间有一个重要区别，PUT通常指定了资源的存放位置，而POST则没有，POST的数据存放位置由服务器自己决定。</p>
-<p>就是说，put是更在更新服务器上已经存在的数据。</p>
-<p>举个例子：如一个用于提交博文的URL，&#x2F;addBlog。如果用PUT，则提交的URL会是像这样的”&#x2F;addBlog&#x2F;abc123”，其中abc123就是这个博文的地址。而如果用POST，则这个地址会在提交后由服务器告知客户端。</p>
-<p>目前大部分博客都是这样的，显然，PUT和POST用途是不一样的。具体用哪个还取决于当前的业务场景。</p>
-<h3 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h3><p>删除某一个资源。</p>
-<p>因为目前大多数公司业务删除都是伪删除，所以这种类型的请求很少见，不过还是有一些地方比如amazon的S3云服务里面就用的这个方法来删除资源。</p>
-<h3 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h3><p>和GET本质是一样的，区别在于HEAD不含有呈现数据，而仅仅是HTTP头信息。</p>
-<p>有的人可能觉得这个方法没什么用，其实不是这样的。想象一个业务情景：欲判断某个资源是否存在，我们通常使用GET，但这里用HEAD则意义更加明确。</p>
-<h3 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h3><p>这个方法很有趣，但极少使用。它用于获取当前URL所支持的方法。</p>
-<p>若请求成功，则它会在HTTP头中包含一个名为“Allow”的头，值是所支持的方法，如“GET, POST”。</p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>一度以为接口常见的请求方式就四种，如果不是今天刷面试题，还真不清楚这个冷知识，也是颇为长见识了。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6899465311712935949?from=search-suggest">接口请求的六种常见方式详解（get、post、head等）</a></p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>临时碰到了这个问题，干脆记录一下，后续有时间会深入看看具体原因的。</p>
+<h3 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git SSL certificate problem: unable to get local issuer certificate</span><br></pre></td></tr></table></figure>
+
+<p>这个问题是由于没有配置信任的服务器HTTPS验证。</p>
+<p>默认cURL被设为不信任任何CAs，就是说，它不信任任何服务器验证。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.sslVerify false</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>目前还是对github工作流不太熟，处理这种问题确实不是那么得心应手。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44014995/article/details/109900149">解决：git SSL certificate problem: unable to get local issuer certificate</a></p>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2024/04/27/2024%E5%B9%B4%E7%94%9F%E6%B4%BB%E8%A7%84%E5%88%92/" target="_self">
+              <a href="/2024/06/23/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3spa-ssr-seo/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>Prev</span>
               </a>
@@ -238,14 +222,14 @@
                     <i class="iconfont icon-tags mr-10" title="Tags"></i>
                     
                     <span class="span--tag mr-8">
-                      <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">
-                        #浏览器
+                      <a href="/tags/github/" title="github">
+                        #github
                       </a>
                     </span>
                     
                     <span class="span--tag mr-8">
-                      <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
-                        #面试
+                      <a href="/tags/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" title="疑难杂症">
+                        #疑难杂症
                       </a>
                     </span>
                     
@@ -253,11 +237,6 @@
               
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/2024/05/07/%E8%A7%A3%E5%86%B3github%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E7%AB%AF%E5%8F%A3%E6%8A%A5%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/" target="_self">
-                <span>Next</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
@@ -271,7 +250,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-text">六种方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GET"><span class="toc-text">GET</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POST"><span class="toc-text">POST</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PUT"><span class="toc-text">PUT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DELETE"><span class="toc-text">DELETE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HEAD"><span class="toc-text">HEAD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OPTIONS"><span class="toc-text">OPTIONS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%8E%9F%E5%9B%A0"><span class="toc-text">错误原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
       
     </div>
   </div>
@@ -597,12 +576,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + 10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A36%E7%A7%8D%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E7%9A%84%E6%96%B9%E5%BC%8F + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F05%2F07%2F10%25E5%2588%2586%25E9%2592%259F%25E4%25BA%2586%25E8%25A7%25A36%25E7%25A7%258D%25E6%258E%25A5%25E5%258F%25A3%25E8%25AF%25B7%25E6%25B1%2582%25E6%2596%25B9%25E5%25BC%258F%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E8%A7%A3%E5%86%B3git%20SSL%20certificate%20problem + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F06%2F24%2F%25E8%25A7%25A3%25E5%2586%25B3git-SSL-certificate-problem%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/05/07/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A36%E7%A7%8D%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/06/24/%E8%A7%A3%E5%86%B3git-SSL-certificate-problem/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         

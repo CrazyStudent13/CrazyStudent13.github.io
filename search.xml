@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>解决git SSL certificate problem</title>
+      <link href="/2024/06/24/%E8%A7%A3%E5%86%B3git-SSL-certificate-problem/"/>
+      <url>/2024/06/24/%E8%A7%A3%E5%86%B3git-SSL-certificate-problem/</url>
+      
+        <content type="html"><![CDATA[<p>提交项目代码到github上的时候，突然就欧了这个问题。</p><span id="more"></span><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>临时碰到了这个问题，干脆记录一下，后续有时间会深入看看具体原因的。</p><h3 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git SSL certificate problem: unable to get local issuer certificate</span><br></pre></td></tr></table></figure><p>这个问题是由于没有配置信任的服务器HTTPS验证。</p><p>默认cURL被设为不信任任何CAs，就是说，它不信任任何服务器验证。</p><h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.sslVerify false</span><br></pre></td></tr></table></figure><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>目前还是对github工作流不太熟，处理这种问题确实不是那么得心应手。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.csdn.net/weixin_44014995/article/details/109900149">解决：git SSL certificate problem: unable to get local issuer certificate</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> github </tag>
+            
+            <tag> 疑难杂症 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>10分钟了解spa,ssr,seo</title>
       <link href="/2024/06/23/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3spa-ssr-seo/"/>
       <url>/2024/06/23/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3spa-ssr-seo/</url>
