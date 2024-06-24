@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>10分钟了解域名等级</title>
+      <link href="/2024/06/24/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E5%9F%9F%E5%90%8D%E7%AD%89%E7%BA%A7/"/>
+      <url>/2024/06/24/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E5%9F%9F%E5%90%8D%E7%AD%89%E7%BA%A7/</url>
+      
+        <content type="html"><![CDATA[<p>我：买了个新服务器，又得买个域名挂靠了，有点太费钱，有没有什么好办法？</p><p>朋友：为什么要买新域名？用二级域名处理一下就可以了。</p><p>我：什么是二级域名？</p><p>朋友：远川同学，你这块的知识有点水啊，你要不去补一下，以后面试可有点够呛。</p><span id="more"></span><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>最近刚买了一个服务器，本想买新域名挂在服务器上，然后和朋友说了一下，他说你可以用二级域名。</p><p>关于二级域名这种说法，以前工作中偶尔听到，当时都是由运维的朋友来处理，我很少操心这些事。</p><p>自考有关计算机网络原理的部分，并未提及相关内容，于是我自考中也没了解过相关知识。</p><p>幸亏被朋友点了我一下，不然要是被面试官问到了，那还是真是愧对我这五年经验。</p><h3 id="DNS解析"><a href="#DNS解析" class="headerlink" title="DNS解析"></a>DNS解析</h3><p>先说DNS解析，我们浏览器输入域名，就可以直接渲染出我们需要的页面。</p><p>做前端的都是知道，这其中有一个很重要的步骤：域名解析，又叫DNS解析。</p><p>其实域名解析就是将域名转换为 IP 的过程，域名解析的工作由DNS服务器完成。</p><p>已知一个域名，先会访问根域的DNS服务器，全球一共有13台根域名服务器，根域名服务器储存了负责每个顶级域（如.com,.xyz,.cn,.ren,.top等）解析的域名服务器的地址信息。</p><p>拿到顶级域名服务器地址后，访问得到二级域名的域名服务器地址信息，以此类推…… 直到最终确定某个 IP 地址。</p><p>常见的解析方式有三种：A记录解析、CNAME记录解析、MX记录解析。</p><p>如果我们新增、减少了 DNS 解析记录，正常情况下的 TTL 是10 min。</p><h3 id="顶级域名"><a href="#顶级域名" class="headerlink" title="顶级域名"></a>顶级域名</h3><p>域名最后面的那一部分，比如：<a href="https://link.juejin.cn/?target=https://www.baidu.com">www.baidu.com</a>。 .com 就是顶级域名，又叫一级域名。顶级域名分为国际顶级域名、国家顶级域名。</p><h4 id="国际顶级域名"><a href="#国际顶级域名" class="headerlink" title="国际顶级域名"></a>国际顶级域名</h4><p>例如国际比较通用的一些：表示工商企业的.com、表示网络提供商的.net、表示非盈利组织的.org等。</p><p>为了解决域名紧张的问题，后来也引入了一些其他的顶域，如：.firm（公司企业）、.store（销售公司或企业）、.web（突出WWW活动的单位）、.arts（突出文化、娱乐活动的单位）、.rec(突出消遣、娱乐活动的单位）、.info(提供信息服务的单位）、.nom(个人）</p><h4 id="国家顶级域名"><a href="#国家顶级域名" class="headerlink" title="国家顶级域名"></a>国家顶级域名</h4><p>比较带有国家特色的顶级域名，比如：中国是 .cn ，美国是 .us ，日本是 .jp 等</p><h3 id="二级域名"><a href="#二级域名" class="headerlink" title="二级域名"></a>二级域名</h3><p>一级域名左侧的部分，比如：<a href="https://link.juejin.cn/?target=https://www.baidu.com">www.baidu.com</a>。 baidu 就是二级域名。</p><p>国际顶级域名下二级域名，一般是指域名注册人选择使用的网上名称，如：<a href="https://link.juejin.cn/?target=https://www.baidu.com">www.baidu.com</a> 中的 baidu 。</p><p>国家顶级域名下二级域名，一般是指类似于国际顶级域名的表示注册人类别和功能的标志，例如com，edu，gov，net等，如：<a href="https://link.juejin.cn/?target=https://www.moe.gov.cn">www.moe.gov.cn</a> 中的 gov，其实可以发现 <a href="https://link.juejin.cn/?target=https://www.baidu.com.cn">www.baidu.com.cn</a> 也是可以访问到的，这个时候的二级域名就是 .com ，但是会被重定向到 <a href="https://link.juejin.cn/?target=https://www.baidu.com">www.baidu.com</a> 。</p><h3 id="三级域名"><a href="#三级域名" class="headerlink" title="三级域名"></a>三级域名</h3><p>三级域名可以当做是二级域名的子域名，比如：<a href="https://link.juejin.cn/?target=https://naotu.baidu.com">naotu.baidu.com</a> ，对于使用者而言，三级域名都是二级域名的附属物而无需单独费用，四级域名等依次类推即可。</p><p>又如：<a href="https://link.juejin.cn/?target=http://www.neea.edu.cn/">www.neea.edu.cn</a> 中的 neea (教育考试网)。</p><p>看了上面这些，提出两个小问题，有兴趣的小伙伴可以看下：</p><p>1、为什么访问 <a href="https://link.juejin.cn/?target=https://naotu.baidu.com/">naotu.baidu.com</a> 可以进入，但是访问 <a href="https://link.juejin.cn/?target=https://www.naotu.baidu.com/">www.naotu.baidu.com</a> 就进不去了呢？</p><p>2、为什么访问 <a href="https://link.juejin.cn/?target=http://www.neea.edu.cn/">www.neea.edu.cn</a> 可以进入，不带 www 直接访问 neea.edu.cn 还可以进入呢？</p><h3 id="域名劫持（DNS劫持）"><a href="#域名劫持（DNS劫持）" class="headerlink" title="域名劫持（DNS劫持）"></a>域名劫持（DNS劫持）</h3><p>了解了域名的一些知识，我们经常听到的一个名词：域名劫持（DNS 劫持）。是不是就可以大致知道什么原理了？</p><p>正常的流程应该是我们根据域名，访问正确的 DNS 解析服务器来获取我们最终的 IP。但如果让用户访问到的错误的 DNS 解析服务器上，返回错误的 IP，让用户展示攻击者指定的页面，这就是域名劫持了。</p><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>不算面试题，只是个普通尝试 ，后续会详细整理下。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://juejin.cn/post/6844904192868352007">域名等级、DNS域名解析</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 浏览器 </tag>
+            
+            <tag> 面试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>解决git SSL certificate problem</title>
       <link href="/2024/06/24/%E8%A7%A3%E5%86%B3git-SSL-certificate-problem/"/>
       <url>/2024/06/24/%E8%A7%A3%E5%86%B3git-SSL-certificate-problem/</url>
