@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      10分钟了解vue修饰符 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">10分钟了解vue修饰符</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-06-27 05:19:52
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                    #面试
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/vue2/" title="vue2">
+                    #vue2
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/vue3/" title="vue3">
+                    #vue3
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>本来没想整理的，基本上是用到的时候现查为主。</p>
+<p>然后刷到一个面试题要求随便举几个例子，虽然磕磕绊绊的说出来了一些，但是这实在不符合一个老前端应有的知识储备。</p>
+<p>索性这里统一整理下，反正也不是太麻烦的事情。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>事件修饰符Vue框架本身提供的事件语法糖，无论是V2还是V3，大部分都是通用的。</p>
+<p>这里就不详细去分析他们的原理，仅收集供面试和平时开发时使用。</p>
+<h3 id="事件修饰符"><a href="#事件修饰符" class="headerlink" title="事件修饰符"></a>事件修饰符</h3><p>在正式进入事件修饰符事件之前，我们需要先简单了解一些概念，不然有些新人看这些修饰符可能会有些懵。</p>
+<h4 id="事件相关内容委托"><a href="#事件相关内容委托" class="headerlink" title="事件相关内容委托"></a>事件相关内容委托</h4><p>众所周知，我们平时写的页面是由DOM树不断嵌套堆叠而成的，当我们与DOM交互的时候，实际上是要穿透这一层层DOM结构，触发到对应节点的事件。</p>
+<p>早年这里会考个面试题，如果每层节点都绑定事件，那么这是这每层事件的执行顺序是怎样的？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;!<span class="variable constant_">DOCTYPE</span> html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">  &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br><span class="line">&lt;script src=&quot;https://unpkg.com/vue@3/dist/vue.global.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  const &#123; createApp, ref &#125; = Vue</span><br><span class="line">  createApp(&#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">        const count = ref(0)</span><br><span class="line">        return &#123; count &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      test(num)&#123;</span><br><span class="line">        console.log(num)</span><br><span class="line">      &#125;  </span><br><span class="line">    &#125;,</span><br><span class="line">    template: `</span><br><span class="line">    &lt;div @click=&quot;test(1)&quot;&gt;</span><br><span class="line">        &lt;div @click=&quot;test(2)&quot;&gt;</span><br><span class="line">            &lt;div @click=&quot;test(3)&quot;&gt;</span><br><span class="line">            测试</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;`</span><br><span class="line">  &#125;).mount(&#x27;#app&#x27;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">// 输出结果：</span><br><span class="line">// 3</span><br><span class="line">// 2</span><br><span class="line">// 1</span><br></pre></td></tr></table></figure>
+
+<p>看到这个结果，我们可能会疑惑，为什么最外层的绑定的事件反而最后才触发？</p>
+<p>由此，我们需要明白两个基础概念：<strong>事件冒泡</strong> 与 <strong>事件委托</strong>。</p>
+<h5 id="事件冒泡"><a href="#事件冒泡" class="headerlink" title="事件冒泡"></a>事件冒泡</h5><p><code>事件冒泡（dubbed bubbling）</code>：当一个元素接收到事件的时候，会把他接收到的事件传给自己的父级，一直到 <code>window</code> （注意这里传递的仅仅是事件，例如<code>click、focus</code>等等这些事件， 并不传递所绑定的事件函数。）</p>
+<p>事件源 &#x3D;&gt;根节点（由内到外）进行事件传播。</p>
+<p>所以我们会发现，这次的事件触发结果，实际上就是由内而外的执行。</p>
+<h5 id="事件捕获"><a href="#事件捕获" class="headerlink" title="事件捕获"></a>事件捕获</h5><p><code>事件捕获（event capturing）</code>： 当鼠标点击或者触发<code>dom</code>事件时（被触发<code>dom</code>事件的这个元素被叫作事件源），浏览器会从根节点 &#x3D;&gt;事件源（由外到内）进行事件传播。</p>
+<p>事件捕获与事件冒泡是比较类似的，最大的不同在于事件传播的方向。</p>
+<p>这里我们不再用vue讨巧举例了，因为vue的事件本质上就是封装了事件注册方法：<code>addEventListener(&#39;click&#39;,() =&gt;&#123;&#125;, false)</code>。</p>
+<p>事件注册：<code>addEventListener</code>，通过控制最后一个传值，我们就能决定触发的方向是由内向外还是由外向内。</p>
+<p>我们将三个div，由外到内命名为：big，center，small，再看一结果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">big.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;big----事件捕获&#x27;</span>)</span><br><span class="line">&#125;,<span class="literal">true</span>)</span><br><span class="line">center.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;center----事件捕获&#x27;</span>)</span><br><span class="line">&#125;，<span class="literal">true</span>)</span><br><span class="line">small.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;small----事件捕获&#x27;</span>)</span><br><span class="line">&#125;,<span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line">big.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;big----事件冒泡&#x27;</span>)</span><br><span class="line">&#125;,<span class="literal">false</span>)</span><br><span class="line">center.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;center----事件冒泡&#x27;</span></span><br><span class="line">&#125;, <span class="literal">false</span>)</span><br><span class="line">small.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;small----事件冒泡&#x27;</span>)</span><br><span class="line">&#125;, <span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出结果：</span></span><br><span class="line"><span class="comment">// big----事件捕获</span></span><br><span class="line"><span class="comment">// center----事件捕获</span></span><br><span class="line"><span class="comment">// small----事件捕获</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// small----事件冒泡</span></span><br><span class="line"><span class="comment">// center----事件冒泡</span></span><br><span class="line"><span class="comment">// big----事件冒泡</span></span><br></pre></td></tr></table></figure>
+
+<p>这里我们就会发现，两者的触发方向完全不一样。</p>
+<ul>
+<li>事件冒泡：由内向外。</li>
+<li>事件捕获：由外向内。</li>
+</ul>
+<h5 id="阻止事件传播"><a href="#阻止事件传播" class="headerlink" title="阻止事件传播"></a>阻止事件传播</h5><p>当点击页面的表格内的按钮时候，有时候我们会触发行点击事件，这时候我们希望仅仅点击按钮，那么我们必然要阻止这种事件传播的问题。</p>
+<p>阻止事件传播，常用的有两种方法：</p>
+<ul>
+<li><code>event.stopPropagation()</code> 阻止事件传播，<code>不会</code>阻止同一元素上的其他的事件处理程。</li>
+<li><code>event.stopImmediatePropagation()</code> 阻止事件传播，<code>会</code>阻止同一元素上的其他的事件处理程。</li>
+</ul>
+<p>当然也不仅仅局限于此，有时候，表单被提交时默认的submit事件，我们不希望触发，这里我们也可以通过这种方式阻止这些默认事件。</p>
+<h5 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h5><p><code>事件委托</code>也称为<code>事件代理</code>。</p>
+<p>就是利用<code>事件冒泡</code>，把子元素的事件都绑定到父元素上。</p>
+<p>如果子元素阻止了事件冒泡，那么委托就无法实现。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">不是每个子节点单独设置事件监听器，而是事件监听器设置在其父节点上，然后利用冒泡原理影响设置每个子节点。</span><br></pre></td></tr></table></figure>
+
+<p><strong>例子</strong></p>
+<p>现在要为每一个<code>li</code>添加一个事件，假设<code>li</code>有100个，于是就需要为每一个<code>li</code>添加一个事件，这样会占用100个内存。</p>
+<p>因此，如果使用事件委托的话，可以利用事件的冒泡机制，为<code>ul</code>绑定一个事件，那么点击任意一个<code>li</code>的时候，都会将事件触发到父元素<code>ul</code>上。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="代码展示"><a href="#代码展示" class="headerlink" title="代码展示"></a>代码展示</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">&quot;ul&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以使用<code>event.target</code>获取到点击的元素，<code>event.target.innerHTML</code>获取到点击的元素的内容。 如下代码，当你点击<code>li</code>时，会添加一个红色的背景，再次点击，会将背景变为白色。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ulE = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#ul&#x27;</span>)</span><br><span class="line"></span><br><span class="line">ulE.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;ulE event&#x27;</span>, event.<span class="property">target</span>, event.<span class="property">target</span>.<span class="property">innerHTML</span>)</span><br><span class="line">  <span class="keyword">const</span> target = event.<span class="property">target</span></span><br><span class="line">  <span class="keyword">if</span> (target.<span class="property">style</span>.<span class="property">backgroundColor</span> !== <span class="string">&#x27;red&#x27;</span>) &#123;</span><br><span class="line">    target.<span class="property">style</span>.<span class="property">backgroundColor</span> = <span class="string">&#x27;red&#x27;</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    target.<span class="property">style</span>.<span class="property">backgroundColor</span> = <span class="string">&#x27;#fff&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>简单的来说，就是事件的目标源委托给父级元素，减少性能的损耗。</p>
+<p>故此，使用<code>事件代理/委托</code>可以提高性能，减少注册的事件。</p>
+<h4 id="v-on事件修饰符"><a href="#v-on事件修饰符" class="headerlink" title="v-on事件修饰符"></a><code>v-on</code>事件修饰符</h4><p>vue官方提供了很多处理事件的修饰符，主要我们平时很多用不到，所以并未深入了解。</p>
+<p>我这里简单的按照使用频率，将事件修饰符分为通用修饰符和特殊修饰符，特殊修饰符我会单独讲一下它们的应用场景。</p>
+<h5 id="通用修饰符"><a href="#通用修饰符" class="headerlink" title="通用修饰符"></a>通用修饰符</h5><p>这些修饰符有些在vue2中，Vue3就没有了相应的修饰符，所以这里会备注一下支持的版本。</p>
+<table>
+<thead>
+<tr>
+<th>修饰符名称</th>
+<th>支持版本</th>
+<th>事件</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>.native</code></td>
+<td>v2</td>
+<td>监听组件根元素的原生事件</td>
+<td></td>
+</tr>
+<tr>
+<td><code>.prevent</code></td>
+<td>v2,v3</td>
+<td>阻止事件的默认动作</td>
+<td>比如表单默认的submit按钮会刷新页面，我们用这个就可以阻止刷新页面</td>
+</tr>
+<tr>
+<td><code>.once</code></td>
+<td>v2,v3</td>
+<td>仅触发一次</td>
+<td>可用来避免用户重复点击导致多次提交表单</td>
+</tr>
+<tr>
+<td><code>.stop</code></td>
+<td>v2,v3</td>
+<td>阻止事件传播&#x2F;冒泡</td>
+<td>避免事件冒泡触发了父元素的方法</td>
+</tr>
+<tr>
+<td><code>.self</code></td>
+<td>v2,v3</td>
+<td>只当事件是从侦听器绑定的元素本身触发时才触发回调。</td>
+<td>通过事件委托的形式，减少页面性能小号</td>
+</tr>
+<tr>
+<td><code>.passive</code></td>
+<td>v2,v3</td>
+<td>滚动事件的默认行为 (scrolling) 将立即发生而非等待 <code>onScroll</code> 完成</td>
+<td>移动端常用处理滚动监听，PC端很少用</td>
+</tr>
+<tr>
+<td><code>.capture</code></td>
+<td>v2,v3</td>
+<td>指向内部元素的事件，在被内部元素处理前，先被外部处理</td>
+<td>采用了捕获的方式，可以调整执行顺序</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>使用修饰符时需要注意调用顺序，因为相关代码是以相同的顺序生成的。</p>
+<p>因此使用 <code>@click.prevent.self</code> 会阻止<strong>元素及其子元素的所有点击事件的默认行为</strong>。</p>
+<p>而 <code>@click.self.prevent</code> 则只会阻止对元素本身的点击事件的默认行为。</p>
+</blockquote>
+<h5 id="passive修饰符"><a href="#passive修饰符" class="headerlink" title=".passive修饰符"></a>.passive修饰符</h5><p><code>.passive</code> 修饰符一般用于触摸事件的监听器，可以用来<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/addEventListener#%E4%BD%BF%E7%94%A8_passive_%E6%94%B9%E5%96%84%E6%BB%9A%E5%B1%8F%E6%80%A7%E8%83%BD">改善移动端设备的滚屏性能</a>，详情参考CSDN的这篇：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43524214/article/details/136574108">Vue事件处理:.passive修饰符与应用场景</a></p>
+<blockquote>
+<p>请勿同时使用 <code>.passive</code> 和 <code>.prevent</code>，因为 <code>.passive</code> 已经向浏览器表明了你<em>不想</em>阻止事件的默认行为。</p>
+<p>如果你这么做了，则 <code>.prevent</code> 会被忽略，并且浏览器会抛出警告。</p>
+</blockquote>
+<h4 id="键盘事件"><a href="#键盘事件" class="headerlink" title="键盘事件"></a>键盘事件</h4><p><code>.&#123;keycode | keyAlias&#125;</code> </p>
+<p>键盘中每个按键都有自己对应的keycode，vue提供的语法糖，让我们可以直接使用对应事件绑定，也可以用对应的keycode绑定。</p>
+<p>这里，我们以常用的回车事件为例子，我们按键加入enter修饰符，代表我们点击回车时，可以触发<code>test()</code>事件。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-input</span> @<span class="attr">keypress.enter</span>=<span class="string">&quot;test()&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-input</span> @<span class="attr">keypress.13</span>=<span class="string">&quot;test()&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- enter事件的keycode对应13，所以这两个例子都是回车触发按钮。 --&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<p>这里我们就可以发现，使用keycode和修饰符都可以达到对应的效果。</p>
+<p>vue官方提供了很多便利性的事件，如果您需要将方法绑定对应的按钮，不妨参考<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/KeyboardEvent/keyCode">MDN的KeyCode码表</a>，这样绑定会方便很多。</p>
+<table>
+<thead>
+<tr>
+<th>修饰符名称</th>
+<th>事件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>.enter</code></td>
+<td>回车</td>
+</tr>
+<tr>
+<td><code>.delete</code></td>
+<td>Delete或Backspace</td>
+</tr>
+<tr>
+<td><code>.ctrl</code></td>
+<td>ctrl按键</td>
+</tr>
+<tr>
+<td><code>.alt</code></td>
+<td>alt按键</td>
+</tr>
+<tr>
+<td><code>.shift</code></td>
+<td>shift按键</td>
+</tr>
+<tr>
+<td><code>.tab</code></td>
+<td>tab按键</td>
+</tr>
+<tr>
+<td><code>.esc</code></td>
+<td>esc按键</td>
+</tr>
+<tr>
+<td><code>.space</code></td>
+<td>space空格按键</td>
+</tr>
+<tr>
+<td><code>.up</code>,<code>.down</code>,<code>.left</code>,<code>.right</code></td>
+<td>上下左右方向键</td>
+</tr>
+<tr>
+<td><code>.meta</code></td>
+<td>win键&#x2F;mac的commond键</td>
+</tr>
+<tr>
+<td>[<code>.exact</code>](<!-- 当按下 Ctrl 时，即使同时按下 Alt 或 Shift 也会触发 --> &lt;button @click.ctrl&#x3D;”onClick”&gt;A</button> <!-- 仅当按下 Ctrl 且未按任何其他键时才会触发 --> &lt;button @click.ctrl.exact&#x3D;”onCtrlClick”&gt;A</button> <!-- 仅当没有按下任何系统按键时触发 --> &lt;button @click.exact&#x3D;”onClick”&gt;A</button>)</td>
+<td>修饰符允许精确控制触发事件所需的系统修饰符的组合。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>注意：如果多个组件注册了键盘事件，最好销毁，保证键盘事件的唯一性，不然有时候会导致整个页面出现一些意料之外的问题。</p>
+</blockquote>
+<p>另外，有人可能对exact的描述有些迷惑，这里放一下官方的例子，一看就明白，就是为了精确操作使用的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 当按下 Ctrl 时，即使同时按下 Alt 或 Shift 也会触发 --&gt;</span><br><span class="line">&lt;button @click.ctrl=&quot;onClick&quot;&gt;A&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 仅当按下 Ctrl 且未按任何其他键时才会触发 --&gt;</span><br><span class="line">&lt;button @click.ctrl.exact=&quot;onCtrlClick&quot;&gt;A&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 仅当没有按下任何系统按键时触发 --&gt;</span><br><span class="line">&lt;button @click.exact=&quot;onClick&quot;&gt;A&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="鼠标"><a href="#鼠标" class="headerlink" title="鼠标"></a>鼠标</h4><p><code>@click</code>鼠标事件，没什么好说的。</p>
+<table>
+<thead>
+<tr>
+<th>修饰符名称</th>
+<th>事件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>.left</code></td>
+<td>左键</td>
+</tr>
+<tr>
+<td><code>.right</code></td>
+<td>右键</td>
+</tr>
+<tr>
+<td><code>.middle</code></td>
+<td>中间</td>
+</tr>
+</tbody></table>
+<h3 id="属性修饰符"><a href="#属性修饰符" class="headerlink" title="属性修饰符"></a>属性修饰符</h3><h4 id="v-bind"><a href="#v-bind" class="headerlink" title="v-bind"></a><a target="_blank" rel="noopener" href="https://cn.vuejs.org/api/built-in-directives.html#v-bind">v-bind</a></h4><p>v-bind的修饰符我们几乎很少用，这里推荐大家看看，知道有这么回事儿就行。</p>
+<table>
+<thead>
+<tr>
+<th>修饰符名称</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>.prop</code></td>
+<td>强制绑定为 DOM property</td>
+</tr>
+<tr>
+<td><code>.attr</code></td>
+<td>强制绑定为 DOM attribute</td>
+</tr>
+<tr>
+<td><code>.camel</code></td>
+<td>将短横线命名的 attribute 转变为驼峰式命名</td>
+</tr>
+<tr>
+<td><code>.sync</code></td>
+<td>vue2支持，vue3不支持了。</td>
+</tr>
+</tbody></table>
+<p>这里直接放一下官方的示例。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 绑定 attribute --&gt;</span><br><span class="line">&lt;img v-bind:src=&quot;imageSrc&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 动态 attribute 名 --&gt;</span><br><span class="line">&lt;button v-bind:[key]=&quot;value&quot;&gt;&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 缩写 --&gt;</span><br><span class="line">&lt;img :src=&quot;imageSrc&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 缩写形式的动态 attribute 名 (3.4+)，扩展为 :src=&quot;src&quot; --&gt;</span><br><span class="line">&lt;img :src /&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 动态 attribute 名的缩写 --&gt;</span><br><span class="line">&lt;button :[key]=&quot;value&quot;&gt;&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 内联字符串拼接 --&gt;</span><br><span class="line">&lt;img :src=&quot;&#x27;/path/to/images/&#x27; + fileName&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- class 绑定 --&gt;</span><br><span class="line">&lt;div :class=&quot;&#123; red: isRed &#125;&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;div :class=&quot;[classA, classB]&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;div :class=&quot;[classA, &#123; classB: isB, classC: isC &#125;]&quot;&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- style 绑定 --&gt;</span><br><span class="line">&lt;div :style=&quot;&#123; fontSize: size + &#x27;px&#x27; &#125;&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;div :style=&quot;[styleObjectA, styleObjectB]&quot;&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 绑定对象形式的 attribute --&gt;</span><br><span class="line">&lt;div v-bind=&quot;&#123; id: someProp, &#x27;other-attr&#x27;: otherProp &#125;&quot;&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- prop 绑定。“prop” 必须在子组件中已声明。 --&gt;</span><br><span class="line">&lt;MyComponent :prop=&quot;someThing&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 传递子父组件共有的 prop --&gt;</span><br><span class="line">&lt;MyComponent v-bind=&quot;$props&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- XLink --&gt;</span><br><span class="line">&lt;svg&gt;&lt;a :xlink:special=&quot;foo&quot;&gt;&lt;/a&gt;&lt;/svg&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="v-model"><a href="#v-model" class="headerlink" title="v-model"></a>v-model</h4><table>
+<thead>
+<tr>
+<th>修饰符名称</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>.trim</code></td>
+<td>去除输入框首尾字符串</td>
+</tr>
+<tr>
+<td><code>.number</code></td>
+<td>将用户输入的类型由string型转为number型</td>
+</tr>
+<tr>
+<td><code>.lazy</code></td>
+<td>使得用户在输入数据之后，当数据失去焦点或点击回车时，才会进行数据的更新</td>
+</tr>
+</tbody></table>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>事件修饰符平时用的不多，最多就是输入框判空，表单单次提交，键盘回车等常用事件的使用，平时没有别的用法。</p>
+<p>关于事件冒泡和事件捕获，这个就更是远古面试题了，如今在梳理修饰符时候刷到，属实有点老乡见老乡了。</p>
+<p>如今仔细梳理了一番，感觉自己确实受益匪浅。</p>
+<p>虽然依然用的场景可能不太多，但是相对以前，可能在开发中会更得心应手一些？</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://cn.vuejs.org/guide/essentials/event-handling.html#exact-modifier">Vue3-事件处理</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7327686547809124386">浅谈js的事件机制，事件冒泡、事件捕获、事件代理(事件委托)</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7192584563799883832?searchId=20240620234605BBB5CDD54E47D434F762">JS中的事件冒泡、事件捕获、事件委托</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Building_blocks/Events#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E4%BB%B6%EF%BC%9F">MDN_什么是事件</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/06/19/vue3%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-06-27 05:19:52
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                        #面试
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/vue2/" title="vue2">
+                        #vue2
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/vue3/" title="vue3">
+                        #vue3
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2024/06/20/%E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F-vue3%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81%E4%B9%A6%E5%86%99%E8%A7%84%E8%8C%83%E6%95%B4%E7%90%86/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-text">事件修饰符</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E5%A7%94%E6%89%98"><span class="toc-text">事件相关内容委托</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1"><span class="toc-text">事件冒泡</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E6%8D%95%E8%8E%B7"><span class="toc-text">事件捕获</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%98%BB%E6%AD%A2%E4%BA%8B%E4%BB%B6%E4%BC%A0%E6%92%AD"><span class="toc-text">阻止事件传播</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98"><span class="toc-text">事件委托</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%B1%95%E7%A4%BA"><span class="toc-text">代码展示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#v-on%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-text">v-on事件修饰符</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-text">通用修饰符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#passive%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-text">.passive修饰符</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%AE%E7%9B%98%E4%BA%8B%E4%BB%B6"><span class="toc-text">键盘事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%BC%A0%E6%A0%87"><span class="toc-text">鼠标</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-text">属性修饰符</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#v-bind"><span class="toc-text">v-bind</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#v-model"><span class="toc-text">v-model</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + 10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3vue%E4%BF%AE%E9%A5%B0%E7%AC%A6 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F06%2F19%2F10%25E5%2588%2586%25E9%2592%259F%25E4%25BA%2586%25E8%25A7%25A3vue%25E4%25BF%25AE%25E9%25A5%25B0%25E7%25AC%25A6%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/06/19/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3vue%E4%BF%AE%E9%A5%B0%E7%AC%A6/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
