@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      工程提速，工具文档托管 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">工程提速，工具文档托管</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-06-28 14:12:32
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" title="工程化">
+                    #工程化
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" title="自动化">
+                    #自动化
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/nginx/" title="nginx">
+                    #nginx
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>开发过程中，我们经常会整理一下业务文档或者工具文档，这是我们前端基建的重要点。</p>
+<p>文档托管部署算是运维的活了，不过我们开发本来就没必要给自己设限，干脆整理一下吧。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>本次记录算是一个面向新手的简化版教程，这里默认大家都有一台服务器，一个简单的前端页面，都会用各自的SSH工具。</p>
+<h3 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h3><p>为了保证大家都能顺利走完流程，这里先列一下需要用到的东西。</p>
+<h4 id="服务器选择"><a href="#服务器选择" class="headerlink" title="服务器选择"></a>服务器选择</h4><ol>
+<li>优先双核的服务器，虽然单核凑活也能用，但是如果同时访问人数一旦较多，单核的效率很容易产生卡顿，所以还是双核比较好</li>
+<li>优先香港或者亚洲区服务器，不然域名绑定的时候，大陆服务器需要服务器备案，来回走流程会很麻烦</li>
+<li>优先选择linux服务器，因为便宜，环境干净，而且相关的教程很多。当然，你也可以选择window服务器，不过同样的配置，window服务器更贵，且win系统因为自带图形界面，所以相对系统会吃掉更多的硬盘空间，所以，普遍推荐linux服务器。</li>
+<li>优先选择腾讯云的服务器，控制台更简单更好操作，虽然安全配置不高，但是效果不错。如果经济条件允许，可选阿里云，会比腾讯云稍微贵一些。</li>
+<li>新用户优先购买长期，所有的服务器供应商都喜欢新用户，优惠力度最大，如果你是新用户购买，能买多久就买多久，最好选个四核的，四核服务器甚至可以用来部署一些游戏的私服，并且体验相当不错。</li>
+</ol>
+<h4 id="SSH工具"><a href="#SSH工具" class="headerlink" title="SSH工具"></a>SSH工具</h4><p>SSH工具就是能够让你在本地电脑访问云服务器的工具。</p>
+<p>因为linux不需要什么图形化界面，所以很多人都喜欢用SSH工具直连服务器，通过命令行操作。</p>
+<p>我个人推荐<a target="_blank" rel="noopener" href="https://mobaxterm.mobatek.net/">MobaXterm</a>，个人觉得它比FinalShell，Xshell，PUTTY这三个工具好用。</p>
+<p>不过mobaxterm的免费版的连接数有上限，只能存10个服务器地址，如果一个人需要管理很多服务器，要么付费要么换一个吧。</p>
+<h4 id="前端页面"><a href="#前端页面" class="headerlink" title="前端页面"></a>前端页面</h4><p>一个有着<code>index.html</code>的前端页面，当然，名字并非是强制要求，只是大家都习惯了，于是约定俗成的以<code>index.html</code>为准。</p>
+<h3 id="Nginx服务器安装"><a href="#Nginx服务器安装" class="headerlink" title="Nginx服务器安装"></a>Nginx服务器安装</h3><p>我们暂时先别管什么是Nginx，我们只要配置好Nginx，后续就可以将配置托管到服务器上。</p>
+<p>服务器系统推荐centOS7.6，虽然这个版本的系统有点老，但是折腾的人最多，所以遇到什么问题都能找到对应的解决方案。</p>
+<p>这里需要略懂一点linux的常规操作，如果不清楚的，推荐看文：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7242502779469692984">十分钟教会你—从购买服务器到部署前端网页（适合新手或前端小白，云服务器可白嫖）</a>，这篇文章介绍的流程要比我目前的操作详细的多，我这里只是简洁版。</p>
+<h4 id="vim编辑nginx-repo"><a href="#vim编辑nginx-repo" class="headerlink" title="vim编辑nginx.repo"></a>vim编辑nginx.repo</h4><p>输入以下指令，然后按回车</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/yum.repos.d/nginx.repo</span><br></pre></td></tr></table></figure>
+
+<p>按<code>i</code>键进入编辑模式，底部出现“插入”则说明成功进入编辑模式</p>
+<p>复制以下代码，粘贴进去（注意别用ctrl+v粘贴，在finalshell里点击鼠标右键，然后选择粘贴）</p>
+<p>注意每行开头不能有空格，否则可能会报错（vim编辑器不适用左键改变光标位置，可以通过上下左右控制）</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[nginx-stable]</span></span><br><span class="line"><span class="attr">name</span>=nginx stable repo</span><br><span class="line"><span class="attr">baseurl</span>=http://nginx.org/packages/centos/<span class="variable">$releasever</span>/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=https://nginx.org/keys/nginx_signing.key</span><br><span class="line"><span class="attr">module_hotfixes</span>=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="section">[nginx-mainline]</span></span><br><span class="line"><span class="attr">name</span>=nginx mainline repo</span><br><span class="line"><span class="attr">baseurl</span>=http://nginx.org/packages/mainline/centos/<span class="variable">$releasever</span>/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">0</span></span><br><span class="line"><span class="attr">gpgkey</span>=https://nginx.org/keys/nginx_signing.key</span><br><span class="line"><span class="attr">module_hotfixes</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p> 复制完确认没问题后，点击键盘上的esc退出编辑模式，然后输入:wq保存并退出 Vim 编辑器（注意输入法一定要是英文模式，不要因为<code>:</code>的中英文区别报错）</p>
+<h4 id="输入指令安装nginx"><a href="#输入指令安装nginx" class="headerlink" title="输入指令安装nginx"></a>输入指令安装nginx</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y nginx</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装完之后查看nginx状态"><a href="#安装完之后查看nginx状态" class="headerlink" title="安装完之后查看nginx状态"></a>安装完之后查看nginx状态</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status nginx</span><br></pre></td></tr></table></figure>
+
+<p>如果控制台报的命令如下，这个说明nginx已经安装成功，但是未启动。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@VM-0-5-centos#systemctl status nginx</span><br><span class="line">nginx.service -nginx-high performance web server</span><br><span class="line">Loaded: loaded (/usr/lib/systemd/system/nginx.service; disabled; vendor preset: disabled)</span><br><span class="line">Active:inactive(dead)</span><br></pre></td></tr></table></figure>
+
+<p>现在启动一下nginx，启动后再次查看nginx状态，出现active (running)说明启动成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo netstat -tuln | grep :80</span><br></pre></td></tr></table></figure>
+
+<p>查看80端口是否被nginx占用，然后在浏览器地址栏直接访问你的公网ip地址，如果出现nginx提示，则说明nginx已经配置OK。</p>
+<h4 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h4><p>注意，如果你没有配置好<code>https</code>，这里外部访问的时候，记得要用<code>http:// </code>开头访问，否则会访问无效。</p>
+<h3 id="配置nginx-conf"><a href="#配置nginx-conf" class="headerlink" title="配置nginx.conf"></a>配置nginx.conf</h3><p> 在你的电脑上新建一个文本文档，重命名为nginx.conf，用记事本打开，然后把以下内容粘贴进去</p>
+<p>这里注意配置重点，下边这个配置是让你的目录设置，是为了让外部访问目录能指向你的服务器文件位置。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/index.html</span><br></pre></td></tr></table></figure>
+
+<p>就比如我上边用locahost本地的访问的<code>/index.html</code>，这个按照下方配置后，就是访问<code>/usr/local/dist/index.html</code></p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">    root /usr/local/dist<span class="comment">;</span></span><br><span class="line">    index index.html<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>root配置根目录，index配置入口文件。</p>
+<p>打包好的文件需要放到usr下的local文件夹内，我这边前端打包生成的文件是dist,所以root配置为&#x2F;usr&#x2F;local&#x2F;dist。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># For more information on configuration, see:</span></span><br><span class="line"><span class="comment">#   * Official English Documentation: http://nginx.org/en/docs/</span></span><br><span class="line"><span class="comment">#   * Official Russian Documentation: http://nginx.org/ru/docs/</span></span><br><span class="line"></span><br><span class="line">user nginx<span class="comment">;</span></span><br><span class="line">worker_processes auto<span class="comment">;</span></span><br><span class="line">error_log /var/log/nginx/error.log<span class="comment">;</span></span><br><span class="line">pid /run/nginx.pid<span class="comment">;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Load dynamic modules. See /usr/share/doc/nginx/README.dynamic.</span></span><br><span class="line">include /usr/share/nginx/modules/*.conf<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections 1024<span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    log_format  main  &#x27;$remote_addr - $remote_user <span class="section">[$time_local]</span> &quot;$request&quot; &#x27;</span><br><span class="line">                      &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span><br><span class="line">                      &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    sendfile            on<span class="comment">;</span></span><br><span class="line">    tcp_nopush          on<span class="comment">;</span></span><br><span class="line">    tcp_nodelay         on<span class="comment">;</span></span><br><span class="line">    keepalive_timeout   65<span class="comment">;</span></span><br><span class="line">    types_hash_max_size 2048<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    include             /etc/nginx/mime.types<span class="comment">;</span></span><br><span class="line">    default_type        application/octet-stream<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Load modular configuration files from the /etc/nginx/conf.d directory.</span></span><br><span class="line">    <span class="comment"># See http://nginx.org/en/docs/ngx_core_module.html#include</span></span><br><span class="line">    <span class="comment"># for more information.</span></span><br><span class="line">    include /etc/nginx/conf.d/*.conf<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80 default_server<span class="comment">;</span></span><br><span class="line">        listen       <span class="section">[::]</span>:80 default_server<span class="comment">;</span></span><br><span class="line">        server_name  _<span class="comment">;</span></span><br><span class="line">        root         /usr/share/nginx/html<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Load configuration files for the default server block.</span></span><br><span class="line">        include /etc/nginx/default.d/*.conf<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">	    root /usr/local/dist<span class="comment">;</span></span><br><span class="line">	    index index.html<span class="comment">;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page 404 /404.html<span class="comment">;</span></span><br><span class="line">            <span class="attr">location</span> = /<span class="number">40</span>x.html &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page 500 502 503 504 /50x.html<span class="comment">;</span></span><br><span class="line">            <span class="attr">location</span> = /<span class="number">50</span>x.html &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Settings for a TLS enabled server.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#    server &#123;</span></span><br><span class="line"><span class="comment">#        listen       443 ssl http2 default_server;</span></span><br><span class="line"><span class="comment">#        listen       [::]:443 ssl http2 default_server;</span></span><br><span class="line"><span class="comment">#        server_name  _;</span></span><br><span class="line"><span class="comment">#        root         /usr/share/nginx/html;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        ssl_certificate &quot;/etc/pki/nginx/server.crt&quot;;</span></span><br><span class="line"><span class="comment">#        ssl_certificate_key &quot;/etc/pki/nginx/private/server.key&quot;;</span></span><br><span class="line"><span class="comment">#        ssl_session_cache shared:SSL:1m;</span></span><br><span class="line"><span class="comment">#        ssl_session_timeout  10m;</span></span><br><span class="line"><span class="comment">#        ssl_ciphers PROFILE=SYSTEM;</span></span><br><span class="line"><span class="comment">#        ssl_prefer_server_ciphers on;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        # Load configuration files for the default server block.</span></span><br><span class="line"><span class="comment">#        include /etc/nginx/default.d/*.conf;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        location / &#123;</span></span><br><span class="line"><span class="comment">#        &#125;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        error_page 404 /404.html;</span></span><br><span class="line"><span class="comment">#            location = /40x.html &#123;</span></span><br><span class="line"><span class="comment">#        &#125;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        error_page 500 502 503 504 /50x.html;</span></span><br><span class="line"><span class="comment">#            location = /50x.html &#123;</span></span><br><span class="line"><span class="comment">#        &#125;</span></span><br><span class="line"><span class="comment">#    &#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>进入&#x2F;etc&#x2F;nginx目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/nginx</span><br></pre></td></tr></table></figure>
+
+<p>将目录下原有的nginx.conf拷贝一份（注意刷新一下才会显示）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> nginx.conf nginxCopy.conf</span><br></pre></td></tr></table></figure>
+
+<p>备份旧配置（这一步不是必然，但是出于运维的好习惯，凡事留备份）</p>
+<p>删除目录下的nginx.conf，然后将本地电脑上的nginx.conf上传到目录下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -f nginx.conf</span><br></pre></td></tr></table></figure>
+
+<h3 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h3><p>将静态文件发布到<code>/usr/local</code>目录下，因为我们直接配置的是dist文件夹，这里我们需要将dist整个文件夹发到<code>/usr/local</code>目录下。</p>
+<p>发布完成之后，重新加载nginx配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local</span><br><span class="line">/usr/sbin/nginx -s reload</span><br></pre></td></tr></table></figure>
+
+<h3 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h3><p>将下方的ip地址替换为自己的服务器地址，就可以访问到自己发布的前端页面了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://ip地址/index.html</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>作为前端基建的必然基石，像这种通用的工具文档部署是必然的需求。</p>
+<p>团队化作战的过程中，我们肯定会在现代开发过程中遇到部署这些文档，这是一件绕不开的事。</p>
+<p>这次是一次简单的部署，后续会持续集成，完成自动化部署的流程。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7242502779469692984">十分钟教会你—从购买服务器到部署前端网页（适合新手或前端小白，云服务器可白嫖）</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/06/27/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3link%E4%B8%8Eimport%E7%9A%84%E5%8C%BA%E5%88%AB/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-06-28 14:12:32
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" title="工程化">
+                        #工程化
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" title="自动化">
+                        #自动化
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/nginx/" title="nginx">
+                        #nginx
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E6%9D%A1%E4%BB%B6"><span class="toc-text">前置条件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%80%89%E6%8B%A9"><span class="toc-text">服务器选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SSH%E5%B7%A5%E5%85%B7"><span class="toc-text">SSH工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E9%A1%B5%E9%9D%A2"><span class="toc-text">前端页面</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nginx%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85"><span class="toc-text">Nginx服务器安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#vim%E7%BC%96%E8%BE%91nginx-repo"><span class="toc-text">vim编辑nginx.repo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%8C%87%E4%BB%A4%E5%AE%89%E8%A3%85nginx"><span class="toc-text">输入指令安装nginx</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%AE%8C%E4%B9%8B%E5%90%8E%E6%9F%A5%E7%9C%8Bnginx%E7%8A%B6%E6%80%81"><span class="toc-text">安装完之后查看nginx状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tips"><span class="toc-text">tips</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEnginx-conf"><span class="toc-text">配置nginx.conf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E5%B8%83"><span class="toc-text">发布</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE"><span class="toc-text">访问</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F%EF%BC%8C%E5%B7%A5%E5%85%B7%E6%96%87%E6%A1%A3%E6%89%98%E7%AE%A1 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F06%2F28%2F%25E5%25B7%25A5%25E7%25A8%258B%25E6%258F%2590%25E9%2580%259F%25EF%25BC%258C%25E5%25B7%25A5%25E5%2585%25B7%25E6%2596%2587%25E6%25A1%25A3%25E6%2589%2598%25E7%25AE%25A1%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/06/28/%E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F%EF%BC%8C%E5%B7%A5%E5%85%B7%E6%96%87%E6%A1%A3%E6%89%98%E7%AE%A1/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
