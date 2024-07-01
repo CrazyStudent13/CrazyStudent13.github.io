@@ -162,7 +162,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-06-30 15:31:57
+          2024-07-01 14:18:09
         </span>
         
               <span class="post-tags">
@@ -224,7 +224,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@VM-0-5-centos#systemctl status nginx</span><br><span class="line">nginx.service -nginx-high performance web server</span><br><span class="line">Loaded: loaded (/usr/lib/systemd/system/nginx.service; disabled; vendor preset: disabled)</span><br><span class="line">Active:inactive(dead)</span><br></pre></td></tr></table></figure>
 
 <p>现在启动一下nginx，启动后再次查看nginx状态，出现active (running)说明启动成功</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo netstat -tuln | grep :80</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef|grep nginx</span><br></pre></td></tr></table></figure>
 
 <p>查看80端口是否被nginx占用，然后在浏览器地址栏直接访问你的公网ip地址，如果出现nginx提示，则说明nginx已经配置OK。</p>
 <h4 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h4><p>注意，如果你没有配置好<code>https</code>，这里外部访问的时候，记得要用<code>http:// </code>开头访问，否则会访问无效。</p>
@@ -280,7 +280,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-06-30 15:31:57
+              2024-07-01 14:18:09
             </span>
             
                   <span class="post-tags">
