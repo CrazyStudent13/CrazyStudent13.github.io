@@ -15,7 +15,7 @@
   
   <title>
     
-      hexo个人博客搭建————命令整理 
+      10分钟了解nginx 
       
       
       |
@@ -158,7 +158,7 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">hexo个人博客搭建————命令整理</div>
+      <div class="post-title">10分钟了解nginx</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
@@ -169,8 +169,14 @@
                 <i class="iconfont icon-tags mr-10" title="Tags"></i>
                 
                 <span class="span--tag mr-8">
-                  <a href="/tags/hexo/" title="hexo">
-                    #hexo
+                  <a href="/tags/nginx/" title="nginx">
+                    #nginx
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" title="工程化">
+                    #工程化
                   </a>
                 </span>
                 
@@ -178,114 +184,21 @@
           
       </div>
       <div class="markdown-body">
-        <p>虽然Hexo确实很好用，但是由于我对命令和配置的不熟悉，导致很多东西都不是很好用。</p>
-<p>建议参考<a target="_blank" rel="noopener" href="https://hexo.io/themes/">官网</a>的文档，我梳理了一份属于自己的命令文档。</p>
- <span id="more"></span> 
+        <p>nginx以前总是用的时候现查使用方法，能配到线上就行，毕竟以前都是赶时间。</p>
+<p>等到后来公司走上正轨了，也没时间去折腾相关内容，因为有运维和后端接手了。</p>
+<p>现在时间终于没那么赶了，索性系统性的学习下，理论上，nginx确实也是前端基建要了解的一环。</p>
+<span id="more"></span>
 
 
 
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo -g #安装</span><br><span class="line">npm update hexo -g #升级 </span><br><span class="line">hexo init #初始化</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="简写"><a href="#简写" class="headerlink" title="简写"></a>简写</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo n &quot;我的博客&quot; == hexo new &quot;我的博客&quot; #新建文章</span><br><span class="line">hexo g == hexo generate #生成</span><br><span class="line">hexo s == hexo server #启动服务预览，会监视文件变动并自动更新，您无须重启服务器</span><br><span class="line">hexo d == hexo deploy #部署</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean #清除缓存 网页正常情况下可以忽略此条命令</span><br><span class="line">hexo server -p 5000 #更改端口</span><br><span class="line">hexo server -i 192.168.1.1 #自定义 IP</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="模版"><a href="#模版" class="headerlink" title="模版"></a>模版</h3><table>
-<thead>
-<tr>
-<th align="center">变量</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">title</td>
-<td align="center">标题</td>
-</tr>
-<tr>
-<td align="center">layout</td>
-<td align="center">布局</td>
-</tr>
-<tr>
-<td align="center">date</td>
-<td align="center">文件建立日期</td>
-</tr>
-<tr>
-<td align="center">title</td>
-<td align="center">标题</td>
-</tr>
-<tr>
-<td align="center">categories</td>
-<td align="center">分类</td>
-</tr>
-<tr>
-<td align="center">tags</td>
-<td align="center">标签</td>
-</tr>
-</tbody></table>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">title: 使用Hexo搭建个人博客</span><br><span class="line">layout: post</span><br><span class="line">date: 2014-03-03 19:07:43</span><br><span class="line">categories: Blog</span><br><span class="line">tags: [Hexo]</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="设置文章摘要"><a href="#设置文章摘要" class="headerlink" title="设置文章摘要"></a>设置文章摘要</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">以上是文章摘要 </span><br><span class="line">&lt;!--more--&gt; </span><br><span class="line">以下是余下全文</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo new page &lt;title&gt;</span><br><span class="line">hexo new post &lt;title&gt;</span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th align="center">变量</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">:title</td>
-<td align="center">标题</td>
-</tr>
-<tr>
-<td align="center">:year</td>
-<td align="center">建立的年份（4 位数）</td>
-</tr>
-<tr>
-<td align="center">:month</td>
-<td align="center">建立的月份（2 位数）</td>
-</tr>
-<tr>
-<td align="center">:i_month</td>
-<td align="center">建立的月份（去掉开头的零）</td>
-</tr>
-<tr>
-<td align="center">:day</td>
-<td align="center">建立的日期（2 位数）</td>
-</tr>
-<tr>
-<td align="center">:i_day</td>
-<td align="center">建立的日期（去掉开头的零）</td>
-</tr>
-</tbody></table>
-<h2 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h2><h3 id="语雀同步插件"><a href="#语雀同步插件" class="headerlink" title="语雀同步插件"></a>语雀同步插件</h3><p>之前个人使用了<a target="_blank" rel="noopener" href="https://blog.lxstart.net/">小冷</a>的<a target="_blank" rel="noopener" href="https://github.com/x-cold/yuque-hexo#Example">语雀对接插件</a>，感觉很不错，这里也整理一下。</p>
-<p>不过，现在语雀用我已经停用了，它总给我一种难受的感觉，我说不上来。</p>
-<p>虽然语雀他们各方面整的都挺好，但是不知道为啥，用起来就是膈应。</p>
-<p><strong>安装</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm i -g yuque-hexo</span><br><span class="line"># or</span><br><span class="line">npm i --save-dev yuque-hexo</span><br></pre></td></tr></table></figure>
-<p><strong>Sync</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yuque-hexo sync</span><br></pre></td></tr></table></figure>
-<p><strong>Clean</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yuque-hexo clean</span><br></pre></td></tr></table></figure>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7267003603095879714">写给前端同学的Nginx配置指南</a></p>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2019/02/09/hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E2%80%94%E2%80%94%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" target="_self">
+              <a href="/2024/07/01/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3cookie%EF%BC%8CsessionStorage%EF%BC%8ClocalStorage/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>Prev</span>
               </a>
@@ -301,8 +214,14 @@
                     <i class="iconfont icon-tags mr-10" title="Tags"></i>
                     
                     <span class="span--tag mr-8">
-                      <a href="/tags/hexo/" title="hexo">
-                        #hexo
+                      <a href="/tags/nginx/" title="nginx">
+                        #nginx
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" title="工程化">
+                        #工程化
                       </a>
                     </span>
                     
@@ -311,7 +230,7 @@
           </div>
           <div class="post-foot-prev">
             
-              <a href="/2023/03/03/2023%E5%B9%B4%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%93%E6%A3%80/" target="_self">
+              <a href="/2024/07/06/%E6%B5%85%E6%9E%90const%E5%A3%B0%E6%98%8E%E7%9A%84ref%EF%BC%8Creactive%E5%8F%98%E9%87%8F%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%AF%E4%BB%A5%E4%BF%AE%E6%94%B9-md/" target="_self">
                 <span>Next</span>
                 <i class="iconfont icon-chevronright"></i>
               </a>
@@ -328,7 +247,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%86%99"><span class="toc-text">简写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E7%89%88"><span class="toc-text">模版</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81"><span class="toc-text">设置文章摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E4%BD%9C"><span class="toc-text">写作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96-1"><span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E9%9B%80%E5%90%8C%E6%AD%A5%E6%8F%92%E4%BB%B6"><span class="toc-text">语雀同步插件</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
       
     </div>
   </div>
@@ -654,12 +573,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2019%2F02%2F10%2Fhexo%25E4%25B8%25AA%25E4%25BA%25BA%25E5%258D%259A%25E5%25AE%25A2%25E6%2590%25AD%25E5%25BB%25BA%25E2%2580%2594%25E2%2580%2594%25E5%2591%25BD%25E4%25BB%25A4%25E6%2595%25B4%25E7%2590%2586%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + 10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3nginx + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F07%2F02%2F10%25E5%2588%2586%25E9%2592%259F%25E4%25BA%2586%25E8%25A7%25A3nginx%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2019/02/10/hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E2%80%94%E2%80%94%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/07/02/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3nginx/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         
