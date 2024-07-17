@@ -162,7 +162,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-07-15 16:54:12
+          2024-07-17 04:48:01
         </span>
         
               <span class="post-tags">
@@ -190,7 +190,34 @@
 
 
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>常规开发中我们可能已经习惯性的使用map了，但我们肯定不能只会map。</p>
-<p>这里我们索性通盘整理下，把前端开发中遍历的熟面孔遍历一遍！</p>
+<p>这里我们索性通盘整理下，把前端开发中遍历的熟面孔遍历一遍。</p>
+<h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><p><code>for</code>循环是一种常用的遍历方法，特别适用于已知遍历次数的情况。它由三个部分组成：初始化表达式、循环条件和循环迭代器。这三个表达式用分号分隔。可以使用临时变量将数组的长度缓存起来，避免重复获取数组长度，当数组较大时优化效果会比较明显。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ini 代码解读复制代码const <span class="attr">array</span> = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]<span class="comment">;</span></span><br><span class="line">for(let <span class="attr">i</span> = <span class="number">0</span>, len = array.length<span class="comment">; i &lt; len; i++ )&#123; //(初始化表达式; 循环条件; 循环迭代器)</span></span><br><span class="line">    console.log(array<span class="section">[i]</span>)<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>for</code>循环非常灵活，你可以根据需要自定义循环变量的初始值、循环条件和迭代方式。它适用于各种遍历需求，包括遍历数组、对象的属性等。</p>
+<ol>
+<li>通过<strong>continue</strong>中断当次循环</li>
+<li>通过<strong>break</strong>中断整个循环</li>
+<li>通过<strong>retrun</strong>中断函数执行</li>
+</ol>
+<h3 id="map"><a href="#map" class="headerlink" title="map()"></a>map()</h3><p><code>map</code>方法用于对数组的每个元素执行指定的操作，并返回一个新的数组，新数组的元素是原数组经过操作后的结果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> newArray = array.<span class="title function_">map</span>(<span class="function">(<span class="params">element, index, array</span>) =&gt;</span> &#123; <span class="comment">// 对每个元素执行操作，并返回新的值</span></span><br><span class="line">    <span class="keyword">return</span> modifiedElement;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在<code>map</code>方法中，我们传入一个回调函数作为参数。</p>
+<p>该回调函数接受三个参数：当前元素的值<code>element</code>、当前元素的索引<code>index</code>和正在遍历的数组<code>array</code>。</p>
+<p>在回调函数中，我们对每个元素执行操作，并返回经过操作后的新值<code>modifiedElement</code>。<code>map</code>方法会遍历数组的每个元素，并将每个元素经过回调函数处理后的结果组成一个新的数组。</p>
+<p>下面是一个使用<code>map</code>方法的示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> newArray = array.<span class="title function_">map</span>(<span class="function">(<span class="params">element</span>) =&gt;</span> &#123; <span class="comment">// 对每个元素执行操作，并返回新的值</span></span><br><span class="line">    <span class="keyword">return</span> element * <span class="number">2</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在上述示例中，我们使用<code>map</code>方法对数组<code>array</code>的每个元素进行操作，将每个元素乘以2，并将操作后的结果组成一个新的数组<code>newArray</code>。</p>
+<p><code>map</code>方法是一种非常有用的方法，它可以方便地对数组的每个元素进行操作，并生成一个新的数组。</p>
+<p> 需要注意的是</p>
+<ul>
+<li><code>map</code>方法不会修改原始数组，而是返回一个新的数组</li>
+<li><code>map</code>方法无法遍历对象，仅适用于数组的遍历</li>
+<li><code>map</code>方法不会对空数组进行检测</li>
+<li><code>map</code>循环只能通过return中断当次循环</li>
+</ul>
 <h3 id="for-in-和-for-of-的区别"><a href="#for-in-和-for-of-的区别" class="headerlink" title="for..in 和 for..of 的区别"></a>for..in 和 for..of 的区别</h3><h4 id="for-in"><a href="#for-in" class="headerlink" title="for..in"></a>for..in</h4><p>for…in是为遍历对象属性而构建的，它以任意顺序遍历一个对象的除Symbol以外的可枚举属性，可用break或者throw跳出。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;张三&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> item <span class="keyword">in</span> obj) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(item)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出 name age</span></span><br></pre></td></tr></table></figure>
 
@@ -227,6 +254,70 @@
 <li>for循环可以控制循环起点（i初始化的数字决定循环的起点），forEach只能默认从索引0开始。</li>
 <li>for循环过程中支持修改索引（修改 i），但forEach做不到（底层控制index自增，无法左右它）。</li>
 </ul>
+<h3 id="reduce方法"><a href="#reduce方法" class="headerlink" title="reduce方法"></a>reduce方法</h3><p><code>reduce</code>方法用于对数组的每个元素进行累积操作，并返回一个最终的累积结果。</p>
+<p>以下是<code>reduce</code>方法的基本语法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对每个元素执行累积操作，并返回累积结果</span></span><br><span class="line"><span class="type">const</span> result = <span class="built_in">array</span>.reduce(function(accumulator, element, index, <span class="built_in">array</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> accumulatedValue;</span><br><span class="line">&#125;, initialValue);</span><br></pre></td></tr></table></figure>
+
+<p>在<code>reduce</code>方法中，我们传入一个回调函数作为参数。该回调函数接受四个参数：累积值<code>accumulator</code>、当前元素的值<code>element</code>、当前元素的索引<code>index</code>和正在遍历的数组<code>array</code>。</p>
+<p>在回调函数中，我们对每个元素执行累积操作，并将累积结果返回。<code>reduce</code>方法会遍历数组的每个元素，并将每个元素经过回调函数处理后的累积结果作为下一次迭代的累积值。</p>
+<p>下面是一个使用<code>reduce</code>方法的示例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="built_in">array</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="type">const</span> result = <span class="built_in">array</span>.reduce(function(accumulator, element) &#123; <span class="comment">// 对每个元素执行累积操作，并返回累积结果</span></span><br><span class="line">    <span class="keyword">return</span> accumulator + element;</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line">console.<span class="built_in">log</span>(result); <span class="comment">// 输出: 15</span></span><br></pre></td></tr></table></figure>
+
+<p>在上述示例中，我们使用<code>reduce</code>方法对数组<code>array</code>的每个元素进行累积操作，将所有元素相加得到最终的累积结果。</p>
+<p>需要注意的是:</p>
+<ul>
+<li><code>reduce</code>方法不会改变原数组。</li>
+<li><code>reduce</code>方法可以接受一个可选的初始值<code>initialValue</code>作为第二个参数。如果提供了初始值，累积值<code>accumulator</code>的初始值将为该值；如果未提供初始值，则累积值将为数组的第一个元素，且从数组的第二个元素开始进行累积操作。</li>
+<li>如果数组为空，且未提供初始值，则<code>reduce</code>方法会抛出一个<code>TypeError</code>。在处理可能为空的数组时，要确保提供了合适的初始值或进行适当的错误处理。</li>
+</ul>
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter()"></a>filter()</h3><p><code>filter</code>方法用于筛选数组中满足指定条件的元素，并返回一个新的数组。</p>
+<p>以下是<code>filter</code>方法的基本语法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> newArray = <span class="built_in">array</span>.filter(function(element, index, <span class="built_in">array</span>) &#123; <span class="comment">// 返回一个布尔值，表示是否保留该元素 &#125;,thisArg);</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>filter</code>方法中，我们传入一个回调函数作为参数。该回调函数接受三个参数：当前元素的值<code>element</code>、当前元素的索引<code>index</code>和正在遍历的数组<code>array</code>。<code>thisArg</code>是可选的参数，用于指定回调函数中的<code>this</code>值。如果省略了<code>thisArg</code>参数，回调函数中的<code>this</code>将指向全局对象（在浏览器中为<code>window</code>对象）。</p>
+<p>在回调函数中，我们根据指定的条件判断是否保留该元素。如果回调函数返回<code>true</code>，则该元素将被保留在新的数组中；如果返回<code>false</code>，则该元素将被过滤掉。</p>
+<p>下面是一个使用<code>filter</code>方法的示例：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const <span class="attr">array</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]<span class="comment">;</span></span><br><span class="line">const <span class="attr">newArray</span> = array.filter(function(element) &#123; // 返回一个布尔值，表示是否保留该元素</span><br><span class="line">    return element % <span class="attr">2</span> === <span class="number">0</span><span class="comment">; // 保留偶数元素</span></span><br><span class="line">&#125;)<span class="comment">;</span></span><br><span class="line">console.log(newArray)<span class="comment">; // 输出: [2, 4]</span></span><br></pre></td></tr></table></figure>
+
+<p>在上述示例中，我们使用<code>filter</code>方法筛选数组<code>array</code>中的偶数元素，并将满足条件的元素组成一个新的数组<code>newArray</code>。</p>
+<p><code>filter</code>方法非常灵活，可以根据不同的条件筛选数组中的元素。回调函数应该返回一个布尔值，表示是否保留该元素。返回<code>true</code>表示保留，返回<code>false</code>表示过滤掉。</p>
+<p>需要注意的是：</p>
+<ul>
+<li><code>filter</code>方法会返回一个新的数组，该数组包含满足指定条件的元素。请确保在回调函数中返回一个布尔值，表示是否保留该元素。</li>
+<li><code>filter</code>方法不会对空数组进行检测。</li>
+</ul>
+<h3 id="some"><a href="#some" class="headerlink" title="some()"></a>some()</h3><p><code>some</code>方法用于检测数组中是否至少有一个元素满足指定条件。</p>
+<p>以下是<code>some</code>方法的基本语法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> result = <span class="built_in">array</span>.some(function(element, index, <span class="built_in">array</span>) &#123; <span class="comment">// 返回一个布尔值，表示是否满足条件 &#125;);</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>some</code>方法中，我们传入一个回调函数作为参数。该回调函数接受三个参数：当前元素的值<code>element</code>、当前元素的索引<code>index</code>和正在遍历的数组<code>array</code>。</p>
+<p>在回调函数中，我们根据指定的条件判断是否满足条件。如果回调函数返回<code>true</code>，则表示至少有一个元素满足条件；如果所有元素都不满足条件，回调函数返回<code>false</code>。</p>
+<p>下面是一个使用<code>some</code>方法的示例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="built_in">array</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="type">const</span> result = <span class="built_in">array</span>.some(function(element) &#123; <span class="comment">// 返回一个布尔值，表示是否满足条件</span></span><br><span class="line">    <span class="keyword">return</span> element &gt; <span class="number">3</span>; <span class="comment">// 判断是否存在大于3的元素</span></span><br><span class="line">&#125;);</span><br><span class="line">console.<span class="built_in">log</span>(result); <span class="comment">// 输出: true</span></span><br></pre></td></tr></table></figure>
+
+<p>在上述示例中，我们使用<code>some</code>方法检测数组<code>array</code>中是否存在大于3的元素。由于数组中存在元素4和5满足条件，所以<code>some</code>方法返回<code>true</code>。</p>
+<p><code>some</code>方法可以用于检测数组中是否满足某个条件的元素。它提供了一种简洁的方式来进行条件判断。</p>
+<p>需要注意的是：</p>
+<ul>
+<li><code>some</code>方法在找到满足条件的元素后会立即停止遍历，不会继续遍历剩余的元素。</li>
+<li><code>some</code>方法不会改变原数组，会返回一个布尔值。</li>
+</ul>
+<h3 id="every"><a href="#every" class="headerlink" title="every()"></a>every()</h3><p><code>every</code>方法用于检测数组中的所有元素是否都满足指定条件。</p>
+<p>以下是<code>every</code>方法的基本语法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> result = <span class="built_in">array</span>.every(function(element, index, <span class="built_in">array</span>) &#123; <span class="comment">// 返回一个布尔值，表示是否满足条件 &#125;);</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>every</code>方法中，我们传入一个回调函数作为参数。该回调函数接受三个参数：当前元素的值<code>element</code>、当前元素的索引<code>index</code>和正在遍历的数组<code>array</code>。</p>
+<p>在回调函数中，我们根据指定的条件判断是否满足条件。如果回调函数对数组中的所有元素都返回<code>true</code>，则<code>every</code>方法返回<code>true</code>；如果有任何一个元素返回<code>false</code>，则<code>every</code>方法返回<code>false</code>。</p>
+<p>下面是一个使用<code>every</code>方法的示例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="built_in">array</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="type">const</span> result = <span class="built_in">array</span>.every(function(element) &#123; <span class="comment">// 返回一个布尔值，表示是否满足条件</span></span><br><span class="line">    <span class="keyword">return</span> element &gt; <span class="number">0</span>; <span class="comment">// 判断是否所有元素都大于0</span></span><br><span class="line">&#125;);</span><br><span class="line">console.<span class="built_in">log</span>(result); <span class="comment">// 输出: true</span></span><br></pre></td></tr></table></figure>
+
+<p>在上述示例中，我们使用<code>every</code>方法检测数组<code>array</code>中的所有元素是否都大于0。由于数组中的所有元素都大于0，所以<code>every</code>方法返回<code>true</code>。</p>
+<p><code>every</code>方法可以用于检测数组中的所有元素是否满足某个条件。它提供了一种简洁的方式来进行条件判断。</p>
+<p>需要注意的是：</p>
+<ul>
+<li><code>every</code>方法在找到不满足条件的元素后会立即停止遍历，不会继续遍历剩余的元素。</li>
+<li><code>every</code>方法不会改变原数组，会返回一个布尔值。</li>
+</ul>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>前端遍历循环，最熟悉的陌生人。</p>
 <p>平时开发的过程中，我们肯定都是非常熟悉了，但是深入去了解恐怕很少，今天参考朋友的博客，这里整理一下。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="http://conistudy.club/interview/javascript.html#for-in-%E5%92%8C-for-of-%E7%9A%84%E5%8C%BA%E5%88%AB">JavaScript | Conistudy</a></p>
@@ -245,7 +336,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-07-15 16:54:12
+              2024-07-17 04:48:01
             </span>
             
                   <span class="post-tags">
@@ -280,7 +371,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#for-in-%E5%92%8C-for-of-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">for..in 和 for..of 的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#for-in"><span class="toc-text">for..in</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#for-of"><span class="toc-text">for..of</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E8%80%85%E5%8C%BA%E5%88%AB"><span class="toc-text">两者区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8for%E2%80%A6-of%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">使用for….of遍历对象的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%81%8D%E5%8E%86%E7%B1%BB%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1"><span class="toc-text">遍历类数组对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%81%8D%E5%8E%86%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1"><span class="toc-text">遍历普通对象</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for-%E5%92%8C-forEach%E5%8C%BA%E5%88%AB"><span class="toc-text">for 和 forEach区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#for%E5%BE%AA%E7%8E%AF"><span class="toc-text">for循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#map"><span class="toc-text">map()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for-in-%E5%92%8C-for-of-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">for..in 和 for..of 的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#for-in"><span class="toc-text">for..in</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#for-of"><span class="toc-text">for..of</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E8%80%85%E5%8C%BA%E5%88%AB"><span class="toc-text">两者区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8for%E2%80%A6-of%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">使用for….of遍历对象的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%81%8D%E5%8E%86%E7%B1%BB%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1"><span class="toc-text">遍历类数组对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%81%8D%E5%8E%86%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1"><span class="toc-text">遍历普通对象</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for-%E5%92%8C-forEach%E5%8C%BA%E5%88%AB"><span class="toc-text">for 和 forEach区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reduce%E6%96%B9%E6%B3%95"><span class="toc-text">reduce方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filter"><span class="toc-text">filter()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#some"><span class="toc-text">some()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#every"><span class="toc-text">every()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
       
     </div>
   </div>
