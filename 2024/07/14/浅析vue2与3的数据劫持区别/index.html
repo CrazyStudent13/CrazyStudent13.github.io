@@ -162,7 +162,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-07-19 16:15:49
+          2024-07-19 16:19:32
         </span>
         
               <span class="post-tags">
@@ -217,7 +217,7 @@
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> value;</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(o, <span class="string">&#x27;a&#x27;</span>, &#123;</span><br><span class="line">    <span class="title function_">get</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;获取值&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> value</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">set</span>(<span class="params">v</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;设置值&#x27;</span>)</span><br><span class="line">        value = qqq</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">o.<span class="property">a</span> = <span class="string">&#x27;sss&#x27;</span> </span><br><span class="line"><span class="comment">// 设置值</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o.<span class="property">a</span>)</span><br><span class="line"><span class="comment">// 获取值</span></span><br></pre></td></tr></table></figure>
 
-<h5 id="1-2-缺陷"><a href="#1-2-缺陷" class="headerlink" title="1.2 缺陷"></a>1.2 缺陷</h5><ul>
+<h5 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h5><ul>
 <li><p><strong>只有getter&#x2F;setter属性无法监听属性的修改删除</strong>，在Vue 2.x赋值对象时，需要对对象进行初始化，否则需要使用$Set()进行设置</p>
 </li>
 <li><p>无法监听组数的数据变化，数组的长度发生变化的时候无法监听，这也是为什么我们直接根据下标改动数组内容时候会失效，vue2通过处理数组扩展方法（push、pop、shift、unshift、splice、sort、reverse这7个方法），通过这些方法，我们依然是可以对数组进行响应式的数组操作的。</p>
@@ -292,7 +292,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-07-19 16:15:49
+              2024-07-19 16:19:32
             </span>
             
                   <span class="post-tags">
@@ -338,7 +338,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81"><span class="toc-text">数据劫持</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Vue2%E6%96%B9%E5%BC%8F"><span class="toc-text">Vue2方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-%E7%BC%BA%E9%99%B7"><span class="toc-text">1.2 缺陷</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vue3%E6%96%B9%E5%BC%8F"><span class="toc-text">Vue3方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#reactive%E4%B8%8Eref"><span class="toc-text">reactive与ref</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#reactive%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="toc-text">reactive的缺陷</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ref%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="toc-text">ref的本质</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81"><span class="toc-text">数据劫持</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Vue2%E6%96%B9%E5%BC%8F"><span class="toc-text">Vue2方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%BA%E9%99%B7"><span class="toc-text">缺陷</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vue3%E6%96%B9%E5%BC%8F"><span class="toc-text">Vue3方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#reactive%E4%B8%8Eref"><span class="toc-text">reactive与ref</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#reactive%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="toc-text">reactive的缺陷</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ref%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="toc-text">ref的本质</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
       
     </div>
   </div>
