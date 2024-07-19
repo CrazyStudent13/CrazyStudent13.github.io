@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      浅析vue2与3的数据劫持区别 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">浅析vue2与3的数据劫持区别</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-07-19 16:15:49
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                    #面试
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/vue2/" title="vue2">
+                    #vue2
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/vue3/" title="vue3">
+                    #vue3
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>两年前在vue3在社区兴起之时，很多社区弄潮儿就在分析2与3源码区别，那时候很多人都以为是个新时代会到来。</p>
+<p>可是两年过去了，vue3的新时代依旧在缓慢迭代。</p>
+<p>对于大部分业务流选手，大家都不关心源码，大家更期望Vue3的相对于Vue2在工程上的亮点在哪，到底能否更爽快的开发，更好更稳定的替换当前工程。</p>
+<p>除非是面试，这种源码级的改动几乎是一个必然的面试题。</p>
+<p>很不巧，我现在刚好需要处理面试，于是这里整理一下。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>本文默认使用者都用过Vue2和Vue3的，如果您没有看过Vue2的响应式原理，推荐您最好先去了解Vue2的响应式原理，因为本文会直接略过很多内容，如果不清楚相关知识，看起来可能体验会很差。</p>
+<p>好了，接下来就开始对V2与V3的数据劫持进行区分。</p>
+<p>在正式进入对二者区别的分析前，我们需要先简单了解一下，什么是数据劫持。</p>
+<h3 id="数据劫持"><a href="#数据劫持" class="headerlink" title="数据劫持"></a>数据劫持</h3><p>在没有进入MVVM框架的时代时候，我们要操作DOM中的数据，就需要自己手动封装一套方法，获取对应节点的DOM，然后修改。</p>
+<p>因为这样很麻烦，才诞生了前端时代的MVVM的各种响应式实现方式。</p>
+<p>这里不展开细说其他框架的响应式原理，单说Vue这块的响应式，在实现响应式的第一步，就是要进行数据劫持。</p>
+<p><strong>数据劫持是Vue数据响应式的核心和基础，通过添加代理来给属性的变化添加额外的操作的方式</strong></p>
+<h4 id="Vue2方式"><a href="#Vue2方式" class="headerlink" title="Vue2方式"></a>Vue2方式</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Obejct</span>.<span class="title function_">defineProperty</span>(obj,prop,descriptor)</span><br></pre></td></tr></table></figure>
+
+<p>这个方法可以精确修改对象的属性，decriptor有四个参数，分别是</p>
+<ul>
+<li>configurable：数据是否可删除，可配置，</li>
+<li>enumerable：属性是否可枚举，</li>
+<li>get:一个给属性提供 getter 的方法，如果没有 getter 则为 undefined，</li>
+<li>set:一个给属性提供 setter 的方法，如果没有 setter 则为 undefined object.defineProperty()通过getter&#x2F;setter属性对数据进行监听，getter监听访问数据，setter监听修改数据，</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> value;</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(o, <span class="string">&#x27;a&#x27;</span>, &#123;</span><br><span class="line">    <span class="title function_">get</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;获取值&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> value</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">set</span>(<span class="params">v</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;设置值&#x27;</span>)</span><br><span class="line">        value = qqq</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">o.<span class="property">a</span> = <span class="string">&#x27;sss&#x27;</span> </span><br><span class="line"><span class="comment">// 设置值</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o.<span class="property">a</span>)</span><br><span class="line"><span class="comment">// 获取值</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="1-2-缺陷"><a href="#1-2-缺陷" class="headerlink" title="1.2 缺陷"></a>1.2 缺陷</h5><ul>
+<li><p><strong>只有getter&#x2F;setter属性无法监听属性的修改删除</strong>，在Vue 2.x赋值对象时，需要对对象进行初始化，否则需要使用$Set()进行设置</p>
+</li>
+<li><p>无法监听组数的数据变化，数组的长度发生变化的时候无法监听，这也是为什么我们直接根据下标改动数组内容时候会失效，vue2通过处理数组扩展方法（push、pop、shift、unshift、splice、sort、reverse这7个方法），通过这些方法，我们依然是可以对数组进行响应式的数组操作的。</p>
+<p>这个核心原因就是在于遍历数组消耗的性能太大，Vue2如果要做数组的响应式，按照原有的实现方式实在是买椟还珠了。针对这点，Vue2也给出来了一些解决方案，比如$Set()方法解决数组内的数据改变无响应的问题</p>
+</li>
+<li><p>无法拦截对象属性的多层嵌套。vue 2.x表现，watch对多层对象的监听中会失效，也需要$forceupdate()来更新视图。</p>
+</li>
+</ul>
+<h4 id="Vue3方式"><a href="#Vue3方式" class="headerlink" title="Vue3方式"></a>Vue3方式</h4><p>为了解决上面的缺陷，Vue3使用了ES6的proxy方法，直接对源数据进行代理操作。</p>
+<p>通过建立一个新的实例对象，才操作原有对象，并且提供13种监听操作。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Reflect</span>.<span class="title function_">apply</span>(target,thisArg,args)</span><br><span class="line"><span class="title class_">Reflect</span>.<span class="title function_">construct</span>(target,args)</span><br><span class="line"><span class="title class_">Reflect</span>.<span class="title function_">get</span>(target,name,receiver)</span><br><span class="line"><span class="title class_">Reflect</span>.<span class="title function_">set</span>(target,name,value,receiver)</span><br><span class="line"><span class="title class_">Reflect</span>.<span class="title function_">defineProperty</span>(target,name,desc)</span><br><span class="line"><span class="title class_">Reflect</span>.<span class="title function_">deleteProperty</span>(target,name)</span><br><span class="line"><span class="title class_">Reflect</span>.<span class="title function_">has</span>(target,name)</span><br><span class="line"><span class="title class_">Reflect</span>.<span class="title function_">ownKeys</span>(target)</span><br><span class="line"><span class="title class_">Reflect</span>.<span class="title function_">isExtensible</span>(target)</span><br><span class="line"><span class="title class_">Reflect</span>.<span class="title function_">preventExtensions</span>(target)</span><br><span class="line"><span class="title class_">Reflect</span>.<span class="title function_">getOwnPropertyDescriptor</span>(target, name)</span><br><span class="line"><span class="title class_">Reflect</span>.<span class="title function_">getPrototypeOf</span>(target)</span><br><span class="line"><span class="title class_">Reflect</span>.<span class="title function_">setPrototypeOf</span>(target, prototype)</span><br><span class="line"><span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="title class_">Proxy</span>(arr, &#123;</span><br><span class="line">    <span class="attr">get</span>: <span class="keyword">function</span> (<span class="params">target, key, receiver</span>) &#123;</span><br><span class="line">        <span class="comment">// console.log(&quot;获取数组元素&quot; + key);</span></span><br><span class="line">        <span class="keyword">return</span> <span class="title class_">Reflect</span>.<span class="title function_">get</span>(target, key, receiver);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">set</span>: <span class="keyword">function</span> (<span class="params">target, key, receiver</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;设置数组&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="title class_">Reflect</span>.<span class="title function_">set</span>(target, key, receiver);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 1. 改变已存在索引的数据</span></span><br><span class="line">obj[<span class="number">2</span>] = <span class="number">3</span></span><br><span class="line"><span class="comment">// result: 设置数组</span></span><br><span class="line"><span class="comment">// 2. push,unshift添加数据</span></span><br><span class="line">obj.<span class="title function_">push</span>(<span class="number">4</span>)</span><br><span class="line"><span class="comment">// result: 设置数组 * 2 (索引和length属性都会触发setter)</span></span><br><span class="line"><span class="comment">// // 3. 直接通过索引添加数组</span></span><br><span class="line">obj[<span class="number">5</span>] = <span class="number">5</span></span><br><span class="line"><span class="comment">// result: 设置数组 * 2</span></span><br><span class="line"><span class="comment">// // 4. 删除数组元素</span></span><br><span class="line">obj.<span class="title function_">splice</span>(<span class="number">1</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>显然Proxy完美的解决了数组的监听检测问题，针对数组添加数据，删除数据的不同方法，代理都能很好的拦截处理。</p>
+<p>另外Proxy也很好的解决了深层次嵌套对象的问题。</p>
+<p>这里我们综合整理一下<code>proxy</code>的优势</p>
+<ol>
+<li><strong>性能提升</strong>：Proxy API 比 defineProperty API 在许多情况下具有更好的性能。Vue2使用 Object.defineProperty 方法来拦截对象属性的访问和修改，但它需要遍历每个属性进行拦截。而 Proxy API 允许拦截整个对象，可以更高效地捕获对对象的访问和修改。</li>
+<li><strong>更全面的拦截能力</strong>：Proxy API 提供了更多的拦截方法，比 defineProperty API 更灵活、丰富。它支持拦截目标的各种操作，包括读取、设置、删除、枚举等，甚至还可以拦截函数调用和构造函数实例化。</li>
+<li><strong>更好的数组变化检测</strong>：Vue 3.0 使用 Proxy API 改善了数组的变化检测机制。Proxy 可以直接拦截数组的索引访问和修改，使得对数组的变化更容易被监听到，从而提供了更可靠的响应式行为。</li>
+<li><strong>更易于处理嵌套对象</strong>：Proxy API 能够递归地拦截对象的嵌套属性，而 defineProperty 无法自动递归处理嵌套对象。这使得在 Vue 3.0 中处理嵌套对象更加简单和方便。</li>
+<li><strong>更好的错误提示</strong>：相比于 defineProperty，Proxy API 提供了更好的错误追踪和调试信息。当使用 Proxy API 时，如果访问或修改了一个不存在的属性，会直接抛出错误，从而更容易发现和修复问题。</li>
+</ol>
+<p>不过，如果硬要挑刺的话，总是能找到缺点的。</p>
+<p>比如<code>proxy</code>属性毕竟是ES6的特性，如果有人要兼容低版本的IE10之类的说法，可能vue3这套响应式就不是很能玩得转了。</p>
+<p>但是大多情况下，在现代浏览器环境中，V3的<code>proxy</code>代理确实是比V2的<code>Object.defineProperty()</code>实现方式更还好用</p>
+<h5 id="reactive与ref"><a href="#reactive与ref" class="headerlink" title="reactive与ref"></a>reactive与ref</h5><p>我们在日常的工作中，估计已经非常熟悉二者的使用了，相对于Vue2中用data()声明之后即可简单实现响应式，Vue3提供的这两种方式对于Vue2的习惯用户来说简直是一种致命缺陷。</p>
+<p>关于ref和reactive的使用方式优化，在前文<a target="_blank" rel="noopener" href="https://crazystudent13.cn/2024/06/04/%E6%B5%85%E6%9E%90ref%E4%B8%8Ereactvie%E7%9A%84%E5%8C%BA%E5%88%AB/">浅析ref与reactvie的区别</a>一文中，我给出了一些相对好用的使用方案，至少能让开发者在开发项目的过程中有更好的开发体验。</p>
+<p>不过，今天这次不再是简单的讲二者的使用，而是更深层的剖析他们的实现方式。</p>
+<h5 id="reactive的缺陷"><a href="#reactive的缺陷" class="headerlink" title="reactive的缺陷"></a>reactive的缺陷</h5><ol>
+<li>reactive只能用来处理引用类数据的响应式，不能处理基础类型的数据，这个是官方自己这么规定的且<code>proxy</code>也只适合代理对象罢了。</li>
+<li>reactive声明的数据，解构赋值会导致响应式失效</li>
+<li>引用式数据直接赋值会导致响应式失效，比如用reactive代理数组，代理对象，如果你直接赋值一个新数组或者新对象，都会导致响应式失效</li>
+</ol>
+<p>以上缺陷几乎是我们日常开发中经常遇到的问题，稍微有点经验的开发老手大概都能猜出来什么原因。</p>
+<p>很简单，深拷贝改变了引用类型数据的位置，而引用类的数据都是要根据存储位置的指针去找源数据的存储地址的。</p>
+<p>而引用类型数据直接赋值，会直接改变指存储地址，这个重新赋值的过程丢失了响应式自然不奇怪。</p>
+<p>解构赋值也是同理，我们用解构赋值处理引用类型数据，也会改变数据存储位置，原理同上，所以这两种情况都会导致响应式失效。</p>
+<h5 id="ref的本质"><a href="#ref的本质" class="headerlink" title="ref的本质"></a>ref的本质</h5><p>很多开发者在开发中都非常喜欢ref一把梭，虽然这都需要.value&#96;这个小尾巴去获取实际内容。</p>
+<p>相对于reactive，ref不需要考虑数据类型，无论是引用类型和基础类型的数据都能用ref代理。</p>
+<p>但，ref的本质实际上就是reactive。</p>
+<p>很多新人朋友可能在这个过程可能会有点犯迷，为什么ref的本质是reactive？</p>
+<p>ref不是比reactive多了一个基础数据类型代理吗？</p>
+<p>既然ref既能处理基础数据类型，又能处理引用数据类型，为什么不用ref一把梭？</p>
+<p>这里我们放一段在vue工程中随手声明的测试变量，看看这个输出结果吧。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> test = <span class="title function_">ref</span>(<span class="string">&#x27;test&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以下是基础类型test的输出结果：</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">__v_isRef</span>: <span class="literal">true</span></span><br><span class="line">    <span class="attr">__v_isShallow</span>: <span class="literal">false</span></span><br><span class="line">    <span class="attr">_rawValue</span>: <span class="string">&quot;test&quot;</span></span><br><span class="line">    <span class="attr">_value</span>: <span class="string">&quot;test&quot;</span></span><br><span class="line">    <span class="attr">value</span>: <span class="string">&quot;test&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> testObj  = <span class="title function_">ref</span>(&#123; <span class="attr">a</span>: test &#125;)</span><br><span class="line"><span class="comment">// 以下是引用类型数据testObj的输出结果：</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">dep</span>: <span class="literal">undefined</span></span><br><span class="line">    <span class="attr">__v_isRef</span>: <span class="literal">true</span></span><br><span class="line">    <span class="attr">__v_isShallow</span>: <span class="literal">false</span></span><br><span class="line">    <span class="attr">_rawValue</span>: &#123;<span class="attr">name</span>: <span class="string">&#x27;test&#x27;</span>&#125;</span><br><span class="line">    <span class="attr">_value</span>: <span class="title class_">Proxy</span>(<span class="title class_">Object</span>) &#123;<span class="attr">name</span>: <span class="string">&#x27;test&#x27;</span>&#125;</span><br><span class="line">    <span class="attr">value</span>: (...)</span><br><span class="line">    [[<span class="title class_">Prototype</span>]]: <span class="title class_">Object</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个复杂对象会有__v_isRef，__v_isShallow等属性，引用类型。</p>
+<p>而我们将reactive包裹的对象输出，就没有该属性。</p>
+<p>再结合上述示例的输出结果我们就能明白，<code>ref</code>实际上在处理基础数据的时，就是用普通的处理，将基础类型数据转换为一个<code>.value</code>的对象来完成响应式的处理。</p>
+<p>而<code>ref</code>在处理引用类型数据时，通过输出结果，我们发现了<code>proxy</code>代理的数据，这和reactive输出的结果一模一样的。</p>
+<p>显然，ref在处理对象的时候，本质上还是调用reactive。</p>
+<p>根据__v_isRef的值去判断，如果是简单的数据，就有ref去处理，如果是复杂的数据，本质还是用reactive去代理。</p>
+<p>所以，在处理引用类型数据时候，本质上还是<code>reactive</code>。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>好了，本次简单的说完了V2与V3的数据劫持方式的不同，不过我水平浅薄，没敢放自己对源码的解读，所以显得有点low。</p>
+<p>不过，我尽可能保证自己说的内容都是查证和实验过了，所以准确性还是有保证的。</p>
+<p>后续会持续整理更新V2与V3之后，也算是对得起自己这多年前端的经验。</p>
+<p>如果您有更好的见解，欢迎在评论区留言，我会参考修正自己的认知。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6968657795977576455">Vue 2.x和Vue 3.x 数据劫持的实现和优缺点</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Lm4y1v72m/?share_source=copy_web&vd_source=a848031cce5c755167a3d6aa6bd87859">【Vue中修改了数组数值，为什么界面没有更新？】</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/07/11/%E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F%EF%BC%8C%E8%A7%84%E5%88%99%E7%9A%84%E6%84%8F%E4%B9%89/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-07-19 16:15:49
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                        #面试
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/vue2/" title="vue2">
+                        #vue2
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/vue3/" title="vue3">
+                        #vue3
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2024/07/18/%E6%B5%85%E6%9E%90vue3%E7%9B%B8%E5%AF%B9%E4%BA%8Evue2%E7%9A%84%E5%8F%98%E5%8C%96/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81"><span class="toc-text">数据劫持</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Vue2%E6%96%B9%E5%BC%8F"><span class="toc-text">Vue2方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-%E7%BC%BA%E9%99%B7"><span class="toc-text">1.2 缺陷</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vue3%E6%96%B9%E5%BC%8F"><span class="toc-text">Vue3方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#reactive%E4%B8%8Eref"><span class="toc-text">reactive与ref</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#reactive%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="toc-text">reactive的缺陷</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ref%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="toc-text">ref的本质</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+        <li>
+          
+              <a title="掘金论坛" target="_blank" rel="noopener" href="https://juejin.cn/user/4371313963044301">
+                <i class="iconfont icon-envelope"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E6%B5%85%E6%9E%90vue2%E4%B8%8E3%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81%E5%8C%BA%E5%88%AB + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F07%2F14%2F%25E6%25B5%2585%25E6%259E%2590vue2%25E4%25B8%258E3%25E7%259A%2584%25E6%2595%25B0%25E6%258D%25AE%25E5%258A%25AB%25E6%258C%2581%25E5%258C%25BA%25E5%2588%25AB%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/07/14/%E6%B5%85%E6%9E%90vue2%E4%B8%8E3%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81%E5%8C%BA%E5%88%AB/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

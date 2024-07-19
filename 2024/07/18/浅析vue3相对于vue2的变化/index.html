@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      浅析vue3相对于vue2的变化 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">浅析vue3相对于vue2的变化</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-07-19 16:15:49
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                    #面试
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/vue2/" title="vue2">
+                    #vue2
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/vue3/" title="vue3">
+                    #vue3
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>vue3与vue2的区别算是较为火热的面试题之一了，之前早就想整理一遍了，但是奈何没有太多时间去关注。</p>
+<p>在两者的深度上，我个人一直觉得自己了解的较少，了解的越深就越不敢说自己深入了解。</p>
+<p>经过两个月左右的整理，我应该可以勉强说自己算是略懂了。</p>
+<p>这里放上自己的拙见，我尽可能的确认了自己理解的准确性，不过我仍然感觉自己似乎做的不到位，这就当是抛砖引玉，希望大家在评论区多多拍砖。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>这段时间看了很多相关的文档，自己也翻了很多遍<a target="_blank" rel="noopener" href="https://cn.vuejs.org/">vue3的官网文档</a>，同时自己也在项目中重新按照自己的经验重新用了一遍Vue3的新写法。</p>
+<p>在一段时间的使用之后，个人认为，Vue3与Vue2的区别，要从使用者和开发者的角度来看。</p>
+<h3 id="使用者"><a href="#使用者" class="headerlink" title="使用者"></a>使用者</h3><p>使用者，就是我们平时写业务的这些普通开发者。</p>
+<p>大多数情况下，使用者不负责源码开发，仅仅只要知道有个新特性，然后按照新特性使用就行了。</p>
+<p>就像是伐木工学会了用A型号的电锯，这时候电锯做了个升级，加入了一些特性，而我们只要知道如何用好这些新特性。</p>
+<p>相对于Vue2，我认为Vue3的新特性如下。</p>
+<ul>
+<li>取消了根元素，每个组件不必再必须嵌套一个根元素标签了</li>
+<li>响应式用法的改变，用reactive和ref取代了之前的data声明的变量的方式</li>
+<li>新增了组合式写法，相对于传统的选项式更灵活，可读性更高，这种写法也支持</li>
+<li>父子组件传参方式发生了些许改变，不过用法大致和Vue2的思路没差，<strong>defineProps</strong>，<strong>defineEmits</strong>，<strong>defineExpose</strong>这三个稍微看看用法就能很快上手</li>
+<li>生命周期的写法和名称有些许改变，新增了setup，但是大致流程没有变化</li>
+<li>v-if和v-for的优先级调整，以v-if的优先级更高，如果二者要在同一标签内使用，将v-for放在外边，不然v-if会直接覆盖掉v-for的效果</li>
+<li>修饰符发生了一些改变，取消了.native，不过总的来说没有太大变化</li>
+</ul>
+<p>总之，Vue3相对于Vue2，虽然很多人说是有些破坏式更新，写法发生了巨大的改变，这是一次失败的更新。</p>
+<p>但从使用者的角度来讲，我个人认为，这次更新并不算是一次破坏式更新，至少大部分写法和习惯都是保留好了。</p>
+<p>这里浅谈一下争论最大的选项式与组合式。</p>
+<h4 id="选项式？"><a href="#选项式？" class="headerlink" title="选项式？"></a>选项式？</h4><p>选项式就是V2的写法，选项式上手简单，且不容易出岔子，有这个架子的保证，新手只要不是特别离谱，写出来的代码至少具有一定的可读性。</p>
+<p>但这种写法在代码量上去的时候，可读性就会变得差。</p>
+<p>主要原因就是变量和函数分开，每次翻阅代码的时候就要上下翻看，要么就要拆开面板去分开看，很麻烦。</p>
+<p>而且，所有的变量都是在data中申明，全部指向了this。</p>
+<p>指向this固然好用，但是随着后续模块的增多，这些this声明出来的变量会让人不知道这到底是哪个模块的内容，容易造成混乱。</p>
+<p>而组合式确实解决了这个痛点。</p>
+<h4 id="组合式？"><a href="#组合式？" class="headerlink" title="组合式？"></a>组合式？</h4><p>组合式写法其实就是回归了传统的script标签写法，声明了变量，然后做就完事了。</p>
+<p>相对于V2的写法，V3的写法太过自由，可能很多人第一时间拿到手之后会有些不知所措。</p>
+<p>不过经过几个项目铺垫之后，大概就能明白组合式的优势了。</p>
+<p>组合式相对于选项式，可以更模块化的拆业务，更有逻辑的去切割页面上的逻辑块，之后去找变量的时候，不会再全部指到this了，这样让我们更清楚这些变量是负责哪个代码块的。</p>
+<h4 id="hooks？minxin？"><a href="#hooks？minxin？" class="headerlink" title="hooks？minxin？"></a>hooks？minxin？</h4><p>随着代码量的增加，还可以将多个页面的重复业务块拆出来，放入hooks中供全局使用（Vue2中也有minxin），但是二者实际使用后，就能明白二者的不同。</p>
+<ul>
+<li>hooks像是以前抽离出来的公用方法，抽离的是逻辑，我们将一段公用的逻辑方法封入Hooks中，这里可以封入一定的业务逻辑</li>
+<li>minxin更像是抽离出一部分公用模板，抽离的是模板，我们将一些写烦了的公用方法封入minxin中，省的每次都写。</li>
+</ul>
+<p>当然，我这个说法还是有点怪，实际开发中，这二者的用法硬要用的话，可混为一谈的。</p>
+<p>不过，我个人依旧推荐大家用hooks去封装逻辑，不要用来封装模板。</p>
+<h3 id="开发者"><a href="#开发者" class="headerlink" title="开发者"></a>开发者</h3><p>开发者，就是指Vue框架的源码开发者啦。</p>
+<p>这个层级大家平时其实很少接触到，不过部分使用者在常规业务开发到极度深入的时候，肯定会去了解相关内容。</p>
+<p>尽管我们不去开发，但是时间久了，肯定多少会要了解一些的。</p>
+<p>相对于Vue2，Vue3在源码层面的特性变动如下</p>
+<ul>
+<li>整个框架用TS重写，对Vue3对TS有了更好的支持</li>
+<li>重写了响应式的数据劫持方式，用proxy取代了vue2的Object.defineProperty()</li>
+<li>重写了虚拟Dom的实现，编译模板优化，更高效的组件初始化效果</li>
+<li>diff算法重写</li>
+</ul>
+<p>通过这些，开发者做到让Vue3具有了哪些优势呢？</p>
+<h4 id="更快的渲染性能"><a href="#更快的渲染性能" class="headerlink" title="更快的渲染性能"></a>更快的渲染性能</h4><ul>
+<li>Vue3 相比 Vue2 来说，Vue3 重写了虚拟 <code>Dom</code> 实现，编译模板的优化，更高效的组件初始化。</li>
+</ul>
+<h4 id="更小的体积"><a href="#更小的体积" class="headerlink" title="更小的体积"></a>更小的体积</h4><ul>
+<li>Vue 3 的运行时核心相比 Vue 2 更小，这意味着更小的打包体积，减少了前端加载时间。</li>
+<li>Tree-shaking 支持：Vue 3 代码更容易被 Tree-shaking 优化，因此可以更好地剔除不需要的代码。</li>
+</ul>
+<h4 id="更好的-TypeScript-支持"><a href="#更好的-TypeScript-支持" class="headerlink" title="更好的 TypeScript 支持"></a>更好的 TypeScript 支持</h4><ul>
+<li>Vue 3 的代码库已经全面采用 TypeScript 重写，提供了更好的类型推断和类型提示。</li>
+<li>提供了更多的内置类型声明，使得开发时更容易发现代码错误和调试。</li>
+</ul>
+<h4 id="更灵活的组合式-API"><a href="#更灵活的组合式-API" class="headerlink" title="更灵活的组合式 API"></a>更灵活的组合式 API</h4><ul>
+<li>Vue 3 引入了组合式 API，使得组件的逻辑可以更好地组织和复用。</li>
+<li>组合式 API 提供了更直观、更灵活的方式来组织组件代码，使得代码更易读、易维护。</li>
+</ul>
+<h4 id="更好的响应式系统"><a href="#更好的响应式系统" class="headerlink" title="更好的响应式系统"></a>更好的响应式系统</h4><ul>
+<li>Vue 3 使用了 Proxy 来重写响应式系统，相比 Vue 2 的 Object.defineProperty，更加直观和强大。</li>
+<li>在 Vue 3 中，可以在更深的层次上追踪响应式变量的变化，使得开发者能够更准确地监听数据变化。</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>个人虽然是个vue老登了，但是确实也是菜鸡，所以我整理的这些内容实在是过于浅薄，让大家见笑了。</p>
+<p>关于Vue2与Vue3的选择，我个人并不排斥任何一种选择，这需要我们根据实际情况来进行选择，很多老项目如果能不动，最好还是别动。</p>
+<p>当然，从长远的角度来讲，我还是期望用Vue3的，毕竟Vue2已经停止了更新，而Vue3继承了2的特性，并且还在持续更新，显然Vue3更有潜力。</p>
+<p>而且，社区内似乎有不少人开始追随Vue3的更新，长远的来看，显然是Vue3的社区会更壮大。</p>
+<p>未来的前景，就是最值得追逐技术的理由之一。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7340676808436563987?searchId=20240718123318E0F013B86F459BBDBB95">vue3和vue2的区别，你知道多少 - 掘金 (juejin.cn)</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7030992475271495711">vue3保姆级教程</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/07/14/%E6%B5%85%E6%9E%90vue2%E4%B8%8E3%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81%E5%8C%BA%E5%88%AB/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-07-19 16:15:49
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                        #面试
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/vue2/" title="vue2">
+                        #vue2
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/vue3/" title="vue3">
+                        #vue3
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2024/07/19/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E4%B8%80%E4%BA%9BHTML%E7%9A%84%E7%9F%A5%E8%AF%86/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%80%85"><span class="toc-text">使用者</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E9%A1%B9%E5%BC%8F%EF%BC%9F"><span class="toc-text">选项式？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E5%BC%8F%EF%BC%9F"><span class="toc-text">组合式？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hooks%EF%BC%9Fminxin%EF%BC%9F"><span class="toc-text">hooks？minxin？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E8%80%85"><span class="toc-text">开发者</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E5%BF%AB%E7%9A%84%E6%B8%B2%E6%9F%93%E6%80%A7%E8%83%BD"><span class="toc-text">更快的渲染性能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E5%B0%8F%E7%9A%84%E4%BD%93%E7%A7%AF"><span class="toc-text">更小的体积</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E5%A5%BD%E7%9A%84-TypeScript-%E6%94%AF%E6%8C%81"><span class="toc-text">更好的 TypeScript 支持</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E7%81%B5%E6%B4%BB%E7%9A%84%E7%BB%84%E5%90%88%E5%BC%8F-API"><span class="toc-text">更灵活的组合式 API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E5%A5%BD%E7%9A%84%E5%93%8D%E5%BA%94%E5%BC%8F%E7%B3%BB%E7%BB%9F"><span class="toc-text">更好的响应式系统</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+        <li>
+          
+              <a title="掘金论坛" target="_blank" rel="noopener" href="https://juejin.cn/user/4371313963044301">
+                <i class="iconfont icon-envelope"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E6%B5%85%E6%9E%90vue3%E7%9B%B8%E5%AF%B9%E4%BA%8Evue2%E7%9A%84%E5%8F%98%E5%8C%96 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F07%2F18%2F%25E6%25B5%2585%25E6%259E%2590vue3%25E7%259B%25B8%25E5%25AF%25B9%25E4%25BA%258Evue2%25E7%259A%2584%25E5%258F%2598%25E5%258C%2596%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/07/18/%E6%B5%85%E6%9E%90vue3%E7%9B%B8%E5%AF%B9%E4%BA%8Evue2%E7%9A%84%E5%8F%98%E5%8C%96/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

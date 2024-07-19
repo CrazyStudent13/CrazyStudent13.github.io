@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      工程提速，规则的意义 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">工程提速，规则的意义</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-07-19 16:15:49
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" title="工程化">
+                    #工程化
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>为了让工程提速，我们制造了规则。</p>
+<p>为了让工程提速，我们漠视了规则。</p>
+<p>本文给新踏上开发之路的朋友，1~3年左右开发经验的朋友可以看看，虽然这不是实打实的开发技能，但这却是我这数年开发的实际心得，您看完了，或许会有所收获，也可能会莞尔一笑，不过无论如何，肯定都不算是耽误您人生中的些许时光。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>在早期单打独斗的时候，从来没有在意规则，一个人想怎么写就怎么写。</p>
+<p>不过为了让未来的自己读代码没那么累，于是我开始在代码中写入注释，并且开始了简单的语义化，不再简单使用<code>a,b,c,d</code>这种临时变量。</p>
+<p>这是最开始的简单规则，一直到团队开发的时候，我开发人生中第一套规则才开始正式诞生。</p>
+<p>而数年之后，我为公司打造了一套低代码工具，将工程化发挥到了极致。</p>
+<p>遥遥回想过往，简直感觉一切简直是不可思议。</p>
+<h3 id="开发规则"><a href="#开发规则" class="headerlink" title="开发规则"></a>开发规则</h3><p>在早年前后端分离的思潮刚刚诞生的时候，我入职的前端开发团队大约两人左右，那时后端也仅一人。</p>
+<p>很多时候商量着来，就能完成。</p>
+<p>而后来，随着业务量的增加，前后端数量开始增加，三人以上的前端团队，对接三人以上的后端，在没有统一规则的指导下，开发进度一言难尽。</p>
+<p>大部分的时间，前后端为了对接接口而费劲了心思。</p>
+<h4 id="情景复盘"><a href="#情景复盘" class="headerlink" title="情景复盘"></a>情景复盘</h4><p>三个人的后端，写出了三种风格的接口，大小写不统一，中英文混写，接口传参方式混乱，传参方式不同，且接口变动频繁导致前端根本无法稳定对接。</p>
+<p>大家可能不能想象，那我就说一点，增删改查这一套流程中，有人同样一个字段居然写出了四种命名，有的是拼音，有的是小驼峰的单词，有的是大驼峰的单词，有的还用下划线方式命名，传参的code甚至都能出现字符串和数字两种类型，判定接口成功的code：200，20000，且这个过程中还有两种类型。</p>
+<p>后端一团乱麻，而前端也没好到哪里去。</p>
+<p>样式写法混乱，不用公用样式，非要自己改权重，写入样式覆盖公用样式。</p>
+<p>接口写入方式不同，明明有着开源框架的标准方式，却偏偏要自己手动引入<code>axios</code>写接口，导致<code>api</code>接口文件非常不便管理。</p>
+<p>而且，当时那个时间大约是2019年，那时候，前后端分离方式的思潮还很新，部分前端依旧是习惯于<code>Jquery</code>操作<code>Dom</code>的写法，然后你可以在vue的项目中看到有人引入了<code>Jquery</code>的在线链接，然后在框架内写代码操作表格。</p>
+<p>这种思潮时至今日我居然还能在部分新手代码中遇到，有些时候我甚至可以在vue3中看到Jquery操作表格的代码，我也是不得不感叹，世界真是太大了，大到会发生任何不可思议的事。</p>
+<h4 id="整理问题"><a href="#整理问题" class="headerlink" title="整理问题"></a>整理问题</h4><p>毫无疑问，不规范的问题极大拖累了开发速度，我们两周后复盘了一下，近乎7成以上的事件浪费在这种毫无意义的调试上。</p>
+<p>我们当时在做的是一个系统的翻新，之所以接口会出现频繁变动，是因为大多数后端对业务不熟悉，进而导致接口频繁变动，而我们需要快速翻新出成果。</p>
+<p>为了追求快，我们放弃了规则，这是管理上的隐患。</p>
+<p>公司当时用的是非常好上手的Vue2，写过Vue2的朋友大概率应该知道，这是一个非常好上手的新手框架，但是我们那时候简直能用出一坨屎。</p>
+<p>我将这个开发过程中犯的毛病整理一下，权当一篇避雷指南了。</p>
+<p>如果您现在的项目中中了以下几条，那您就必须要反思一下，您做项目到底将多少精力花在这些无意义的调试上了？</p>
+<ul>
+<li>管理上追求快，不做标准要求，按照要求的时间点开始倒排开发日期，导致开发无限期加班，精力极大程度的消耗在对接空耗上了</li>
+<li>UI风格不统一确定，很多时候出成品，经常会有样式上的变动</li>
+<li>前后端不做业务交流，双方都在一次会议之后，简单确认了任务，就毫无修正的朝着各自以为的目标推进</li>
+<li>后端接口标准不统一，数种不同风格的接口导致前端难以适配，即便写统一处理字段的方法也没法讲中文字段转换成英文字段，这极大的拖累的开发进度</li>
+<li>前后端未约定联调标准，导致传参方式适配难度极大，后端成功与失败的code都不统一，有的后端甚至不写接口报错捕获，所有的传参结果都是成功</li>
+<li>前端未使用公用样式，导致样式管理极度混乱，无法统一修改部分公用样式</li>
+<li>前端技术栈不统一，有人在项目中使用JQuery，加重了调试的心智负担</li>
+<li>前端语义化命名不明显，在样式中多处使用<code>L1，R1，T1，B1</code>这类风格，scss样式嵌套加深之后，阅读极为困难，变量中更是重量级，基本上不用ES6，狂用ES5的写法，几乎不用ES6的新特性来处理数组，导致代码阅读极为困难</li>
+<li>前端代码风格不同，导致不同格式化的代码风格经常冲突</li>
+<li>前端不用VueX存储的公共数据来读取一些数据字典，反而每次都要请求一次接口去读数据，每次页面都要拉取很多接口</li>
+<li>没有公共工具方法库，所有人判空，取整，时间格式化都是按照自己的想法来，八仙过海，各显神通</li>
+</ul>
+<p>综上，这是开发中问题，至于发布测试等方面的问题，这里先按住不表，因为后续更是重量级。</p>
+<p>由于以上的问题，我们开发页面过程极度缓慢，翻新进度简直慢的发指。</p>
+<p>四个简单的增删改查页面，前端后端6人，每天工作12小时以上，而且是时刻有交流条件的情况下，大家根本不交流。</p>
+<p>然后，居然在一周内没有完成两个单表的增删改查。</p>
+<p>而后续一个复杂的多字段表单，更是整整耗时一周，才勉强调通，且不能保证全流程完全走通。</p>
+<p>是的，这就是我们的开发进度，6个人，做成这样，肉眼可见的丢人，但这就是那时的开发进度。</p>
+<p>我们放弃了规矩，但是我们并未追求到进度。</p>
+<p>在复数人员的开发情况下，一个混沌的开发体系，进度便是如此的可笑。</p>
+<h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h4><p>幸亏管理也算是技术出身，且技术功底扎实，简单的商量之后，我们制定了以下的简单方案</p>
+<ul>
+<li>后端接口由管理负责，定好统一格式，后端全员按照接口格式开发</li>
+<li>在正式确认业务之前，前后端都要过一遍业务，彼此确认业务的大致流程，同时后端在没有给定正式业务之前，要先给出确定字段的接口，便于双方确认（那时候我们还不会Mock数据）</li>
+<li>制定统一风格，由管理人员确定一套风格，然后开发出最初的模板，之后尽可能使用<code>element-ui</code>框架来实现功能，避免前端使用自己手写的样式覆盖，如果一定要调整全局样式，那么需要报备，除非必须要求改动，否则就放弃修改</li>
+<li>技术栈统一，放弃JQuery，全面拥抱Vue2的写法，每晚定期进行代码审查（草草检查，主要确认没有jquery）</li>
+<li>公共接口抽离，将一些公用方法抽离出来，如上传，部分复杂的业务数据字典，</li>
+<li>公共方法本地化封装，将一些判空之类的方法写在工具类中，省去每人手写工具方法的时间</li>
+<li>命名语义化，尽可能减少无意义的变量命名</li>
+<li>代码格式化插件统一，开发工具统一，保证所有人调试起来方便（笔者并不太会用webstorm的格式化，当时也没时间去研究，只能禁了那位组员的webstorm，让他用vscode）</li>
+</ul>
+<p>经过这些小手段，效果立竿见影。</p>
+<p>开发进度确实有了些许提升，但是页面功能的稳定性显而易见的上升，同时每人的工作量大幅下降，勉强可以8点下班，至少不用彻夜彻夜的加班了（在这之前巅峰时间甚至能达到每天14小时以上的工作强度）。</p>
+<p>可能大家会觉得，这并未提升多少，但是于那时的我们来说，在这之前，团队几乎是肉眼可见要崩塌，所有人都不觉得这样的团队能做成这个项目。</p>
+<p>但是这些简单的规定做下来之后，虽然强度还在，但是工作目标至少可以量化了，同时任务终于可以拆解了，不再是将所有人都堆在任务中。</p>
+<p>而团队工程化的路，就是从那时候开始的。</p>
+<h3 id="运维发布"><a href="#运维发布" class="headerlink" title="运维发布"></a>运维发布</h3><p>因为团队一开始并不大，所以很多时候都是开发运维一把抓，然后在这个过程中，又诞生了一堆混乱至极的问题。</p>
+<h4 id="情景复盘-1"><a href="#情景复盘-1" class="headerlink" title="情景复盘"></a>情景复盘</h4><p>那时，我们用的仍然是SVN进行版本管理，相对于git的分布式版本管理，SVN的集中管理有个弱势点，那就是版本管控必须要将代码文件提交到中心服务器。</p>
+<p>而这就有个隐患，如果有人没有将自己的逻辑走完，那么为了版本管控，他也只能将代码提交到SVN，而客户几乎每天都会过来看一下进度。</p>
+<p>如果有经验的人，想必此时已经发现哪里有隐患了。</p>
+<p>因为有人会将未完成的功能提交到线上，那么发布到线上的时候，碰到演示这种未完成的功能时候，免不了会被客户一顿痛批。</p>
+<p>部分公司为了解决这种问题，会选择再买个服务器，做一个测试版本，但我们当时是内网开发，客户表示只有这一个服务器，然后结果就很尴尬了。</p>
+<p>这个过程，开发流程管理也很混乱，客户会经常在我们开发过程中插入一些新的要求，导致我们项目需求翻新的进度极度拖延。</p>
+<h4 id="整理问题-1"><a href="#整理问题-1" class="headerlink" title="整理问题"></a>整理问题</h4><p>在我们刚解决了开发上的规范问题之后，我们就遇到了这种运维及需求沟通的问题上的问题。</p>
+<h5 id="需求混乱"><a href="#需求混乱" class="headerlink" title="需求混乱"></a>需求混乱</h5><ul>
+<li>翻新需求不明确，做无用功，很多旧版本的功能，在旧版时候明确不用了，但是项目Leader没有细细筛过需要翻新的功能，导致经常做了无用功</li>
+<li>客户需求不评审，因为客户可以直接到现场催稿，导致经常会插入一些客户优先的功能，延误了正常工期排序</li>
+<li>对业务不熟悉，导致返工。这个是最常见的事情，很多时候，我们评审业务，项目Leader没有说明白业务，进而导致开发者对业务的理解南辕北辙，不停翻新做无用功。</li>
+</ul>
+<p>针对这些问题，我们项目Leader只能将自己从开发序列中抽离，自己去整理业务对接客户。</p>
+<p>因为他最懂这块的业务，所以只有他自己可以去，他将需求承接完成后，顶住客户的需求压力，按照排期给我们捋顺业务和开发进度。</p>
+<p>之后，由他来作为团队大核，指导对业务不熟悉的我们，由我们负责具体的开发内容。</p>
+<p>这之后的效果，也算是立竿见影，虽然项目Leader不用实际开发了，但我们的进度却并未落下，甚至质量再次提升，做无用功的情况越来越少，随着大家对业务的逐渐熟悉，所有人甚至可以对业务中不合理的地方及时预警。</p>
+<h5 id="混乱发布"><a href="#混乱发布" class="headerlink" title="混乱发布"></a>混乱发布</h5><p>这是在需求没有整理之前的情况，我们的发布突出一个随心所欲，几乎所有小团队中能犯的错，我们这里都犯过。</p>
+<ul>
+<li>版本不指定，我们没有既定的版本，只是按照大致的感觉和客户的催命程度来发布，这时候我们和上版本相比有了什么进步只有项目Leader知道</li>
+<li>功能不自测，因为经常翻新，为了追求演示效果，我们经常赶时间发布，这导致演示的时候经常翻车</li>
+<li>人员不指定，所有人都可以发布，然后我们经常在发布的时候撞车（趁没有测出BUG悄悄发布，小团队这种事想必很多）</li>
+<li>项目现场不指定，当时翻新的这个项目部分源码涉及到另一个项目现场，手动发布必然会有失误，经常忘记改配置，导致项目现场读取的内容错乱</li>
+<li>日期不指定，因为没有固定的发布时间，所以客户经常回来催我们（后来由项目Leader去抗这个压力了）</li>
+</ul>
+<p>综上，我们提出了一系列的解决方案。</p>
+<ul>
+<li>定好版本发布规则，确认需求后，固化发布日期。除非客户强烈要求，否则不会加入新功能排期，按照周为单位进行迭代。</li>
+<li>指定专门的运维人员，其他人不能碰发布服务器</li>
+<li>前端开发打包版本插件，让代码可以根据时间自动生成版本，并抽离配置，减少手动发包导致项目现场错配的问题</li>
+<li>安排运维人员书写运维文档，保证客户和开发人员都能明白我们要改什么，接下来要做什么</li>
+</ul>
+<h3 id="提速方向"><a href="#提速方向" class="headerlink" title="提速方向"></a>提速方向</h3><p>讲到这里，时间基本上挺接近现在了，我这里没有接触过更高标准的团队，但是就我打听的情况来看，大厂似乎也将工程化的流程走到顶点了。</p>
+<p>我在面试过程中，发现很多团队实际上基本就是前者的形态了，很少有进入到这一步的，以下提到的这些需求，几乎是只有大型团队才会出现的需求。</p>
+<p>这一步几乎是工程化的高标准状态了，大多数草创的开发团队，甚至是一些较为成熟的团队，他们几乎没有到这一步的意识和需求。</p>
+<p>到了这一步，公司业务几乎固定，因为业务线的固定，也逐渐衍生出产品化的概念，自然也就有了产品迭代的需求。</p>
+<p>于是，工程提速的玩法再次发生了改变。</p>
+<ul>
+<li>自动化发布</li>
+<li>代码管控，自动生成发布日志</li>
+<li>组件库</li>
+<li>工具包</li>
+<li>脚手架</li>
+<li>前后端约定统一，技术栈固化</li>
+</ul>
+<p>集成以上方式之后，便有了终极形态，低代码。</p>
+<p>在那时，我们几乎可以将一个两月交付的项目在一周内迭代出原型，供客户参考，然后在那基础上修改。</p>
+<p>同时极大程度节约人力，不过受限于篇幅，这里就不展开说了，后续会随着自己的要求，逐步解释我们项目中为什么进行这些操作。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>开发规则的诞生，是一个几乎必然的过程，人人都在骂这种制度化，但是一旦走向了大型团队化，我们又不可避免的制度化。</p>
+<p>有些时候，人真是有趣，讨厌一件事，理解一件事，融入一件事，成为这件事。</p>
+<p>制度化，团队化，似乎是人类群体的必然性，这种过程似乎是大型团队的必然答案，也是一种趋同进化的趋势。</p>
+<p>当然，扯远了，我们仅仅说的是工程，一个工程想要做的正常，并非一定要上大型工程的规则。</p>
+<p>最后，给自己的掘金引个流：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7390319475525107764">工程提速，规则的意义 - 掘金 (juejin.cn)</a>。</p>
+<p>希望大家能关注我，多多点赞，谢谢！</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>无</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/07/09/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3JS%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E9%81%8D%E5%8E%86/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-07-19 16:15:49
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" title="工程化">
+                        #工程化
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2024/07/14/%E6%B5%85%E6%9E%90vue2%E4%B8%8E3%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81%E5%8C%BA%E5%88%AB/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E8%A7%84%E5%88%99"><span class="toc-text">开发规则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%83%85%E6%99%AF%E5%A4%8D%E7%9B%98"><span class="toc-text">情景复盘</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E7%90%86%E9%97%AE%E9%A2%98"><span class="toc-text">整理问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-text">解决方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E7%BB%B4%E5%8F%91%E5%B8%83"><span class="toc-text">运维发布</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%83%85%E6%99%AF%E5%A4%8D%E7%9B%98-1"><span class="toc-text">情景复盘</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E7%90%86%E9%97%AE%E9%A2%98-1"><span class="toc-text">整理问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9C%80%E6%B1%82%E6%B7%B7%E4%B9%B1"><span class="toc-text">需求混乱</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B7%B7%E4%B9%B1%E5%8F%91%E5%B8%83"><span class="toc-text">混乱发布</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E9%80%9F%E6%96%B9%E5%90%91"><span class="toc-text">提速方向</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+        <li>
+          
+              <a title="掘金论坛" target="_blank" rel="noopener" href="https://juejin.cn/user/4371313963044301">
+                <i class="iconfont icon-envelope"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F%EF%BC%8C%E8%A7%84%E5%88%99%E7%9A%84%E6%84%8F%E4%B9%89 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F07%2F11%2F%25E5%25B7%25A5%25E7%25A8%258B%25E6%258F%2590%25E9%2580%259F%25EF%25BC%258C%25E8%25A7%2584%25E5%2588%2599%25E7%259A%2584%25E6%2584%258F%25E4%25B9%2589%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/07/11/%E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F%EF%BC%8C%E8%A7%84%E5%88%99%E7%9A%84%E6%84%8F%E4%B9%89/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
