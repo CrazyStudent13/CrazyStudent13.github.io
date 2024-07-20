@@ -162,7 +162,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-07-19 16:19:32
+          2024-07-20 18:09:56
         </span>
         
               <span class="post-tags">
@@ -179,12 +179,130 @@
       </div>
       <div class="markdown-body">
         <p>从掘金的一篇文章中摘下来的部分问题，这种级别的面试题，问问新人还好，问我这种前端老登，我多少感觉有点浪费时间了。</p>
-<p>不过其中也不乏一些偏到犄角旮旯的垃圾问题，这里没什么好说的，统一整理出来看看吧。</p>
+<p>这里没什么好说的，谁叫现在是为了找工作呢，统一整理出来看看吧，我实在想不懂问这些阴间问题的到底是哪些面试官。</p>
 <span id="more"></span>
 
 
 
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="介绍-BFC-及其应用"><a href="#介绍-BFC-及其应用" class="headerlink" title="介绍 BFC 及其应用"></a>介绍 BFC 及其应用</h3><p>BFC(Blcok formatting context) 直译为“块级格式化上下文”。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>本篇基本上都是HTML5的冷门问题，HTML的知识，真的。。。我都麻了，在掘金上刷到还有面试官来问这种问题？</p>
+<p>呵呵，放在两年前，问这种问题只会让我感觉到这个面试官水平不行。</p>
+<p>这些问题中不乏一些偏到犄角旮旯的垃圾问题，有些甚至是我这个前端老登都感觉真他妈离谱，真想把一些问题拍在面试官的脸上。</p>
+<p>你这些狗日的问题，你要不查文档，你自己能答的出来吗？你到底是从哪个题库中扒出来的？你弄这些东西到底对你自己的项目有什么促进作用？这些基础问题，要是你自己不花点时间准备，你到底能回答出来多少？</p>
+<p>这些问题对业务上的促进作用是什么？你问这些问题你要不给个为什么，我真他吗的。。。。算了，人在屋檐下。</p>
+<p>罢了，就当是听孔乙己说茴香豆的四种写法了，真你妈的离谱。</p>
+<h3 id="DOCUTYPE作用"><a href="#DOCUTYPE作用" class="headerlink" title="DOCUTYPE作用"></a>DOCUTYPE作用</h3><p>DOCTYPE（‌文档类型声明）‌是HTML文档中的一个重要组成部分，‌它位于HTML文档的第一行，‌位于<code>&lt;html&gt;</code>标签之前。‌</p>
+<p>这个声明用于指定当前文档所采用的HTML版本。‌</p>
+<p>DOCTYPE不是HTML标签，‌而是一个指令，‌告诉浏览器当前页面采用了哪个HTML版本，‌以便浏览器按照相应版本的规范来解析和渲染页面。‌</p>
+<p><code>&lt;!DOCTYPE html&gt;</code>声明的主要作用是规范浏览器行为，‌确保HTML文档的正确解析和渲染。</p>
+<p>这个属性会被浏览器识别并使用，但是如果你的页面没有DOCTYPE的声明，那么compatMode默认就是BackCompat。</p>
+<ul>
+<li>document.compatMode：BackCompat：怪异模式，浏览器使用自己的怪异模式解析渲染页面、（默认）。</li>
+<li>document.compatMode： CSS1Compat：标准模式、浏览器使用W3C标准解析渲染页面。</li>
+</ul>
+<p>如果你的页面添加了<code>&lt;!DOCTYPE html&gt;</code>那么，那么就等同于开启了标准模式，那么浏览器就得老老实实的按照W3C的标准解析渲染页面，这样一来，你的页面在所有的浏览器里显示的就都是一个样子了。</p>
+<p>这就是<code>&lt;!DOCTYPE html&gt;</code>的作用。</p>
+<p>如果你不加，浏览器如果按照自己的方式解析渲染页面，那么，在不同的浏览器就会显示不同的样式、很可能出现兼容问题。</p>
+<p>这个问题基本上是最初那一代的前端开发者才会知道的问题，因为最初浏览器还没有定下W3C标准，各家浏览器都按照自家的标准做事，所以那时候才有了那么多恶心的兼容问题。</p>
+<p>在W3C标准出现之前，彼时不同浏览器的内核是不统一，割裂极度严重，IE浏览器，火狐，还有谷歌，三家浏览器各搞各的，直到后续各家浏览器出来统一制定了W3C规则之后，统一进行页面的解析。</p>
+<p>当然，在那之后，IE浏览器依旧不老实，还是坚持要搞自己的一些小动作，所以在18年~22年左右，依然有很多政府项目要求兼容IE。</p>
+<p>不过随着时代的发展，这种项目估计除了银行之类的ToG的政府项目才会关心，实际上都不在关注这种问题了，毕竟现在都在使用W3C标准，而坚持自己个性标准的IE浏览器，在IE11之后就进了历史垃圾堆。</p>
+<p>在这之后，微软也宣布推出了Edge，摆脱了原有的历史包袱，使用W3C标准。</p>
+<p>所以，到现在<code>&lt;!DOCTYPE html&gt;</code>成了前端标准的兼容行为，这个操作太过基石，以至于没什么人会去关注。</p>
+<p>这里稍微总结一下<code>&lt;!DOCTYPE html&gt;</code>的作用</p>
+<ul>
+<li><strong>规范浏览器行为</strong>：‌通过指定正确的DOCTYPE，‌可以确保浏览器按照相应版本的HTML规范来解析和渲染页面，‌从而避免出现兼容性问题。‌</li>
+<li><strong>避免混杂模式</strong>：‌早期的HTML标准中，‌如果没有提供DOCTYPE声明或者提供了错误的声明，‌浏览器会进入混杂模式（‌Quirks Mode）‌，‌这可能导致页面显示不一致或出现兼容性问题。‌通过明确指定正确的DOCTYPE，‌可以避免进入混杂模式。‌</li>
+<li><strong>支持新特性</strong>：‌随着HTML标准的不断更新和演进，‌新版本中引入了许多新特性和语法规则。‌使用适当的DOCTYPE声明，‌可以告诉浏览器当前页面采用了哪个HTML版本，‌并使其能够理解并支持该版本中新增加的功能和语法。‌</li>
+<li><strong>提示验证工具</strong>：‌DOCTYPE声明还对验证工具起到提示作用。‌验证工具（‌如W3C的HTML验证器）‌可以根据DOCTYPE声明来判断文档是否符合相应版本的HTML规范，‌从而帮助开发者发现和修复代码中的错误。‌</li>
+</ul>
+<h3 id="META的作用"><a href="#META的作用" class="headerlink" title="META的作用"></a>META的作用</h3><p>这里放一段W3C的示例，结合实例稍微说一下作用，实际开发过程中，最多可能常用到控制缩放。</p>
+<p>至于常规keywords，description，基本上都是SEO常用到的配置，而后台管理类项目，平常基本上没人在乎这个的。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;免费的 Web 教程&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;keywords&quot;</span> <span class="attr">content</span>=<span class="string">&quot;HTML, CSS, JavaScript&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;author&quot;</span> <span class="attr">content</span>=<span class="string">&quot;Bill Gates&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;refresh&quot;</span> <span class="attr">content</span>=<span class="string">&quot;30&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>meta 元素可以使用名&#x2F;值对定义元数据，为此需要用到其 name 和 content 属性。</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>content</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>charset</td>
+<td>UTF-8</td>
+<td>声明当前页面使用的字符集</td>
+</tr>
+<tr>
+<td>keywords</td>
+<td>HTML, CSS, JavaScript</td>
+<td>搜索引擎关键字</td>
+</tr>
+<tr>
+<td>description</td>
+<td>Free Web tutorials for HTML and CSS</td>
+<td>网页描述</td>
+</tr>
+<tr>
+<td>author</td>
+<td>John Doe</td>
+<td>页面作者</td>
+</tr>
+<tr>
+<td>viewport</td>
+<td>width&#x3D;device-width, initial-scale&#x3D;1.0</td>
+<td>控制设备上缩放效果</td>
+</tr>
+<tr>
+<td>http-equiv&#x3D;”refresh”</td>
+<td>30</td>
+<td>每 30 秒刷新一次文档</td>
+</tr>
+</tbody></table>
+<p>这里大概列举了一下，至于详情，这里就不列举了。</p>
+<p>详情这里实在不想细说，有兴趣可以自行去看<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tags/tag_meta.asp">HTML  标签 _meta(w3school.com.cn)</a>。</p>
+<h3 id="HTML5语义化"><a href="#HTML5语义化" class="headerlink" title="HTML5语义化"></a>HTML5语义化</h3><blockquote>
+<p>语义化，顾名思义，就是你写的HTML结构，是用相对应的有一定语义的英文字母（标签）表示的，标记的，因为HTML本身就是标记语言。</p>
+<p>不仅对自己来说，容易阅读，书写。</p>
+<p>别人，甚至是网络爬虫机器看你的代码和结构也容易理解。</p>
+</blockquote>
+<p><strong>语义化简单讲就是根据内容的结构化（内容语义化），选择合适的标签（代码语义化）便于开发者阅读和写出更优雅的代码的同时让浏览器的爬虫和机器很好地解析。</strong></p>
+<p>在解释这个概念之前，应该先解释下“结构-表现-行为”。</p>
+<p>如果说解耦合是代码的高境界，那么“结构-表现-行为”的原则就是前台的标杆。</p>
+<p>前端代码是有HTML + CSS + JS来实现的。他们对应的就是负责“结构-表现-行为”。</p>
+<p>不过，现在兴起的前端技术大多要求是用来处理后台，这时候把很多以前的PC应用搬到了浏览器上。</p>
+<p>而应用就不怎么在乎浏览器器的语义化了，秉承着能用就行的原则，大多数后台应用类的网站的语义化要求被淡化，大多数都是div一把梭。</p>
+<p>除了页面SEO，或者是静态新闻网站之外，大多数网页开发都不再在乎应用，感兴趣的可以看看这篇博客园的博客：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/iamspecialone/p/11178486.html">Html的语义化</a>。</p>
+<h3 id="HTML5新特性"><a href="#HTML5新特性" class="headerlink" title="HTML5新特性"></a>HTML5新特性</h3><ol>
+<li>语义化标签（hrader、footer等），使得页面的内容结构化，见名知义</li>
+<li>增强型表单，拥有多个新的表单input输入类型，可提供更好的输入控制和验证</li>
+<li>video和audio元素，提供了播放视频和音频文件的标准方法</li>
+<li>canvas绘图</li>
+<li>svg绘图</li>
+<li>地理定位</li>
+<li>拖放api</li>
+<li>web worker</li>
+<li>web storage</li>
+<li>WebSocket</li>
+</ol>
+<h3 id="src-和-href-的区别"><a href="#src-和-href-的区别" class="headerlink" title="src 和 href 的区别"></a>src 和 href 的区别</h3><p>二者的区别，这里要从请求资源类型，解析方式，权重角度来分析。</p>
+<h4 id="请求资源类型不同"><a href="#请求资源类型不同" class="headerlink" title="请求资源类型不同"></a>请求资源类型不同</h4><h5 id="href（Hypertext-Reference）"><a href="#href（Hypertext-Reference）" class="headerlink" title="href（Hypertext Reference）"></a>href（Hypertext Reference）</h5><p>作用指定超链接目标的URL，主要用来建立当前元素和href引用元素的链接关系。</p>
+<p>href 属性的值可以是任何有效文档的相对或绝对URL，包括片段标识符和JavaScript代码段。</p>
+<p>常用link，a标签。</p>
+<h5 id="Src（Source）"><a href="#Src（Source）" class="headerlink" title="Src（Source）"></a>Src（Source）</h5><p>作用是指向物件的来源地址，主要指向需下载的资源。</p>
+<p>src将其指向的资源下载并应用到当前document中，并且替换当前元素。</p>
+<p>常用标签script，img，iframe等。</p>
+<h4 id="浏览器解析方式和权重的不同"><a href="#浏览器解析方式和权重的不同" class="headerlink" title="浏览器解析方式和权重的不同"></a>浏览器解析方式和权重的不同</h4><p>用 href时，加载到对应位置的时，不会暂停其他资源的下载或行为。</p>
+<ul>
+<li>权重思想： href链接的的是当前页面的一部分附属资源。</li>
+<li>注意点：所以CSS样式可以放在html结构的头部优先加载（因为不影响页面的核心加载，只是HTML标签的对应样式表）</li>
+</ul>
+<p>用src时候，会暂停其他资源的下载，直到当前资源加载，编译，执行完成了，并且把当前资源替换到src引用处了。</p>
+<ul>
+<li>权重思想： src加载的是当前页面的一部分。</li>
+<li>注意点：这就是为何js脚本一般回放到document底部加载而不是头部。</li>
+</ul>
+<h3 id="BFC-及其应用"><a href="#BFC-及其应用" class="headerlink" title="BFC 及其应用"></a>BFC 及其应用</h3><p>BFC(Blcok formatting context) 直译为“块级格式化上下文”。</p>
 <p>他是一个独立的渲染区域，只有块级元素参与，它规定了内部块级元素的布局，并且与这个区域外部毫不相关，外部元素也不会影响这个渲染区域的元素。</p>
 <blockquote>
 <p>简单说：BFC 就是页面上的一个隔离的独立渲染区域，区域里边的子元素不会影响到外面的元素。外边的元素也不会影响到区域里面的子元素。</p>
@@ -205,65 +323,16 @@
 <li>防止高度塌陷。问题：父元素不写高度时，子元素浮动后，导致父元素会发生高度塌陷（造成父元素高度为0）。但是将父元素变成BFC，就不会造成高度塌陷，最简单的方法是，给父元素设置<code>overflow: hidden</code>属性。</li>
 <li>垂直布局。问题：父元素包含多个子元素，并且这些子元素的高度不同，那么在没有创建 BFC 的情况下，这些子元素可能会在垂直方向上重叠。但是将父元素变成BFC，子元素在垂直方向上就能正确排列。</li>
 </ol>
-<ul>
-<li>HTML<ul>
-<li>iframe</li>
-<li>defer 和 async</li>
-<li>DOCUTYPE的作⽤</li>
-<li>html语义化</li>
-<li>meta标签</li>
-<li>HTML5特性</li>
-<li>src 和 href 的区别</li>
-<li>⾏内元素 和 块级元素有哪些</li>
-<li>link 与 @import 的区别</li>
-<li>常见的图⽚格式</li>
-</ul>
-</li>
-</ul>
-<p>CSS</p>
-<ul>
-<li>HTML页⾯中 id 和 class 有什么区别</li>
-<li>伪元素和伪类</li>
-<li>CSS中的继承</li>
-<li>不可&#x2F;可继承属性</li>
-<li>display: none与 visibility: hidden的区别</li>
-<li>隐藏元素的⽅法有哪些</li>
-<li>CSS选择器</li>
-<li>CSS选择器优先级</li>
-<li>position 属性</li>
-<li>px、em、rem、vh、vw的区别及使⽤场景</li>
-<li>脱离文档流</li>
-<li>盒子模型</li>
-<li>两栏布局</li>
-<li>三栏布局</li>
-<li>垂直居中</li>
-<li>水平居中</li>
-<li>文本溢出</li>
-<li>margin 合并</li>
-<li>margin 和 padding 的值为百分比时</li>
-<li>重排、重绘和合成</li>
-<li>为什么要初始化 CSS 样式</li>
-<li>div 居中的几种方式</li>
-<li>浮动</li>
-<li>BEC</li>
-<li>background-size</li>
-<li>block, inline, inline-block</li>
-<li>line-height 如何继承</li>
-<li>client, offset&amp;scroll</li>
-<li>z-index</li>
-<li>link 标签的伪类和用法</li>
-<li>选择器权重 Specificity</li>
-<li>单位</li>
-<li>实现 1px 效果</li>
-<li>使 chrome 支持 12px 以下文字</li>
-<li>CSS3 新特性</li>
-<li>flex 布局</li>
-<li>响应式布局</li>
-<li>过渡与动画</li>
-<li>Javascript 动画 和 csS 动画</li>
-</ul>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>实话实说，</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>真的是。。。越整理越感觉离谱，我都感觉自己人生中浪费了数个小时在整理这些冷门问题到底在干嘛。</p>
+<p>实话实说，这些老古董问题，在我眼里除了AI应该知道之外，正常的前端开发都不需要知道，最多就大概了解一下就行，哪怕是专门拿来问都有点显得掉架子，正经的老开发很难去了解这些问题。</p>
+<p>我实在想不通为什么有很多傻逼面试官会问到这种老古董的冷僻问题，他自己平时难道用得到吗？难道这些人平时自己就能用得到？就是为了考察所谓的基础？这些基础到底有什么用？</p>
+<p>我不说别的，DOCUTYPE的作用这个，在这些年里真的会有人遇到这方面的问题吗？兼容IE11? 除非是银行项目，到底是哪些人还他妈的固执的在用IE11?</p>
+<p>很多政府项目都不在要求兼容IE11了，偏偏这些人还在要求，这是否有点太离谱了？</p>
+<p>只能说，内卷化的极端时间里，现在找个工作太难，导致这种不知道从哪抠出来的冷僻问题居然成了热门的面试题，真他妈的傻逼。</p>
+<p>除了外行和新手，我真的想不懂这些问题对开发的意义，哪怕多问问项目实现的难点我都不会对这些面试官有意见。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7280007125999681588">我在公司是怎么做面试官的？</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/tianmiaogongzuoshi/p/16341179.html">src和href的区别</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tags/tag_meta.asp">HTML  标签 _meta(w3school.com.cn)</a></p>
 
       </div>
       
@@ -279,7 +348,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-07-19 16:19:32
+              2024-07-20 18:09:56
             </span>
             
                   <span class="post-tags">
@@ -308,7 +377,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D-BFC-%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8"><span class="toc-text">介绍 BFC 及其应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DOCUTYPE%E4%BD%9C%E7%94%A8"><span class="toc-text">DOCUTYPE作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#META%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">META的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML5%E8%AF%AD%E4%B9%89%E5%8C%96"><span class="toc-text">HTML5语义化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML5%E6%96%B0%E7%89%B9%E6%80%A7"><span class="toc-text">HTML5新特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#src-%E5%92%8C-href-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">src 和 href 的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E8%B5%84%E6%BA%90%E7%B1%BB%E5%9E%8B%E4%B8%8D%E5%90%8C"><span class="toc-text">请求资源类型不同</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#href%EF%BC%88Hypertext-Reference%EF%BC%89"><span class="toc-text">href（Hypertext Reference）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Src%EF%BC%88Source%EF%BC%89"><span class="toc-text">Src（Source）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E6%9E%90%E6%96%B9%E5%BC%8F%E5%92%8C%E6%9D%83%E9%87%8D%E7%9A%84%E4%B8%8D%E5%90%8C"><span class="toc-text">浏览器解析方式和权重的不同</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BFC-%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8"><span class="toc-text">BFC 及其应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
       
     </div>
   </div>
