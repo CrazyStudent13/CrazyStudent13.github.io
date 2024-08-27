@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      浅析pina与vuex的区别 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">浅析pina与vuex的区别</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-08-27 12:13:28
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                    #面试
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/vue2/" title="vue2">
+                    #vue2
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/vue3/" title="vue3">
+                    #vue3
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>无论是<code>vuex</code>还是<code>pina</code>，本质上都是为了解决项目中的全局数据存储的问题，没有什么更优或者更劣的说法。</p>
+<p>不过，<code>vuex</code>主要是应用在vue2的项目，<code>pina</code>则是随着Vue3升级产生的社区产物。</p>
+<p>pina由原vuex团队，为了配合vue3的升级，特意写的新工具，所以二者在使用上会有一定相似性。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>在正式开始写这篇文档之前，稍微科普一下，<a target="_blank" rel="noopener" href="https://vuex.vuejs.org/zh/guide/">vuex</a>和<a target="_blank" rel="noopener" href="https://pinia.vuejs.org/zh/introduction.html">pina</a>都是一个团队开发的，所以这二者在使用上会有不少类似的地方。</p>
+<p>随着vue3的推广，pina也逐渐开始在社区中推广，成了vue3的开源项目新宠儿。</p>
+<p>早期也有很多开发者在vue2的项目中用pina，或在vue3的项目中用vuex。</p>
+<p>不过，随着时间推移，vue2中使用vuex，vue3中pina，这成了社区约定的常规习惯，大多vue开源项目你都能看到他们这么用。</p>
+<p>如果要问为什么，只是社区逐渐应用产生的习惯罢了，并没有什么特殊的讲究。</p>
+<h3 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h3><p><code>Vuex</code>设计为一个全局状态管理的单例模式，有一个中心化的存储来管理应用的所有状态。</p>
+<p>它基于Vue 2的Options API，强调状态的集中管理和严格的规则，包括State、Getters、Mutations（用于同步更改状态）和Actions（可以处理异步逻辑）。</p>
+<p>其使用与pinia的CompositionAPI 的写法还是略有不同的。 </p>
+<h4 id="action和mutation的区别"><a href="#action和mutation的区别" class="headerlink" title="action和mutation的区别"></a>action和mutation的区别</h4><p>很多人早期在使用vuex的时候，可能有些分不清<code>action</code>和<code>mutation</code>的区别。</p>
+<p>所以，在正式介绍<code>vuex</code>之前，我们先在简单介绍一下二者的区别。</p>
+<ul>
+<li><code>mutation</code>更专注于修改<code>state</code>，必须是同步执行（无法在mutation中使用异步方法）。</li>
+<li><code>action</code>提交的是<code>mutation</code>，而不是直接更新数据，可以是异步的，如业务代码，异步请求。</li>
+<li><code>action</code>可以包含多个<code>mutation</code></li>
+</ul>
+<h4 id="main-js文件"><a href="#main-js文件" class="headerlink" title="main.js文件"></a><code>main.js</code>文件</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./style.css&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;./store&#x27;</span> <span class="comment">// vuex是导入状态仓库,pinia是创建实例对象createPinia</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app=<span class="title function_">createApp</span>(<span class="title class_">App</span>)</span><br><span class="line">app.<span class="title function_">use</span>(store)</span><br><span class="line">app.<span class="title function_">mount</span>(<span class="string">&#x27;#app&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="store文件"><a href="#store文件" class="headerlink" title="store文件"></a><code>store</code>文件</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"><span class="keyword">const</span> state = &#123;</span><br><span class="line">  <span class="attr">counter</span>: <span class="number">0</span>,<span class="comment">//计数状态</span></span><br><span class="line">  <span class="attr">user</span>: <span class="literal">null</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> actions = &#123;</span><br><span class="line">  <span class="comment">//修改状态的方法</span></span><br><span class="line">  <span class="attr">increment</span>: <span class="function">(<span class="params">&#123; commit &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// commit 提交一项修改 提交给mutations</span></span><br><span class="line">    <span class="title function_">commit</span>(<span class="string">&#x27;increment&#x27;</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//所有的状态修改都要经过mutations,只有mutations 可以修改状态</span></span><br><span class="line"><span class="keyword">const</span> mutations = &#123;</span><br><span class="line">  <span class="title function_">increment</span>(<span class="params">state</span>) &#123;</span><br><span class="line">    state.<span class="property">counter</span>++</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//getter</span></span><br><span class="line"><span class="keyword">const</span> getters = &#123;</span><br><span class="line">  <span class="attr">doubleCount</span>: <span class="function">(<span class="params">state</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> state.<span class="property">counter</span> * <span class="number">2</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//除了读操作，对写操作十分严格</span></span><br><span class="line"><span class="keyword">const</span> store = <span class="title function_">createStore</span>(&#123;state,actions,mutations,getters&#125;) <span class="comment">//创建实例对象</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br></pre></td></tr></table></figure>
+
+<h4 id="App-vue"><a href="#App-vue" class="headerlink" title="App.vue"></a><code>App.vue</code></h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>App.vue:<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    count: &#123;&#123; store.state.counter &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;increment&quot;</span>&gt;</span>+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">   doubleCount: &#123;&#123;store.getters.doubleCount&#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">AppHeader</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123;useStore&#125; <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> <span class="title class_">AppHeader</span> <span class="keyword">from</span> <span class="string">&#x27;./components/app-header.vue&#x27;</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> store=<span class="title function_">useStore</span>()</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> <span class="title function_">increment</span> = (<span class="params"></span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="comment">//使用dispatch派出increment  action的方法</span></span></span><br><span class="line"><span class="language-javascript">  store.<span class="title function_">dispatch</span>(<span class="string">&#x27;increment&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="pinia"><a href="#pinia" class="headerlink" title="pinia"></a>pinia</h3><p>Pinia针对Vue 3设计，充分利用Composition API，提倡更简洁和直观的状态管理方式。</p>
+<p>每个store在Pinia中都是独立的，同时为了兼容Vuex的写法Pinia仍然支持使用选项式API,也是现在主流的状态管理库。</p>
+<h4 id="main-js文件-1"><a href="#main-js文件-1" class="headerlink" title="main.js文件"></a><code>main.js</code>文件</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; createPinia &#125; <span class="keyword">from</span> <span class="string">&#x27;pinia&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> pinia=<span class="title function_">createPinia</span>()  <span class="comment">//创建pinia实例对象</span></span><br><span class="line"><span class="title function_">createApp</span>(<span class="title class_">App</span>)</span><br><span class="line">.<span class="title function_">use</span>(pinia)   <span class="comment">// use这个实例对象</span></span><br><span class="line">.<span class="title function_">mount</span>(<span class="string">&#x27;#app&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="store文件-1"><a href="#store文件-1" class="headerlink" title="store文件"></a><code>store</code>文件</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineStore &#125; <span class="keyword">from</span> <span class="string">&quot;pinia&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; ref, computed &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useCounterStore = <span class="title function_">defineStore</span>(<span class="string">&#x27;counter&#x27;</span>,</span><br><span class="line">  <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// state</span></span><br><span class="line">    <span class="keyword">const</span> count = <span class="title function_">ref</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="comment">// actions</span></span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">increment</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">      count.<span class="property">value</span>++;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">decrement</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">      count.<span class="property">value</span>--;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">reset</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">      count.<span class="property">value</span> = <span class="number">0</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">const</span> doubleCount = <span class="title function_">computed</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> count.<span class="property">value</span> * <span class="number">2</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> &#123; count, increment, decrement, reset, doubleCount &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useStore = <span class="title function_">defineStore</span>(<span class="string">&#x27;store&#x27;</span>, </span><br><span class="line">  <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> someState=<span class="title function_">ref</span>(<span class="string">&#x27;hello Pinia&#x27;</span>);</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">incrementSomeState</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">      someState.<span class="property">value</span> += <span class="string">&#x27;!&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123; someState , incrementSomeState &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h4 id="App-vue-1"><a href="#App-vue-1" class="headerlink" title="App.vue"></a><code>App.vue</code></h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>App<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Counter: &#123;&#123; store.count &#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Double:&#123;&#123; store.doubleCount &#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;store.increment&quot;</span>&gt;</span>Increment<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;store.decrement&quot;</span>&gt;</span>decrement<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;store.reset&quot;</span>&gt;</span>reset<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>String: &#123;&#123; hel.someState &#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;hel.incrementSomeState&quot;</span>&gt;</span>+ ! <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">Child</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123;useCounterStore,useStore&#125; <span class="keyword">from</span> <span class="string">&#x27;@/Pinia/counter.js&#x27;</span> <span class="comment">//引入定义好的状态库</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span>  <span class="title class_">Child</span> <span class="keyword">from</span>  <span class="string">&#x27;@/components/child.vue&#x27;</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> store=<span class="title function_">useCounterStore</span>()</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> hel=<span class="title function_">useStore</span>()</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="二者区别"><a href="#二者区别" class="headerlink" title="二者区别"></a>二者区别</h3><ol>
+<li>相对于<code>vuex</code>,<code>pina</code>是用<code>tyepscript</code>完成的，所以，代码提示效果更好。</li>
+<li>在<code>main.js</code>文件中，vuex使用的是导出的store仓库，而pinia是使用实例化对象。</li>
+<li><code>pina</code>弃用了<code>mutation</code>,如果想要完成数据修改，可以直接用action操作就可以了。</li>
+<li><code>pina</code>中不再使用modules，而是直接声明的对应的对象调用即可。</li>
+</ol>
+<h4 id="modules"><a href="#modules" class="headerlink" title="modules"></a>modules</h4><p>如果项目比较大，使用单一状态库，项目的状态库就会集中到一个大对象上，显得十分臃肿难以维护。</p>
+<p>所以Vuex就允许我们将其分割成模块（modules），每个模块都拥有自己state，mutations，action等。</p>
+<h5 id="pina"><a href="#pina" class="headerlink" title="pina"></a>pina</h5><p>而Pinia每个状态库本身就是一个模块，<code>pinia</code>没有modules，如果想使用多个store，直接定义多个store传入不同的id即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineStore &#125; <span class="keyword">from</span> <span class="string">&quot;pinia&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> storeA = <span class="title function_">defineStore</span>(<span class="string">&quot;storeA&quot;</span>, &#123;...&#125;);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> storeB = <span class="title function_">defineStore</span>(<span class="string">&quot;storeB&quot;</span>, &#123;...&#125;);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> storeC = <span class="title function_">defineStore</span>(<span class="string">&quot;storeB&quot;</span>, &#123;...&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h3><p>一般来说每个module都会新建一个文件，然后再引入这个总的入口index.js中，这里为了方便就写在了一起</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">&quot;vuex&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> moduleA = &#123;</span><br><span class="line">  <span class="attr">state</span>: <span class="function">() =&gt;</span> (&#123; </span><br><span class="line">    <span class="attr">count</span>:<span class="number">1</span></span><br><span class="line">   &#125;),</span><br><span class="line">  <span class="attr">mutations</span>: &#123;</span><br><span class="line">    <span class="title function_">setCount</span>(<span class="params">state, data</span>) &#123;</span><br><span class="line">      state.<span class="property">count</span> = data;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">actions</span>: &#123;</span><br><span class="line">    <span class="title function_">getuser</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">//do something</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">getters</span>: &#123; ... &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> moduleB = &#123;</span><br><span class="line">  <span class="attr">state</span>: <span class="function">() =&gt;</span> (&#123; ... &#125;),</span><br><span class="line">  <span class="attr">mutations</span>: &#123; ... &#125;,</span><br><span class="line">  <span class="attr">actions</span>: &#123; ... &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">createStore</span>(&#123;</span><br><span class="line">  <span class="attr">strict</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">//全局state，类似于vue种的data</span></span><br><span class="line">  <span class="title function_">state</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">vuexmsg</span>: <span class="string">&quot;hello vuex&quot;</span>,</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&quot;xiaoyue&quot;</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">modules</span>: &#123;</span><br><span class="line">    moduleA,</span><br><span class="line">    moduleB</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>使用moduleA</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useStore &#125; <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"><span class="keyword">let</span> vuexStore = <span class="title function_">useStore</span>()</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vuexStore.<span class="property">state</span>.<span class="property">moduleA</span>.<span class="property">count</span>) <span class="comment">//1</span></span><br><span class="line">vuexStore.<span class="title function_">commit</span>(<span class="string">&#x27;setCount&#x27;</span>, <span class="number">2</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vuexStore.<span class="property">state</span>.<span class="property">moduleA</span>.<span class="property">count</span>) <span class="comment">//2</span></span><br><span class="line">vuexStore.<span class="title function_">dispatch</span>(<span class="string">&#x27;getuser&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>一般我们为了防止提交一些mutation或者actions中的方法重名，modules一般会采用命名空间的方式 <strong>namespaced: true</strong> 如moduleA：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> moduleA = &#123;</span><br><span class="line">  <span class="attr">namespaced</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">state</span>: <span class="function">() =&gt;</span> (&#123;</span><br><span class="line">    <span class="attr">count</span>: <span class="number">1</span>,</span><br><span class="line">  &#125;),</span><br><span class="line">  <span class="attr">mutations</span>: &#123;</span><br><span class="line">    <span class="title function_">setCount</span>(<span class="params">state, data</span>) &#123;</span><br><span class="line">      state.<span class="property">count</span> = data;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">actions</span>: &#123;</span><br><span class="line">    <span class="title function_">getuser</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">//do something</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时如果我们再调用setCount或者getuser</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vuexStore.<span class="title function_">commit</span>(<span class="string">&#x27;moduleA/setCount&#x27;</span>, <span class="number">2</span>)</span><br><span class="line">vuexStore.<span class="title function_">dispatch</span>(<span class="string">&#x27;moduleA/getuser&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ol>
+<li><code>store</code>仓库中的<code>actions</code>是提交修改方法名，而真正修改是通过<code>mutations</code>，<code>actions</code>就像是秘书，而<code>mutation</code>像是boss,你不能直接找到boss修改属性，而必须通过<code>dispatch</code>派出<code>increment  action</code>的方法,让<code>mutation</code>去修改这个值。</li>
+<li>vuex中的<code>getter</code>是不需要引入computed这个方法的，他会自动一直监听内部的状态是否发生改变。</li>
+</ol>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>pina和vuex的区别，算是vue3的常规面试题之一，我之前虽然大致整理过，但是没有系统性的梳理。</p>
+<p>如今借着别人的文档仔细梳理了一遍，心里对二者的使用心得也是更上一层楼。</p>
+<p>不过，随着vue3的逐渐推广，未来<code>pina</code>一定会在社区中提高占用比。</p>
+<p>如果要是手里有新项目的朋友，最好还是在项目中使用<code>pina</code>，这也是对社区不断发展的一种适应。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://pinia.vuejs.org/zh/introduction.html">简介 | Pinia (vuejs.org)</a></p>
+<p><a target="_blank" rel="noopener" href="https://vuex.vuejs.org/zh/guide/">开始 | Vuex (vuejs.org)</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7397285224379957298?searchId=20240804003348CBA7977A1276A0D3C285">vue3通信大全（三）—— 全局状态管理库pinia,vuex</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/07/25/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3Vue%E7%9A%84%E6%B7%B1%E5%BA%A6%E9%80%89%E6%8B%A9%E5%99%A8/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-08-27 12:13:28
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                        #面试
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/vue2/" title="vue2">
+                        #vue2
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/vue3/" title="vue3">
+                        #vue3
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2024/07/29/%E6%B5%85%E6%9E%90Vue2%E4%B8%8EVue3%E7%9A%84diff%E7%AE%97%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vuex"><span class="toc-text">vuex</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#action%E5%92%8Cmutation%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">action和mutation的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#main-js%E6%96%87%E4%BB%B6"><span class="toc-text">main.js文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#store%E6%96%87%E4%BB%B6"><span class="toc-text">store文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#App-vue"><span class="toc-text">App.vue</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pinia"><span class="toc-text">pinia</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#main-js%E6%96%87%E4%BB%B6-1"><span class="toc-text">main.js文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#store%E6%96%87%E4%BB%B6-1"><span class="toc-text">store文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#App-vue-1"><span class="toc-text">App.vue</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E8%80%85%E5%8C%BA%E5%88%AB"><span class="toc-text">二者区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#modules"><span class="toc-text">modules</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#pina"><span class="toc-text">pina</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vuex"><span class="toc-text">Vuex</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+        <li>
+          
+              <a title="掘金论坛" target="_blank" rel="noopener" href="https://juejin.cn/user/4371313963044301">
+                <i class="iconfont icon-envelope"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E6%B5%85%E6%9E%90pina%E4%B8%8Evuex%E7%9A%84%E5%8C%BA%E5%88%AB + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F07%2F29%2F%25E6%25B5%2585%25E6%259E%2590pina%25E4%25B8%258Evuex%25E7%259A%2584%25E5%258C%25BA%25E5%2588%25AB%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/07/29/%E6%B5%85%E6%9E%90pina%E4%B8%8Evuex%E7%9A%84%E5%8C%BA%E5%88%AB/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
