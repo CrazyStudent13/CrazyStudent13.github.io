@@ -15,7 +15,7 @@
   
   <title>
     
-      2023年的第一次游泳 
+      解决前端项目中npm包管理的常见问题 
       
       
       |
@@ -158,7 +158,7 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">2023年的第一次游泳</div>
+      <div class="post-title">解决前端项目中npm包管理的常见问题</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
@@ -169,8 +169,14 @@
                 <i class="iconfont icon-tags mr-10" title="Tags"></i>
                 
                 <span class="span--tag mr-8">
-                  <a href="/tags/%E7%94%9F%E6%B4%BB/" title="生活">
-                    #生活
+                  <a href="/tags/npm/" title="npm">
+                    #npm
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" title="疑难杂症">
+                    #疑难杂症
                   </a>
                 </span>
                 
@@ -178,59 +184,69 @@
           
       </div>
       <div class="markdown-body">
-        <p>关于游泳，在一开始设计骑行的时候，就规划了，但是真到了做起来的时候，还是有点期待和紧张。</p>
-<p>特别记录一下自己这段时间的经历，说不定未来会用得上这次的经验，这里也分享出来，说不定有朋友用得上。</p>
+        <p>最近新入职了新公司，然后要走熟悉的流程，安装npm包，启动项目。</p>
+<p>只是，公司有些项目版本实在太老，且最近似乎又有新项目升级项目的考量，所以项目的包管理肯定是个问题。</p>
+<p>所以，这里整合一些常见的命令，用来处理有问题的地方。</p>
 <span id="more"></span>
 
 
 
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>市中心游泳馆距离自己所在位置是20公里，骑行过去一小时左右。</p>
-<p>之后，再进行游泳这样的大体力消耗，以我现阶段200斤的肥肥体重，感觉力不从心，但还是血脂血压一直超标，需要尽早处理，我需要这个高效的运动方式。</p>
-<p>所以，这个运动得尽快学会，这对将来会是个不错的选择。</p>
-<h3 id="游泳优点"><a href="#游泳优点" class="headerlink" title="游泳优点"></a>游泳优点</h3><p>关于游泳的优点，很多人都已经吹过了。这里结合自己的体验，大致总结了一下自己感受到的优势</p>
-<ol>
-<li>散热快，水里很快就能把身体产生的热量散掉，流汗的感觉几乎没有</li>
-<li>体感弱，因为游泳过程较为放松，虽然后边体力明显感到下降，但是你最后居然不会觉得很累</li>
-<li>对腰好，平日其他运动锻炼不到背肌，但游泳确实对背部和腹部的锻炼效果很明显</li>
-<li>换装快，不担心像常规运动一样换衣服，洗过澡后，穿衣服和平常一样，适合冬季这种衣服多的季节</li>
-<li>效率高，热消耗速度很快，对时间要求不高，只要抽个整块的时间就好</li>
-</ol>
-<p>而且，在今后的工作里边，如果每周工作时间吃紧，游泳将会是很好的解压和消耗方式，对于热量消耗的效率来说，游泳也确实是最快的。</p>
-<h3 id="场地选择"><a href="#场地选择" class="headerlink" title="场地选择"></a>场地选择</h3><p>市体育中心游泳馆，综合考量了本地的所有场地之后，最终选择了这里，优势如下</p>
-<ul>
-<li>有吹风机，保证游完之后可以吹干头发</li>
-<li>冬季游泳人数少，空间大方便活动</li>
-<li>室内保暖，水温恒温，水质看着还可以</li>
-<li>有私教，而且支持一对一，一对多教学，方便时间安排</li>
-<li>周边有体育用品的商店，缺设备了可以直接买</li>
-<li>周边饭店较多，如果某天实在饿，可以考虑去补餐</li>
-</ul>
-<p>目前看来，唯一的缺陷就是没有微波炉，我本来想带点吃的过去直接打热补餐的，现在看来不需要了。</p>
-<h3 id="游泳准备"><a href="#游泳准备" class="headerlink" title="游泳准备"></a>游泳准备</h3><ul>
-<li><strong>泳裤，泳镜，泳帽，耳塞</strong>。泳裤不用说，耳塞是为了防止自己中耳炎的问题，泳帽尽可能减少头发沾水，因为还要回去的，至于泳镜，考虑到进水想看东西，防止眼睛受水刺激，我觉得还是得戴。</li>
-<li><strong>大瓶装自制电解质水，煮鸡蛋，苹果</strong>。游泳之后会很饿，所以得加餐压肚子，补充蛋白质很重要，另外少部分的碳水也能缓解体内碳水丢失的问题</li>
-<li><strong>入场前散步半小时。</strong>因为是长途骑车过去的，所以一开始身体热量很大，需要散热至常温再游泳，防止因为温差导致感冒。</li>
-</ul>
-<h3 id="时间规划"><a href="#时间规划" class="headerlink" title="时间规划"></a>时间规划</h3><p>为了保证自己的体力，至少保证自己没有过量运动，毕竟现在是大体重时间，运动要小心。</p>
-<ul>
-<li>单日休息，学习的时间就骑电动车过去。</li>
-<li>双日骑行，保证每周骑行100公里以上。</li>
-<li>保证每周游泳三公里以上</li>
-</ul>
-<h3 id="目标规划"><a href="#目标规划" class="headerlink" title="目标规划"></a>目标规划</h3><ul>
-<li>学会蛙泳，能初步进行常规游泳的水平</li>
-<li>尽可能一小时内游一公里的距离</li>
-</ul>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>尽管知道短期高速减重对身体负荷很大，但是再不把体重压下去，过了30，估计身体真的要出问题。</p>
-<p>已经到了今年的最后一年了，是该把年初的减重计划继续执行了。</p>
-<p>之前耽误了不少时间，现在快到年底了，尽可能的完成一部分目标，亡羊补牢吧。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>本篇文档主要是整理一些我在开发过程中常常遇到的npm问题，过程中顺便分享一些自己的理解和心得。</p>
+<p>本文主要面对刚上路的前端新手，如果高手路过，还请评论区轻喷并指导一二。</p>
+<h3 id="node环境管理"><a href="#node环境管理" class="headerlink" title="node环境管理"></a>node环境管理</h3><p>如果你的手里有数个周期达到3年以上的老项目需要维护，那么大抵会有一些包只有低版本的node环境才能适配。</p>
+<p>早些年有人会用nvm来进行版本管理，但是新生代的有了很多平替产品，个人推荐volta，当然也有朋友推荐fnm。</p>
+<p>这两者都是新生代的产品，随便选哪个都好，相对于nvm，volta和fnm的操作更简单方便。</p>
+<h3 id="npm与pnpm"><a href="#npm与pnpm" class="headerlink" title="npm与pnpm"></a>npm与pnpm</h3><p>虽然我依然还在使用npm，但那是因为低版本项目不支持pnpm，如果你手里的项目平均超过18，可以尝试使用pnpm。</p>
+<p>pnpm比起npm更能节约空间，大多数开发者手里的电脑都是1T容量的开发本，这种容量基本上遇到几个黑洞项目容量就开始捉襟见肘。</p>
+<p>如果你需要再本地跑一些后端项目，再加上一些大型的文档，或者是一些设计图什么的，很难说自己的电脑那1T的可怜容量是否能够保证。</p>
+<p>而pnpm可以把各个项目中的相同包放在一个地方管理，通过软连接的形式，各个项目包就只要下载一次即可。</p>
+<p>比起传统的npm，这种方式更节省磁盘，也更节省下载时间。</p>
+<h3 id="npm相关操作"><a href="#npm相关操作" class="headerlink" title="npm相关操作"></a>npm相关操作</h3><p>这里的常规操作，如果不清楚，各个推荐使用gpt或者其他AI来在线去问。</p>
+<p>现在AI对于这种通用的操作的解释准确度，很多时候甚至比人整理的文档更准。</p>
+<h4 id="切换镜像"><a href="#切换镜像" class="headerlink" title="切换镜像"></a>切换镜像</h4><p>很多开发中，会遇到下载依赖包迟迟下载不下来的问题，这个问题估计新手会很懵。</p>
+<p>其实，只要冲浪强度稍微高一点的朋友，大概都猜到是国内网络环境的问题了，只要遇到类似于环境配置下载的问题，大概都是网络问题。</p>
+<p>目前能解决的方案，一种是翻墙，另一种就是常见的切换镜像下载了。</p>
+<p>而npm的包下载问题，常用的就是切换镜像下载。</p>
+<h5 id="镜像是什么？"><a href="#镜像是什么？" class="headerlink" title="镜像是什么？"></a>镜像是什么？</h5><p>前面我们说了，国内因为环境特殊的问题，往往会遇到环境配置难搞的问题。</p>
+<p>而国内的大公司为了下载方便，于是就做了一个服务器用来同步这些主流的环境和包。</p>
+<p>比如，淘宝镜像环境往往每隔10分钟同步一次外网的npm库，将npm线上的包同步到国内的服务器，便于开发者下载。</p>
+<p>因为这些内容是同步npm库的东西，像镜子一样，于是这种服务器就被称作镜像。</p>
+<p>要在npm中切换镜像源，你可以使用<code>npm config set registry</code>命令来设置你想要的npm注册表镜像。</p>
+<p>以下是一些常用的npm镜像源以及如何切换到它们的示例操作。</p>
+<h5 id="使用淘宝镜像"><a href="#使用淘宝镜像" class="headerlink" title="使用淘宝镜像"></a>使用淘宝镜像</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br><span class="line">pnpm config <span class="built_in">set</span> registry https://registry.npmmirror.com </span><br></pre></td></tr></table></figure>
+
+<h5 id="切换回官方npm镜像"><a href="#切换回官方npm镜像" class="headerlink" title="切换回官方npm镜像"></a>切换回官方npm镜像</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npmjs.org</span><br><span class="line">pnpm config <span class="built_in">set</span> registry https://registry.npmjs.org</span><br></pre></td></tr></table></figure>
+
+<h5 id="查看当前配置的镜像"><a href="#查看当前配置的镜像" class="headerlink" title="查看当前配置的镜像"></a>查看当前配置的镜像</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm config get registry</span><br><span class="line">pnpm config get registry</span><br></pre></td></tr></table></figure>
+
+<h5 id="npmrc文件配置"><a href="#npmrc文件配置" class="headerlink" title=".npmrc文件配置"></a><code>.npmrc</code>文件配置</h5><p>（位于用户的主目录，负责管理npm包安装的一些偏好），添加或修改下面的行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+<p>以上这些命令可以在命令行中直接运行，无需进入项目目录。</p>
+<p>运行这些命令后，你将使用指定的镜像源来安装npm包。</p>
+<p>切换镜像类的命令，<code>pnpm</code>和<code>npm</code>是通用的。</p>
+<h4 id="包安装及查看"><a href="#包安装及查看" class="headerlink" title="包安装及查看"></a>包安装及查看</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm install 包 -g //全局安装</span><br><span class="line">npm install 包 -s -d  //安装到devDependencies </span><br><span class="line">npm install mockjs@1.0.0 //安装指定版本的包</span><br><span class="line"></span><br><span class="line">包 -v //检查版本</span><br><span class="line">npm root //查看包的安装路径</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="包卸载"><a href="#包卸载" class="headerlink" title="包卸载"></a>包卸载</h4><p>有些时候，我们卸载包重装，会遇到一些奇怪的问题。</p>
+<p>我们可以先卸载包，然后再清除npm本地缓存，再安装，效果会好很多。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall 包   // 卸载</span><br><span class="line">npm cache clean // 清除npm本地缓存</span><br><span class="line">npm update // 更新模块</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本来一开始只是想简单记录一些npm的相关操作，后来想了想，反正做都做了，干脆索性做个新手级的科普文档。</p>
+<p>为了做这期文档，特意去了解了很多东西，没想到这次简单的整理让我了解了不少npm的相关知识。</p>
+<p>不过，本篇文档是主要还是以整理工作中常用问题为主，所以对于太过基本的问题就不去科普了，推荐看我参考整理的几篇参考文档。</p>
+<p>他们对npm的解释较为深刻，如果你有时间将这些看完，对于npm包管理这块，应该会有一个较为深刻的理解。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7245201923506094140?searchId=20240822221329B4A35E92588CB1A6DB98">彻底了解npm——架构、进化史及原理解析</a></p>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2023/11/28/2023%E5%B9%B4%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%95%BF%E9%80%94%E9%AA%91%E8%A1%8C/" target="_self">
+              <a href="/2024/08/05/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3defer%E4%B8%8Easync/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>Prev</span>
               </a>
@@ -246,8 +262,14 @@
                     <i class="iconfont icon-tags mr-10" title="Tags"></i>
                     
                     <span class="span--tag mr-8">
-                      <a href="/tags/%E7%94%9F%E6%B4%BB/" title="生活">
-                        #生活
+                      <a href="/tags/npm/" title="npm">
+                        #npm
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" title="疑难杂症">
+                        #疑难杂症
                       </a>
                     </span>
                     
@@ -256,7 +278,7 @@
           </div>
           <div class="post-foot-prev">
             
-              <a href="/2023/12/04/%E9%85%B8%E8%BE%A3%E9%B8%A1%E8%83%B8%E8%82%89%E6%B1%A4/" target="_self">
+              <a href="/2024/08/24/%E8%A7%A3%E5%86%B3el-tag%E7%AD%89%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90%E4%BA%86%E5%9B%BE%E6%A0%87%E7%9A%84%E9%97%AE%E9%A2%98/" target="_self">
                 <span>Next</span>
                 <i class="iconfont icon-chevronright"></i>
               </a>
@@ -273,7 +295,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B8%E6%B3%B3%E4%BC%98%E7%82%B9"><span class="toc-text">游泳优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E5%9C%B0%E9%80%89%E6%8B%A9"><span class="toc-text">场地选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B8%E6%B3%B3%E5%87%86%E5%A4%87"><span class="toc-text">游泳准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E8%A7%84%E5%88%92"><span class="toc-text">时间规划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E8%A7%84%E5%88%92"><span class="toc-text">目标规划</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#node%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86"><span class="toc-text">node环境管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#npm%E4%B8%8Epnpm"><span class="toc-text">npm与pnpm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#npm%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C"><span class="toc-text">npm相关操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E9%95%9C%E5%83%8F"><span class="toc-text">切换镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">镜像是什么？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F"><span class="toc-text">使用淘宝镜像</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E5%9B%9E%E5%AE%98%E6%96%B9npm%E9%95%9C%E5%83%8F"><span class="toc-text">切换回官方npm镜像</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E9%85%8D%E7%BD%AE%E7%9A%84%E9%95%9C%E5%83%8F"><span class="toc-text">查看当前配置的镜像</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#npmrc%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="toc-text">.npmrc文件配置</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%85%E5%AE%89%E8%A3%85%E5%8F%8A%E6%9F%A5%E7%9C%8B"><span class="toc-text">包安装及查看</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%85%E5%8D%B8%E8%BD%BD"><span class="toc-text">包卸载</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
       
     </div>
   </div>
@@ -607,12 +629,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + 2023%E5%B9%B4%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%B8%B8%E6%B3%B3 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2023%2F12%2F01%2F2023%25E5%25B9%25B4%25E7%259A%2584%25E7%25AC%25AC%25E4%25B8%2580%25E6%25AC%25A1%25E6%25B8%25B8%25E6%25B3%25B3%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E8%A7%A3%E5%86%B3%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E4%B8%ADnpm%E5%8C%85%E7%AE%A1%E7%90%86%E7%9A%84%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F08%2F22%2F%25E8%25A7%25A3%25E5%2586%25B3%25E5%2589%258D%25E7%25AB%25AF%25E9%25A1%25B9%25E7%259B%25AE%25E4%25B8%25ADnpm%25E5%258C%2585%25E7%25AE%25A1%25E7%2590%2586%25E7%259A%2584%25E5%25B8%25B8%25E8%25A7%2581%25E9%2597%25AE%25E9%25A2%2598%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2023/12/01/2023%E5%B9%B4%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%B8%B8%E6%B3%B3/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/08/22/%E8%A7%A3%E5%86%B3%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E4%B8%ADnpm%E5%8C%85%E7%AE%A1%E7%90%86%E7%9A%84%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         
