@@ -4,6 +4,29 @@
   
     
     <entry>
+      <title>【转】linux安装MySQL</title>
+      <link href="/2024/09/06/%E3%80%90%E8%BD%AC%E3%80%91linux%E5%AE%89%E8%A3%85MySQL/"/>
+      <url>/2024/09/06/%E3%80%90%E8%BD%AC%E3%80%91linux%E5%AE%89%E8%A3%85MySQL/</url>
+      
+        <content type="html"><![CDATA[<p>关于在linux安装MySQL，我个人推荐使用SQL安装。</p><p>之前看过很多部署教程，MySQL的安装需要好多流程，很麻烦。</p><p>而使用Docker安装之后，这个流程被简化了很多，这里推荐直接用docker进行安装。+</p><span id="more"></span><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://juejin.cn/post/7406144322834382899?searchId=202409061945048DCECD6B5FCF23BDCB0D">从安装Docker到打包迁移MySQL的完整指南</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> MySQL </tag>
+            
+            <tag> docker </tag>
+            
+            <tag> 运维 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【转】linux安装docker</title>
       <link href="/2024/09/06/%E3%80%90%E8%BD%AC%E3%80%91linux%E5%AE%89%E8%A3%85docker/"/>
       <url>/2024/09/06/%E3%80%90%E8%BD%AC%E3%80%91linux%E5%AE%89%E8%A3%85docker/</url>
