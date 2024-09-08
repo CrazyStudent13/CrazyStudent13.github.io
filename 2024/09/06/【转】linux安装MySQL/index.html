@@ -162,11 +162,17 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-09-08 09:28:36
+          2024-09-08 15:57:30
         </span>
         
               <span class="post-tags">
                 <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E8%BF%90%E7%BB%B4/" title="运维">
+                    #运维
+                  </a>
+                </span>
                 
                 <span class="span--tag mr-8">
                   <a href="/tags/MySQL/" title="MySQL">
@@ -180,12 +186,6 @@
                   </a>
                 </span>
                 
-                <span class="span--tag mr-8">
-                  <a href="/tags/%E8%BF%90%E7%BB%B4/" title="运维">
-                    #运维
-                  </a>
-                </span>
-                
               </span>
           
       </div>
@@ -196,23 +196,24 @@
 
 
 
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>开门见山，推荐完整流程参考：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7406144322834382899?searchId=202409061945048DCECD6B5FCF23BDCB0D">从安装Docker到打包迁移MySQL的完整指南</a>这篇文档。</p>
-<p>如果之前没有安装Docker的，推荐直接参考源文档，先安装一下Docker，那文章记录的比较详细。</p>
-<p>本篇仅截取的事部署MySQL的部分，主要是用Docker在服务器上部署MySQL的流程。</p>
-<h3 id="使用Docker部署MySQL"><a href="#使用Docker部署MySQL" class="headerlink" title="使用Docker部署MySQL"></a>使用Docker部署MySQL</h3><p>MySQL是一种流行的开源关系数据库管理系统。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>如果之前没有安装Docker的，推荐完整流程参考：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7406144322834382899?searchId=202409061945048DCECD6B5FCF23BDCB0D">从安装Docker到打包迁移MySQL的完整指南</a>这篇文档。</p>
+<p>先安装一下Docker，这篇文章记录的比较详细。</p>
+<p>本文仅截取部署MySQL的部分，主要是用Docker在服务器上部署MySQL的流程。</p>
+<h3 id="用Docker部署MySQL"><a href="#用Docker部署MySQL" class="headerlink" title="用Docker部署MySQL"></a>用Docker部署MySQL</h3><p>MySQL是一种流行的开源关系数据库管理系统。</p>
 <p>在Docker中部署MySQL非常简单。</p>
 <p>以下步骤将引导你如何在Docker中运行MySQL容器。</p>
 <h4 id="拉取MySQL镜像"><a href="#拉取MySQL镜像" class="headerlink" title="拉取MySQL镜像"></a>拉取MySQL镜像</h4><p>为了加速镜像的下载速度，建议使用国内的镜像源。以下是从DaoCloud镜像源拉取MySQL官方镜像的命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull daocloud.io/library/mysql:8.0</span><br></pre></td></tr></table></figure>
 
-<p>千万千万不要使用下面命令</p>
+<p>千万千万不要使用下面命令。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull mysql:8.0</span><br></pre></td></tr></table></figure>
 
+<p>因为有些服务器禁止连接外网，所以导致你不能从hub拿到镜像下载地址，导致pull失败。</p>
+<p>比如政务内网环境，那么此时就只能是如此操作。</p>
 <h4 id="运行MySQL容器"><a href="#运行MySQL容器" class="headerlink" title="运行MySQL容器"></a>运行MySQL容器</h4><p>使用拉取的MySQL镜像启动一个容器，并将MySQL的3306端口映射到主机的3306端口，以便外部访问。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=my-secret-pw -p 3306:3306 -d mysql:8.0</span><br></pre></td></tr></table></figure>
 
-<p>参数说明：</p>
-<ul>
+<h5 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h5><ul>
 <li><code>--name mysql-container</code>：指定容器名称为<code>mysql-container</code>。</li>
 <li><code>-e MYSQL_ROOT_PASSWORD=my-secret-pw</code>：设置MySQL的<code>root</code>用户密码为<code>my-secret-pw</code>。</li>
 <li><code>-p 3306:3306</code>：将容器内的3306端口映射到主机的3306端口。</li>
@@ -239,7 +240,9 @@
 <p>当然，这是用命令的方式，如果你使用的是腾讯云或者阿里云这种云服务器，是有端口配置的协议的。</p>
 <p>有这种云服务器，这种事情就简单很多了。</p>
 <p>你可以直接在防火墙的配置中，打开端口配置，把3306的端口打开就可以。</p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>这个流程还不完整，我可能测试的还不够完整，后续会持续完善该部署流程。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>这个流程还不完整，我可能测试的还不够完整，所以文档中应该有所缺漏。</p>
+<p>不过，只要学习独立开发，后续必然还会再其他云服务器上部署项目，这个流程应该会被持续完善。</p>
+<p>后续持续完善该部署流程，也欢迎大家提意见。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7406144322834382899?searchId=202409061945048DCECD6B5FCF23BDCB0D">从安装Docker到打包迁移MySQL的完整指南</a></p>
 
       </div>
@@ -256,11 +259,17 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-09-08 09:28:36
+              2024-09-08 15:57:30
             </span>
             
                   <span class="post-tags">
                     <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E8%BF%90%E7%BB%B4/" title="运维">
+                        #运维
+                      </a>
+                    </span>
                     
                     <span class="span--tag mr-8">
                       <a href="/tags/MySQL/" title="MySQL">
@@ -274,16 +283,15 @@
                       </a>
                     </span>
                     
-                    <span class="span--tag mr-8">
-                      <a href="/tags/%E8%BF%90%E7%BB%B4/" title="运维">
-                        #运维
-                      </a>
-                    </span>
-                    
                   </span>
               
           </div>
           <div class="post-foot-prev">
+            
+              <a href="/2024/09/08/%E3%80%90%E8%BD%AC%E3%80%91linux%E5%AE%89%E8%A3%85redis/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
             
           </div>
         </div>
@@ -297,7 +305,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2MySQL"><span class="toc-text">使用Docker部署MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%89%E5%8F%96MySQL%E9%95%9C%E5%83%8F"><span class="toc-text">拉取MySQL镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%90%E8%A1%8CMySQL%E5%AE%B9%E5%99%A8"><span class="toc-text">运行MySQL容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEMySQL%E5%85%81%E8%AE%B8%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE"><span class="toc-text">配置MySQL允许远程访问</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEmy-cnf"><span class="toc-text">配置my.cnf</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99%E9%85%8D%E7%BD%AE%EF%BC%88%E5%A6%82%E9%80%82%E7%94%A8%EF%BC%89"><span class="toc-text">防火墙配置（如适用）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8Docker%E9%83%A8%E7%BD%B2MySQL"><span class="toc-text">用Docker部署MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%89%E5%8F%96MySQL%E9%95%9C%E5%83%8F"><span class="toc-text">拉取MySQL镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%90%E8%A1%8CMySQL%E5%AE%B9%E5%99%A8"><span class="toc-text">运行MySQL容器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-text">参数说明</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEMySQL%E5%85%81%E8%AE%B8%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE"><span class="toc-text">配置MySQL允许远程访问</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEmy-cnf"><span class="toc-text">配置my.cnf</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99%E9%85%8D%E7%BD%AE%EF%BC%88%E5%A6%82%E9%80%82%E7%94%A8%EF%BC%89"><span class="toc-text">防火墙配置（如适用）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
       
     </div>
   </div>
