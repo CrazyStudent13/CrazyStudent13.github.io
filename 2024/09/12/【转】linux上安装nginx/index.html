@@ -15,7 +15,7 @@
   
   <title>
     
-      linux上安装nginx 
+      【转】linux上安装nginx 
       
       
       |
@@ -158,11 +158,11 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">linux上安装nginx</div>
+      <div class="post-title">【转】linux上安装nginx</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-09-12 12:04:21
+          2024-09-12 12:18:11
         </span>
         
               <span class="post-tags">
@@ -174,11 +174,18 @@
                   </a>
                 </span>
                 
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E8%BF%90%E7%BB%B4/" title="运维">
+                    #运维
+                  </a>
+                </span>
+                
               </span>
           
       </div>
       <div class="markdown-body">
-        <p>因为新升级了linux的系统，原有的部署命令失效了，因此这次整个新的部署流程，更快的部署nginx。</p>
+        <p>因为新升级了linux的系统，原有的部署命令失效了，因此这次整个新的部署流程。</p>
+<p>这不是无意义的搬运，这是为了将来更快的部署nginx。</p>
 <span id="more"></span>
 
 
@@ -218,7 +225,7 @@
 
 <h4 id="按需求配置目录"><a href="#按需求配置目录" class="headerlink" title="按需求配置目录"></a>按需求配置目录</h4><p>核心就是server指向目录的问题，这里不管https的事情了。</p>
 <p>配置完目录，记得把自己的文件放到自己指定的目录上去。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">server &#123;  </span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  cattools.crazystudent13.cn;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        root /server/website/docsCatTools;</span><br><span class="line">        index index.html;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 404 /404.html;</span><br><span class="line">        location = /40x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 500 502 503 504 /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line">server &#123;  </span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  cattools.crazystudent13.cn;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">  	    root /server/website/docsCatTools;</span><br><span class="line">  	    index index.html;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 404 /404.html;</span><br><span class="line">        location = /40x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 500 502 503 504 /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;  </span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  lintdoc.crazystudent13.cn;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">  	    root /server/website/lintdoc;</span><br><span class="line">  	    index index.html;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 404 /404.html;</span><br><span class="line">        location = /40x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 500 502 503 504 /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  resume.crazystudent13.cn;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">  	    root /server/website/resume;</span><br><span class="line">  	    index index.html;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 404 /404.html;</span><br><span class="line">        location = /40x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 500 502 503 504 /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -252,7 +259,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-09-12 12:04:21
+              2024-09-12 12:18:11
             </span>
             
                   <span class="post-tags">
@@ -261,6 +268,12 @@
                     <span class="span--tag mr-8">
                       <a href="/tags/nginx/" title="nginx">
                         #nginx
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E8%BF%90%E7%BB%B4/" title="运维">
+                        #运维
                       </a>
                     </span>
                     
@@ -615,12 +628,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + linux%E4%B8%8A%E5%AE%89%E8%A3%85nginx + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F09%2F12%2Flinux%25E4%25B8%258A%25E5%25AE%2589%25E8%25A3%2585nginx%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E3%80%90%E8%BD%AC%E3%80%91linux%E4%B8%8A%E5%AE%89%E8%A3%85nginx + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F09%2F12%2F%25E3%2580%2590%25E8%25BD%25AC%25E3%2580%2591linux%25E4%25B8%258A%25E5%25AE%2589%25E8%25A3%2585nginx%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/09/12/linux%E4%B8%8A%E5%AE%89%E8%A3%85nginx/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/09/12/%E3%80%90%E8%BD%AC%E3%80%91linux%E4%B8%8A%E5%AE%89%E8%A3%85nginx/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         
