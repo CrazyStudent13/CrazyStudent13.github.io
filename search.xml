@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>解决公众号自动回复嵌套跳转链接失效的问题</title>
+      <link href="/2024/09/19/%E8%A7%A3%E5%86%B3%E5%85%AC%E4%BC%97%E5%8F%B7%E8%87%AA%E5%8A%A8%E5%9B%9E%E5%A4%8D%E5%B5%8C%E5%A5%97%E8%B7%B3%E8%BD%AC%E9%93%BE%E6%8E%A5%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+      <url>/2024/09/19/%E8%A7%A3%E5%86%B3%E5%85%AC%E4%BC%97%E5%8F%B7%E8%87%AA%E5%8A%A8%E5%9B%9E%E5%A4%8D%E5%B5%8C%E5%A5%97%E8%B7%B3%E8%BD%AC%E9%93%BE%E6%8E%A5%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<p>本文内容不多，主要是记录如何在小程序自动回复的内容中嵌入一个小程序自动回复文本。</p><p>很难想像是2024年的一款产品，居然需要再富文本中手动输入超链接。</p><p>实打实的垃圾玩意，这种东西居然一直没优化，我参考4年前的文档居然还能用，真他妈的离谱。</p><span id="more"></span><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>整个过程其实非常简单，但是因为微信小程序实在过于蹩脚，有些问题还是要整理一下，给自己提个醒。</p><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>需要先关联小程序，这个你在左侧菜单找一找就行，只要找到 <strong>小程序管理</strong> 的字样，点开，然后关联你接下来要用到的小程序即可。</p><p>这个过程，需要管理员扫码同意，如果你开发人员，记得要让管理员扫个码。</p><h3 id="自动回复"><a href="#自动回复" class="headerlink" title="自动回复"></a>自动回复</h3><p>自动回复这里，只要常常写MD文档的都知道怎么设置超链接，只不过公众号这里麻烦了些，需要用户自己用<code>&lt;a&gt;</code>标签包裹一下。</p><p>今天主要处理的是跳转小程序的问题，实现方式不麻烦，实现过程多灾多难。</p><p>以我工作的内容为例，这里需要嵌入一个小程序超链，我只要按照如下内容，粘贴到回复文本中就可以了。</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://yyb.happydo.net&quot;</span> <span class="attr">data-miniprogram-appid</span>=<span class="string">&quot;wxfce54d063c1fd52a&quot;</span> <span class="attr">data-miniprogram-path</span>=<span class="string">&quot;pages/home/index&quot;</span>&gt;</span>关注小程序银养宝<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure><h4 id="代码中各字段含义"><a href="#代码中各字段含义" class="headerlink" title="代码中各字段含义"></a>代码中各字段含义</h4><table><thead><tr><th align="left">字段</th><th align="left">含义</th></tr></thead><tbody><tr><td align="left">href</td><td align="left">如果无法正常跳转小程序，备用跳转的H5链接</td></tr><tr><td align="left">data-miniprogram-appid</td><td align="left">要跳转的目标小程序appid</td></tr><tr><td align="left">data-miniprogram-path</td><td align="left">要跳转的小程序页面地址（不知道的话可以问服务商或者开发者要）</td></tr></tbody></table><h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><p>最好直接把上述内容复制粘贴，然后修改，避免一些奇怪的问题，有时候你自己手打的超链接，可能会因为种种问题没法用。</p><p>这里整理一些可能的情况，如有不对的地方，可自行参考。</p><ol><li>需要注意代码中间的空格不能缺少和增加</li><li>如果需要自行编辑需要注意<code>&lt;a&gt;</code>标签内的内容符号需要使用英文格式</li><li><code>&lt;a&gt;</code>标签适用与其他H5链接，对应代码为：<code>&lt;a href=&quot;https://www.saas.top&quot;&gt;点击进入h5&lt;/a&gt;</code></li><li>小程序跳转需要公众号关联小程序 <a href="https://developers.weixin.qq.com/community/develop/doc/000242cccdc670f02ea977e105e409?highLine=%E5%A6%82%E4%BD%95%E5%85%B3%E8%81%94%E5%B0%8F%E7%A8%8B%E5%BA%8F">公众号关联小程序绑定流程官方文档</a></li><li>附<a href="https://developers.weixin.qq.com/community/develop/doc/000c424a27c118ee347a587a950009?highLine=%E5%A6%82%E4%BD%95%E5%85%B3%E8%81%94%E5%B0%8F%E7%A8%8B%E5%BA%8F">自定义菜单设置小程序相关问题官方文档</a></li></ol><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>关于微信小程序及公众号这种开历史倒车的玩意，我一向是不喜欢的。</p><p>但因工作需求，这里遇到问题也不得不记录一下，防止后续忘记。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://developers.weixin.qq.com/community/develop/article/doc/000ce41a2a4e08e973fafded857813">免开发实现公众号自动回复小程序文字链接 | 微信开放社区 (qq.com)</a></p><p><a href="https://developers.weixin.qq.com/community/develop/article/doc/00022268e2c8902d56aae394156013">如何关注公众号以后自动推送小程序？ | 微信开放社区 (qq.com)</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 疑难杂症 </tag>
+            
+            <tag> 小程序 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【转】腾讯云OpenCloudOS部署redis</title>
       <link href="/2024/09/14/%E3%80%90%E8%BD%AC%E3%80%91%E8%85%BE%E8%AE%AF%E4%BA%91OpenCloudOS%E9%83%A8%E7%BD%B2redis/"/>
       <url>/2024/09/14/%E3%80%90%E8%BD%AC%E3%80%91%E8%85%BE%E8%AE%AF%E4%BA%91OpenCloudOS%E9%83%A8%E7%BD%B2redis/</url>

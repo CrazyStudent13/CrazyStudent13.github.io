@@ -15,8 +15,8 @@
   
   <title>
     
-      hexo个人博客搭建————域名绑定 
-      
+      Tag 
+       : 小程序
       
       |
     
@@ -113,246 +113,30 @@
 
 
       <div class="flex-container">
-        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
-<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+        <!-- 标签详情页，展示某个标签下的文章列表，url形式：https://yoursite/tags/某个标签/ -->
 
-
-  <!-- LaTex Display -->
-
+<div class="container tag-details">
+  <div class="content-title">
+    <h2>
+      <span>小程序</span>
+    </h2>
+  </div>
   
-    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
-  
-  <script>
-    MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']]
-      }
-    }
-  </script>
-
-
-
-
-
-  <!-- clipboard -->
-
-  
-    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
-  
-  
-<script src="/js/codeCopy.js"></script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
-  <div class="container post-details" id="post-details">
-    <div class="post-content">
-      <div class="post-title">hexo个人博客搭建————域名绑定</div>
-      <div class="post-attach">
-        <span class="post-pubtime">
-          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-09-19 03:05:02
-        </span>
-        
-              <span class="post-tags">
-                <i class="iconfont icon-tags mr-10" title="Tags"></i>
-                
-                <span class="span--tag mr-8">
-                  <a href="/tags/hexo/" title="hexo">
-                    #hexo
-                  </a>
-                </span>
-                
-              </span>
-          
+    <div class="post-list">
+      <div class="post-item" title="解决公众号自动回复嵌套跳转链接失效的问题">
+        <span class="time-m-d">2024-09-19</span>
+        <a href="/2024/09/19/%E8%A7%A3%E5%86%B3%E5%85%AC%E4%BC%97%E5%8F%B7%E8%87%AA%E5%8A%A8%E5%9B%9E%E5%A4%8D%E5%B5%8C%E5%A5%97%E8%B7%B3%E8%BD%AC%E9%93%BE%E6%8E%A5%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/">
+          <span>解决公众号自动回复嵌套跳转链接失效的问题</span>
+        </a>
       </div>
-      <div class="markdown-body">
-        <p>电脑系统为window 10专业版，64位</p>
-<p>这里默认大家已经完成了git博客的部署，接下来的操作，就是将git的地址，绑定到我们的个人域名</p>
-<span id="more"></span>
-
-<p>接下里的教程，我大致将过程分为三个阶段</p>
-<ul>
-<li>准备阶段：准备自己购买<strong>自己的域名</strong>，配置<strong>域名解析</strong></li>
-<li>绑定阶段：<strong>在github上绑定自己的域名</strong>，并在本地<strong>设置CNAME文件</strong>，提交，完成域名的固定绑定</li>
-<li>验证阶段：收尾，测试绑定是否成功</li>
-</ul>
-<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><h4 id="购买域名"><a href="#购买域名" class="headerlink" title="购买域名"></a>购买域名</h4><p>需要实名认证，然后购买，不过域名不贵，推荐随便买个cn的域名就行。</p>
-<p>购买渠道很多，腾讯，阿里，华为等，我个人在阿里云买的域名。</p>
-<blockquote>
-<p>crazystudent13.cn</p>
-</blockquote>
-<h4 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h4><p>以我使用的阿里云为例，我会打开管理控制台，点击<strong>解析</strong>。</p>
-<p>按照下边的记录，配置解析，按照下方的表格去操作。</p>
-<p>记录类型为A的，是github的网址，CNAME是个人博客的仓库。</p>
-<table>
-<thead>
-<tr>
-<th align="center">主机记录</th>
-<th align="center">记录类型</th>
-<th align="center">解析请求来源</th>
-<th align="center">记录值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">@</td>
-<td align="center">A</td>
-<td align="center">默认</td>
-<td align="center">185.199.108.153</td>
-</tr>
-<tr>
-<td align="center">@</td>
-<td align="center">A</td>
-<td align="center">默认</td>
-<td align="center">185.199.109.153</td>
-</tr>
-<tr>
-<td align="center">@</td>
-<td align="center">A</td>
-<td align="center">默认</td>
-<td align="center">185.199.110.153</td>
-</tr>
-<tr>
-<td align="center">@</td>
-<td align="center">A</td>
-<td align="center">默认</td>
-<td align="center">185.199.111.153</td>
-</tr>
-<tr>
-<td align="center">www</td>
-<td align="center">CNAME</td>
-<td align="center">默认</td>
-<td align="center">crazystudent13.github.io</td>
-</tr>
-</tbody></table>
-<h4 id="绑定域名"><a href="#绑定域名" class="headerlink" title="绑定域名"></a>绑定域名</h4><p>进入自己的Git博客项目中，打开setting，下拉，找到Github Pages。</p>
-<p>在输入框中输入我们买的域名（不要输入www.），完成内容。</p>
-<p>如果没有立刻生效，等10分钟左右（dns的解析时间差不多是这个时间，具体可以看域名控制台的说明）。</p>
-<h4 id="固定域名"><a href="#固定域名" class="headerlink" title="固定域名"></a>固定域名</h4><p>这一步本来是不必要的，但是每次发布，域名就会失效。为了一劳永逸，这个得做。</p>
-<p>在博客的source文件夹中，新建文件CNAME(没有后缀，什么后缀都没有，字母必须大写)。</p>
-<p>将个人域名存入文件中，然后发布，等待。</p>
-<blockquote>
-<p>crazystudent13.cn</p>
-</blockquote>
-<h4 id="验证绑定"><a href="#验证绑定" class="headerlink" title="验证绑定"></a>验证绑定</h4><p>浏览器输入自己的域名，例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">www.crazystudent13.cn</span><br></pre></td></tr></table></figure>
-
-<p>如果您像以上我的博客那样，您也跳转到了自己的git博客，那就代表成功了。</p>
-<p>而且就算提交文件，也不会覆盖掉域名设置。</p>
-<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>至此，所有的工作全部做完了，一路看下来，其实利用Github创建博客是个很简单的事。</p>
-<p>其实一开始，我是想利用VUE和语雀的接口做一个博客来锻炼自己技术的。</p>
-<p>但是后来我觉得太过麻烦，而且过年又犯懒，加之网上不止一个人以个人博客为项目写了DEMO，这里自己再做，恐怕也有点过于重复，没多少意义了。</p>
-<p>时隔数年，没想到还是用这玩意了，真的是有些令人唏嘘。</p>
-
-      </div>
-      
-        <div class="prev-or-next">
-          <div class="post-foot-next">
-            
-              <a href="/2019/02/09/hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E6%B5%81%E7%A8%8B/" target="_self">
-                <i class="iconfont icon-chevronleft"></i>
-                <span>Prev</span>
-              </a>
-            
-          </div>
-          <div class="post-attach">
-            <span class="post-pubtime">
-              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-09-19 03:05:02
-            </span>
-            
-                  <span class="post-tags">
-                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
-                    
-                    <span class="span--tag mr-8">
-                      <a href="/tags/hexo/" title="hexo">
-                        #hexo
-                      </a>
-                    </span>
-                    
-                  </span>
-              
-          </div>
-          <div class="post-foot-prev">
-            
-              <a href="/2019/02/10/hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E2%80%94%E2%80%94%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/" target="_self">
-                <span>Next</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
-            
-          </div>
-        </div>
-      
     </div>
-    
-  <div id="btn-catalog" class="btn-catalog">
-    <i class="iconfont icon-catalog"></i>
-  </div>
-  <div class="post-catalog hidden" id="catalog">
-    <div class="title">Contents</div>
-    <div class="catalog-content">
-      
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%AD%E4%B9%B0%E5%9F%9F%E5%90%8D"><span class="toc-text">购买域名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90"><span class="toc-text">域名解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D"><span class="toc-text">绑定域名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%BA%E5%AE%9A%E5%9F%9F%E5%90%8D"><span class="toc-text">固定域名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E7%BB%91%E5%AE%9A"><span class="toc-text">验证绑定</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol>
-      
-    </div>
-  </div>
-
   
-<script src="/js/catalog.js"></script>
-
-
-
-
+  <nav class="post-navigation">
     
-      <div class="comments-container">
-        
-
-
-
-
-  
-    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
-  
-
-  <div id="vcomments"></div>
-
-  <script>
-    function loadValineSuc() {
-      new Valine({
-        el: '#vcomments',
-        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
-        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
-        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
-        avatar: 'retro',
-        lang: 'zh-cn'
-      })
-    }
-  </script>
-
-    <style>
-      .comments-container .v .vempty {
-        display: none!important;
-      }
-    </style>
-
-
-
-
-      </div>
+    <span class="page-num">1 / 1</span>
     
-  </div>
-
+  </nav>
+</div>
 
         
 <div class="footer">
@@ -630,24 +414,6 @@
 
 
         
-  
-    <div class="share-icon tools-bar-item">
-      <a href="javascript: void(0)" id="share-icon">
-        <i class="iconfont iconshare"></i>
-      </a>
-      <div class="share-content hidden">
-        
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2019%2F02%2F09%2Fhexo%25E4%25B8%25AA%25E4%25BA%25BA%25E5%258D%259A%25E5%25AE%25A2%25E6%2590%25AD%25E5%25BB%25BA%25E2%2580%2594%25E2%2580%2594%25E5%259F%259F%25E5%2590%258D%25E7%25BB%2591%25E5%25AE%259A%2F + '" target="_blank" title="Twitter">
-            <i class="iconfont icon-twitter"></i>
-          </a>
-        
-        
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2019/02/09/hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E2%80%94%E2%80%94%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" target="_blank" title="Facebook">
-            <i class="iconfont icon-facebooksquare"></i>
-          </a>
-        
-      </div>
-    </div>
   
   
 <script src="/js/shares.js"></script>
