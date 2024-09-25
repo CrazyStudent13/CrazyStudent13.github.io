@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>解决浏览器不支持getUserMedia!</title>
+      <link href="/2024/09/25/%E8%A7%A3%E5%86%B3%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81getUserMedia/"/>
+      <url>/2024/09/25/%E8%A7%A3%E5%86%B3%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81getUserMedia/</url>
+      
+        <content type="html"><![CDATA[<p>这种问题在本地开发不会出现，只会在线上部署之后才会出现这种问题。</p><p>如果不是特殊情况，建议还是用更好的录音组件。</p><span id="more"></span><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>因为最近有个录音需求，要求使用者能进行录音上传，然后读取后端传回来的链接，进行语音播放。</p><p>在比较了多个录音工具之后，我选用了<code>js-audio-recorder</code>，效果还不错。</p><p>在本地完成这个需求后，测了一下是没有问题的，但发布线上才发现不行。</p><h3 id="问题情况"><a href="#问题情况" class="headerlink" title="问题情况"></a>问题情况</h3><p>查了一下才知道，这是最新的api被浏览器锁了权限。</p><p>发布到线上之后，浏览器会报如下错误。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error :浏览器不支持 getUserMedia !</span><br></pre></td></tr></table></figure><p><code>js-audio-recorder</code>用的是<code>getUserMedia</code>这个<code>api</code>。</p><p> chrome，edge, <a href="https://so.csdn.net/so/search?q=fireFox&spm=1001.2101.3001.7020">fireFox</a> 等主流浏览器由于安全限制将不会暴露getUserMedia 方法，所以就不能够访问用户的媒体设备。</p><p><code>getUserMedia</code>在高版本的chrome下需要使用https，如果你的项目是部署在https页面，那么则不用此类方法也可以解决。</p><h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>复制下方链接，到浏览器上打开，进入配置页面</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chrome://flags/#unsafely-treat-insecure-origin-as-secure</span><br></pre></td></tr></table></figure><p>将要录音的网站地址(ip+端口号)输入到<code>Insecure origins treated as secure</code>中，然后将<code>Disabled</code>下拉改为<code>Enabled</code></p><p>此时下方会提示重启浏览器，点击Relaunch重启浏览器。</p><h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ol><li>填入当前使用的网站，而不是要上传的服务器链接。</li><li>不用担心会关闭所有页面，所有页面在重启浏览器之后依然会重新打开。</li></ol><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>这种方式属于是临时解决方式，如果有更好的录音解决方式，建议还是换其他的组件。</p><p>而且，<code>js-audio-recorder</code>的最新版本已经是4年前了，活跃度没那么高了。</p><p>虽然稳定，但是没什么活跃度和更新的组件，将来就算真的出问题，恐怕也很难解决。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.csdn.net/BADAO_LIUMANG_QIZHI/article/details/126965558">Vue中使用js-audio-recorder实现录音时提示:浏览器不支持getUserMedia!_浏览器不支持 getusermedia-CSDN博客</a></p><p><a href="https://blog.csdn.net/BADAO_LIUMANG_QIZHI/article/details/126957202">Vue中使用js-audio-recorder插件实现录音功能并实现上传Blob数据到SpringBoot后台接口-CSDN博客</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> vue2 </tag>
+            
+            <tag> 疑难杂症 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【转】腾讯云OpenCloudOS部署NestJS项目</title>
       <link href="/2024/09/23/%E3%80%90%E8%BD%AC%E3%80%91%E8%85%BE%E8%AE%AF%E4%BA%91OpenCloudOS%E9%83%A8%E7%BD%B2NestJS%E9%A1%B9%E7%9B%AE/"/>
       <url>/2024/09/23/%E3%80%90%E8%BD%AC%E3%80%91%E8%85%BE%E8%AE%AF%E4%BA%91OpenCloudOS%E9%83%A8%E7%BD%B2NestJS%E9%A1%B9%E7%9B%AE/</url>
