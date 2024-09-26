@@ -200,50 +200,55 @@
 <p>在完成准备工作之后，上传<code>nestjs</code>的后端环境压缩包，然后在线上npm装好包，到此完成</p>
 <p>只是流程多了个PM2工具来管理进程。</p>
 <h3 id="安装node环境"><a href="#安装node环境" class="headerlink" title="安装node环境"></a>安装node环境</h3><p>安装完成后也要创建一个软链接才可以全局使用</p>
-<h4 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /server/soft/node</span><br></pre></td></tr></table></figure>
+<h4 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /server/soft/node</span><br></pre></td></tr></table></figure>
 
-<h4 id="安装目录"><a href="#安装目录" class="headerlink" title="安装目录"></a>安装目录</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /server/soft/node</span><br></pre></td></tr></table></figure>
+<h4 id="安装目录"><a href="#安装目录" class="headerlink" title="安装目录"></a>安装目录</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /server/soft/node</span><br></pre></td></tr></table></figure>
 
 <h4 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h4><p>下载最新版本的Node.js，这里我用<code>wget</code>命令下载，如果不能用，建议查一下其他的linux下载命令。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://nodejs.org/dist/v20.5.0/node-v20.5.0-linux-x64.tar.xz</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://nodejs.org/dist/v20.5.0/node-v20.5.0-linux-x64.tar.xz</span><br></pre></td></tr></table></figure>
 
 <h4 id="解压到指定目录"><a href="#解压到指定目录" class="headerlink" title="解压到指定目录"></a>解压到指定目录</h4><p>这里我们就解压到</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo tar -xJvf node-v20.5.0-linux-x64.tar.xz -C /server/soft/node</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo tar -xJvf node-v20.5.0-linux-x64.tar.xz -C /server/soft/node</span><br></pre></td></tr></table></figure>
 
 <h4 id="配置nodejs环境"><a href="#配置nodejs环境" class="headerlink" title="配置nodejs环境"></a>配置nodejs环境</h4><p>看了其他人的文档，有人说</p>
 <h5 id="在默认路径中创建对应的软链-推荐"><a href="#在默认路径中创建对应的软链-推荐" class="headerlink" title="在默认路径中创建对应的软链 (推荐)"></a>在默认路径中创建对应的软链 (推荐)</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建 node 软链</span></span><br><span class="line">sudo <span class="built_in">ln</span> -s /server/soft/node/node-v20.5.0-linux-x64/bin/node /usr/bin/node</span><br><span class="line"><span class="comment"># 创建 npm 软链</span></span><br><span class="line">sudo <span class="built_in">ln</span> -s /server/soft/node/node-v20.5.0-linux-x64/bin/npm /usr/bin/npm</span><br><span class="line"><span class="comment"># 创建 npx 软链</span></span><br><span class="line">sudo <span class="built_in">ln</span> -s /server/soft/node/node-v20.5.0-linux-x64/bin/npx /usr/bin/npx</span><br></pre></td></tr></table></figure>
 
 <p>优点: 创建一次，所有用户均可运行node相关命令<br>缺点: 每增加一个全局node相关命令都要创建软链</p>
 <h5 id="移除对应内容"><a href="#移除对应内容" class="headerlink" title="移除对应内容"></a>移除对应内容</h5><p>如果要是对应的软连接已经被占用，可以用以下命令移除对应的软连接，再重新执行上边的命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo rm /usr/bin/node</span><br><span class="line">sudo rm /usr/bin/npm</span><br><span class="line">sudo rm /usr/bin/npx</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">rm</span> /usr/bin/node</span><br><span class="line">sudo <span class="built_in">rm</span> /usr/bin/npm</span><br><span class="line">sudo <span class="built_in">rm</span> /usr/bin/npx</span><br></pre></td></tr></table></figure>
 
 <h4 id="验证版本"><a href="#验证版本" class="headerlink" title="验证版本"></a>验证版本</h4><p>如果这里版本验证成功后，到此，<code>node</code>安装的流程就算是完成了。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
 
 
 
 <h3 id="安装PM2"><a href="#安装PM2" class="headerlink" title="安装PM2"></a>安装PM2</h3><p>安装<code>pm2</code>也要添加软连接，因为使用npm下载安装，所以下载目录就在node的<code>bin</code>目录下。</p>
-<h4 id="安装pm2"><a href="#安装pm2" class="headerlink" title="安装pm2"></a>安装pm2</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install pm2 -g</span><br></pre></td></tr></table></figure>
+<h4 id="安装pm2"><a href="#安装pm2" class="headerlink" title="安装pm2"></a>安装pm2</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install pm2 -g</span><br></pre></td></tr></table></figure>
 
-<h4 id="添加软连接"><a href="#添加软连接" class="headerlink" title="添加软连接"></a>添加软连接</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /server/soft/node/node-v20.5.0-linux-x64/bin/pm2  /usr/bin/pm2</span><br></pre></td></tr></table></figure>
+<h4 id="添加软连接"><a href="#添加软连接" class="headerlink" title="添加软连接"></a>添加软连接</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">ln</span> -s /server/soft/node/node-v20.5.0-linux-x64/bin/pm2  /usr/bin/pm2</span><br></pre></td></tr></table></figure>
 
 
 
 <h3 id="启动nest项目"><a href="#启动nest项目" class="headerlink" title="启动nest项目"></a>启动nest项目</h3><p>将本地的nest项目打包成tar包，然后传到对应的目录。</p>
 <p>不过，如果你nest项目如果是独立的，你也可以考虑直接在服务器上用<code>git</code>下载，只不过这么做太费事，我懒得整了，直接本地打包放上去就好。</p>
 <h4 id="创建目录-1"><a href="#创建目录-1" class="headerlink" title="创建目录"></a>创建目录</h4><p>当前目录是用来放nest项目后端的</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /server/soft/nest-admin</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /server/soft/nest-admin</span><br></pre></td></tr></table></figure>
 
 <h4 id="解压到指定目录-1"><a href="#解压到指定目录-1" class="headerlink" title="解压到指定目录"></a>解压到指定目录</h4><p>这里我们将对应的压缩包解压到我们刚才创建的目录中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo tar -xvf nest-server.tar -C /server/soft/nest-admin</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo tar -xvf nest-server.tar -C /server/soft/nest-admin</span><br></pre></td></tr></table></figure>
 
 <h4 id="切换目录"><a href="#切换目录" class="headerlink" title="切换目录"></a>切换目录</h4><p>这里我们切换到对应的项目目录，然后为npm安装做准备。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /server/soft/nest-admin/server/</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /server/soft/nest-admin/server/</span><br></pre></td></tr></table></figure>
 
 <h4 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h4><p>因为我这里没有多个项目，所以我就不额外安装<code>pnpm</code>来做包管理了，直接用<code>npm</code>安装包依赖就够了。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
 
-<h4 id="启动项目"><a href="#启动项目" class="headerlink" title="启动项目"></a>启动项目</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /server/soft/nest-admin/server/dist</span><br><span class="line">pm2 start main.js</span><br></pre></td></tr></table></figure>
+<p>如果要是你喜欢使用pnpm来进行管理，也可以提添加一个pnpm的软连接，方便后续用pnpm管理。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建 npm 软链</span></span><br><span class="line">sudo <span class="built_in">ln</span> -s /server/soft/node/node-v20.5.0-linux-x64/bin/pnpm /usr/bin/pnpm</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="启动项目"><a href="#启动项目" class="headerlink" title="启动项目"></a>启动项目</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /server/soft/nest-admin/server/dist</span><br><span class="line">pm2 start main.js</span><br></pre></td></tr></table></figure>
 
 <h4 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h4><p>我这里是用腾讯云小程序开了防火墙的对应的端口。</p>
 <h4 id="访问项目"><a href="#访问项目" class="headerlink" title="访问项目"></a>访问项目</h4><p>因为我这里端口是8080，所以我这里就用8080启动项目</p>
