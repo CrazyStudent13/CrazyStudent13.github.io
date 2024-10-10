@@ -4,6 +4,29 @@
   
     
     <entry>
+      <title>解决MySQL8小时无连接自动关闭问题</title>
+      <link href="/2024/10/10/%E8%A7%A3%E5%86%B3MySQL8%E5%B0%8F%E6%97%B6%E6%97%A0%E8%BF%9E%E6%8E%A5%E8%87%AA%E5%8A%A8%E5%85%B3%E9%97%AD%E9%97%AE%E9%A2%98/"/>
+      <url>/2024/10/10/%E8%A7%A3%E5%86%B3MySQL8%E5%B0%8F%E6%97%B6%E6%97%A0%E8%BF%9E%E6%8E%A5%E8%87%AA%E5%8A%A8%E5%85%B3%E9%97%AD%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<p>最近部署了nest-admin线上环境，但是线上的<code>MySQL</code>总是在次日无法连接，每次都要重启。</p><p>这个问题很头疼，毕竟间隔太长，不太好复现。</p><p>后来稍微搜了一下，才发现这事儿好像是线上长时间断连之后，MySQL会自动关闭导致的。</p><span id="more"></span><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>目前还不太会看日志，只能去问搜索引擎。</p><p>因为我个人用的是nest，所以没法用<code>JDBC</code>去解决自动连接问题，先推荐用修改最大连接间隔时间。</p><h3 id="修改MySQL配置"><a href="#修改MySQL配置" class="headerlink" title="修改MySQL配置"></a>修改MySQL配置</h3><p><code>interactive_timeout</code>参数，定义了对于交互式连接，服务端等待数据的最大时间。如果超过这个时间，服务端仍然没有收到数据，则会关闭连接，默认是28800，单位秒，即8个小时。</p><p>通过修改间隔时长，至少保证时间长</p><p>简单的来说，这是一个治标不治本的方法。</p><h4 id="linux系统"><a href="#linux系统" class="headerlink" title="linux系统"></a>linux系统</h4><p>打开<code>/etc/my.cnf</code>，在属性组mysqld下面添加如下参数。</p><p>这样，我们有8H的间隔连接时间，这样我们</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">interactive_timeout=28800000</span><br><span class="line">wait_timeout=28800000</span><br></pre></td></tr></table></figure><h4 id="windows系统"><a href="#windows系统" class="headerlink" title="windows系统"></a>windows系统</h4><p>和linux一样，打开my.ini，添加同样配置</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">interactive_timeout=28800000</span><br><span class="line">wait_timeout=28800000</span><br></pre></td></tr></table></figure><p>有实践表明，没有办法把这个值设置成无限大，即永久。</p><p>因此如果你无法保证你的应用程序必定在设定的秒数内至少有一次操作，那么最好用第二个方法解决这个问题。</p><h3 id="修改如下JDBC连接的-URL"><a href="#修改如下JDBC连接的-URL" class="headerlink" title="修改如下JDBC连接的 URL"></a>修改如下JDBC连接的 URL</h3><p>jdbc:mysql:&#x2F;&#x2F;hostaddress:3306&#x2F;schemaname?autoReconnect&#x3D;true</p><p>添加 autoReconnect&#x3D;true 这个参数，即能解决这个问题。</p><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>未完待续，等明天看看效果，效果可能不会好，还是得改进。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.cnblogs.com/lanyangsh/p/11667233.html">MySQL 的连接时长控制–interactive_timeout和wait_timeout - 翔云123456 - 博客园 (cnblogs.com)</a></p><p><a href="https://developer.aliyun.com/article/131129">如何解决mysql数据库8小时无连接自动关闭</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 运维 </tag>
+            
+            <tag> MySQL </tag>
+            
+            <tag> 疑难杂症 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>解决浏览器不支持getUserMedia!</title>
       <link href="/2024/09/25/%E8%A7%A3%E5%86%B3%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81getUserMedia/"/>
       <url>/2024/09/25/%E8%A7%A3%E5%86%B3%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81getUserMedia/</url>
