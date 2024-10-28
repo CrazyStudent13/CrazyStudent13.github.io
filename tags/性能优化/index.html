@@ -15,8 +15,8 @@
   
   <title>
     
-      解决git SSL certificate problem 
-      
+      Tag 
+       : 性能优化
       
       |
     
@@ -113,210 +113,30 @@
 
 
       <div class="flex-container">
-        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
-<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+        <!-- 标签详情页，展示某个标签下的文章列表，url形式：https://yoursite/tags/某个标签/ -->
 
-
-  <!-- LaTex Display -->
-
+<div class="container tag-details">
+  <div class="content-title">
+    <h2>
+      <span>性能优化</span>
+    </h2>
+  </div>
   
-    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
-  
-  <script>
-    MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']]
-      }
-    }
-  </script>
-
-
-
-
-
-  <!-- clipboard -->
-
-  
-    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
-  
-  
-<script src="/js/codeCopy.js"></script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
-  <div class="container post-details" id="post-details">
-    <div class="post-content">
-      <div class="post-title">解决git SSL certificate problem</div>
-      <div class="post-attach">
-        <span class="post-pubtime">
-          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-10-28 12:31:09
-        </span>
-        
-              <span class="post-tags">
-                <i class="iconfont icon-tags mr-10" title="Tags"></i>
-                
-                <span class="span--tag mr-8">
-                  <a href="/tags/github/" title="github">
-                    #github
-                  </a>
-                </span>
-                
-                <span class="span--tag mr-8">
-                  <a href="/tags/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" title="疑难杂症">
-                    #疑难杂症
-                  </a>
-                </span>
-                
-              </span>
-          
+    <div class="post-list">
+      <div class="post-item" title="性能优化，gzip压缩加速访问">
+        <span class="time-m-d">2024-10-28</span>
+        <a href="/2024/10/28/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%8Cgzip%E5%8E%8B%E7%BC%A9%E5%8A%A0%E9%80%9F%E8%AE%BF%E9%97%AE/">
+          <span>性能优化，gzip压缩加速访问</span>
+        </a>
       </div>
-      <div class="markdown-body">
-        <p>提交项目代码到github上的时候，突然就报了这个问题。</p>
-<span id="more"></span>
-
-
-
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>其实是个很简单的问题，只是以前没遇到过，所以不知道怎么处理。</p>
-<h3 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h3><p>这个错误表明Git在尝试通过HTTPS进行通信时，遇到了SSL证书验证问题。</p>
-<p>具体来说，Git客户端无法获取到用于验证本地颁发者证书的信息。</p>
-<p>这通常发生在Git客户端没有正确配置或者没有本地证书文件的情况下，尤其是在自签名的证书或者是过期的证书文件缺失的情况下。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git SSL certificate problem: unable to get local issuer certificate</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><h4 id="方案一：忽略验证"><a href="#方案一：忽略验证" class="headerlink" title="方案一：忽略验证"></a>方案一：忽略验证</h4><p>使用Git的配置选项来忽略SSL证书验证（不推荐，因为这会降低通信的安全性）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.sslVerify false</span><br></pre></td></tr></table></figure>
-
-<h4 id="方案二：更新CA证书库"><a href="#方案二：更新CA证书库" class="headerlink" title="方案二：更新CA证书库"></a>方案二：更新CA证书库</h4><p>确保系统中安装了正确的CA证书。</p>
-<p>在Linux系统中，你可以通过更新CA证书库来解决问题。</p>
-<p>如果是自签名的证书，你可以将服务器的证书添加到Git的信任列表中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.sslCAInfo /path/to/certificate.pem</span><br></pre></td></tr></table></figure>
-
-<p>如果你使用的是代理服务器，请确保代理服务器的SSL证书是有效的，或者配置Git以跳过代理的SSL验证。</p>
-<p>更新Git到最新版本，以确保包含最新的证书信息。</p>
-<p>如果问题仍然存在，可以考虑使用SSH方式克隆或者拉取远程仓库，从而绕过HTTPS的SSL验证问题。</p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>一个常规的CA证书验证问题，但是平时很少遇到，所以这里记录一下，如果后续遇到，方便排查。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44014995/article/details/109900149">解决：git SSL certificate problem: unable to get local issuer certificate</a></p>
-
-      </div>
-      
-        <div class="prev-or-next">
-          <div class="post-foot-next">
-            
-              <a href="/2024/06/23/2024%E5%B9%B4%EF%BC%8C%E7%AC%AC%E4%B8%80%E5%9B%9E%E5%9C%A8%E5%BE%90%E5%B7%9E%E7%A0%B4%E9%98%B2%E4%BA%86/" target="_self">
-                <i class="iconfont icon-chevronleft"></i>
-                <span>Prev</span>
-              </a>
-            
-          </div>
-          <div class="post-attach">
-            <span class="post-pubtime">
-              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-10-28 12:31:09
-            </span>
-            
-                  <span class="post-tags">
-                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
-                    
-                    <span class="span--tag mr-8">
-                      <a href="/tags/github/" title="github">
-                        #github
-                      </a>
-                    </span>
-                    
-                    <span class="span--tag mr-8">
-                      <a href="/tags/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" title="疑难杂症">
-                        #疑难杂症
-                      </a>
-                    </span>
-                    
-                  </span>
-              
-          </div>
-          <div class="post-foot-prev">
-            
-              <a href="/2024/06/24/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E5%9F%9F%E5%90%8D%E7%AD%89%E7%BA%A7/" target="_self">
-                <span>Next</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
-            
-          </div>
-        </div>
-      
     </div>
-    
-  <div id="btn-catalog" class="btn-catalog">
-    <i class="iconfont icon-catalog"></i>
-  </div>
-  <div class="post-catalog hidden" id="catalog">
-    <div class="title">Contents</div>
-    <div class="catalog-content">
-      
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%8E%9F%E5%9B%A0"><span class="toc-text">错误原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80%EF%BC%9A%E5%BF%BD%E7%95%A5%E9%AA%8C%E8%AF%81"><span class="toc-text">方案一：忽略验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C%EF%BC%9A%E6%9B%B4%E6%96%B0CA%E8%AF%81%E4%B9%A6%E5%BA%93"><span class="toc-text">方案二：更新CA证书库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
-      
-    </div>
-  </div>
-
   
-<script src="/js/catalog.js"></script>
-
-
-
-
+  <nav class="post-navigation">
     
-      <div class="comments-container">
-        
-
-
-
-
-  
-    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
-  
-
-  <div id="vcomments"></div>
-
-  <script>
-    function loadValineSuc() {
-      new Valine({
-        el: '#vcomments',
-        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
-        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
-        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
-        avatar: 'retro',
-        lang: 'zh-cn'
-      })
-    }
-  </script>
-
-    <style>
-      .comments-container .v .vempty {
-        display: none!important;
-      }
-    </style>
-
-
-
-
-      </div>
+    <span class="page-num">1 / 1</span>
     
-  </div>
-
+  </nav>
+</div>
 
         
 <div class="footer">
@@ -594,24 +414,6 @@
 
 
         
-  
-    <div class="share-icon tools-bar-item">
-      <a href="javascript: void(0)" id="share-icon">
-        <i class="iconfont iconshare"></i>
-      </a>
-      <div class="share-content hidden">
-        
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E8%A7%A3%E5%86%B3git%20SSL%20certificate%20problem + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F06%2F24%2F%25E8%25A7%25A3%25E5%2586%25B3git-SSL-certificate-problem%2F + '" target="_blank" title="Twitter">
-            <i class="iconfont icon-twitter"></i>
-          </a>
-        
-        
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/06/24/%E8%A7%A3%E5%86%B3git-SSL-certificate-problem/" target="_blank" title="Facebook">
-            <i class="iconfont icon-facebooksquare"></i>
-          </a>
-        
-      </div>
-    </div>
   
   
 <script src="/js/shares.js"></script>
