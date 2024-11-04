@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      解决前端JS精度丢失的问题 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">解决前端JS精度丢失的问题</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-11-04 13:36:13
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/JS/" title="JS">
+                    #JS
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" title="疑难杂症">
+                    #疑难杂症
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>前端数据精度丢失是个常见的问题，本次记录说实话有点大可不必，毕竟这是一个前端常见的问题。</p>
+<p>但是考虑到自己的记忆水平不够，每次再去找攻略又有点不太合适，太过浪费时间。</p>
+<p>索性这次就记录一下，便于后续快速使用。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>在前端开发中，尤其是在处理财务数据或需要高精度计算的场景下，JavaScript 的浮点数运算可能会导致精度丢失。</p>
+<p>例如，<code>0.1 + 0.2</code> 的结果不是 <code>0.3</code>，而是 <code>0.30000000000000004</code>。</p>
+<h3 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h3><ul>
+<li>JavaScript 使用 IEEE 754 标准来表示浮点数，这种表示方法在某些情况下会导致精度丢失。</li>
+<li>浮点数的二进制表示无法精确表示某些十进制小数，从而导致计算结果不准确。</li>
+</ul>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>我知道有很多可能为了方便会用使用 <code>toFixed</code> 或 <code>Math.round</code> ，对于简单的应用场景，这可能已经足够。</p>
+<p>但是大多数我们要处理精度的场景，往往都是涉及到支付金额的计算，这些都是非常重要的场景，一定不能出现精度丢失的情况。</p>
+<p>所以，此时我们就需要引入精度库。</p>
+<p>市面上有常见的好几种精度库，我这里距离如下：</p>
+<ul>
+<li>**<a target="_blank" rel="noopener" href="https://juejin.cn/post/7012270695145029639?searchId=20241104222945653935635CFFEC49C964">decimal.js</a>**：功能最全面，适合大多数高精度计算需求。</li>
+<li>**<a target="_blank" rel="noopener" href="https://juejin.cn/post/6931167908429037582">big.js</a>**：体积最小，适合对性能和体积有严格要求的项目。</li>
+<li>**<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903704714280968">bignumber.js</a>**：功能强大，支持多种数据类型，适合复杂的高精度计算场景。</li>
+</ul>
+<p>以上是市面上常用的三种精度库，如果你想了解更多，欢迎参考下放链接。</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7069965114564165662">big.js、bignumber.js 和 decimal.js 之间的差别（翻译）</a></p>
+<h3 id="decimal-js"><a href="#decimal-js" class="headerlink" title="decimal.js"></a>decimal.js</h3><p>我这里就先介绍我自己常用的精度库，泛用性最广，使用起来也相对简单的库。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install decimal.js</span><br></pre></td></tr></table></figure>
+
+<p>Decimal.js 支持以下运算符的重载</p>
+<table>
+<thead>
+<tr>
+<th>运算符名称</th>
+<th>运算符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>加法</td>
+<td>+</td>
+</tr>
+<tr>
+<td>减法</td>
+<td>-</td>
+</tr>
+<tr>
+<td>乘法</td>
+<td>*</td>
+</tr>
+<tr>
+<td>除法</td>
+<td>&#x2F;</td>
+</tr>
+<tr>
+<td>取模运算</td>
+<td>%</td>
+</tr>
+<tr>
+<td>指数运算</td>
+<td>**</td>
+</tr>
+<tr>
+<td>自增运算</td>
+<td>++</td>
+</tr>
+<tr>
+<td>自减运算</td>
+<td>–</td>
+</tr>
+</tbody></table>
+<p>这些运算符被重载后，可以直接用于 Decimal 对象之间的运算，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;2.5&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> b = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;3&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> c = a + b; <span class="comment">// 等同于 a.plus(b)</span></span><br><span class="line"><span class="keyword">const</span> d = b - a; <span class="comment">// 等同于 b.minus(a)</span></span><br><span class="line"><span class="keyword">const</span> e = a * b; <span class="comment">// 等同于 a.times(b)</span></span><br><span class="line"><span class="keyword">const</span> f = a / b; <span class="comment">// 等同于 a.div(b)</span></span><br><span class="line"><span class="keyword">const</span> g = b % a; <span class="comment">// 等同于 b.mod(a)</span></span><br><span class="line"><span class="keyword">const</span> h = a ** <span class="number">2</span>; <span class="comment">// 等同于 a.toPower(2)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> i = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">i++; <span class="comment">// 等同于 i = i.plus(1);</span></span><br><span class="line">i--; <span class="comment">// 等同于 i = i.minus(1);</span></span><br></pre></td></tr></table></figure>
+
+<p>以下是它的通常用法：</p>
+<h4 id="格式化数值"><a href="#格式化数值" class="headerlink" title="格式化数值"></a>格式化数值</h4><p>数值被处理后，不能直接展示到页面，得格式化一下，一般常用的由以下几种。</p>
+<ul>
+<li><code>toString()</code> 格式化为字符串。</li>
+<li><code>valueOf()</code> 格式化为字符串，但是有符号零 <code>console.log((new Decimal(-0)).valueOf()) // -0</code>。</li>
+<li><code>toNumber()</code> 格式化为Number类型，转换为原始数字的值。</li>
+<li><code>toFixed()</code> 格式化为字符串类型，用法和JS中<code>toFixed()</code>一样，不同的是decimal.js中的<code>toFixed()</code>有第二参数，可以设置舍入的类型。</li>
+</ul>
+<p>还有一些不常用的</p>
+<ul>
+<li><code>toBinary()</code> 格式化为二进制。</li>
+<li><code>toHexadecimal()</code> 格式化为十六进制。</li>
+<li><code>toOctal()</code> 格式化为八进制。</li>
+</ul>
+<h4 id="加减乘除"><a href="#加减乘除" class="headerlink" title="加减乘除"></a>加减乘除</h4><p>在计算中最经常用到就是加减乘除，下面来看一下decimal.js中的加减乘除。</p>
+<p>有两种用法，一种是使用<code>Decimal</code>类的静态方法，一种是使用<code>Decimal</code>类实例方法。</p>
+<ul>
+<li>加法</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Decimal</span>.<span class="title function_">add</span>(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> x = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">const</span> result = x.<span class="title function_">plus</span>(<span class="number">2</span>); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>减法</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Decimal</span>.<span class="title function_">sub</span>(<span class="number">3</span>, <span class="number">1</span>); <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> x = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">3</span>);</span><br><span class="line"><span class="keyword">const</span> result = x.<span class="title function_">sub</span>(<span class="number">1</span>); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>乘法</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Decimal</span>.<span class="title function_">mul</span>(<span class="number">3</span>, <span class="number">2</span>); <span class="comment">// 6</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> x = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">3</span>);</span><br><span class="line"><span class="keyword">const</span> result = x.<span class="title function_">mul</span>(<span class="number">2</span>); <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>除法</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Decimal</span>.<span class="title function_">div</span>(<span class="number">6</span>, <span class="number">2</span>); <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> x = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">6</span>);</span><br><span class="line"><span class="keyword">const</span> result = x.<span class="title function_">div</span>(<span class="number">2</span>); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>使用除法时候要注意 除数（分母）不能为0。</strong></p>
+<h4 id="取绝对值"><a href="#取绝对值" class="headerlink" title="取绝对值"></a>取绝对值</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Decimal</span>.<span class="title function_">abs</span>(-<span class="number">3</span>); <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> x = <span class="keyword">new</span> <span class="title class_">Decimal</span>(-<span class="number">3</span>);</span><br><span class="line"><span class="keyword">const</span> result = x.<span class="title function_">abs</span>(); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h4><ul>
+<li>大于</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">const</span> y = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">1</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x.<span class="title function_">greaterThan</span>(y)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>大于等于</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">const</span> y = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">2</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x.<span class="title function_">greaterThanOrEqualTo</span>(y)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>小于</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">const</span> y = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">1</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(y.<span class="title function_">lessThan</span>(x)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>小于等于</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">const</span> y = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">2</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(y.<span class="title function_">lessThanOrEqualTo</span>(x)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>等于</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">const</span> y = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">2</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x.<span class="title function_">equals</span>(y)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h4><ul>
+<li>是否是整数</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">1</span>) </span><br><span class="line">x.<span class="title function_">isInteger</span>(); <span class="comment">// true </span></span><br><span class="line"><span class="keyword">const</span> y = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">123.456</span>) </span><br><span class="line">y.<span class="title function_">isInt</span>(); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>是否是正数</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">0</span>);</span><br><span class="line">x.<span class="title function_">isPositive</span>();<span class="comment">// true</span></span><br><span class="line">y = <span class="keyword">new</span> <span class="title class_">Decimal</span>(-<span class="number">2</span>);</span><br><span class="line">y.<span class="title function_">isPos</span>(); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>是否是负数</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="keyword">new</span> <span class="title class_">Decimal</span>(-<span class="number">0</span>); </span><br><span class="line">x.<span class="title function_">isNegative</span>(); <span class="comment">// true </span></span><br><span class="line">y = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">2</span>); </span><br><span class="line">y.<span class="title function_">isNeg</span>(); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>有传言说这三种精度库是一个作者，其实用哪个都可以。</p>
+<p>但是这个传言我记不清自己是在哪里看到的了，不过这里我就不去详细考证了。</p>
+<p>于此时的我而言，能用就行。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/nanfei/p/17247991.html">js 中使用 decimal.js 进行不丢失精度的小数计算 - 空明流光 - 博客园</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/10/28/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%8Cgzip%E5%8E%8B%E7%BC%A9%E5%8A%A0%E9%80%9F%E8%AE%BF%E9%97%AE/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-11-04 13:36:13
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/JS/" title="JS">
+                        #JS
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" title="疑难杂症">
+                        #疑难杂症
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0%E5%88%86%E6%9E%90"><span class="toc-text">原因分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#decimal-js"><span class="toc-text">decimal.js</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%95%B0%E5%80%BC"><span class="toc-text">格式化数值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4"><span class="toc-text">加减乘除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%96%E7%BB%9D%E5%AF%B9%E5%80%BC"><span class="toc-text">取绝对值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AF%94%E8%BE%83"><span class="toc-text">比较</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A4%E6%96%AD"><span class="toc-text">判断</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+        <li>
+          
+              <a title="掘金论坛" target="_blank" rel="noopener" href="https://juejin.cn/user/4371313963044301">
+                <i class="iconfont icon-envelope"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E8%A7%A3%E5%86%B3%E5%89%8D%E7%AB%AFJS%E7%B2%BE%E5%BA%A6%E4%B8%A2%E5%A4%B1%E7%9A%84%E9%97%AE%E9%A2%98 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F11%2F04%2F%25E8%25A7%25A3%25E5%2586%25B3%25E5%2589%258D%25E7%25AB%25AFJS%25E7%25B2%25BE%25E5%25BA%25A6%25E4%25B8%25A2%25E5%25A4%25B1%25E7%259A%2584%25E9%2597%25AE%25E9%25A2%2598%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/11/04/%E8%A7%A3%E5%86%B3%E5%89%8D%E7%AB%AFJS%E7%B2%BE%E5%BA%A6%E4%B8%A2%E5%A4%B1%E7%9A%84%E9%97%AE%E9%A2%98/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
