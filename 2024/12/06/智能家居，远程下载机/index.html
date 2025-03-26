@@ -311,17 +311,29 @@
 <li>远程操作，目前市面上的第三方操作工具用的都不是很舒心，而开源的<code>rust-desk</code>效果不错，未来说不定会以此为主</li>
 </ol>
 <p>操作已经确定，剩下的就是确定方案了。</p>
-<p>首先，是远程开机方案。</p>
-<p>目前，市面上有两种常规的方案：</p>
+<p>首先，是远程开机方案，而目前市面上有两种常规的方案：</p>
 <ol>
 <li>远程电源控制+<code>BIOS</code>联动开机的方案。</li>
 <li>另一种就是第三方提供的远程开机棒。</li>
 </ol>
 <p>因为现状窘迫，我更倾向于第一种，远程电源控制+<code>BIOS</code>联动的方式来开机，我这里参考了<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1484y1Y71e/?spm_id_from=333.337.search-card.all.click&vd_source=ee3784ffe5f760cb992921cb8c5c98e5">Asus主板开启来电自启</a>。</p>
-<p>两者都要花钱，但是小米的远程控制供电还是更稳妥些，我按照流程亲测，基本上不会出什么问题。</p>
+<p>两者都要花钱，但是小米的远程控制供电还是更稳妥些，后续我按流程亲测，基本上不会出什么问题。</p>
 <p>就是偶尔上电之后会有不开机，这大概是因为电源放电没搞完，只要间隔时间久一点就不会有什么问题。</p>
 <p>不过远程控制暂时没确定，目前还是用向日葵来处理，未来我会替换成其他的工具。</p>
-<p>我个人目前更倾向于使用<code>rust-desk</code>，毕竟是开源的项目，没有会员费用啥的，用着也省心。</p>
+<h4 id="rust-desk使用"><a href="#rust-desk使用" class="headerlink" title="rust-desk使用"></a>rust-desk使用</h4><p>在比较了向日葵和rust-desk之后，我个人目前更倾向于使用<code>rust-desk</code>，和朋友互相测试讨论过后，优势如下。</p>
+<ol>
+<li>流量消耗低，按照朋友自己的测试，一周白天都开远程，也就消耗500M左右的流量，而服务器每月有20G的免费流量，完全没问题</li>
+<li>低延迟，操作延迟基本上无感，只要服务器是境内的，带宽够的话，亲测用来玩单机没有问题。</li>
+<li>安装方便，如果是传统方式安装可能很麻烦，但现在用了1panel的安装面板之后，事情就简单很多了，基本上就是傻瓜化的点点就行。</li>
+<li>能播放音频，向日葵无法做到，而rust-desk则可以做到</li>
+</ol>
+<p>需要注意的点：</p>
+<ol>
+<li>打开1panel中，rust-desk的安装路径<code>/opt/1panel/apps/rustdesk/rustdesk/data/hbbs</code>，找到id_××××.pub的文件，找到对应的key复制进客户端就行。</li>
+<li>客户端，设置-&gt;网络，只要配置ID服务器和key就可以，其他的不用配置了</li>
+<li>手机端操作可能不太好用，这点是朋友说的，不过我不在移动端操作，所以无所谓这点</li>
+</ol>
+<p>rust-desk开源的项目，没有会员费用啥的，用着也省心。</p>
 <h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><p>本来打算用win10系统的，但是系统好像会自动升级win11，考虑到自己已经掌握了美化工具star11，这里就直接用win11的系统了。</p>
 <p>激活win11系统的方式</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">irm https://massgrave.dev/get|iex</span><br></pre></td></tr></table></figure>
@@ -380,7 +392,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B9%E6%A1%88"><span class="toc-text">配置方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%82%AF%E5%BE%B7%E5%9F%BA%E5%A5%97%E9%A4%90"><span class="toc-text">肯德基套餐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E6%97%8B%E9%95%96%E7%94%B5%E8%84%91"><span class="toc-text">回旋镖电脑</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E6%96%B9%E6%A1%88"><span class="toc-text">远程方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F"><span class="toc-text">安装系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B9%E6%A1%88"><span class="toc-text">配置方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%82%AF%E5%BE%B7%E5%9F%BA%E5%A5%97%E9%A4%90"><span class="toc-text">肯德基套餐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E6%97%8B%E9%95%96%E7%94%B5%E8%84%91"><span class="toc-text">回旋镖电脑</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E6%96%B9%E6%A1%88"><span class="toc-text">远程方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#rust-desk%E4%BD%BF%E7%94%A8"><span class="toc-text">rust-desk使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F"><span class="toc-text">安装系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol>
       
     </div>
   </div>
