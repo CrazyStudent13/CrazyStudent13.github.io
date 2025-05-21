@@ -233,6 +233,30 @@
 <li>在你需要穿透的内网上，安装frpc，填写好配置，供frps使用</li>
 <li>自行检测确认，外部是否可以访问</li>
 </ol>
+<h3 id="服务器选型"><a href="#服务器选型" class="headerlink" title="服务器选型"></a>服务器选型</h3><p>这里要注意，服务器上6M并不是我们平时意义上看到的，而是6Mbps（兆比特每秒）的网速。</p>
+<h4 id="下载速度换算"><a href="#下载速度换算" class="headerlink" title="下载速度换算"></a>下载速度换算</h4><p><strong>比特（bit）与字节（Byte）的关系</strong>：1 Byte &#x3D; 8 bits。</p>
+<p>因此，需要将 Mbps（兆比特&#x2F;秒）转换为 MB&#x2F;s（兆字节&#x2F;秒）：<strong>6 Mbps ÷ 8 &#x3D; 0.75 MB&#x2F;s</strong>。</p>
+<h4 id="实际下载速度"><a href="#实际下载速度" class="headerlink" title="实际下载速度"></a>实际下载速度</h4><p>在理想情况下（无网络损耗），6Mbps的带宽下载一个文件的速度约为 <strong>0.75MB&#x2F;s</strong>，比如。</p>
+<ul>
+<li>下载100MB的文件大约需要：100MB ÷ 0.75MB&#x2F;s ≈ <strong>133秒</strong>（约2分13秒）。</li>
+<li>下载1GB（1024MB）的文件大约需要：1024 ÷ 0.75 ≈ <strong>1365秒</strong>（约23分钟）。</li>
+</ul>
+<h4 id="在线活动体验"><a href="#在线活动体验" class="headerlink" title="在线活动体验"></a><strong>在线活动体验</strong></h4><ul>
+<li><strong>视频流媒体</strong>：<ul>
+<li>720p高清视频：通常需要 <strong>2-4Mbps</strong>，6Mbps可以流畅播放。</li>
+<li>1080p全高清视频：通常需要 <strong>5-8Mbps</strong>，6Mbps可能勉强满足，但多人共享时会出现缓冲。</li>
+<li>4K视频：需要至少 <strong>25Mbps</strong>，6Mbps无法支持。</li>
+</ul>
+</li>
+<li>游戏，对延迟（ping值）敏感，6Mbps足够（除非需要大量更新下载）。</li>
+<li>网页浏览&#x2F;社交，完全无压力，但多设备同时使用时可能变慢。</li>
+</ul>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
+<li><strong>共享带宽</strong>：如果多人共用6Mbps（如家庭网络），实际速度会因设备数量和使用场景下降。</li>
+<li><strong>网络损耗</strong>：实际速度可能因信号强度、运营商限制等因素略低于理论值（约0.6-0.7MB&#x2F;s）。</li>
+</ul>
+<p>6Mbps的网速适合轻度使用（单设备浏览网页、标清视频），但对于多设备或高带宽需求（如4K流媒体、大文件下载）会显得不足。</p>
+<p>如果需要更快的体验，建议升级到更高的带宽（如50Mbps以上）。</p>
 <h3 id="服务器上的操作"><a href="#服务器上的操作" class="headerlink" title="服务器上的操作"></a>服务器上的操作</h3><p>我想大多数人应该用的都是相对便宜的Linux服务器，很多人在早期会用命令行安装。</p>
 <p>但考虑到我们大多数对于命令行使用不熟练，而且很多文档对于命令行的记录都可能有疏忽，进而影响安装。</p>
 <p>所以，我们这里可以直接安装一些面板工具来简化操作。</p>
@@ -346,7 +370,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FRP%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">FRP是什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FRP-%E7%9A%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">FRP 的核心概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FRP-%E7%9A%84%E5%85%B8%E5%9E%8B%E7%94%A8%E9%80%94"><span class="toc-text">FRP 的典型用途</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%87%86%E5%A4%87"><span class="toc-text">安装准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-text">服务器上的操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E9%9D%A2%E6%9D%BF"><span class="toc-text">安装管理面板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85FRPS"><span class="toc-text">安装FRPS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E6%94%BE%E9%98%B2%E7%81%AB%E5%A2%99%E7%AB%AF%E5%8F%A3"><span class="toc-text">开放防火墙端口</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-text">本地的操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E6%B5%8B%E8%AF%95"><span class="toc-text">访问测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FRP%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">FRP是什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FRP-%E7%9A%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">FRP 的核心概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FRP-%E7%9A%84%E5%85%B8%E5%9E%8B%E7%94%A8%E9%80%94"><span class="toc-text">FRP 的典型用途</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%87%86%E5%A4%87"><span class="toc-text">安装准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%80%89%E5%9E%8B"><span class="toc-text">服务器选型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6%E6%8D%A2%E7%AE%97"><span class="toc-text">下载速度换算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6"><span class="toc-text">实际下载速度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E7%BA%BF%E6%B4%BB%E5%8A%A8%E4%BD%93%E9%AA%8C"><span class="toc-text">在线活动体验</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">注意事项</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-text">服务器上的操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E9%9D%A2%E6%9D%BF"><span class="toc-text">安装管理面板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85FRPS"><span class="toc-text">安装FRPS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E6%94%BE%E9%98%B2%E7%81%AB%E5%A2%99%E7%AB%AF%E5%8F%A3"><span class="toc-text">开放防火墙端口</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-text">本地的操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E6%B5%8B%E8%AF%95"><span class="toc-text">访问测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
       
     </div>
   </div>
