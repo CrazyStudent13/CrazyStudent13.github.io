@@ -4,6 +4,29 @@
   
     
     <entry>
+      <title>解决Nuxt3: Hydration Mismatch</title>
+      <link href="/2025/05/25/%E8%A7%A3%E5%86%B3Nuxt3-Hydration-Mismatch/"/>
+      <url>/2025/05/25/%E8%A7%A3%E5%86%B3Nuxt3-Hydration-Mismatch/</url>
+      
+        <content type="html"><![CDATA[<p>Nuxt3水合问题，这个情况是只有服务端渲染才会出现的情况，这里稍微记录，</p><span id="more"></span><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>目前遇到了不止一次，情况也很简单，服务端和客户端数据渲染不同造成的。</p><h3 id="报错情况"><a href="#报错情况" class="headerlink" title="报错情况"></a>报错情况</h3><p>正常情况，应该是在浏览器的控制台报错，提示用户水合失败。</p><p>如果你不清楚前端中的水合概念，建议先看看这个概念，明白了水合，就能很快明白这个报错的原因。</p><p>如果你已经了解，直接跳过下边的概念介绍，大概浏览一下即可。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hydration completed but contains mismatches</span><br></pre></td></tr></table></figure><h3 id="前端水合"><a href="#前端水合" class="headerlink" title="前端水合"></a>前端水合</h3><p>在前端开发中，<strong>水合</strong>（Hydration）是指在服务端渲染（SSR, Server-Side Rendering）完成后，将静态 HTML 的内容与客户端<code>JavaScript</code>代码进行绑定，使其具备交互能力的过程。</p><p>具体来说</p><ul><li>在 SSR 阶段，服务器会生成页面的 HTML 并发送给浏览器，用户可以立即看到内容。</li><li>然而，此时的页面是“静态”的，没有事件监听、状态管理等动态行为。</li><li>水合过程就是由客户端框架（如 React、Vue 等）接管这些静态 HTML 元素，并为其绑定相应的数据和逻辑，使页面变得可交互。</li></ul><h3 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h3><ol><li><strong>目标</strong>：将服务端渲染的静态 HTML 转变为具有交互能力的动态页面。</li><li><strong>触发时机</strong>：通常在客户端脚本加载完成后自动执行。</li><li>注意事项<ul><li>客户端和服务端渲染的内容必须保持一致，否则会出现“不匹配”的警告或错误。</li><li>水合是一个性能敏感操作，应尽量减少其耗时以提升用户体验。</li></ul></li></ol><h3 id="情况分析"><a href="#情况分析" class="headerlink" title="情况分析"></a>情况分析</h3><p>综上所述，这个提示的意思是，服务器渲染（SSR）的结果与你完成加载后显示的内容不同。</p><p>多半是由于你在浏览器里加载了一些数据，比如 localStorage，或者一些全局变量，时间戳，随机数函数。</p><p>然后页面客户端会被重新渲染，就和服务端不一样。</p><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>目前这两种解决方式都不太好，</p><p>1，在onMounted中去渲染数据</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">    <span class="keyword">const</span> a = <span class="title function_">ref</span>()</span><br><span class="line">    <span class="keyword">const</span> test = <span class="title function_">ref</span>()</span><br><span class="line">    <span class="title function_">onMounted</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">        a.<span class="property">value</span> = ue</span><br><span class="line">        test.<span class="property">value</span> = <span class="title function_">getRandom</span>()</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;/script setup&gt;</span><br></pre></td></tr></table></figure><p>2，渲染的数据用ClientOnly标签包裹</p><p>这个效果很难说好不好用，我尝试用来包裹验证码，但是效果没那么好，不过也许用来处理随机数之类的效果会好一点。</p><p>后续随着项目的推进，我会尽量去验证。</p><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>这算是个比较简单的问题，如果只是渲染一些不需要操作的数据，也就是展示类的数据，就算稍微有点不对其实也无所谓。</p><p>只是浏览器有个报错很不舒服，所以这里改一下。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://juejin.cn/post/7291133720902795323">Nuxt3: Hydration Mismatch（已解决）</a></p><p><a href="https://blog.csdn.net/m0_67755668/article/details/141193362">Nuxt3 提示Hydration completed but contains mismatches</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> vue3 </tag>
+            
+            <tag> 疑难杂症 </tag>
+            
+            <tag> nuxt3 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>1panel安装Frp，做群晖nas的内网穿透</title>
       <link href="/2025/05/17/1panel%E5%AE%89%E8%A3%85Frp%EF%BC%8C%E5%81%9A%E7%BE%A4%E6%99%96nas%E7%9A%84%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/"/>
       <url>/2025/05/17/1panel%E5%AE%89%E8%A3%85Frp%EF%BC%8C%E5%81%9A%E7%BE%A4%E6%99%96nas%E7%9A%84%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</url>
