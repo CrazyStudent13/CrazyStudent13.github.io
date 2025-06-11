@@ -15,7 +15,7 @@
   
   <title>
     
-      nas使用心得笔记————入门篇 
+      解决vue3项目中缺少tsconfig的问题 
       
       
       |
@@ -158,127 +158,56 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">nas使用心得笔记————入门篇</div>
+      <div class="post-title">解决vue3项目中缺少tsconfig的问题</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2025-06-11 16:02:20
+          2025-06-11 15:28:13
         </span>
         
-              <span class="post-tags">
-                <i class="iconfont icon-tags mr-10" title="Tags"></i>
-                
-                <span class="span--tag mr-8">
-                  <a href="/tags/nas/" title="nas">
-                    #nas
-                  </a>
-                </span>
-                
-                <span class="span--tag mr-8">
-                  <a href="/tags/%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/" title="智能家居">
-                    #智能家居
-                  </a>
-                </span>
-                
-              </span>
-          
       </div>
       <div class="markdown-body">
-        <p>本系列文档给还没入坑的小伙伴一个介绍引导，如有说错，还请在评论区多多指教。</p>
-<p>如果你是个整准备入坑的小白，可以试着和群里的大家交流搞机心得（哎嘿）。</p>
-<p>当然，欢迎老手指正，也欢迎新手提问。</p>
-<span id="more"></span>
+        <span id="more"></span>
 
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>本篇内容作为入门内容，只告诉大家怎么选购，选购后可能会遇到哪些坑。</p>
-<p>所以，这里并不会详细的深入探讨内网穿透，家庭音影搭建，脚本部署等问题。</p>
-<h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><p>nas 的详细定义去看<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/NAS/3465615?fr=aladdin">百度百科</a>，就我个人来看，这个东西就是私有的个人云盘。</p>
-<p>正常的电脑轻度用户，一般是不会有这种需求的。所以，我们首先分析需求，这里我列一下可能的方向。</p>
-<ol>
-<li><strong>家庭影院</strong>，有很多电影资源，不仅在局域网看，也想在公网远程观看</li>
-<li><strong>大文件备份</strong>，手里有很多照片，文档，压缩包之类的文件需要备份</li>
-<li><strong>后台下载</strong>，有很多本机存不下，又想要下载的时候，可以使用。</li>
-<li><strong>担心网盘检测</strong>，被净网行动教育过，不安心厂商网盘的检验</li>
-</ol>
-<p>如果有以上的一种或者多种需求，那么，我个人建议，可以考虑综合实力使用 nas。</p>
-<p>作为私人云盘来说，nas 的存在，确实让很多事情方便了很多。</p>
-<p>当然，如果你只是想存备份，不考虑远程备份。我推荐考虑<strong>硬盘柜</strong>，只要共振问题不大，就可入手。</p>
-<h3 id="入门条件"><a href="#入门条件" class="headerlink" title="入门条件"></a>入门条件</h3><p>在需求分析之后，我们确认如果有以下硬性条件，的就可以考虑入门了。</p>
-<ol>
-<li>时间较充裕，如果您每日加班到深夜，就略过吧，这玩意如果想折腾的合心意，较为花时间</li>
-<li>金钱较为充裕，至少保证有 4k 以上的预算，不会说因为买个机器，接下来几个月都要吃咸菜馒头算日子</li>
-<li>有一个较为稳定的住所，保证网络和供电，可长期规划，毕竟 nas 更偏向于远程访问</li>
-<li>有一定的搞机常识，对于软硬件知识有基础的了解</li>
-<li>动手能力强，善用搜索引擎，能保证在 B 站或者其他论坛解决一些问题</li>
-</ol>
-<h3 id="主机挑选"><a href="#主机挑选" class="headerlink" title="主机挑选"></a>主机挑选</h3><p>在正式罗列之前，我先列出 nas 机器的评判标准（个人主观意见）。</p>
-<p>后续如果我们选购 nas，拿不定评价方向，可以参考如下思路进行评测，权重按照自己的要求衡量。</p>
-<ol>
-<li>系统生态，这个对于比较喜欢折腾的人来说，比较重要，社区的活力一般决定厂商是否走的长远</li>
-<li>是否耗电，不要产品便宜，设备烧电，不然长久下来，电费也是一笔大开支</li>
-<li>硬件损耗，是否会对机械硬盘造成强烈损耗，不然数据损毁恢复起来，也是一笔不小的开支</li>
-<li>噪音问题，家用 nas 虽然设备垃圾，但是相对的，散热要求不高，所以噪音一般不大</li>
-<li>产品价格，性价比也是个比较重要的参考项，不过一定要在满足硬件标准的情况下考虑</li>
-</ol>
-<h4 id="群晖系列"><a href="#群晖系列" class="headerlink" title="群晖系列"></a><a target="_blank" rel="noopener" href="https://mall.jd.com/index-1000002032.html?from=pc">群晖系列</a></h4><p>不差钱的富哥首选，高薪打工人的备选，穷鬼别沾，真的太贵了！</p>
-<p>光价格，如果要是六盘位，八盘位，就足足赶得上一台高配电脑了，这还不算硬盘的裸机价格。</p>
-<p>我个人觉得这实在是高的离谱，即便我买的也是这个系列，但我依然感觉这个价格很咋舌，实在是有种智商税的感觉了。</p>
-<p>不过，我当时主要是没太多时间折腾，而且，它贵确实有贵的理由，我这里罗列一下原因</p>
-<ol>
-<li>正版系统，不担心各种软件使用不稳定的问题，不折腾</li>
-<li>功耗足够低，不会担心成为国家电网的合作伙伴</li>
-<li>噪音相对不大，卧室可以放，不至于和服务器一样，一开就是飞机起飞</li>
-<li>盗版系统社区发展好，社区足够的强大，大多数偏门的社区套件，都是从盗版社区发源来的</li>
-<li>有客服，真出了搞不定的问题，我能找客服帮忙做事</li>
-</ol>
-<p>当然，不是没有缺陷，群晖的机器用的设备较拉胯，一般来说，个人组的黑群晖能吊着打正版群晖，这个看个人取舍。</p>
-<h4 id="其他厂商"><a href="#其他厂商" class="headerlink" title="其他厂商"></a>其他厂商</h4><p>除了群晖，市面上确实之后其他厂商了，毕竟盗版系统刷群晖的居多，有什么问题都好解决。</p>
-<p>尽管市面上<a target="_blank" rel="noopener" href="https://item.jd.com/100016638665.html">威联通</a>，<a target="_blank" rel="noopener" href="https://item.jd.com/100039880211.html">绿联</a>，还有各种厂商都做了很多自家的 nas，尤其是威联通的性价比还不错。</p>
-<p>但是，如果系统出了啥问题，大多数都只能去各种社区论坛找方案，找客服进度缓慢，所以这里不是很推荐。</p>
-<h4 id="黑群晖"><a href="#黑群晖" class="headerlink" title="黑群晖"></a>黑群晖</h4><p>现在市面上是有一些自售的成品，我看了一下价格，性价比非常高。</p>
-<p>而且，烧盘问题已经解决了，早期黑群晖系统因为系统休眠问题，对硬盘损耗极大，几个月就能烧掉一个新硬盘。</p>
-<p>在解决掉烧盘问题之后，现在的黑群晖，几乎算是没有短板，我个人十分推荐组一个，推荐理由我这里也列一下。</p>
-<ol>
-<li>性能好，硬件自选，不用被官方束缚，所以很多人组的快赶上服务器了</li>
-<li>价格超低，基本上 800-1000，就能组一台暴打正版的高性能设备，盘位还多</li>
-<li>社区解决方案多，因为早期折腾的人多，所以问题也多，所以解决方案就多</li>
-<li>基本上和正版没什么差别的系统，现在基本上和官方一样了，只要刷白，问题不大</li>
-<li>噪音也不大，卧室可用</li>
-</ol>
-<p>这里，也列一下大佬给出的组合作为参考（2023）</p>
-<ol>
-<li>主板，b365</li>
-<li>cpu，g4560</li>
-<li>机箱，蜜獾超存机箱（闲鱼上找，其他平台要么没有要么很贵）</li>
-<li>内存条，威刚万紫千红 8&#x2F;16G</li>
-</ol>
-<h3 id="硬盘相关"><a href="#硬盘相关" class="headerlink" title="硬盘相关"></a>硬盘相关</h3><p>硬盘是 nas 的核心，毕竟作为特化存储的设备，必然是要用机械硬盘的，固态盘的虽然快，但因为它的结构，所以它不能作为长久存储方案。</p>
-<p>我个人推荐先看完<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1rE411Q71m/?spm_id_from=333.999.0.0&vd_source=ee3784ffe5f760cb992921cb8c5c98e5">硬件茶谈的科普</a>，这个科普详尽而且务实，弄明白了，相信你自己心中也有一套选购标准。</p>
-<p>我这里主要说一些我已经整理到的入门信息，仅供参考使用</p>
-<ol>
-<li>不选瓦楞盘(SMR)，<strong>选垂直盘（CMR）！</strong>具体参考<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1rE411Q71m/?spm_id_from=333.999.0.0&vd_source=ee3784ffe5f760cb992921cb8c5c98e5">硬件茶谈的科普</a></li>
-<li>硬盘缓存尽可能的选大的，硬盘在写入数据的时候，大缓存硬盘相对来说频率会低一些，响声不会太大，当然出问题的概率也更高</li>
-<li>机械盘如果没有特别价位参考的话，推荐按照 180&#x2F;T 的单价来算，一般来说，16-18T 左右的硬盘性价比最高</li>
-<li>具体容量大小自行决定，如果只想组家庭影院，推荐上企业盘</li>
-<li>是否组 raid，要看自己整理的数据是否重要，性价比是否值得，如果是企业数据，推荐组 Raid1</li>
-<li>不要无脑 Raid0，组 Raid0 虽然读写速度快，但是一旦出问题，所有数据会全部崩盘，所以不要乱来</li>
-<li>机械硬盘的寿命很长，据说有十年都没问题的，你也可以选择冷备份，每隔两三年拿出来读写一次就可以</li>
-</ol>
-<h3 id="使用相关"><a href="#使用相关" class="headerlink" title="使用相关"></a>使用相关</h3><ol>
-<li>尽量放在网络稳定的环境里，使用舒心，硬盘如果长期上传下载也不会出现问题</li>
-<li>使用环境避免潮湿，灰尘，保持通风，硬盘还是蛮娇贵的，机器无所谓</li>
-<li>电力尽可能的稳定，能够保证不会因硬关机导致机械硬盘损坏</li>
-<li>尽量不要放在频繁振动的地方，不然会影响硬盘的指针精度，导致硬盘损毁</li>
-</ol>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本来只是打算简单写篇入门文档，没想到一写就写了一天。</p>
-<p>信息收集不易，后续如果有机会，我会继续更新 nas 相关文档。</p>
-<p>如果有兴趣，可以加群 813222463，大家一起讨论。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>在 Vue 3 项目中，如果你没有 <code>tsconfig.json</code> 文件，但希望配置 TypeScript 支持，可以按照以下步骤操作：</p>
+<h3 id="1-安装必要的依赖"><a href="#1-安装必要的依赖" class="headerlink" title="1. 安装必要的依赖"></a>1. 安装必要的依赖</h3><p>首先确保你已经安装了 TypeScript 和 Vue 的 TypeScript 支持：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev typescript @vue/tsconfig</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-创建-tsconfig-json-文件"><a href="#2-创建-tsconfig-json-文件" class="headerlink" title="2. 创建 tsconfig.json 文件"></a>2. 创建 <code>tsconfig.json</code> 文件</h3><p>在项目的根目录下创建一个 <code>tsconfig.json</code> 文件，并添加如下基础配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="string">&quot;esnext&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;module&quot;</span><span class="punctuation">:</span> <span class="string">&quot;esnext&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;strict&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;jsx&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;moduleResolution&quot;</span><span class="punctuation">:</span> <span class="string">&quot;node&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;esModuleInterop&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;skipLibCheck&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;lib&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;esnext&quot;</span><span class="punctuation">,</span> <span class="string">&quot;dom&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;types&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;vite-plugin-vue-type-imports&quot;</span><span class="punctuation">,</span> <span class="string">&quot;vue&quot;</span><span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;include&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;src/**/*&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-配置说明"><a href="#3-配置说明" class="headerlink" title="3. 配置说明"></a>3. 配置说明</h3><ul>
+<li><code>&quot;target&quot;</code>: 指定编译后的目标 JavaScript 版本。</li>
+<li><code>&quot;module&quot;</code>: 指定模块的生成方式。</li>
+<li><code>&quot;strict&quot;</code>: 启用所有严格类型检查选项。</li>
+<li><code>&quot;jsx&quot;</code>: 如果你不使用 JSX，则设置为 <code>false</code>。</li>
+<li><code>&quot;moduleResolution&quot;</code>: 使用 Node.js 样式的模块解析。</li>
+<li><code>&quot;esModuleInterop&quot;</code>: 允许从 ES 模块导入 CommonJS 模块。</li>
+<li><code>&quot;skipLibCheck&quot;</code>: 跳过库文件的类型检查，加快编译速度。</li>
+<li><code>&quot;lib&quot;</code>: 指定要包含的库文件。</li>
+<li><code>&quot;types&quot;</code>: 指定额外的类型定义文件。</li>
+<li><code>&quot;include&quot;</code>: 指定需要编译的文件路径。</li>
+</ul>
+<h3 id="4-使用-Vite-配置（如果适用）"><a href="#4-使用-Vite-配置（如果适用）" class="headerlink" title="4. 使用 Vite 配置（如果适用）"></a>4. 使用 Vite 配置（如果适用）</h3><p>如果你使用的是 Vite 构建工具，确保你的 <code>vite.config.js</code> 或 <code>vite.config.ts</code> 中包含了对 TypeScript 的支持。通常情况下，Vite 会自动处理 TypeScript 文件，但你可以显式地添加插件来增强支持：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">&quot;vite&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> vue <span class="keyword">from</span> <span class="string">&quot;@vitejs/plugin-vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> tsconfigPaths <span class="keyword">from</span> <span class="string">&quot;vite-tsconfig-paths&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="title function_">vue</span>(),</span><br><span class="line">    <span class="title function_">tsconfigPaths</span>(), <span class="comment">// 添加此行以支持 tsconfig.json 中的路径映射</span></span><br><span class="line">  ],</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-测试配置"><a href="#5-测试配置" class="headerlink" title="5. 测试配置"></a>5. 测试配置</h3><p>最后，确保你的项目能够正确编译和运行。你可以通过运行开发服务器或构建命令来测试配置是否生效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<p>完成以上步骤后，你的 Vue 3 项目应该已经成功配置了 TypeScript 支持。如果有任何问题，请查看控制台输出的日志信息，或者提供具体的错误信息以便进一步排查。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>最近在使用ruoyi-vue3的前端框架的时候，才发现到现在为止都没有使用tsconfig的配置，所以自己这里按照自己的想法开始重构。</p>
+<p>最基础的，要引入ts来书写项目，TS在hooks中还是很好用的。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.tongyi.com/">通义千问</a></p>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2023/03/09/2023%E5%B9%B4%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%89%8B%E6%9C%AF%EF%BC%88%E5%89%8D%EF%BC%89/" target="_self">
+              <a href="/2025/06/02/%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%EF%BC%8C%E5%BD%B1%E9%9F%B3%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>Prev</span>
               </a>
@@ -287,33 +216,11 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2025-06-11 16:02:20
+              2025-06-11 15:28:13
             </span>
             
-                  <span class="post-tags">
-                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
-                    
-                    <span class="span--tag mr-8">
-                      <a href="/tags/nas/" title="nas">
-                        #nas
-                      </a>
-                    </span>
-                    
-                    <span class="span--tag mr-8">
-                      <a href="/tags/%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/" title="智能家居">
-                        #智能家居
-                      </a>
-                    </span>
-                    
-                  </span>
-              
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/2023/03/31/2023%E5%B9%B4%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%89%8B%E6%9C%AF%EF%BC%88%E5%90%8E%EF%BC%89/" target="_self">
-                <span>Next</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
@@ -327,7 +234,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A5%E9%97%A8%E6%9D%A1%E4%BB%B6"><span class="toc-text">入门条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E6%9C%BA%E6%8C%91%E9%80%89"><span class="toc-text">主机挑选</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BE%A4%E6%99%96%E7%B3%BB%E5%88%97"><span class="toc-text">群晖系列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%8E%82%E5%95%86"><span class="toc-text">其他厂商</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%BB%91%E7%BE%A4%E6%99%96"><span class="toc-text">黑群晖</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E7%9B%98%E7%9B%B8%E5%85%B3"><span class="toc-text">硬盘相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%85%B3"><span class="toc-text">使用相关</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85%E5%BF%85%E8%A6%81%E7%9A%84%E4%BE%9D%E8%B5%96"><span class="toc-text">1. 安装必要的依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA-tsconfig-json-%E6%96%87%E4%BB%B6"><span class="toc-text">2. 创建 tsconfig.json 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E"><span class="toc-text">3. 配置说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8-Vite-%E9%85%8D%E7%BD%AE%EF%BC%88%E5%A6%82%E6%9E%9C%E9%80%82%E7%94%A8%EF%BC%89"><span class="toc-text">4. 使用 Vite 配置（如果适用）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%B5%8B%E8%AF%95%E9%85%8D%E7%BD%AE"><span class="toc-text">5. 测试配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
       
     </div>
   </div>
@@ -661,12 +568,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + nas%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8%E7%AF%87 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2023%2F03%2F11%2F%25E6%2599%25BA%25E8%2583%25BD%25E5%25AE%25B6%25E5%25B1%2585%25EF%25BC%258Cnas%25E5%2585%25A5%25E9%2597%25A8%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E8%A7%A3%E5%86%B3vue3%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%BC%BA%E5%B0%91tsconfig%E7%9A%84%E9%97%AE%E9%A2%98 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2025%2F06%2F11%2F%25E8%25A7%25A3%25E5%2586%25B3vue3%25E9%25A1%25B9%25E7%259B%25AE%25E4%25B8%25AD%25E7%25BC%25BA%25E5%25B0%2591tsconfig%25E7%259A%2584%25E9%2597%25AE%25E9%25A2%2598%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2023/03/11/%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%EF%BC%8Cnas%E5%85%A5%E9%97%A8/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2025/06/11/%E8%A7%A3%E5%86%B3vue3%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%BC%BA%E5%B0%91tsconfig%E7%9A%84%E9%97%AE%E9%A2%98/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         
