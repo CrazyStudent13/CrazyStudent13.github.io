@@ -15,8 +15,8 @@
   
   <title>
     
-      解决el-tag等代码自动转成了图标的问题 
-      
+      Tag 
+       : 工程提速
       
       |
     
@@ -113,187 +113,30 @@
 
 
       <div class="flex-container">
-        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
-<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+        <!-- 标签详情页，展示某个标签下的文章列表，url形式：https://yoursite/tags/某个标签/ -->
 
-
-  <!-- LaTex Display -->
-
+<div class="container tag-details">
+  <div class="content-title">
+    <h2>
+      <span>工程提速</span>
+    </h2>
+  </div>
   
-    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
-  
-  <script>
-    MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']]
-      }
-    }
-  </script>
-
-
-
-
-
-  <!-- clipboard -->
-
-  
-    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
-  
-  
-<script src="/js/codeCopy.js"></script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
-  <div class="container post-details" id="post-details">
-    <div class="post-content">
-      <div class="post-title">解决el-tag等代码自动转成了图标的问题</div>
-      <div class="post-attach">
-        <span class="post-pubtime">
-          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2025-06-11 16:07:42
-        </span>
-        
-              <span class="post-tags">
-                <i class="iconfont icon-tags mr-10" title="Tags"></i>
-                
-                <span class="span--tag mr-8">
-                  <a href="/tags/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" title="疑难杂症">
-                    #疑难杂症
-                  </a>
-                </span>
-                
-              </span>
-          
+    <div class="post-list">
+      <div class="post-item" title="解决vue3项目中缺少tsconfig的问题">
+        <span class="time-m-d">2025-06-11</span>
+        <a href="/2025/06/11/%E8%A7%A3%E5%86%B3vue3%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%BC%BA%E5%B0%91tsconfig%E7%9A%84%E9%97%AE%E9%A2%98/">
+          <span>解决vue3项目中缺少tsconfig的问题</span>
+        </a>
       </div>
-      <div class="markdown-body">
-        <p>某天打开新项目，意外的发现不对，<code>&lt;el-tag&gt;</code>这类标签居然变成图标了。</p>
-<p>而且一开始还稍微费了些时间才搜到结果，这种配置问题我以为会很常见，但结果看来并不常见。</p>
-<p>考虑到这是一个比较偏门的问题，所以特地转载记录一下。</p>
-<span id="more"></span>
-
-
-
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>本次情况是vscode中开发前端项目中发现的。</p>
-<h3 id="问题情况"><a href="#问题情况" class="headerlink" title="问题情况"></a>问题情况</h3><p>使用element框架，<code>&lt;el-tag&gt;</code>这类标签居然变成图标，我记得还有其他标签变成了图标。</p>
-<p>具体情况如下图所示。</p>
-<p><img src="https://img-blog.csdnimg.cn/img_convert/a218e487bfad169059d5e523aac66352.png"></p>
-<h3 id="配置方式"><a href="#配置方式" class="headerlink" title="配置方式"></a>配置方式</h3><p>打开vscode，首选项 -&gt; 设置 -&gt; 搜索iconify，然后把下面这个√去掉就OK了。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enabled lconify inline annotations</span><br></pre></td></tr></table></figure>
-
-<p>这不是插件的问题，是个配置的问题，这里稍微改一下。</p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本来不太想记录这个问题的，但是当时搜的时候稍微费了一会儿功夫才查到，感觉还是记一下，稍微强化一下印象比较好。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/this_zq/article/details/139961066">vscode代码片段自动转图标禁用（el-tag代码自动转成了图标问题排查）_el-tag 变成图标了-CSDN博客</a></p>
-
-      </div>
-      
-        <div class="prev-or-next">
-          <div class="post-foot-next">
-            
-              <a href="/2024/08/22/%E8%A7%A3%E5%86%B3%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E4%B8%ADnpm%E5%8C%85%E7%AE%A1%E7%90%86%E7%9A%84%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" target="_self">
-                <i class="iconfont icon-chevronleft"></i>
-                <span>Prev</span>
-              </a>
-            
-          </div>
-          <div class="post-attach">
-            <span class="post-pubtime">
-              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2025-06-11 16:07:42
-            </span>
-            
-                  <span class="post-tags">
-                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
-                    
-                    <span class="span--tag mr-8">
-                      <a href="/tags/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" title="疑难杂症">
-                        #疑难杂症
-                      </a>
-                    </span>
-                    
-                  </span>
-              
-          </div>
-          <div class="post-foot-prev">
-            
-              <a href="/2024/09/06/%E3%80%90%E8%BD%AC%E3%80%91linux%E5%AE%89%E8%A3%85docker/" target="_self">
-                <span>Next</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
-            
-          </div>
-        </div>
-      
     </div>
-    
-  <div id="btn-catalog" class="btn-catalog">
-    <i class="iconfont icon-catalog"></i>
-  </div>
-  <div class="post-catalog hidden" id="catalog">
-    <div class="title">Contents</div>
-    <div class="catalog-content">
-      
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%83%85%E5%86%B5"><span class="toc-text">问题情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F"><span class="toc-text">配置方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
-      
-    </div>
-  </div>
-
   
-<script src="/js/catalog.js"></script>
-
-
-
-
+  <nav class="post-navigation">
     
-      <div class="comments-container">
-        
-
-
-
-
-  
-    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
-  
-
-  <div id="vcomments"></div>
-
-  <script>
-    function loadValineSuc() {
-      new Valine({
-        el: '#vcomments',
-        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
-        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
-        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
-        avatar: 'retro',
-        lang: 'zh-cn'
-      })
-    }
-  </script>
-
-    <style>
-      .comments-container .v .vempty {
-        display: none!important;
-      }
-    </style>
-
-
-
-
-      </div>
+    <span class="page-num">1 / 1</span>
     
-  </div>
-
+  </nav>
+</div>
 
         
 <div class="footer">
@@ -571,24 +414,6 @@
 
 
         
-  
-    <div class="share-icon tools-bar-item">
-      <a href="javascript: void(0)" id="share-icon">
-        <i class="iconfont iconshare"></i>
-      </a>
-      <div class="share-content hidden">
-        
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E8%A7%A3%E5%86%B3el-tag%E7%AD%89%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90%E4%BA%86%E5%9B%BE%E6%A0%87%E7%9A%84%E9%97%AE%E9%A2%98 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2024%2F08%2F24%2F%25E8%25A7%25A3%25E5%2586%25B3el-tag%25E7%25AD%2589%25E4%25BB%25A3%25E7%25A0%2581%25E8%2587%25AA%25E5%258A%25A8%25E8%25BD%25AC%25E6%2588%2590%25E4%25BA%2586%25E5%259B%25BE%25E6%25A0%2587%25E7%259A%2584%25E9%2597%25AE%25E9%25A2%2598%2F + '" target="_blank" title="Twitter">
-            <i class="iconfont icon-twitter"></i>
-          </a>
-        
-        
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2024/08/24/%E8%A7%A3%E5%86%B3el-tag%E7%AD%89%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90%E4%BA%86%E5%9B%BE%E6%A0%87%E7%9A%84%E9%97%AE%E9%A2%98/" target="_blank" title="Facebook">
-            <i class="iconfont icon-facebooksquare"></i>
-          </a>
-        
-      </div>
-    </div>
   
   
 <script src="/js/shares.js"></script>
