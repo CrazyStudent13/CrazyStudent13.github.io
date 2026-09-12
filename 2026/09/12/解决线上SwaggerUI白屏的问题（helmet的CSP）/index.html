@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      解决线上SwaggerUI白屏的问题（helmet的CSP） 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">解决线上SwaggerUI白屏的问题（helmet的CSP）</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2026-09-12 10:11:40
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F/" title="工程提速">
+                    #工程提速
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E6%8E%92%E9%94%99/" title="排错">
+                    #排错
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/CSP/" title="CSP">
+                    #CSP
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/NestJS/" title="NestJS">
+                    #NestJS
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>服务端返回 200、静态资源也都 200，但浏览器打开就是一片空白。</p>
+<p>记录一次<strong>只在真实 IP 上复现、本地怎么试都正常</strong>的排查过程——真正值钱的不是那条 CSP 配置，而是”为什么我用 localhost 验了三轮都没发现”。</p>
+<span id="more"></span>
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="1-现象"><a href="#1-现象" class="headerlink" title="1. 现象"></a>1. 现象</h3><p>给后端接上 Swagger 之后，本地一切正常，部署到服务器上访问：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://&lt;服务器IP&gt;:5173/api/docs</span><br></pre></td></tr></table></figure>
+
+<p>页面<strong>空白</strong>，<code>&lt;body&gt;</code> 里什么都没有。</p>
+<p>但奇怪的是，在服务器上和本机 <code>curl</code> 它，返回的都是 <strong>200</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ curl -I http://&lt;服务器IP&gt;:5173/api/docs</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: text/html; charset=utf-8</span><br></pre></td></tr></table></figure>
+
+<p>Swagger UI 依赖的三个 JS 和 CSS 也都能拿到：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ curl -I http://&lt;服务器IP&gt;:5173/api/docs/swagger-ui-bundle.js</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: text/javascript; charset=utf-8</span><br></pre></td></tr></table></figure>
+
+<p><strong>服务端一切正常，但浏览器用不了。</strong> 这个组合基本可以锁定：问题在浏览器这一侧，而不是在”接口有没有返回”。</p>
+<h3 id="2-排查：先看浏览器实际发出去什么"><a href="#2-排查：先看浏览器实际发出去什么" class="headerlink" title="2. 排查：先看浏览器实际发出去什么"></a>2. 排查：先看浏览器实际发出去什么</h3><p>打开 DevTools 的 Network 面板刷新，一眼就看到了不对的东西——请求的 URL 全都变成了 <code>https://</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">swagger-ui.css                  net::ERR_SSL_PROTOCOL_ERROR   https://&lt;服务器IP&gt;:5173/...</span><br><span class="line">swagger-ui-bundle.js            net::ERR_SSL_PROTOCOL_ERROR   https://&lt;服务器IP&gt;:5173/...</span><br><span class="line">swagger-ui-standalone-preset.js net::ERR_SSL_PROTOCOL_ERROR   https://&lt;服务器IP&gt;:5173/...</span><br><span class="line">swagger-ui-init.js              net::ERR_SSL_PROTOCOL_ERROR   https://&lt;服务器IP&gt;:5173/...</span><br></pre></td></tr></table></figure>
+
+<p>我明明访问的是 <code>http://</code>，HTML 里的资源也是相对路径，为什么浏览器会去请求 <code>https://</code>？</p>
+<p>而且注意：<strong>HTML 本身是成功加载的</strong>（否则就是”打不开”而不是”白屏”）。所以是”页面拿到了，但页面里的资源全挂了”。</p>
+<h3 id="3-根因：helmet-默认带了-upgrade-insecure-requests"><a href="#3-根因：helmet-默认带了-upgrade-insecure-requests" class="headerlink" title="3. 根因：helmet 默认带了 upgrade-insecure-requests"></a>3. 根因：helmet 默认带了 upgrade-insecure-requests</h3><p>回头去看那个 HTML 的响应头：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">content-security-policy: default-src &#x27;self&#x27;;base-uri &#x27;self&#x27;;font-src &#x27;self&#x27; https: data:;</span><br><span class="line">  form-action &#x27;self&#x27;;frame-ancestors &#x27;self&#x27;;img-src &#x27;self&#x27; data:;object-src &#x27;none&#x27;;</span><br><span class="line">  script-src &#x27;self&#x27;;script-src-attr &#x27;none&#x27;;style-src &#x27;self&#x27; https: &#x27;unsafe-inline&#x27;;</span><br><span class="line">  upgrade-insecure-requests</span><br></pre></td></tr></table></figure>
+
+<p>最后那个 <strong><code>upgrade-insecure-requests</code></strong> 就是罪魁祸首。它的语义是：</p>
+<blockquote>
+<p>页面里所有”不安全”（http）的子资源请求，浏览器自动帮你升级成 https 再发。</p>
+</blockquote>
+<p>后端用的是 <code>helmet()</code>，<strong>这是它默认 CSP 里自带的指令</strong>，一行配置都没写也会有。于是链路变成：</p>
+<ol>
+<li>部署是纯 HTTP（<code>http://&lt;ip&gt;:5173</code>，服务器上根本没有 TLS）；</li>
+<li>浏览器拿到带 <code>upgrade-insecure-requests</code> 的 CSP，把 6 个子资源全部改写成 <code>https://&lt;ip&gt;:5173/...</code>；</li>
+<li>5173 端口上没有 https 服务 → TLS 握手直接失败 → <code>ERR_SSL_PROTOCOL_ERROR</code>；</li>
+<li>JS&#x2F;CSS 全没加载 → React 应用起不来 → 白屏。</li>
+</ol>
+<h3 id="4-为什么本地怎么试都复现不出来（本次最大的坑）"><a href="#4-为什么本地怎么试都复现不出来（本次最大的坑）" class="headerlink" title="4. 为什么本地怎么试都复现不出来（本次最大的坑）"></a>4. 为什么本地怎么试都复现不出来（本次最大的坑）</h3><p>这是整件事里最值得记住的一点：</p>
+<blockquote>
+<p><strong><code>upgrade-insecure-requests</code> 只对”非可信来源”生效。</strong></p>
+</blockquote>
+<p>在浏览器的安全模型里，<code>localhost</code>、<code>127.0.0.1</code>、<code>[::1]</code> 属于 <strong>potentially trustworthy origin（潜在可信来源）</strong>——即使走的是 http，也享受和 https 差不多的待遇，这条指令会被<strong>直接忽略</strong>。</p>
+<p>而线上用的是<strong>裸 IP</strong>（<code>http://&lt;服务器IP&gt;</code>），不在可信列表里 → 指令生效 → 炸。</p>
+<p>回头看我的验证过程，堪称教科书级的”每次都精准绕开”：</p>
+<table>
+<thead>
+<tr>
+<th>验证方式</th>
+<th>结果</th>
+<th>为什么没抓到</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>本机后端 <code>http://localhost:3001/api/docs</code></td>
+<td>通过</td>
+<td>localhost 是可信来源</td>
+</tr>
+<tr>
+<td>前端代理 <code>http://localhost:5174/api/docs</code></td>
+<td>通过</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>Docker 起的真 nginx，<code>http://localhost:5183/api/docs</code></td>
+<td>通过</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>复刻 nginx 规则的替身代理</td>
+<td>通过</td>
+<td>同上</td>
+</tr>
+<tr>
+<td><strong>线上 <code>http://&lt;服务器IP&gt;:5173/api/docs</code></strong></td>
+<td><strong>白屏</strong></td>
+<td>裸 IP，非可信来源</td>
+</tr>
+</tbody></table>
+<p>四轮验证全绿，问题却一直在。<strong>不是验得不够多，是验的环境不对。</strong></p>
+<h3 id="5-修复"><a href="#5-修复" class="headerlink" title="5. 修复"></a>5. 修复</h3><p>思路很简单：既然是”HTTP 部署下这条指令有害、HTTPS 部署下它有益”，那就按部署协议决定带不带：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> isHttpsDeployment = webOrigin.<span class="title function_">startsWith</span>(<span class="string">&quot;https://&quot;</span>);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(</span><br><span class="line">  <span class="title function_">helmet</span>(&#123;</span><br><span class="line">    <span class="attr">contentSecurityPolicy</span>: &#123;</span><br><span class="line">      <span class="attr">useDefaults</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="comment">// helmet 里把某个指令设为 null 表示&quot;移除它&quot;</span></span><br><span class="line">      <span class="attr">directives</span>: isHttpsDeployment ? &#123;&#125; : &#123; <span class="attr">upgradeInsecureRequests</span>: <span class="literal">null</span> &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;),</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>几个要点：</p>
+<ul>
+<li><code>helmet</code> 的 CSP 默认 <code>useDefaults: true</code>，只写 <code>directives</code> 是<strong>增量合并</strong>，不会把其它默认指令丢掉；</li>
+<li>把指令的值设为 <strong><code>null</code></strong> 才是移除（设为 <code>false</code> 之类是不行的）；</li>
+<li>只在非 HTTPS 部署时移除，<strong>将来上了 HTTPS 会自动恢复这个保护</strong>，不用回来改代码。</li>
+</ul>
+<h3 id="6-怎么验证才算数"><a href="#6-怎么验证才算数" class="headerlink" title="6. 怎么验证才算数"></a>6. 怎么验证才算数</h3><p>修完不能再用 localhost 验了，得<strong>换一个非可信来源</strong>。最土但最有效的办法：用局域网 IP 访问同一台机器上的服务。</p>
+<p>比如本机是 <code>192.168.x.x</code>，那就访问：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.x.x:5183/api/docs</span><br></pre></td></tr></table></figure>
+
+<p>它和线上一样是”裸 IP”，浏览器对待它的方式和对待 <code>localhost</code> <strong>完全不同</strong>，这个 bug 立刻就复现出来了。</p>
+<p>为了确认因果、而不是”改了点东西碰巧好了”，我做了个 A&#x2F;B 对照：同一台机器、两个真 nginx 容器 + 两个后端，<strong>只差这一条指令</strong>，都用局域网 IP 访问：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>Swagger UI 是否渲染</th>
+<th>operation 数量</th>
+<th>失败请求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>修复后（<code>WEB_ORIGIN=http://…</code>）</td>
+<td>✅ 是</td>
+<td>17</td>
+<td>0</td>
+</tr>
+<tr>
+<td>模拟旧行为（保留该指令）</td>
+<td>❌ 否</td>
+<td>0</td>
+<td>6 条 <code>ERR_SSL_PROTOCOL_ERROR</code></td>
+</tr>
+</tbody></table>
+<p>下面那行和线上现象<strong>完全一致</strong>，上面那行才说明修复真的有效。</p>
+<blockquote>
+<p>顺带一个教训：<code>curl</code> 只能证明”服务端返回了什么”，证明不了”浏览器能不能用”。<br>这两者之间隔着一整层浏览器的安全策略，而那一层恰恰是 curl 看不见的。</p>
+</blockquote>
+<h3 id="7-可以带走的规律"><a href="#7-可以带走的规律" class="headerlink" title="7. 可以带走的规律"></a>7. 可以带走的规律</h3><p>把这次的坑抽象一下，得到一条可复用的判断规则：</p>
+<blockquote>
+<p><strong>凡是”浏览器行为随来源是否可信而变”的东西，用 <code>localhost</code> 验证都不算数。</strong></p>
+</blockquote>
+<p>属于这一类的还有不少，值得记一份清单：</p>
+<ul>
+<li>CSP 的 <code>upgrade-insecure-requests</code>（本次的坑）</li>
+<li>带 <code>Secure</code> 属性的 Cookie（localhost 下会被放行，真机上直接不种）</li>
+<li><code>navigator.clipboard</code>（剪贴板 API，非安全上下文直接不存在）</li>
+<li>Service Worker（只在安全上下文注册）</li>
+<li><code>getUserMedia</code> &#x2F; 摄像头麦克风</li>
+<li>Web Crypto API</li>
+<li>地理位置、通知等大部分权限类 API</li>
+</ul>
+<p>以后再遇到”<strong>本机好好的、线上不对</strong>“，第一反应就应该是往这个方向查：**先问一句”这个行为是不是只在可信来源下才成立”**。</p>
+<p>而对应的排查 &#x2F; 验证动作也很明确：</p>
+<ol>
+<li>用<strong>局域网 IP</strong>（或域名 + 真实协议）再验一遍，不要只信 localhost；</li>
+<li>打开 DevTools 看<strong>实际发出的请求 URL 和协议</strong>，别只看状态码；</li>
+<li>看响应头里的安全策略（CSP、COOP、Secure cookie…），那是最容易被忽略的一层。</li>
+</ol>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>这个 bug 从头到尾都不在”代码写得对不对”的层面，而在”验证环境对不对”的层面。</p>
+<p>代码一直是对的，错的是我以为”本地通过”就等价于”线上没问题”。四轮绿灯给的都是虚假的安全感——因为四轮用的是同一个”可信来源”。</p>
+<p>所以这次最大的收获不是学会了配 helmet，而是记住了一件事：<strong>验证环境和被测代码一样重要，用错环境，验得再多也只是在重复同一个盲区。</strong></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>本文的排查过程与文字由 <strong>DeepSeek</strong> 协助整理撰写：<a target="_blank" rel="noopener" href="https://www.deepseek.com/">DeepSeek 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests">MDN：Content-Security-Policy upgrade-insecure-requests</a></li>
+<li><a target="_blank" rel="noopener" href="https://w3c.github.io/webappsec-secure-contexts/">W3C：Secure Contexts（potentially trustworthy origin 的定义）</a></li>
+<li><a target="_blank" rel="noopener" href="https://helmetjs.github.io/">helmet 文档</a></li>
+</ul>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2026/08/28/2026%E5%B9%B4%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%89%8B%E6%9C%AF/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2026-09-12 10:11:40
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F/" title="工程提速">
+                        #工程提速
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E6%8E%92%E9%94%99/" title="排错">
+                        #排错
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/CSP/" title="CSP">
+                        #CSP
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/NestJS/" title="NestJS">
+                        #NestJS
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%8E%B0%E8%B1%A1"><span class="toc-text">1. 现象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%8E%92%E6%9F%A5%EF%BC%9A%E5%85%88%E7%9C%8B%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AE%9E%E9%99%85%E5%8F%91%E5%87%BA%E5%8E%BB%E4%BB%80%E4%B9%88"><span class="toc-text">2. 排查：先看浏览器实际发出去什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%A0%B9%E5%9B%A0%EF%BC%9Ahelmet-%E9%BB%98%E8%AE%A4%E5%B8%A6%E4%BA%86-upgrade-insecure-requests"><span class="toc-text">3. 根因：helmet 默认带了 upgrade-insecure-requests</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%AC%E5%9C%B0%E6%80%8E%E4%B9%88%E8%AF%95%E9%83%BD%E5%A4%8D%E7%8E%B0%E4%B8%8D%E5%87%BA%E6%9D%A5%EF%BC%88%E6%9C%AC%E6%AC%A1%E6%9C%80%E5%A4%A7%E7%9A%84%E5%9D%91%EF%BC%89"><span class="toc-text">4. 为什么本地怎么试都复现不出来（本次最大的坑）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E4%BF%AE%E5%A4%8D"><span class="toc-text">5. 修复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%80%8E%E4%B9%88%E9%AA%8C%E8%AF%81%E6%89%8D%E7%AE%97%E6%95%B0"><span class="toc-text">6. 怎么验证才算数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%8F%AF%E4%BB%A5%E5%B8%A6%E8%B5%B0%E7%9A%84%E8%A7%84%E5%BE%8B"><span class="toc-text">7. 可以带走的规律</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+        <li>
+          
+              <a title="掘金论坛" target="_blank" rel="noopener" href="https://juejin.cn/user/4371313963044301">
+                <i class="iconfont icon-envelope"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2026 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E8%A7%A3%E5%86%B3%E7%BA%BF%E4%B8%8ASwaggerUI%E7%99%BD%E5%B1%8F%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%88helmet%E7%9A%84CSP%EF%BC%89 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2026%2F09%2F12%2F%25E8%25A7%25A3%25E5%2586%25B3%25E7%25BA%25BF%25E4%25B8%258ASwaggerUI%25E7%2599%25BD%25E5%25B1%258F%25E7%259A%2584%25E9%2597%25AE%25E9%25A2%2598%25EF%25BC%2588helmet%25E7%259A%2584CSP%25EF%25BC%2589%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2026/09/12/%E8%A7%A3%E5%86%B3%E7%BA%BF%E4%B8%8ASwaggerUI%E7%99%BD%E5%B1%8F%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%88helmet%E7%9A%84CSP%EF%BC%89/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
