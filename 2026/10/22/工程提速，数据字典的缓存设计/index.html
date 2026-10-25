@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      工程提速，数据字典的缓存设计 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">工程提速，数据字典的缓存设计</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2026-10-25 12:51:15
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/vue3/" title="vue3">
+                    #vue3
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" title="工程化">
+                    #工程化
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F/" title="工程提速">
+                    #工程提速
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>最近在开源项目（<a target="_blank" rel="noopener" href="https://github.com/taozhi1010/nest-admin">nest-admin</a>）里做了一次数据字典缓存的改造，起因很简单：后台每个用到字典的页面，打开都要各自请求一次字典接口。</p>
+<p>页面越拆越多，字典请求也跟着越积越多，服务端反反复复查同一批数据，纯属浪费。</p>
+<p>借着这次改造，把整套缓存设计的思路整理下来，算是给以后接手代码的同学留个说明书，也是一次优化的经验记录。</p>
+<span id="more"></span>
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="问题总览"><a href="#问题总览" class="headerlink" title="问题总览"></a>问题总览</h3><p>改造前的主要解决的问题很简单，数据字典每次获取都要调用接口，这很消耗服务器资源。</p>
+<p>这个资源实际上可以一次性拉取缓存，以现代浏览器的性能，完全足够处理这种小规模的数据。</p>
+<p>实现思路也很简单，字典数据只在<strong>登录或刷新页面时校验一次版本号</strong>：</p>
+<ul>
+<li>版本没变 → 直接用浏览器本地缓存，页面不再请求字典接口；</li>
+<li>版本变了 → 全量拉取一次，覆盖本地缓存；</li>
+<li>少数必须实时的场景 → 调用时传 <code>fresh: true</code>，绕过所有缓存。</li>
+</ul>
+<h3 id="改造前后对比"><a href="#改造前后对比" class="headerlink" title="改造前后对比"></a>改造前后对比</h3><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>改造前</th>
+<th>改造后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>打开业务页面</td>
+<td>每个用到字典的页面各请求一次</td>
+<td>0 次字典请求，直接用缓存</td>
+</tr>
+<tr>
+<td>登录 &#x2F; 刷新页面</td>
+<td>各页面各自请求</td>
+<td>1 次版本号请求；版本变化时再加 1 次全量请求</td>
+</tr>
+<tr>
+<td>服务端压力</td>
+<td>请求分散、反复查库</td>
+<td>全量接口优先读 Redis，一次返回所有字典</td>
+</tr>
+<tr>
+<td>编辑字典后</td>
+<td>需手动刷新页面才能看到</td>
+<td>保存后自动失效并重新加载，立即生效</td>
+</tr>
+<tr>
+<td>偶发实时需求</td>
+<td>无法区分</td>
+<td>传 <code>fresh: true</code> 单独处理</td>
+</tr>
+</tbody></table>
+<h3 id="三层缓存结构"><a href="#三层缓存结构" class="headerlink" title="三层缓存结构"></a>三层缓存结构</h3><table>
+<thead>
+<tr>
+<th>层级</th>
+<th>存放位置</th>
+<th>生命周期</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>内存缓存</td>
+<td>Pinia <code>useDictStore</code></td>
+<td>当前页面会话</td>
+<td>组件之间共享，同一字典只请求一次</td>
+</tr>
+<tr>
+<td>持久缓存</td>
+<td>localStorage <code>nest-admin:dict-cache</code></td>
+<td>跨刷新、跨标签页</td>
+<td>打开后台不用等接口，首屏即可渲染</td>
+</tr>
+<tr>
+<td>服务端缓存</td>
+<td>Redis <code>sys_dict:*</code></td>
+<td>跨用户、跨设备</td>
+<td>不必每次都查 MySQL</td>
+</tr>
+</tbody></table>
+<p>读取顺序是一层层往下掉的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">组件 useDict()</span><br><span class="line">   ↓ 命中即返回</span><br><span class="line">Pinia 内存缓存</span><br><span class="line">   ↓ 启动时从 localStorage 灌入</span><br><span class="line">浏览器 localStorage</span><br><span class="line">   ↓ 缺失或版本不一致</span><br><span class="line">GET /system/dict/data/all</span><br><span class="line">   ↓</span><br><span class="line">Redis 缓存</span><br><span class="line">   ↓ 未命中</span><br><span class="line">MySQL</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>localStorage 里保存的不只是字典内容，还保存了 <code>serverVersion</code>（上次校验通过的版本号）和 <code>schema</code>（缓存结构版本）。</p>
+<p><code>schema</code> 用于以后缓存结构升级时自动丢弃旧格式，避免读到脏数据。</p>
+</blockquote>
+<h3 id="核心机制"><a href="#核心机制" class="headerlink" title="核心机制"></a>核心机制</h3><blockquote>
+<p>用版本号判断缓存是否过期</p>
+</blockquote>
+<h4 id="版本号是什么"><a href="#版本号是什么" class="headerlink" title="版本号是什么"></a>版本号是什么</h4><p>版本号 &#x3D; <strong>字典类型表、字典数据表中最后一次修改的时间</strong>，格式为 <code>YYYY-MM-DD HH:mm:ss</code>，例如 <code>2026-10-22 04:03:43</code>。</p>
+<p>后端的生成规则（<code>getDictVersion()</code>）：</p>
+<ol>
+<li>分别取 <code>sys_dict_type</code>、<code>sys_dict_data</code> 中最大的 <code>update_time</code>（为空时取 <code>create_time</code>）；</li>
+<li>两个时间再取较新的一个，格式化成可读时间；</li>
+<li>两张表都为空时返回 <code>1970-01-01 00:00:00</code>。</li>
+</ol>
+<h4 id="为什么用最后修改时间，而不是哈希或自增号"><a href="#为什么用最后修改时间，而不是哈希或自增号" class="headerlink" title="为什么用最后修改时间，而不是哈希或自增号"></a>为什么用最后修改时间，而不是哈希或自增号</h4><ul>
+<li>不需要新建表、加字段，也不用维护额外的计数器；</li>
+<li>人能直接看懂，排查问题时一眼就知道缓存是什么时候的数据；</li>
+<li>新增、修改、删除字典都会刷新 <code>update_time</code>，版本号自然跟着变，不需要额外埋点。</li>
+</ul>
+<h4 id="启动时的校验流程"><a href="#启动时的校验流程" class="headerlink" title="启动时的校验流程"></a>启动时的校验流程</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">用户登录 / 刷新页面</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">GET /system/dict/data/version        ← 只查两个 MAX()，开销很小</span><br><span class="line">        │</span><br><span class="line">        ├── 与 localStorage 中的 serverVersion 一致</span><br><span class="line">        │        └── 结束：直接使用本地缓存</span><br><span class="line">        │</span><br><span class="line">        └── 不一致（或本地无缓存）</span><br><span class="line">                 │</span><br><span class="line">                 ▼</span><br><span class="line">        GET /system/dict/data/all     ← 一次拿回所有字典</span><br><span class="line">                 │</span><br><span class="line">                 ▼</span><br><span class="line">        覆盖 Pinia + localStorage，并保存新版本号</span><br></pre></td></tr></table></figure>
+
+<p>改造后实测的请求时序：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>实际请求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>首次登录（无缓存）</td>
+<td><code>login → getInfo → /data/version → /data/all → getRouters</code></td>
+</tr>
+<tr>
+<td>普通刷新（版本未变）</td>
+<td><code>getInfo → /data/version → getRouters</code></td>
+</tr>
+<tr>
+<td>任意业务页面（如用户管理）</td>
+<td>无字典请求</td>
+</tr>
+<tr>
+<td>版本已变化后刷新</td>
+<td><code>getInfo → /data/version → /data/all → getRouters</code></td>
+</tr>
+</tbody></table>
+<h3 id="缓存什么时候失效"><a href="#缓存什么时候失效" class="headerlink" title="缓存什么时候失效"></a>缓存什么时候失效</h3><table>
+<thead>
+<tr>
+<th>触发场景</th>
+<th>后端行为</th>
+<th>前端行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增 &#x2F; 修改 &#x2F; 删除字典类型或字典数据</td>
+<td>清空 Redis 中 <code>sys_dict:*</code> 以及完整性标记，下次访问全量接口时自动重建</td>
+<td>下次登录&#x2F;刷新校验版本时发现变化，重新拉全量</td>
+</tr>
+<tr>
+<td>字典管理页编辑、删除</td>
+<td>同上</td>
+<td>页面同时调用 <code>initDict(&#123; force: true &#125;)</code>，当前页面立即生效</td>
+</tr>
+<tr>
+<td>点击”刷新缓存”按钮</td>
+<td>立即从数据库重建 Redis 缓存</td>
+<td>前端强制全量重拉，并更新本地版本号</td>
+</tr>
+<tr>
+<td>用户手动清空浏览器缓存</td>
+<td>无感知</td>
+<td>下次启动检测不到本地缓存，全量拉取一次</td>
+</tr>
+</tbody></table>
+<p>因为版本号本身就是”最后修改时间”，所以<strong>任何写操作都会让它变化</strong>，不需要额外维护失效逻辑。这一点是整个设计里最省心的地方。</p>
+<h3 id="实时获取的逃生口：fresh"><a href="#实时获取的逃生口：fresh" class="headerlink" title="实时获取的逃生口：fresh"></a>实时获取的逃生口：fresh</h3><p>绝大多数场景用缓存就够了，但个别必须读到最新值的场景（比如某些配置类字典），调用时加个参数就行：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端：跳过 Pinia 和 localStorage，直接请求</span></span><br><span class="line"><span class="keyword">const</span> &#123; sys_user_sex &#125; = <span class="title function_">useDict</span>(<span class="string">&quot;sys_user_sex&quot;</span>, &#123; <span class="attr">fresh</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者直接操作 store</span></span><br><span class="line">dictStore.<span class="title function_">loadDict</span>(<span class="string">&quot;sys_user_sex&quot;</span>, &#123; <span class="attr">fresh</span>: <span class="literal">true</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /system/dict/data/type/sys_user_sex?fresh=true   // 跳过 Redis，直接查库</span><br><span class="line">GET /system/dict/data/all?fresh=true                 // 跳过 Redis，并从数据库重建缓存</span><br></pre></td></tr></table></figure>
+
+<p>这个开关设计上有意做成<strong>前后端都绕过</strong>：</p>
+<ul>
+<li>只绕前端 → 后端 Redis 可能还是旧值；</li>
+<li>只绕后端 → 前端仍会用 localStorage 里的旧值；</li>
+<li>两端都绕，才能真正拿到数据库里的最新数据。</li>
+</ul>
+<p>注意 <code>fresh</code> 会放大数据库压力，只作为个别场景的开关，不建议在列表页、循环里频繁使用。</p>
+<h3 id="业务代码怎么用"><a href="#业务代码怎么用" class="headerlink" title="业务代码怎么用"></a>业务代码怎么用</h3><p>统一入口在 <code>src/composables/useDict.ts</code>，业务页面里长这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">import &#123; useDict &#125; from &quot;@/composables/useDict&quot;;</span><br><span class="line"></span><br><span class="line">const &#123; sys_normal_disable, getDictLabel, getDictTagType &#125; =</span><br><span class="line">  useDict(&quot;sys_normal_disable&quot;);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;el-select v-model=&quot;form.status&quot;&gt;</span><br><span class="line">    &lt;el-option</span><br><span class="line">      v-for=&quot;item in sys_normal_disable&quot;</span><br><span class="line">      :key=&quot;item.value&quot;</span><br><span class="line">      :label=&quot;item.label&quot;</span><br><span class="line">      :value=&quot;item.value&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">  &lt;/el-select&gt;</span><br><span class="line"></span><br><span class="line">  &lt;el-tag :type=&quot;getDictTagType(&#x27;sys_normal_disable&#x27;, row.status)&quot;&gt;</span><br><span class="line">    &#123;&#123; getDictLabel(&quot;sys_normal_disable&quot;, row.status) &#125;&#125;</span><br><span class="line">  &lt;/el-tag&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用要点：</p>
+<ul>
+<li>**不需要 <code>await</code>**：有缓存立即渲染，没有缓存时异步补上并自动更新视图；</li>
+<li>默认不会额外发请求（缓存未命中除外），页面可以放心多处调用；</li>
+<li>常用辅助方法：<code>getDictLabel</code>（值转标签）、<code>getDictTagType</code>（el-tag 样式）、<code>isDictLoaded</code>（是否已加载）。</li>
+</ul>
+<p>Store 的常用 API：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>getDict(type)</code></td>
+<td>读取某个字典</td>
+</tr>
+<tr>
+<td><code>setDict(type, list)</code></td>
+<td>写入某个字典</td>
+</tr>
+<tr>
+<td><code>loadDict(type, &#123; fresh &#125;)</code></td>
+<td>加载单个字典（带并发去重）</td>
+</tr>
+<tr>
+<td><code>initDict(&#123; force, fresh &#125;)</code></td>
+<td>初始化 &#x2F; 强制全量刷新</td>
+</tr>
+<tr>
+<td><code>removeDict(type)</code> &#x2F; <code>cleanDict()</code></td>
+<td>删除单个 &#x2F; 清空全部缓存</td>
+</tr>
+</tbody></table>
+<h3 id="异常与边界处理"><a href="#异常与边界处理" class="headerlink" title="异常与边界处理"></a>异常与边界处理</h3><table>
+<thead>
+<tr>
+<th>情况</th>
+<th>处理方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>localStorage 内容损坏或结构版本不匹配</td>
+<td>自动丢弃并重建，不影响使用</td>
+</tr>
+<tr>
+<td>版本号接口失败</td>
+<td>已有本地缓存就继续用，不阻塞登录；无缓存才走全量拉取</td>
+</tr>
+<tr>
+<td>全量接口失败</td>
+<td>回退方案：先取字典类型列表，再逐个类型加载</td>
+</tr>
+<tr>
+<td>多个组件同时请求同一字典</td>
+<td><code>pendingTypeLoads</code> 复用同一个 Promise，避免重复请求</td>
+</tr>
+<tr>
+<td>并发多次调用 <code>initDict</code></td>
+<td><code>initPromise</code> 复用同一次初始化</td>
+</tr>
+<tr>
+<td>Redis 只写入了一部分数据</td>
+<td>用完整性标记 <code>sys_dict_meta:complete</code> 判断，不完整时重建</td>
+</tr>
+<tr>
+<td>本地缓存中没有某个新字典类型</td>
+<td><code>useDict</code> 发现缺失后单独拉取该类型</td>
+</tr>
+</tbody></table>
+<h3 id="已知的取舍"><a href="#已知的取舍" class="headerlink" title="已知的取舍"></a>已知的取舍</h3><p>有几个点是有意为之的，写下来免得以后自己都要怀疑人生。</p>
+<ol>
+<li><strong>不做跨标签页实时推送</strong>。另一个管理员改了字典，已经打开的页面不会主动变化，需刷新后生效。用”窗口聚焦 + 节流校验版本”可以补，但项目使用人数少、改动收益低，暂不实现。</li>
+<li><strong>版本号精度到秒</strong>。同一秒内连续两次修改，理论上版本号可能不变。实际概率极低，且下一次修改会纠正，不影响最终一致性。</li>
+<li><strong>全量一次加载</strong>。适合中小型系统。如果字典项达到数万条，应改回按类型加载，避免单次响应过大。</li>
+<li><strong>localStorage 可被用户清空</strong>。清空后只是下次启动多一次全量请求，不影响正确性。</li>
+</ol>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>验证这套设计是否生效很简单：</p>
+<ol>
+<li>登录后打开 Network 过滤 <code>dict</code>，应该只看到一次 <code>data/version</code>；</li>
+<li>刷新页面依然只有 <code>data/version</code>；打开任意业务页面，不应出现字典请求；</li>
+<li>去字典管理页改一条数据并保存，才会出现 <code>data/all</code> 和 <code>data/version</code>。</li>
+</ol>
+<p>缓存设计这东西，最难的不是加一层缓存，而是想清楚什么时候该失效。这次用”最后修改时间”当版本号，把失效判断省成了零成本，算是整场改造里最满意的一笔。</p>
+<p>如果后面项目规模上去了，字典条目改成按类型懒加载，应该会是下一个要还的债。</p>
+<p>另外，感谢qoder的免费提供的deepseek-flash4.1（1017），这个原本我上半年预计要改半个月的内容，基本上一天就改完了，效果真是出乎意料的好。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>本篇正文由 Qoder 的 AI 助手协助整理编辑（记录与技术方案源于本人的实际项目改造经验，AI 负责结构梳理与文稿润色）。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://qoder.com/">Qoder</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.deepseek.com/">DeepSeek</a></li>
+</ul>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2026/09/12/%E8%A7%A3%E5%86%B3%E7%BA%BF%E4%B8%8ASwaggerUI%E7%99%BD%E5%B1%8F%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%88helmet%E7%9A%84CSP%EF%BC%89/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2026-10-25 12:51:15
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/vue3/" title="vue3">
+                        #vue3
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" title="工程化">
+                        #工程化
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F/" title="工程提速">
+                        #工程提速
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%80%BB%E8%A7%88"><span class="toc-text">问题总览</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9%E9%80%A0%E5%89%8D%E5%90%8E%E5%AF%B9%E6%AF%94"><span class="toc-text">改造前后对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E5%B1%82%E7%BC%93%E5%AD%98%E7%BB%93%E6%9E%84"><span class="toc-text">三层缓存结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6"><span class="toc-text">核心机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E5%8F%B7%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">版本号是什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8%E6%9C%80%E5%90%8E%E4%BF%AE%E6%94%B9%E6%97%B6%E9%97%B4%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AF%E5%93%88%E5%B8%8C%E6%88%96%E8%87%AA%E5%A2%9E%E5%8F%B7"><span class="toc-text">为什么用最后修改时间，而不是哈希或自增号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%97%B6%E7%9A%84%E6%A0%A1%E9%AA%8C%E6%B5%81%E7%A8%8B"><span class="toc-text">启动时的校验流程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%A4%B1%E6%95%88"><span class="toc-text">缓存什么时候失效</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%97%B6%E8%8E%B7%E5%8F%96%E7%9A%84%E9%80%83%E7%94%9F%E5%8F%A3%EF%BC%9Afresh"><span class="toc-text">实时获取的逃生口：fresh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E4%BB%A3%E7%A0%81%E6%80%8E%E4%B9%88%E7%94%A8"><span class="toc-text">业务代码怎么用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E4%B8%8E%E8%BE%B9%E7%95%8C%E5%A4%84%E7%90%86"><span class="toc-text">异常与边界处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%B2%E7%9F%A5%E7%9A%84%E5%8F%96%E8%88%8D"><span class="toc-text">已知的取舍</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+        <li>
+          
+              <a title="掘金论坛" target="_blank" rel="noopener" href="https://juejin.cn/user/4371313963044301">
+                <i class="iconfont icon-envelope"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2026 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8%E7%9A%84%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2026%2F10%2F22%2F%25E5%25B7%25A5%25E7%25A8%258B%25E6%258F%2590%25E9%2580%259F%25EF%25BC%258C%25E6%2595%25B0%25E6%258D%25AE%25E5%25AD%2597%25E5%2585%25B8%25E7%259A%2584%25E7%25BC%2593%25E5%25AD%2598%25E8%25AE%25BE%25E8%25AE%25A1%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2026/10/22/%E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8%E7%9A%84%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

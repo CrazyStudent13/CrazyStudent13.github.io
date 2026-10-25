@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      10分钟了解开源协议 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">10分钟了解开源协议</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2026-03-31 12:54:45
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E5%BC%80%E5%8F%91%E5%B8%B8%E8%AF%86/" title="开发常识">
+                    #开发常识
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>开源项目我参与并且写了一些，但是要说开源协议这块，我真的不太了解。</p>
+<p>之前我还记得minio协议修改事件，当时闹的挺大，但是具体到平日的事情里，我还是一头雾水。</p>
+<p>现在特地了解一下相关协议。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>本文不涉及面试题，只是随性而来的一个疑问，本文转自大佬<a target="_blank" rel="noopener" href="https://juejin.cn/user/2524134427600535/posts">CodeDevMaster</a>的文章。</p>
+<p>在原有基础上稍微整理了一下格式，便于收藏，感兴趣的可以查看<a target="_blank" rel="noopener" href="https://juejin.cn/post/7491493216510328869?searchId=2026033120530645F9ECD7FAC7A912BC6C">源链接</a>。</p>
+<h3 id="开源协议选择指南"><a href="#开源协议选择指南" class="headerlink" title="开源协议选择指南"></a>开源协议选择指南</h3><blockquote>
+<p>选择合适的开源协议对于开源项目的成功至关重要。</p>
+<p>它不仅决定了其他人如何使用、修改和分发你的代码，也关系到项目的法律风险和社区生态。</p>
+<p>本文旨在提供一个清晰易懂的常见开源协议对比和选择指南，帮助开发者为自己的项目做出明智的决策。</p>
+</blockquote>
+<h3 id="常见开源协议概览"><a href="#常见开源协议概览" class="headerlink" title="常见开源协议概览"></a>常见开源协议概览</h3><p>以下表格对比了几种常见的开源协议，帮助你快速了解它们的关键特性：</p>
+<table>
+<thead>
+<tr>
+<th>协议名称</th>
+<th>是否允许商用</th>
+<th>是否要求署名</th>
+<th>是否允许修改</th>
+<th>是否允许闭源</th>
+<th>是否要求相同协议（Copyleft）</th>
+<th>专利条款</th>
+<th>其他重要说明</th>
+<th>适用场景举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://opensource.org/licenses/MIT">MIT</a></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>无</td>
+<td>最宽松的协议，几乎无限制，只需保留版权和许可声明。</td>
+<td>简单库、工具，希望被广泛使用且限制最少的项目。例如：jQuery, React (部分)</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>允许专利使用，贡献者授予专利许可，需保留版权、许可和免责声明。</td>
+<td>大型项目、需要明确专利保护的项目。例如：Apache HTTP Server, Android, TensorFlow</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.gnu.org/licenses/gpl-3.0.html">GPL v3</a></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅ (强 Copyleft)</td>
+<td>无</td>
+<td>修改后的代码和衍生作品必须以相同或兼容的协议开源。</td>
+<td>希望代码及其所有修改版本都保持开源的项目。例如：GNU Linux, GCC</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.gnu.org/licenses/lgpl-3.0.html">LGPL v3</a></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>部分</td>
+<td>✅ (弱 Copyleft)</td>
+<td>无</td>
+<td>适用于库，允许闭源软件链接该库，但对库本身的修改必须开源。</td>
+<td>希望被闭源软件广泛使用的库或组件。例如：GNU Lesser General Public License 下的库</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://opensource.org/licenses/BSD-3-Clause">BSD 3-Clause</a></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>无</td>
+<td>类似 MIT，但禁止使用作者名字进行商业推广。</td>
+<td>类似 MIT，但对商业推广有额外限制的项目。例如：FreeBSD, NetBSD, OpenBSD</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL v3</a></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅ (网络 Copyleft)</td>
+<td>无</td>
+<td>GPL v3 的变体，通过网络提供服务也需要开源其代码。</td>
+<td>基于网络的开源服务和应用。例如：Mastodon, PeerTube</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.mozilla.org/en-US/MPL/2.0/">MPL 2.0</a></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>部分</td>
+<td>✅ (文件级 Copyleft)</td>
+<td>✅ (可选)</td>
+<td>文件级别的 Copyleft，修改后的 MPL 许可文件必须开源，但其他文件可以闭源。</td>
+<td>适用于希望部分代码保持开源，同时允许其他部分闭源的项目。例如：Mozilla Firefox, LibreOffice</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://unlicense.org/">Unlicense</a></td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>无</td>
+<td>将代码置于公有领域，放弃版权。</td>
+<td>非常小的、希望完全放弃控制权的项目。</td>
+</tr>
+</tbody></table>
+<p><strong>说明：</strong></p>
+<ul>
+<li><strong>是否允许商用：</strong> 是否允许将代码用于商业用途。</li>
+<li><strong>是否要求署名：</strong> 是否要求在分发或使用时保留原作者署名。</li>
+<li><strong>是否允许修改：</strong> 是否允许修改代码。</li>
+<li><strong>是否允许闭源：</strong> 是否允许将修改后的代码闭源。</li>
+<li><strong>是否要求相同协议（Copyleft）：</strong> 修改后的代码是否必须以相同或兼容的协议开源。<ul>
+<li><strong>强 Copyleft：</strong> 任何基于该代码的衍生作品都必须开源。</li>
+<li><strong>弱 Copyleft：</strong> 只有修改了受许可保护的部分才需要开源。</li>
+<li><strong>网络 Copyleft：</strong> 通过网络提供服务也需要开源代码。</li>
+<li><strong>文件级 Copyleft：</strong> 只有修改了特定许可文件才需要开源。</li>
+</ul>
+</li>
+<li><strong>专利条款：</strong> 协议是否包含明确的专利授权。</li>
+<li><strong>✅：</strong> 支持或允许</li>
+<li><strong>❌：</strong> 不支持或不允许</li>
+<li><strong>部分：</strong> 部分支持或有限制</li>
+</ul>
+<h3 id="详细描述"><a href="#详细描述" class="headerlink" title="详细描述"></a>详细描述</h3><h4 id="MIT"><a href="#MIT" class="headerlink" title="MIT"></a>MIT</h4><ul>
+<li><strong>特点：</strong> 最宽松的开源协议之一，赋予使用者几乎无限的自由，包括使用、复制、修改、合并、发布、分发、再许可和销售软件的副本。</li>
+<li><strong>适用场景：</strong> 适合任何类型的项目，尤其是那些希望代码能够被广泛使用，并且不希望对使用方式有过多限制的开发者和组织。</li>
+<li><strong>注意事项：</strong> 使用者必须保留原始的版权声明和许可协议文本。</li>
+<li><strong>实际案例：</strong> Node.js、Ruby on Rails 等许多流行的库和框架都采用了 MIT 协议。</li>
+</ul>
+<h4 id="Apache-2-0"><a href="#Apache-2-0" class="headerlink" title="Apache 2.0"></a>Apache 2.0</h4><ul>
+<li><strong>特点：</strong> 商业友好的开源协议，明确授予用户使用、复制和分发软件的权利，并且包含了专利授权条款，保护了贡献者的专利权。</li>
+<li><strong>适用场景：</strong> 适合需要明确专利保护的项目，以及希望吸引大型企业和商业用户采用的开源项目。</li>
+<li><strong>注意事项：</strong> 需要保留版权声明、许可协议和免责声明。任何重要的修改都需要进行标注。</li>
+<li><strong>实际案例：</strong> 许多大型的开源项目都采用了 Apache 2.0 协议，例如 Kubernetes、Kafka 和 Hadoop。</li>
+</ul>
+<h4 id="GPL-v3"><a href="#GPL-v3" class="headerlink" title="GPL v3"></a>GPL v3</h4><ul>
+<li><strong>特点：</strong> 强 Copyleft 协议，旨在确保软件及其所有衍生版本都保持开源。任何修改或基于 GPL 代码创建的软件都必须以兼容的开源协议发布。</li>
+<li><strong>适用场景：</strong> 适合那些坚信开源理念，希望阻止他人将自己的代码闭源的项目。</li>
+<li><strong>注意事项：</strong> 由于其强烈的 Copyleft 特性，可能不适合希望与其他闭源代码进行集成的项目。</li>
+<li><strong>实际案例：</strong> Linux 内核、GNU 编译器集合 (GCC) 等核心开源项目使用 GPL 协议。</li>
+</ul>
+<h4 id="LGPL-v3"><a href="#LGPL-v3" class="headerlink" title="LGPL v3"></a>LGPL v3</h4><ul>
+<li><strong>特点：</strong> 弱 Copyleft 协议，是 GPL 的一个变体，旨在允许闭源软件链接到使用 LGPL 协议的库。只有对 LGPL 许可的库本身进行修改时，才需要将修改后的部分开源。</li>
+<li><strong>适用场景：</strong> 适合开发库或框架，希望被广泛应用于各种项目中，包括商业和闭源项目。</li>
+<li><strong>注意事项：</strong> 如果仅仅是使用 LGPL 库，而没有对其进行修改，则你的项目可以是闭源的。但如果修改了库的代码，则修改后的部分必须以 LGPL 或 GPL 发布。</li>
+<li><strong>实际案例：</strong> 一些常用的 C 和 C++ 库会选择 LGPL 协议。</li>
+</ul>
+<h4 id="BSD-3-Clause"><a href="#BSD-3-Clause" class="headerlink" title="BSD 3-Clause"></a>BSD 3-Clause</h4><ul>
+<li><strong>特点：</strong> 宽松的开源协议，与 MIT 协议非常相似，但也增加了一条额外的条款，禁止使用贡献者的名字进行商业推广，除非获得明确的书面许可。</li>
+<li><strong>适用场景：</strong> 适合希望代码能够自由使用，但同时希望保护作者声誉的项目。</li>
+<li><strong>注意事项：</strong> 需要保留版权声明、许可协议和免责声明。</li>
+<li><strong>实际案例：</strong> 许多 Unix 系统及其组件，例如 FreeBSD、NetBSD 和 OpenBSD，都使用了 BSD 协议。</li>
+</ul>
+<h4 id="AGPL-v3"><a href="#AGPL-v3" class="headerlink" title="AGPL v3"></a>AGPL v3</h4><ul>
+<li><strong>特点：</strong> 网络 Copyleft 协议，是 GPL v3 的一个变体。它解决了通过网络提供软件即服务 (SaaS) 的情况，规定如果用户通过网络与软件进行交互，那么提供该服务的代码也必须开源。</li>
+<li><strong>适用场景：</strong> 适合开发基于网络的应用程序或服务，希望防止服务提供商在不公开代码的情况下使用和修改你的项目。</li>
+<li><strong>注意事项：</strong> 与 GPL v3 类似，可能不适合希望与其他闭源服务进行集成的项目。</li>
+<li><strong>实际案例：</strong> Mastodon、PeerTube 等去中心化的社交网络平台使用了 AGPL 协议。</li>
+</ul>
+<h4 id="MPL-2-0"><a href="#MPL-2-0" class="headerlink" title="MPL 2.0"></a>MPL 2.0</h4><ul>
+<li><strong>特点：</strong> 文件级别的 Copyleft 协议。它要求对 MPL 许可的文件所做的任何修改都必须以 MPL 协议开源，但允许将这些文件与其他使用不同许可（包括闭源许可）的代码组合在一起。</li>
+<li><strong>适用场景：</strong> 适合希望部分代码保持开源，同时允许项目的其他部分使用不同的许可协议，甚至闭源的项目。</li>
+<li><strong>注意事项：</strong> 需要仔细理解文件级别的 Copyleft 含义，确保项目的许可符合预期。</li>
+<li><strong>实际案例：</strong> Mozilla Firefox 浏览器和 LibreOffice 办公套件使用了 MPL 协议。</li>
+</ul>
+<h4 id="Unlicense"><a href="#Unlicense" class="headerlink" title="Unlicense"></a>Unlicense</h4><ul>
+<li><strong>特点：</strong> 本质上是将代码置于公有领域，放弃了所有的版权。这意味着任何人都可以以任何目的使用、复制、修改和分发该代码，无需任何限制或署名要求。</li>
+<li><strong>适用场景：</strong> 适合那些希望完全放弃对代码的控制权，让其自由传播和使用的开发者。</li>
+<li><strong>注意事项：</strong> 由于放弃了版权，作者将失去对代码的任何法律保护。</li>
+<li><strong>实际案例：</strong> 一些非常小的工具或代码片段可能会选择 Unlicense。</li>
+</ul>
+<h3 id="如何选择合适的开源协议"><a href="#如何选择合适的开源协议" class="headerlink" title="如何选择合适的开源协议"></a>如何选择合适的开源协议</h3><p>选择哪个开源协议取决于你的具体需求和目标。以下是一些建议：</p>
+<ul>
+<li><strong>如果你希望代码能够被最广泛地使用，并且对使用方式没有任何限制，</strong> 那么 MIT 协议或 Unlicense 是不错的选择。</li>
+<li><strong>如果你希望在允许商业使用的同时，也希望获得专利保护，</strong> 那么 Apache 2.0 协议可能更适合你。</li>
+<li><strong>如果你强烈希望你的代码及其所有衍生版本都保持开源，</strong> 那么 GPL v3 或 AGPL v3 是你的选择。AGPL v3 特别适用于基于网络的应用程序和服务。</li>
+<li><strong>如果你正在开发一个库或框架，希望被闭源软件广泛使用，但又希望对库本身的修改保持开源，</strong> 那么 LGPL v3 或 MPL 2.0 是值得考虑的。</li>
+<li><strong>如果你希望代码能够自由使用，但又不希望别人使用你的名字进行商业推广，</strong> 那么 BSD 3-Clause 协议是一个好的选择。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在做出决定之前，请务必仔细阅读完整的协议文本，并考虑咨询法律专业人士的意见。</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>我个人而言，其实对于开源项目不是很有所谓，大多数情况下用的还是MIT协议。</p>
+<p>用的人肯定是越多越好，然而很可惜的一点的是，没多少人star，更别提有多少人用了。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7491493216510328869?searchId=2026033120530645F9ECD7FAC7A912BC6C">一文读懂主流开源协议：附详细ASCII图表对比-掘金</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2026/03/26/%E3%80%90%E5%81%A5%E8%BA%AB%E3%80%91%E7%9A%AE%E8%82%A4%E4%B8%8E%E5%87%8F%E8%82%A5%E7%9A%84%E5%85%B3%E7%B3%BB/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2026-03-31 12:54:45
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E5%BC%80%E5%8F%91%E5%B8%B8%E8%AF%86/" title="开发常识">
+                        #开发常识
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2026/04/18/%E5%B7%A5%E7%A8%8B%E6%8F%90%E9%80%9F%EF%BC%8CVue3%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%9A%84%E5%B0%8F%E5%B7%A7%E6%80%9D/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE%E9%80%89%E6%8B%A9%E6%8C%87%E5%8D%97"><span class="toc-text">开源协议选择指南</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE%E6%A6%82%E8%A7%88"><span class="toc-text">常见开源协议概览</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%A6%E7%BB%86%E6%8F%8F%E8%BF%B0"><span class="toc-text">详细描述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MIT"><span class="toc-text">MIT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Apache-2-0"><span class="toc-text">Apache 2.0</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GPL-v3"><span class="toc-text">GPL v3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LGPL-v3"><span class="toc-text">LGPL v3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BSD-3-Clause"><span class="toc-text">BSD 3-Clause</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AGPL-v3"><span class="toc-text">AGPL v3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MPL-2-0"><span class="toc-text">MPL 2.0</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Unlicense"><span class="toc-text">Unlicense</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E5%90%88%E9%80%82%E7%9A%84%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE"><span class="toc-text">如何选择合适的开源协议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
+        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
+        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
+        avatar: 'retro',
+        lang: 'zh-cn'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+        <li>
+          
+              <a title="掘金论坛" target="_blank" rel="noopener" href="https://juejin.cn/user/4371313963044301">
+                <i class="iconfont icon-envelope"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2026 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + 10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2026%2F03%2F31%2F10%25E5%2588%2586%25E9%2592%259F%25E4%25BA%2586%25E8%25A7%25A3%25E5%25BC%2580%25E6%25BA%2590%25E5%258D%258F%25E8%25AE%25AE%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2026/03/31/10%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

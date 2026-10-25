@@ -1017,6 +1017,11 @@ figure .pin-copy {
   color: var(--color-text-a) !important;
 }
 
+
+#waline-comments {
+  --waline-font-size: 16px;
+}
+
 /* light scheme */
 :root[color-mode="light"] {
   --bg-body: #FFFFFF;
