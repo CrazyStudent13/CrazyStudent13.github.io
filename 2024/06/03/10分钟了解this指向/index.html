@@ -162,7 +162,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2026-10-26 17:12:11
+          2026-11-07 13:06:34
         </span>
         
               <span class="post-tags">
@@ -297,7 +297,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2026-10-26 17:12:11
+              2026-11-07 13:06:34
             </span>
             
                   <span class="post-tags">
@@ -351,34 +351,39 @@
     
       <div class="comments-container">
         
-
-
-
-
-  
-    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
-  
-
-  <div id="vcomments"></div>
+  <div id="waline-comments"></div>
 
   <script>
-    function loadValineSuc() {
-      new Valine({
-        el: '#vcomments',
-        appId: 'pCBXervTb85ZiuK9XbcJpDaR-gzGzoHsz',
-        appKey: '33EDuYO0RDrO2L7x2R6ZL5GQ',
-        placeholder: '请输入您的评论,您的意见将会让文章更完美。',
-        avatar: 'retro',
-        lang: 'zh-cn'
+    function loadWalineSuc(func) {
+      func({
+        el: '#waline-comments',
+        path: location.pathname,
+        serverURL: 'https://comment.crazystudent13.cn',
+        emoji: false,
+        dark: 'auto',
+        requiredMeta: ['nick', 'mail'],
+        wordLimit: 150,
+        imageUploader: false,
+        search: false,
+        reaction: false,
+        pageSize: 30,
+        lang: 'zh-CN'
       })
     }
   </script>
 
-    <style>
-      .comments-container .v .vempty {
-        display: none!important;
-      }
-    </style>
+  
+    <link rel="stylesheet" href="/plugins/waline.css">
+    <script type="module">
+      import { init } from '/plugins/waline.mjs'
+      loadWalineSuc(init)
+    </script>
+  
+
+
+
+
+
 
 
 
