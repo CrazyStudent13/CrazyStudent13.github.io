@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="zh-cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="CrazyStudent13" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  <meta name="description" content="古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。" />
+  
+  
+  
+  <title>
+    
+      QQ 群值守机器人搭建记录 
+      
+      
+      |
+    
+     远川的个人博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="远川的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">远川的博客</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">友链</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">QQ 群值守机器人搭建记录</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2026-11-08 07:00:41
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/" title="智能家居">
+                    #智能家居
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>这个想法一开始很简单：让一个 QQ 小号替我盯着几个群，把消息收下来，免得每天爬楼。</p>
+<p>真正动手之后才发现，从扫码登录到 WebSocket 握手，坑一个接一个，即便是AI辅助，前后还是折腾了很久。</p>
+<p>现在链路终于跑通：NapCat 负责登录 QQ，采集器把群消息写进 SQLite，旁边还接了 AstrBot 做交互试验。把这套流程整理出来，方便以后重装，也给同样想折腾的人一个参考。</p>
+<p>为安全起见，文中的服务器 IP、QQ 号和 Token 都做了脱敏。</p>
+<span id="more"></span>
+
+
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><p>需求本身并不复杂：一个真实 QQ 小号，7×24 在线，替我收集几个群的消息，最好还能在以后接上大模型做日报和简单交互。</p>
+<p>限制条件也不少：</p>
+<ol>
+<li>必须是真实 QQ，官方机器人的权限和场景都不太够用。</li>
+<li>服务器是 4C 3.4G 的大陆机，已经装了 1Panel，尽量用 Docker 部署，别把系统环境搞乱。</li>
+<li>管理面板和协议端口不能直接暴露公网。</li>
+<li>采集要保持独立，后面接不接 AI、接哪个 AI，都不能影响消息落库。</li>
+<li>以后可能扩展到多平台、多账号，结构上要留出余地。</li>
+</ol>
+<p>选型上，NapCat 负责登录 QQ 并提供 OneBot v11 接口；采集器用 Python 写，直接连 NapCat 的 WebSocket；AstrBot 作为旁路，用来验证以后做交互机器人的可能性。三者互相独立，坏一个不至于全挂。</p>
+<h3 id="配置方案"><a href="#配置方案" class="headerlink" title="配置方案"></a>配置方案</h3><h4 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">QQ 群 / 好友</span><br><span class="line">     │</span><br><span class="line">     ▼</span><br><span class="line">QQ 小号</span><br><span class="line">     │ NTQQ 协议</span><br><span class="line">     ▼</span><br><span class="line">NapCat 容器</span><br><span class="line">     ├── WebUI 127.0.0.1:6099（SSH 隧道访问）</span><br><span class="line">     ├── OneBot v11 WS 服务端 :3001（宿主 127.0.0.1:13001）</span><br><span class="line">     │        └── qq-collector（systemd）──► SQLite</span><br><span class="line">     └── OneBot v11 WS 客户端 ──► ws://astrbot:6199/ws（qq-net 内网）</span><br><span class="line">              └── AstrBot（旁路试验）</span><br></pre></td></tr></table></figure>
+
+<p>这里其实有两条并行链路：</p>
+<ul>
+<li>采集器连接 NapCat 提供的 WebSocket 服务端，负责把消息写进数据库。</li>
+<li>AstrBot 反过来，由 NapCat 主动连出去，走反向 WebSocket。</li>
+<li>停掉 AstrBot 不影响采集，停掉采集器也不影响 AstrBot。</li>
+</ul>
+<h4 id="环境与端口"><a href="#环境与端口" class="headerlink" title="环境与端口"></a>环境与端口</h4><table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>服务器</td>
+<td>1Panel &#x2F; Ubuntu &#x2F; 4C 3.4G</td>
+</tr>
+<tr>
+<td>公网 IP</td>
+<td>已脱敏</td>
+</tr>
+<tr>
+<td>NapCat 容器</td>
+<td><code>napcat</code>，镜像 <code>mlikiowa/napcat-docker:latest</code></td>
+</tr>
+<tr>
+<td>NapCat 配置目录</td>
+<td><code>/opt/napcat/config</code></td>
+</tr>
+<tr>
+<td>QQ 登录态</td>
+<td><code>/opt/napcat/QQ</code></td>
+</tr>
+<tr>
+<td>采集器目录</td>
+<td><code>/opt/qq-collector</code></td>
+</tr>
+<tr>
+<td>数据库</td>
+<td><code>/opt/qq-collector/data/messages.db</code></td>
+</tr>
+<tr>
+<td>systemd 服务</td>
+<td><code>qq-collector.service</code></td>
+</tr>
+<tr>
+<td>AstrBot 容器</td>
+<td><code>astrbot</code>（1Panel 应用商店安装）</td>
+</tr>
+<tr>
+<td>Docker 网络</td>
+<td><code>qq-net</code></td>
+</tr>
+</tbody></table>
+<p>宿主机的 3001 端口已经被 1Panel 的 node 进程占用，所以 NapCat 容器端口改映射到 13001，容器内部仍然是 3001。这个坑后面还会反复出现，记住不要杀那个 node 进程。</p>
+<p>Token 的存放位置：</p>
+<ul>
+<li>NapCat WS Token：<code>/opt/napcat/config/onebot11_&lt;QQ号&gt;.json</code> 的 <code>network.websocketServers[].token</code></li>
+<li>采集器 Token：<code>/opt/qq-collector/.env</code> 的 <code>ONEBOT_TOKEN</code></li>
+<li>AstrBot Token：AstrBot 平台配置中的 token，要和 NapCat <code>websocketClients[].token</code> 一致</li>
+</ul>
+<h3 id="部署过程"><a href="#部署过程" class="headerlink" title="部署过程"></a>部署过程</h3><h4 id="NapCat"><a href="#NapCat" class="headerlink" title="NapCat"></a>NapCat</h4><p>先建目录。容器内以 root 运行，所以这两个目录保持 root 所有即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> -p /opt/napcat/config /opt/napcat/QQ</span><br></pre></td></tr></table></figure>
+
+<p>Compose 文件如下，WebUI 和 WebSocket 都只绑定本机：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">napcat:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mlikiowa/napcat-docker:latest</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">napcat</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">NAPCAT_UID=0</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">NAPCAT_GID=0</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;127.0.0.1:6099:6099&quot;</span>   <span class="comment"># WebUI 仅本机</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;127.0.0.1:13001:3001&quot;</span>  <span class="comment"># OneBot WS，宿主 13001 → 容器 3001</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/opt/napcat/config:/app/napcat/config</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/opt/napcat/QQ:/app/.config/QQ</span></span><br><span class="line">    <span class="attr">logging:</span></span><br><span class="line">      <span class="attr">driver:</span> <span class="string">json-file</span></span><br><span class="line">      <span class="attr">options:</span></span><br><span class="line">        <span class="attr">max-size:</span> <span class="string">&quot;10m&quot;</span></span><br><span class="line">        <span class="attr">max-file:</span> <span class="string">&quot;3&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>启动后看一眼状态和日志，日志里会打印 WebUI Token：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps --filter name=napcat</span><br><span class="line">sudo docker logs napcat --<span class="built_in">tail</span> 50</span><br></pre></td></tr></table></figure>
+
+<p>WebUI 只监听本机，访问时走 SSH 隧道：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh -N -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \</span><br><span class="line">  -L 16099:127.0.0.1:6099 ubuntu@你的服务器IP</span><br></pre></td></tr></table></figure>
+
+<p>浏览器打开 <code>http://127.0.0.1:16099</code>，输入日志里的 Token，然后用专用小号扫码登录。</p>
+<p>登录态保存在 <code>/opt/napcat/QQ</code>，容器重建后一般不需要重新扫码，这个目录别删。</p>
+<p>接下来在 WebUI 的「网络配置」里建一个 WebSocket 服务器，给采集器用：</p>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>名称</td>
+<td><code>collector</code></td>
+</tr>
+<tr>
+<td>Host</td>
+<td><code>0.0.0.0</code></td>
+</tr>
+<tr>
+<td>Port</td>
+<td><code>3001</code></td>
+</tr>
+<tr>
+<td>Token</td>
+<td>自行生成，16 位以上</td>
+</tr>
+<tr>
+<td>消息格式</td>
+<td><code>Array</code></td>
+</tr>
+<tr>
+<td>心跳间隔</td>
+<td><code>30000</code></td>
+</tr>
+<tr>
+<td>上报自身消息</td>
+<td>关</td>
+</tr>
+<tr>
+<td>强制推送事件</td>
+<td>开</td>
+</tr>
+</tbody></table>
+<p>配置完可以先验一下握手：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">KEY=$(openssl rand -<span class="built_in">base64</span> 16)</span><br><span class="line">TOKEN=&lt;上一步设置的 token&gt;</span><br><span class="line">curl -i --http1.1 --max-time 3 \</span><br><span class="line">  -H <span class="string">&quot;Connection: Upgrade&quot;</span> \</span><br><span class="line">  -H <span class="string">&quot;Upgrade: websocket&quot;</span> \</span><br><span class="line">  -H <span class="string">&quot;Sec-WebSocket-Version: 13&quot;</span> \</span><br><span class="line">  -H <span class="string">&quot;Sec-WebSocket-Key: <span class="variable">$KEY</span>&quot;</span> \</span><br><span class="line">  -G --data-urlencode <span class="string">&quot;access_token=<span class="variable">$TOKEN</span>&quot;</span> \</span><br><span class="line">  <span class="string">&quot;http://127.0.0.1:13001/&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>期望看到 <code>101 Switching Protocols</code>，以及一条 lifecycle&#x2F;connect 事件。</p>
+<p>这里踩过一个很隐蔽的坑：<code>Sec-WebSocket-Key</code> 必须是合法值，手抄一个不合法的值会得到 400，响应里常见 <code>Content-Length: 43</code>。用 <code>openssl rand -base64 16</code> 生成就好。</p>
+<h4 id="采集器"><a href="#采集器" class="headerlink" title="采集器"></a>采集器</h4><p>先准备 Python 环境和依赖：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> -p /opt/qq-collector/data</span><br><span class="line">sudo <span class="built_in">chown</span> -R ubuntu:ubuntu /opt/qq-collector</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install -y python3 python3-venv python3-pip</span><br><span class="line"><span class="built_in">cd</span> /opt/qq-collector</span><br><span class="line">python3 -m venv venv</span><br><span class="line">./venv/bin/pip install websockets==16.1.1</span><br></pre></td></tr></table></figure>
+
+<p>安装时如果弹出 needrestart 的「Daemons using outdated libraries」，选 <code>&lt;Cancel&gt;</code>，不要顺手重启 <code>docker.service</code> 或 <code>containerd</code>，否则 1Panel 和所有容器都会一起重启。</p>
+<p>采集器的主程序是 <code>/opt/qq-collector/collector.py</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;连接 NapCat 的 OneBot WebSocket，把群消息写入 SQLite。&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sqlite3</span><br><span class="line"><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> quote</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> websockets</span><br><span class="line"></span><br><span class="line">WS_BASE = os.environ.get(<span class="string">&quot;WS_URL&quot;</span>, <span class="string">&quot;ws://127.0.0.1:13001&quot;</span>)</span><br><span class="line">TOKEN = os.environ.get(<span class="string">&quot;ONEBOT_TOKEN&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">DB_PATH = Path(os.environ.get(<span class="string">&quot;DB_PATH&quot;</span>, <span class="string">&quot;/opt/qq-collector/data/messages.db&quot;</span>))</span><br><span class="line">GROUPS = &#123;<span class="built_in">int</span>(g) <span class="keyword">for</span> g <span class="keyword">in</span> os.environ.get(<span class="string">&quot;GROUPS&quot;</span>, <span class="string">&quot;&quot;</span>).replace(<span class="string">&quot; &quot;</span>, <span class="string">&quot;&quot;</span>).split(<span class="string">&quot;,&quot;</span>) <span class="keyword">if</span> g.isdigit()&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init_db</span>(<span class="params">conn</span>):</span><br><span class="line">    conn.executescript(</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        CREATE TABLE IF NOT EXISTS group_messages (</span></span><br><span class="line"><span class="string">            id INTEGER PRIMARY KEY AUTOINCREMENT,</span></span><br><span class="line"><span class="string">            msg_id INTEGER UNIQUE,</span></span><br><span class="line"><span class="string">            group_id INTEGER NOT NULL,</span></span><br><span class="line"><span class="string">            user_id INTEGER,</span></span><br><span class="line"><span class="string">            nickname TEXT,</span></span><br><span class="line"><span class="string">            sent_at INTEGER,</span></span><br><span class="line"><span class="string">            text TEXT,</span></span><br><span class="line"><span class="string">            raw_json TEXT</span></span><br><span class="line"><span class="string">        );</span></span><br><span class="line"><span class="string">        CREATE INDEX IF NOT EXISTS idx_group_time ON group_messages(group_id, sent_at);</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">    )</span><br><span class="line">    conn.commit()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">extract_text</span>(<span class="params">message</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;把消息段数组拼成纯文本，非文字段保留类型占位。&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(message, <span class="built_in">str</span>):</span><br><span class="line">        <span class="keyword">return</span> message</span><br><span class="line">    parts = []</span><br><span class="line">    <span class="keyword">for</span> seg <span class="keyword">in</span> message <span class="keyword">or</span> []:</span><br><span class="line">        <span class="keyword">if</span> seg.get(<span class="string">&quot;type&quot;</span>) == <span class="string">&quot;text&quot;</span>:</span><br><span class="line">            parts.append(seg.get(<span class="string">&quot;data&quot;</span>, &#123;&#125;).get(<span class="string">&quot;text&quot;</span>, <span class="string">&quot;&quot;</span>))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            parts.append(<span class="string">f&quot;[<span class="subst">&#123;seg.get(<span class="string">&#x27;type&#x27;</span>)&#125;</span>]&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span>.join(parts)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">save_group_message</span>(<span class="params">conn, event</span>):</span><br><span class="line">    group_id = event.get(<span class="string">&quot;group_id&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> GROUPS <span class="keyword">and</span> group_id <span class="keyword">not</span> <span class="keyword">in</span> GROUPS:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    sender = event.get(<span class="string">&quot;sender&quot;</span>) <span class="keyword">or</span> &#123;&#125;</span><br><span class="line">    nickname = sender.get(<span class="string">&quot;card&quot;</span>) <span class="keyword">or</span> sender.get(<span class="string">&quot;nickname&quot;</span>) <span class="keyword">or</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    text = extract_text(event.get(<span class="string">&quot;message&quot;</span>))</span><br><span class="line">    conn.execute(</span><br><span class="line">        <span class="string">&quot;INSERT OR IGNORE INTO group_messages&quot;</span></span><br><span class="line">        <span class="string">&quot; (msg_id, group_id, user_id, nickname, sent_at, text, raw_json)&quot;</span></span><br><span class="line">        <span class="string">&quot; VALUES (?, ?, ?, ?, ?, ?, ?)&quot;</span>,</span><br><span class="line">        (</span><br><span class="line">            event.get(<span class="string">&quot;message_id&quot;</span>),</span><br><span class="line">            group_id,</span><br><span class="line">            event.get(<span class="string">&quot;user_id&quot;</span>),</span><br><span class="line">            nickname,</span><br><span class="line">            event.get(<span class="string">&quot;time&quot;</span>),</span><br><span class="line">            text,</span><br><span class="line">            json.dumps(event, ensure_ascii=<span class="literal">False</span>),</span><br><span class="line">        ),</span><br><span class="line">    )</span><br><span class="line">    conn.commit()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;[群 <span class="subst">&#123;group_id&#125;</span>] <span class="subst">&#123;nickname&#125;</span>: <span class="subst">&#123;text&#125;</span>&quot;</span>, flush=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    DB_PATH.parent.mkdir(parents=<span class="literal">True</span>, exist_ok=<span class="literal">True</span>)</span><br><span class="line">    conn = sqlite3.connect(DB_PATH)</span><br><span class="line">    init_db(conn)</span><br><span class="line">    url = <span class="string">f&quot;<span class="subst">&#123;WS_BASE&#125;</span>/?access_token=<span class="subst">&#123;quote(TOKEN, safe=<span class="string">&#x27;&#x27;</span>)&#125;</span>&quot;</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">async</span> <span class="keyword">with</span> websockets.connect(url, ping_interval=<span class="number">30</span>, ping_timeout=<span class="number">10</span>) <span class="keyword">as</span> ws:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;已连接 NapCat&quot;</span>, flush=<span class="literal">True</span>)</span><br><span class="line">                <span class="keyword">async</span> <span class="keyword">for</span> raw <span class="keyword">in</span> ws:</span><br><span class="line">                    <span class="keyword">try</span>:</span><br><span class="line">                        event = json.loads(raw)</span><br><span class="line">                        <span class="keyword">if</span> event.get(<span class="string">&quot;post_type&quot;</span>) != <span class="string">&quot;message&quot;</span>:</span><br><span class="line">                            <span class="keyword">continue</span></span><br><span class="line">                        <span class="keyword">if</span> event.get(<span class="string">&quot;message_type&quot;</span>) == <span class="string">&quot;group&quot;</span>:</span><br><span class="line">                            save_group_message(conn, event)</span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            <span class="built_in">print</span>(<span class="string">f&quot;[私聊] <span class="subst">&#123;event.get(<span class="string">&#x27;user_id&#x27;</span>)&#125;</span>: <span class="subst">&#123;extract_text(event.get(<span class="string">&#x27;message&#x27;</span>))&#125;</span>&quot;</span>, flush=<span class="literal">True</span>)</span><br><span class="line">                    <span class="keyword">except</span> Exception <span class="keyword">as</span> exc:</span><br><span class="line">                        <span class="built_in">print</span>(<span class="string">f&quot;处理事件失败: <span class="subst">&#123;exc&#125;</span>&quot;</span>, flush=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> exc:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;连接断开: <span class="subst">&#123;exc&#125;</span>，5 秒后重连&quot;</span>, flush=<span class="literal">True</span>)</span><br><span class="line">            <span class="keyword">await</span> asyncio.sleep(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    asyncio.run(main())</span><br></pre></td></tr></table></figure>
+
+<p>环境变量放在 <code>/opt/qq-collector/.env</code>：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">WS_URL</span>=ws://<span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">13001</span></span><br><span class="line"><span class="attr">ONEBOT_TOKEN</span>=&lt;与 NapCat 中一致&gt;</span><br><span class="line"><span class="attr">DB_PATH</span>=/opt/qq-collector/data/messages.db</span><br><span class="line">GROUPS=</span><br></pre></td></tr></table></figure>
+
+<p><code>GROUPS</code> 留空表示采集所有群，需要白名单时填逗号分隔的群号。文件权限记得收紧：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 600 /opt/qq-collector/.env</span><br></pre></td></tr></table></figure>
+
+<p>用 systemd 常驻，文件是 <code>/etc/systemd/system/qq-collector.service</code>：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=QQ group message collector</span><br><span class="line"><span class="attr">After</span>=network-<span class="literal">on</span>line.target docker.service</span><br><span class="line"><span class="attr">Wants</span>=network-<span class="literal">on</span>line.target</span><br><span class="line"></span><br><span class="line"><span class="section">[Service]</span></span><br><span class="line"><span class="attr">Type</span>=simple</span><br><span class="line"><span class="attr">User</span>=ubuntu</span><br><span class="line"><span class="attr">WorkingDirectory</span>=/opt/qq-collector</span><br><span class="line"><span class="attr">EnvironmentFile</span>=/opt/qq-collector/.env</span><br><span class="line"><span class="attr">ExecStart</span>=/opt/qq-collector/venv/bin/python /opt/qq-collector/collector.py</span><br><span class="line"><span class="attr">Restart</span>=always</span><br><span class="line"><span class="attr">RestartSec</span>=<span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="section">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>启用并观察：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> --now qq-collector</span><br><span class="line">sudo systemctl status qq-collector --no-pager</span><br><span class="line">sudo journalctl -u qq-collector -n 30 --no-pager</span><br></pre></td></tr></table></figure>
+
+<p>验证分三步：日志出现 <code>已连接 NapCat</code>；主号私聊小号能看到 <code>[私聊]</code>；群里发消息能看到 <code>[群 &lt;群号&gt;] 昵称: 内容</code>。最后查一下数据库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">python3 - &lt;&lt;<span class="string">&#x27;PY&#x27;</span></span><br><span class="line">import sqlite3</span><br><span class="line">conn = sqlite3.connect(<span class="string">&#x27;/opt/qq-collector/data/messages.db&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> conn.execute(<span class="string">&#x27;select group_id, count(*) from group_messages group by group_id&#x27;</span>):</span><br><span class="line">    <span class="built_in">print</span>(row)</span><br><span class="line">PY</span><br></pre></td></tr></table></figure>
+
+<h4 id="AstrBot（可选）"><a href="#AstrBot（可选）" class="headerlink" title="AstrBot（可选）"></a>AstrBot（可选）</h4><p>AstrBot 这一步只是验证以后能不能做交互机器人，不参与采集。</p>
+<p>先把两个容器放进同一张 Docker 网络：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo docker network create qq-net 2&gt;/dev/null || <span class="literal">true</span></span><br><span class="line">sudo docker network connect qq-net napcat 2&gt;/dev/null || <span class="literal">true</span></span><br><span class="line">sudo docker network connect qq-net astrbot 2&gt;/dev/null || <span class="literal">true</span></span><br><span class="line">sudo docker network inspect qq-net --format <span class="string">&#x27;&#123;&#123;range .Containers&#125;&#125;&#123;&#123;.Name&#125;&#125; &#123;&#123;end&#125;&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>输出里应该同时有 <code>napcat</code> 和 <code>astrbot</code>。1Panel 重建容器后容器名可能变化，网络关系也可能丢，需要重新执行。</p>
+<p>AstrBot 这边新建 OneBot v11 平台：</p>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>名称</td>
+<td><code>napcat</code></td>
+</tr>
+<tr>
+<td>启用</td>
+<td>是</td>
+</tr>
+<tr>
+<td>反向 WebSocket 主机</td>
+<td><code>0.0.0.0</code></td>
+</tr>
+<tr>
+<td>端口</td>
+<td><code>6199</code></td>
+</tr>
+<tr>
+<td>Token</td>
+<td>与 NapCat 客户端一致</td>
+</tr>
+<tr>
+<td>配置文件</td>
+<td>default</td>
+</tr>
+</tbody></table>
+<p>保存后执行 <code>sudo docker restart astrbot</code>。</p>
+<p>NapCat 这边新增一个 WebSocket 客户端：</p>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>名称</td>
+<td><code>astrbot</code></td>
+</tr>
+<tr>
+<td>URL</td>
+<td><code>ws://astrbot:6199/ws</code></td>
+</tr>
+<tr>
+<td>Token</td>
+<td>与 AstrBot 平台一致</td>
+</tr>
+<tr>
+<td>消息格式</td>
+<td><code>Array</code></td>
+</tr>
+<tr>
+<td>启用</td>
+<td>是</td>
+</tr>
+</tbody></table>
+<p>注意别建错成「WebSocket 服务器」窗口，那个是采集器用的 <code>collector</code>。</p>
+<p>验证看 AstrBot 日志：出现 <code>aiocqhttp(OneBot v11) 适配器已连接。</code>，再用主号私聊小号，日志里出现 <code>[napcat(aiocqhttp)] 昵称/QQ号: 内容</code>，就说明通了。没配模型时它不会回复，能收到消息就是成功。</p>
+<p>这一步建议先保持“只收不回”。一旦配了模型，AstrBot 默认会回私聊和群里 @ 它的消息，必须先想好触发词和群白名单，否则很容易在采集群里乱说话。</p>
+<h3 id="日常运维"><a href="#日常运维" class="headerlink" title="日常运维"></a>日常运维</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 容器与服务状态</span></span><br><span class="line">sudo docker ps --filter name=napcat</span><br><span class="line">systemctl status qq-collector --no-pager</span><br><span class="line">sudo docker network inspect qq-net --format <span class="string">&#x27;&#123;&#123;range .Containers&#125;&#125;&#123;&#123;.Name&#125;&#125; &#123;&#123;end&#125;&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 日志</span></span><br><span class="line">sudo journalctl -u qq-collector -n 50 --no-pager</span><br><span class="line">sudo docker logs napcat --<span class="built_in">tail</span> 50</span><br><span class="line">sudo docker logs astrbot --<span class="built_in">tail</span> 50</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只重启采集器，不影响 NapCat</span></span><br><span class="line">sudo systemctl restart qq-collector</span><br></pre></td></tr></table></figure>
+
+<p>几个不要碰的操作：</p>
+<ul>
+<li>不要执行 <code>systemctl restart docker</code>，会连带重启 1Panel 和所有容器。</li>
+<li>不要杀占用宿主 3001 的 node 进程，它属于 1Panel。</li>
+<li>不要删除 <code>/opt/napcat/QQ</code>，否则要重新扫码。</li>
+<li>1Panel 重建 NapCat 或 AstrBot 容器后，记得检查 <code>qq-net</code> 是否还在。</li>
+</ul>
+<p>常见问题整理：</p>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>原因</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>编排启动报端口被占用</td>
+<td>宿主 3001 被 node 占用</td>
+<td>宿主改映射 13001，容器内保持 3001</td>
+</tr>
+<tr>
+<td>WebUI 打不开</td>
+<td>只绑了 <code>127.0.0.1</code></td>
+<td>走 SSH 隧道，不要改公网绑定</td>
+</tr>
+<tr>
+<td>WS 握手 400，<code>Content-Length: 43</code></td>
+<td><code>Sec-WebSocket-Key</code> 不合法</td>
+<td>用 <code>openssl rand -base64 16</code> 生成</td>
+</tr>
+<tr>
+<td>WS 握手失败或立即断开</td>
+<td>Token 不一致</td>
+<td>从配置中取 Token，URL 带 <code>access_token</code></td>
+</tr>
+<tr>
+<td>NapCat 日志反复 <code>403</code></td>
+<td>AstrBot Token 不一致或未重载</td>
+<td>对齐 Token 后 <code>docker restart astrbot</code></td>
+</tr>
+<tr>
+<td>AstrBot 没有「适配器已连接」</td>
+<td>网络不通、客户端未启用、URL 错误</td>
+<td>检查 <code>qq-net</code>、URL、启用状态</td>
+</tr>
+<tr>
+<td>采集器 <code>Permission denied</code></td>
+<td>目录属 root</td>
+<td><code>sudo chown -R ubuntu:ubuntu /opt/qq-collector</code></td>
+</tr>
+<tr>
+<td>提取 Token 长度为 0</td>
+<td>glob 没匹配到配置文件</td>
+<td>用 <code>grep -l &#39;3001&#39; /opt/napcat/config/*.json</code> 定位</td>
+</tr>
+<tr>
+<td>WebUI 显示离线但容器 Up</td>
+<td>WebUI 会话断开，或隧道断了</td>
+<td>刷新页面&#x2F;重开隧道；采集器 active 就不影响</td>
+</tr>
+<tr>
+<td>1Panel 重建后两边连不上</td>
+<td>容器名变化或脱离 <code>qq-net</code></td>
+<td>重新 <code>docker network connect</code>，URL 用实际容器名</td>
+</tr>
+</tbody></table>
+<h3 id="安全与合规"><a href="#安全与合规" class="headerlink" title="安全与合规"></a>安全与合规</h3><ul>
+<li>只用专用小号，不集中、不高频加群，保持固定环境。</li>
+<li>加群前告知群主采集范围、用途和保留期；群消息属于群友个人数据。</li>
+<li>NapCat WebUI 只绑定本机，通过 SSH 隧道访问。</li>
+<li>6185、6199 在云安全组关闭入站放行。Docker 会绕过 ufw，以安全组为准。</li>
+<li>Token 不进聊天、不进截图。疑似泄露时，NapCat WS Token、采集器 <code>.env</code>、AstrBot Token 三处一起轮换。</li>
+<li>大模型 API Key 只写在服务器 <code>.env</code> 中并 <code>chmod 600</code>，不要贴到聊天。</li>
+<li>数据库设置保留期（例如 30 天）并限制访问，备份文件也按敏感数据处理。</li>
+</ul>
+<h3 id="后续计划"><a href="#后续计划" class="headerlink" title="后续计划"></a>后续计划</h3><p>采集跑通只是第一步，后面还想做几件事：</p>
+<ol>
+<li><strong>DeepSeek 日报</strong>：按天、按群读取 SQLite，过滤纯图片和空消息，控制每群上下文长度，调用 <code>deepseek-chat</code> 生成 Markdown，输出到 <code>/opt/qq-collector/reports/</code>，先手动跑通再加定时任务。</li>
+<li><strong>加群策略</strong>：一次加一两个群，隔天再继续，先观察账号状态；需要严格限定时把群号填进 <code>GROUPS</code>。</li>
+<li><strong>数据保留与备份</strong>：定期清理 N 天前的数据，用 <code>sqlite3 .backup</code> 做一致性备份，再转移到独立目录。</li>
+<li><strong>交互规则</strong>：给 AstrBot 定触发词、群白名单和人格，避免它在采集群里抢话。</li>
+<li><strong>多平台适配</strong>：把采集和推送拆开，未来接 Telegram、Discord 或多账号时统一消息表，用 <code>account_id</code> 区分来源。</li>
+</ol>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>整个流程最耗时的不是写代码，而是几个看起来很小的配置：端口冲突、WebSocket Key 格式、Token 不一致导致的 403，每一个都能让人卡半天。</p>
+<p>现在采集器已经常驻，NapCat 登录态也稳定，AstrBot 这条旁路验证完毕但暂时不配模型。下一步就是把日报做出来，让这个值守的小号真正开始产出，而不是只做一个安静的记录器。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/NapNeko/NapCatQQ">NapCatQQ</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/AstrBotDevs/AstrBot">AstrBot</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/botuniverse/onebot-11">OneBot v11 规范</a></li>
+<li><a target="_blank" rel="noopener" href="https://api-docs.deepseek.com/">DeepSeek API 文档</a></li>
+</ul>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2026/10/25/%E8%A7%A3%E5%86%B3%E7%BA%BF%E4%B8%8A%E5%A4%B4%E5%83%8F%E4%B8%8A%E4%BC%A0500%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%88RustFS%E5%87%AD%E6%8D%AE%E8%A2%AB%E6%B8%85%E7%A9%BA%EF%BC%89/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2026-11-08 07:00:41
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/" title="智能家居">
+                        #智能家居
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B9%E6%A1%88"><span class="toc-text">配置方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="toc-text">整体架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E4%B8%8E%E7%AB%AF%E5%8F%A3"><span class="toc-text">环境与端口</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E8%BF%87%E7%A8%8B"><span class="toc-text">部署过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NapCat"><span class="toc-text">NapCat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%87%E9%9B%86%E5%99%A8"><span class="toc-text">采集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AstrBot%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-text">AstrBot（可选）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%B8%B8%E8%BF%90%E7%BB%B4"><span class="toc-text">日常运维</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E4%B8%8E%E5%90%88%E8%A7%84"><span class="toc-text">安全与合规</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E7%BB%AD%E8%AE%A1%E5%88%92"><span class="toc-text">后续计划</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+  <div id="waline-comments"></div>
+
+  <script>
+    function loadWalineSuc(func) {
+      func({
+        el: '#waline-comments',
+        path: location.pathname,
+        serverURL: 'https://comment.crazystudent13.cn',
+        emoji: false,
+        dark: 'auto',
+        requiredMeta: ['nick', 'mail'],
+        wordLimit: 150,
+        imageUploader: false,
+        search: false,
+        reaction: false,
+        pageSize: 30,
+        lang: 'zh-CN'
+      })
+    }
+  </script>
+
+  
+    <link rel="stylesheet" href="/plugins/waline.css">
+    <script type="module">
+      import { init } from '/plugins/waline.mjs'
+      loadWalineSuc(init)
+    </script>
+  
+
+
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/CrazyStudent13">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+        <li>
+          
+              <a title="掘金论坛" target="_blank" rel="noopener" href="https://juejin.cn/user/4371313963044301">
+                <i class="iconfont icon-envelope"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2026 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="请搜索吧....">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + QQ%20%E7%BE%A4%E5%80%BC%E5%AE%88%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95 + '&url=' + https%3A%2F%2Fcrazystudent13.github.io%2F2026%2F11%2F08%2FQQ-%25E7%25BE%25A4%25E5%2580%25BC%25E5%25AE%2588%25E6%259C%25BA%25E5%2599%25A8%25E4%25BA%25BA%25E6%2590%25AD%25E5%25BB%25BA%25E8%25AE%25B0%25E5%25BD%2595%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://crazystudent13.github.io/2026/11/08/QQ-%E7%BE%A4%E5%80%BC%E5%AE%88%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
